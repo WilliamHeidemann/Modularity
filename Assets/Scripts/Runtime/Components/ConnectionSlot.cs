@@ -20,7 +20,7 @@ namespace Runtime.Components
 
         private void OnMouseDown()
         {
-            SegmentFactory.Instance.PlaceSegment(new Segment(Segment.Position, Rotation.Forward, Kind.ConnectorBox));
+            SegmentFactory.Instance.TryBuild(Segment.Position);
         }
     }
 }
