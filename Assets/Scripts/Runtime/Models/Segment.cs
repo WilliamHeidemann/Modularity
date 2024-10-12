@@ -27,5 +27,7 @@ namespace Runtime.Models
         {
             return $"Position: {Position}, Kind: {Kind}";
         }
+        
+        public static Segment Default(Kind kind) => new(new Position(), kind, SegmentStats.Default(kind));
     }
 }

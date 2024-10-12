@@ -17,6 +17,9 @@ namespace Runtime.Components
         [SerializeField] private MonoSegment _connectorBoxPrefab;
         [SerializeField] private MonoSegment _cogsPrefab;
         [SerializeField] private MonoSegment _pipesPrefab;
+        [SerializeField] private MonoSegment _heartPrefab;
+        [SerializeField] private MonoSegment _eyesPrefab;
+        [SerializeField] private MonoSegment _tentaclePrefab;
         [SerializeField] private ConnectionSlot _connectionSlotPrefab;
         
         private void Start()

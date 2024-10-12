@@ -5,6 +5,10 @@ namespace Runtime.Models
         ConnectorBox,
         ConnectionSlot,
         Cogs,
-        Pipes
+        Pipes,
+        Heart,
+        Eyes,
+        Tentacle,
+        Wings
     }
 }
