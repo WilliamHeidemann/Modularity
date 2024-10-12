@@ -7,23 +7,25 @@ namespace Runtime.Models
     public class Segment
     {
         [SerializeField] private Position _position;
-        [SerializeField] private Rotation _rotation;
         [SerializeField] private Kind _kind;
+        [SerializeField] private SegmentStats _stats;
 
-        public Segment(Position position, Rotation rotation, Kind kind)
+        public Segment(Position position, Kind kind, SegmentStats stats)
         {
             _position = position;
-            _rotation = rotation;
             _kind = kind;
+            _stats = stats;
         }
 
         public Position Position => _position;
-        public Rotation Rotation => _rotation;
         public Kind Kind => _kind;
+        public SegmentStats Stats => _stats;
+
+        public void SetPosition(Position position) => _position = position;
         
         public override string ToString()
         {
-            return $"Position: {Position}, Rotation: {Rotation}, Kind: {Kind}";
+            return $"Position: {Position}, Kind: {Kind}";
         }
     }
 }
