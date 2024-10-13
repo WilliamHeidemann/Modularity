@@ -1,8 +1,6 @@
-using System;
-using Runtime.Models;
 using UnityEngine;
 
-namespace Runtime.Components
+namespace Runtime.Components.Gameplay
 {
     public class ConnectionSlot : MonoSegment
     {

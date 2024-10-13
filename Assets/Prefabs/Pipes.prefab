@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3649160319846388594}
   - component: {fileID: 8170740764171698337}
   - component: {fileID: 5884033076206419756}
-  - component: {fileID: -8540501992505524387}
+  - component: {fileID: -112159872758155450}
   m_Layer: 0
   m_Name: Pipes
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8540501992505524387
+--- !u!114 &-112159872758155450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5597729297307342273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ddf31903db475aa5abbfe23efc3a87, type: 3}
+  m_Script: {fileID: 11500000, guid: 47434e5bef5d29a4d99c03368620926f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Segment:
@@ -126,9 +126,15 @@ MonoBehaviour:
       _x: 0
       _y: 0
       _z: 0
-    _rotation: 0
-    _kind: 0
-    _stats:
+    _model: 0
+    _data:
       _blood: 0
       _energy: 0
       _mechanical: 0
+  _connectionSlot: {fileID: 5548665999734910545, guid: da839395100831441988abd2c5c643cf, type: 3}
+  _connectsUp: 1
+  _connectsDown: 0
+  _connectsForward: 0
+  _connectsBack: 0
+  _connectsRight: 0
+  _connectsLeft: 0

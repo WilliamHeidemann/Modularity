@@ -67,10 +67,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0535a4ad16443aba1ef90ffa386ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position:
-    _x: 0
-    _y: 0
-    _z: 0
+  Segment:
+    _position:
+      _x: 0
+      _y: 0
+      _z: 0
+    _model: 0
+    _data:
+      _blood: 0
+      _energy: 0
+      _mechanical: 0
   _placeHolder: {fileID: 4925631792201182948}
 --- !u!1001 &4417435746552199133
 PrefabInstance:
