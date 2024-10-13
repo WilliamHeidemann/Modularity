@@ -47,8 +47,8 @@ MonoBehaviour:
   _structure:
     _segments: []
   _connectorBoxPrefab: {fileID: 4193564062667624612, guid: 77d5fd44a194a8a4890f8b35ea4150af, type: 3}
-  _cogsPrefab: {fileID: -8540501992505524387, guid: 91bcb4b88f1f6de44a3ec7e83889ff54, type: 3}
-  _pipesPrefab: {fileID: -8540501992505524387, guid: 3f14375b1c2ca304692bd6a8be8647f0, type: 3}
+  _cogsPrefab: {fileID: -5744812641871764405, guid: 91bcb4b88f1f6de44a3ec7e83889ff54, type: 3}
+  _pipesPrefab: {fileID: -112159872758155450, guid: 3f14375b1c2ca304692bd6a8be8647f0, type: 3}
   _heartPrefab: {fileID: -8540501992505524387, guid: 6d000f4b6cd2ec54fafd98cfd650fb79, type: 3}
   _eyesPrefab: {fileID: -8540501992505524387, guid: 19444d18efd941a4c8b09fb7dc129734, type: 3}
   _tentaclePrefab: {fileID: -8540501992505524387, guid: 5d5047a7f21a36847b46b7e95f7eabb0, type: 3}

@@ -13,8 +13,6 @@ namespace Runtime.Models
         private readonly TextMeshProUGUI _energyText;
         private readonly TextMeshProUGUI _mechanicalText;
         [SerializeField] private List<Segment> _segments = new();
-
-        
         
         public Structure(TextMeshProUGUI bloodText, TextMeshProUGUI energyText, TextMeshProUGUI mechanicalText)
         {
@@ -28,9 +26,9 @@ namespace Runtime.Models
         public void AddSegment(Segment segment)
         {
             _segments.Add(segment);
-            _bloodText.text = Blood.ToString();
-            _energyText.text = Energy.ToString();
-            _mechanicalText.text = Mechanical.ToString();
+            _bloodText.text = $"Blood: {Blood.ToString()}";
+            _energyText.text = $"Energy: {Energy.ToString()}";
+            _mechanicalText.text = $"Mechanical: {Mechanical.ToString()}";
         }
 
         public bool HasResources(SegmentData data)

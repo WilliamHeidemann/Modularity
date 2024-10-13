@@ -1,12 +1,9 @@
-using System;
 using Runtime.Models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
-using UtilityToolkit.Runtime;
 
-namespace Runtime.Components
+namespace Runtime.Components.Gameplay
 {
     public class CardDisplay : MonoBehaviour, IPointerDownHandler
     {
@@ -38,7 +35,7 @@ namespace Runtime.Components
         public void OnPointerDown(PointerEventData eventData)
         {
             print("Card selected");
-            SegmentFactory.Instance.Select(Option<Card>.Some(Card));
+            SegmentFactory.Instance.Select(Card);
         }
     }
 }

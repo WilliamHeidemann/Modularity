@@ -1,11 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Models;
 using UnityEngine;
 
-namespace Runtime.Components
+namespace Runtime.Components.Gameplay
 {
     public class Connectable : MonoSegment
     {

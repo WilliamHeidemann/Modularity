@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Runtime.Models;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
-namespace Runtime.Components
+namespace Runtime.Components.Gameplay
 {
     public class CardsManager : MonoSingleton<CardsManager>
     {
@@ -22,11 +21,11 @@ namespace Runtime.Components
 
         private void ReplaceHand()
         {
-            SegmentFactory.Instance.Select(Option<Card>.None);
+            SegmentFactory.Instance.Deselect();
             
             foreach (var card in _cards)
             {
-                Destroy(card.gameObject);
+                Destroy(card.gameObject, 0.1f);
             }
             _cards.Clear();
 

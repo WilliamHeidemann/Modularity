@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UtilityToolkit.Runtime;
 
-namespace Runtime.Components
+namespace Runtime.Components.Utility
 {
     public class SoundFX : MonoSingleton<SoundFX>
     {

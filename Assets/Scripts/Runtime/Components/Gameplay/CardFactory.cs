@@ -1,10 +1,9 @@
 using System.Linq;
 using Runtime.Models;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UtilityToolkit.Runtime;
 
-namespace Runtime.Components
+namespace Runtime.Components.Gameplay
 {
     public class CardFactory : MonoBehaviour
     {

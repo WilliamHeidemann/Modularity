@@ -4,10 +4,9 @@ using System.Linq;
 using Runtime.Models;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UtilityToolkit.Runtime;
 
-namespace Runtime.Components
+namespace Runtime.Components.Gameplay
 {
     public class SegmentFactory : MonoSingleton<SegmentFactory>
     {
@@ -32,12 +31,19 @@ namespace Runtime.Components
         private void Start()
         {
             _structure = new Structure(_bloodText, _energyText, _mechanicalText);
-            PlaceSegment(Segment.StartingSegment);
+            PlaceSegment(Segment.StartingSegment(new Position(0, 0, 0)));
+            PlaceSegment(Segment.StartingSegment(new Position(1, 0, 0)));
+            PlaceSegment(Segment.StartingSegment(new Position(0, 0, -1)));
         }
 
-        public void Select(Option<Card> card)
+        public void Select(Card card)
         {
-            _toBuild = card;
+            _toBuild = Option<Card>.Some(card);
+        }
+
+        public void Deselect()
+        {
+            _toBuild = Option<Card>.None;
         }
         
         public void TryBuild(Position position)
@@ -85,6 +91,7 @@ namespace Runtime.Components
             foreach (var position in positions.Where(_structure.IsAvailable))
             {
                 var segment = new Segment(position, new Card(Model.ConnectionSlot));
+                print(position);
                 PlaceSegment(segment);
             }
         }

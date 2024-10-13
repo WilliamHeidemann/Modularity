@@ -29,7 +29,7 @@ namespace Runtime.Models
             return $"Position: {Position}, Model: {Model}";
         }
 
-        public static readonly Segment StartingSegment = 
-            new Segment(new Position(), Card.StartingCard);
+        public static Segment StartingSegment(Position position) => 
+            new(position, Card.StartingCard);
     }
 }

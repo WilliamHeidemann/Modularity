@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Runtime.Components
+namespace Runtime.Components.Utility
 {
     public class Exit : MonoBehaviour
     {
