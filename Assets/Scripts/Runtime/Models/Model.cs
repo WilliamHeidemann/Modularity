@@ -1,6 +1,6 @@
 namespace Runtime.Models
 {
-    public enum Kind
+    public enum Model
     {
         ConnectorBox,
         ConnectionSlot,

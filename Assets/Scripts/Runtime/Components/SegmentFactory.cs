@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Models;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UtilityToolkit.Runtime;
@@ -10,8 +11,8 @@ namespace Runtime.Components
 {
     public class SegmentFactory : MonoSingleton<SegmentFactory>
     {
-        [SerializeField] private Structure _structure = new();
-        [SerializeField] private Segment _toBuild = new Segment(new Position(), Kind.ConnectorBox, SegmentStats.ConnectorBox);
+        [SerializeField] private Structure _structure;
+        private Option<Card> _toBuild = Option<Card>.None;
 
         [Header("Prefabs")]
         [SerializeField] private MonoSegment _connectorBoxPrefab;
@@ -20,38 +21,57 @@ namespace Runtime.Components
         [SerializeField] private MonoSegment _heartPrefab;
         [SerializeField] private MonoSegment _eyesPrefab;
         [SerializeField] private MonoSegment _tentaclePrefab;
+        [SerializeField] private MonoSegment _wingsPrefab;
         [SerializeField] private ConnectionSlot _connectionSlotPrefab;
+
+        [Header("Resource Texts")] 
+        [SerializeField] private TextMeshProUGUI _bloodText;
+        [SerializeField] private TextMeshProUGUI _energyText;
+        [SerializeField] private TextMeshProUGUI _mechanicalText;
         
         private void Start()
         {
-            PlaceSegment(new Segment(new Position(), Kind.ConnectorBox, SegmentStats.None));
+            _structure = new Structure(_bloodText, _energyText, _mechanicalText);
+            PlaceSegment(Segment.StartingSegment);
         }
 
-        public void Select(Segment segment)
+        public void Select(Option<Card> card)
         {
-            _toBuild = segment;
+            _toBuild = card;
         }
         
         public void TryBuild(Position position)
         {
-            _toBuild.SetPosition(position);
-            PlaceSegment(_toBuild);
+            if (!_toBuild.IsSome(out var card))
+            {
+                print("No card selected.");
+                return;
+            }
+            
+            var segment = new Segment(position, card);
+            if (!_structure.HasResources(segment.Data))
+            {
+                print("Not enough resources.");
+                return;
+            }
+
+            PlaceSegment(segment);
+            _toBuild = Option<Card>.None;
+            CardsManager.Instance.SpendCard(card);
         }
         
         private void PlaceSegment(Segment segment)
         {
-            if (!_structure.HasResources(segment.Stats))
+            var prefab = segment.Model switch
             {
-                print("Not enough resources");
-                return;
-            }
-            
-            var prefab = segment.Kind switch
-            {
-                Kind.ConnectorBox => _connectorBoxPrefab,
-                Kind.ConnectionSlot => _connectionSlotPrefab,
-                Kind.Cogs => _cogsPrefab,
-                Kind.Pipes => _pipesPrefab,
+                Model.ConnectorBox => _connectorBoxPrefab,
+                Model.ConnectionSlot => _connectionSlotPrefab,
+                Model.Cogs => _cogsPrefab,
+                Model.Pipes => _pipesPrefab,
+                Model.Heart => _heartPrefab,
+                Model.Eyes => _eyesPrefab,
+                Model.Tentacle => _tentaclePrefab,
+                Model.Wings => _wingsPrefab,
                 _ => throw new ArgumentOutOfRangeException()
             };
             
@@ -64,7 +84,7 @@ namespace Runtime.Components
         {
             foreach (var position in positions.Where(_structure.IsAvailable))
             {
-                var segment = new Segment(position, Kind.ConnectionSlot, SegmentStats.None);
+                var segment = new Segment(position, new Card(Model.ConnectionSlot));
                 PlaceSegment(segment);
             }
         }

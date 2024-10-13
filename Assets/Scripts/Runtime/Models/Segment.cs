@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Models
 {
@@ -7,27 +8,28 @@ namespace Runtime.Models
     public class Segment
     {
         [SerializeField] private Position _position;
-        [SerializeField] private Kind _kind;
-        [SerializeField] private SegmentStats _stats;
+        [SerializeField] private Model _model;
+        [SerializeField] private SegmentData _data;
 
-        public Segment(Position position, Kind kind, SegmentStats stats)
+        public Segment(Position position, Card card)
         {
             _position = position;
-            _kind = kind;
-            _stats = stats;
+            _model = card.Model;
+            _data = card.SegmentData;
         }
 
         public Position Position => _position;
-        public Kind Kind => _kind;
-        public SegmentStats Stats => _stats;
+        public Model Model => _model;
+        public SegmentData Data => _data;
 
         public void SetPosition(Position position) => _position = position;
         
         public override string ToString()
         {
-            return $"Position: {Position}, Kind: {Kind}";
+            return $"Position: {Position}, Model: {Model}";
         }
-        
-        public static Segment Default(Kind kind) => new(new Position(), kind, SegmentStats.Default(kind));
+
+        public static readonly Segment StartingSegment = 
+            new Segment(new Position(), Card.StartingCard);
     }
 }
