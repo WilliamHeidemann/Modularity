@@ -1,3 +1,5 @@
+using System;
+using Runtime.Models;
 using UnityEngine;
 
 namespace Runtime.Components.Gameplay
@@ -5,7 +7,8 @@ namespace Runtime.Components.Gameplay
     public class ConnectionSlot : MonoSegment
     {
         [SerializeField] private GameObject _placeHolder;
-
+        public static event Action<Position> OnSlotClicked;
+        
         private void OnMouseEnter()
         {
             _placeHolder.SetActive(true);
@@ -18,7 +21,7 @@ namespace Runtime.Components.Gameplay
 
         private void OnMouseDown()
         {
-            SegmentFactory.Instance.TryBuild(Segment.Position);
+            OnSlotClicked?.Invoke(Segment.Position);
         }
     }
 }

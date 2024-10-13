@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Models;
@@ -15,6 +16,8 @@ namespace Runtime.Components.Gameplay
         [SerializeField] private bool _connectsBack;
         [SerializeField] private bool _connectsRight;
         [SerializeField] private bool _connectsLeft;
+
+        public static event Action<IEnumerable<Position>> OnSpawnSlots; 
         
         private void Start()
         {
@@ -23,8 +26,8 @@ namespace Runtime.Components.Gameplay
 
         private void SpawnConnections()
         {
-            var placeholderPositions = PlaceholderPositions().Select(p => p + Segment.Position);
-            SegmentFactory.Instance.SpawnPlaceholders(placeholderPositions);
+            var slots = PlaceholderPositions().Select(p => p + Segment.Position);
+            OnSpawnSlots?.Invoke(slots);
         }
 
         private IEnumerable<Position> PlaceholderPositions()

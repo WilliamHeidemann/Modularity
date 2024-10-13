@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Models;
+using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
@@ -21,7 +22,7 @@ namespace Runtime.Components.Gameplay
 
         private void ReplaceHand()
         {
-            SegmentFactory.Instance.Deselect();
+            // SegmentFactory.Instance.Deselect();
             
             foreach (var card in _cards)
             {
@@ -42,7 +43,7 @@ namespace Runtime.Components.Gameplay
             _cards.Add(card);
         }
 
-        public void SpendCard(Card card)
+        public void SpendCard(CardScriptableObject card)
         {
             var displayOption = _cards.FirstOption(display => display.Card == card);
             if (displayOption.IsSome(out var cardDisplay))

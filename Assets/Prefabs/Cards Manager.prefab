@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _factory: {fileID: 579864533727153734, guid: e570bcb33c4ee2945bec58d12d91787b, type: 3}
   _cards: []
-  _hand: {fileID: 0}
+  _hand: {fileID: 6154822615665547524, guid: 6ba43fc7ab944384ca3713ff51bedb23, type: 3}
