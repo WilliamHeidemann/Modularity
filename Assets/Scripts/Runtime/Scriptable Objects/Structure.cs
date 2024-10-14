@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Runtime.Scriptable_Objects
 {
-    [Serializable]
+    [CreateAssetMenu(menuName = "Structure")]
     public class Structure : ScriptableObject
     {
         [SerializeField] private List<Segment> _segments = new();
@@ -27,6 +27,17 @@ namespace Runtime.Scriptable_Objects
             return Blood >= -supply.Blood &&
                    Energy >= -supply.Energy &&
                    Mechanical >= -supply.Mechanical;
+        }
+
+        public IEnumerable<Segment> AllSegments()
+        {
+            return _segments;
+        }
+        
+        public void Clear()
+        {
+            _segments.Clear();
+            OnSupplyChanged?.Invoke(Blood, Energy, Mechanical);
         }
 
         public int Blood => _segments.Sum(segment => segment.Supply.Blood);

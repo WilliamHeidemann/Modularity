@@ -12,7 +12,7 @@ namespace Runtime.Models
         [SerializeField] private Model _model;
         [SerializeField] private Supply _supply;
 
-        public Segment(Position position, CardScriptableObject card)
+        public Segment(Position position, Card card)
         {
             _position = position;
             _model = card.Model;

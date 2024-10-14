@@ -1,29 +1,37 @@
+using System;
 using System.Collections.Generic;
-using Runtime.Models;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
-namespace Runtime.Components.Gameplay
+namespace Runtime.Components.Systems
 {
-    public class CardsManager : MonoSingleton<CardsManager>
+    public class CardManager : MonoSingleton<CardManager>
     {
         [SerializeField] private CardFactory _factory;
-        [SerializeField] private List<CardDisplay> _cards = new();
-        [SerializeField] private Transform _hand;
+        [SerializeField] private List<MonoCard> _cards = new();
+        public static event Action OnHandReplaced;
+
+        private void Start()
+        {
+            OnHandReplaced += ReplaceHand;
+        }
+
+        private void OnDisable()
+        {
+            OnHandReplaced -= ReplaceHand;
+        }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
-                ReplaceHand();
+                OnHandReplaced?.Invoke();
             }
         }
 
         private void ReplaceHand()
         {
-            // SegmentFactory.Instance.Deselect();
-            
             foreach (var card in _cards)
             {
                 Destroy(card.gameObject, 0.1f);
@@ -39,11 +47,11 @@ namespace Runtime.Components.Gameplay
         public void DrawCard()
         {
             var card = _factory.RandomCard();
-            card.transform.SetParent(_hand);
+            card.transform.SetParent(transform);
             _cards.Add(card);
         }
 
-        public void SpendCard(CardScriptableObject card)
+        public void SpendCard(Card card)
         {
             var displayOption = _cards.FirstOption(display => display.Card == card);
             if (displayOption.IsSome(out var cardDisplay))

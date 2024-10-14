@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3881098597542640660}
   - component: {fileID: 25848336310172505}
   - component: {fileID: 728766601301470784}
+  - component: {fileID: 1037079274825829050}
   m_Layer: 5
-  m_Name: Resource Panel
+  m_Name: Supply UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +76,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1037079274825829050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770332709030981328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0788f956b6e41b58c05a04ea78047b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bloodText: {fileID: 4815124731483972335}
+  _energyText: {fileID: 80136938462598069}
+  _mechanicalText: {fileID: 7680979336349715655}
 --- !u!1 &827243650049550596
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +239,7 @@ GameObject:
   - component: {fileID: 5321029600253615361}
   - component: {fileID: 7680979336349715655}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: Mechanical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,7 +375,7 @@ GameObject:
   - component: {fileID: 6085626323749727888}
   - component: {fileID: 4815124731483972335}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Blood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,7 +511,7 @@ GameObject:
   - component: {fileID: 9084693083356045736}
   - component: {fileID: 80136938462598069}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Energy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

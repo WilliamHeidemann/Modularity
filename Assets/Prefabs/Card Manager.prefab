@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6154822615665547524}
   - component: {fileID: 8563334511853864526}
+  - component: {fileID: 1763811349012021342}
   m_Layer: 5
-  m_Name: Hand
+  m_Name: Card Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 106.869, y: 143.77737}
+  m_AnchoredPosition: {x: 106.869, y: 154}
   m_SizeDelta: {x: 1601.9261, y: 241.6101}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8563334511853864526
@@ -62,3 +63,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1763811349012021342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056062392533508531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef39769a396941b4803560c8dd9e9bf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _factory: {fileID: 11400000, guid: 76633952eefe685419b18714b020e281, type: 2}
+  _cards: []

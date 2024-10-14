@@ -1,23 +1,22 @@
 using System;
-using Runtime.Models;
 using Runtime.Scriptable_Objects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Runtime.Components.Gameplay
+namespace Runtime.Components.Systems
 {
-    public class CardDisplay : MonoBehaviour, IPointerDownHandler
+    public class MonoCard : MonoBehaviour, IPointerDownHandler
     {
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private TextMeshProUGUI _blood;
         [SerializeField] private TextMeshProUGUI _energy;
         [SerializeField] private TextMeshProUGUI _mechanical;
 
-        public static event Action<CardScriptableObject> OnCardSelect;
-        public CardScriptableObject Card { get; private set; }
+        public static event Action<Card> OnCardSelect;
+        public Card Card { get; private set; }
 
-        public void Init(CardScriptableObject card)
+        public void Init(Card card)
         {
             Card = card;
         }
@@ -29,7 +28,7 @@ namespace Runtime.Components.Gameplay
                 Debug.LogError("CardDisplay was instantiated without calling Init!");
                 return;
             }
-            _name.text = Card.Supply.ToString();
+            _name.text = Card.Title;
             _blood.text = $"Blood: {Card.Supply.Blood.ToString()}";
             _energy.text = $"Energy: {Card.Supply.Energy.ToString()}";
             _mechanical.text = $"Mechanical: {Card.Supply.Mechanical.ToString()}";

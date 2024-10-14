@@ -1,4 +1,3 @@
-using Runtime.Components.Gameplay;
 using Runtime.Models;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -6,7 +5,7 @@ using UnityEngine.Serialization;
 namespace Runtime.Scriptable_Objects
 {
     [CreateAssetMenu(menuName = "Card")]
-    public class CardScriptableObject : ScriptableObject
+    public class Card : ScriptableObject
     {
         [SerializeField] private string _title;
         [SerializeField] private Supply _supply;

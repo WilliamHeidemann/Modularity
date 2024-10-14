@@ -1,14 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using Runtime.Components.Segments;
 using Runtime.Models;
-using Runtime.Scriptable_Objects;
 using UnityEngine;
-using UtilityToolkit.Runtime;
 
-namespace Runtime.Components.Gameplay
+namespace Runtime.Scriptable_Objects
 {
-    public class SegmentFactory : MonoSingleton<SegmentFactory>
+    [CreateAssetMenu(menuName = "Segment Factory")]
+    public class SegmentFactory : ScriptableObject
     {
         [Header("Prefabs")] [SerializeField] private MonoSegment _connectorBoxPrefab;
         [SerializeField] private MonoSegment _cogsPrefab;
@@ -19,17 +17,7 @@ namespace Runtime.Components.Gameplay
         [SerializeField] private MonoSegment _wingsPrefab;
         [SerializeField] private ConnectionSlot _connectionSlotPrefab;
 
-        private void Start()
-        {
-            StructureManager.OnSegmentAdded += SpawnSegment;
-        }
-
-        private void OnDisable()
-        {
-            StructureManager.OnSegmentAdded -= SpawnSegment;
-        }
-
-        private void SpawnSegment(Segment segment)
+        public void SpawnSegment(Segment segment)
         {
             var prefab = segment.Model switch
             {

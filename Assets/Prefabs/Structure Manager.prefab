@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5453468238767158618
+--- !u!1 &3794035838353742867
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3986624950436757619}
-  - component: {fileID: 579864533727153734}
+  - component: {fileID: 5497079444483546457}
+  - component: {fileID: 5358058811895903941}
   m_Layer: 0
-  m_Name: Card Factory
+  m_Name: Structure Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3986624950436757619
+--- !u!4 &5497079444483546457
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5453468238767158618}
+  m_GameObject: {fileID: 3794035838353742867}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,16 +32,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &579864533727153734
+--- !u!114 &5358058811895903941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5453468238767158618}
+  m_GameObject: {fileID: 3794035838353742867}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5e41bf3ffd44bfc8b1f42de12d7b736, type: 3}
+  m_Script: {fileID: 11500000, guid: 069cb5e0941d48b9bb90f0f1c407f786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardDisplayPrefab: {fileID: 6461354679655106216, guid: 55cbf4190068020429cdd0deefb8f3d8, type: 3}
+  _startingConfiguration: {fileID: 11400000, guid: 71881776317e203428e3823527d636f2, type: 2}
+  _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+  _slot: {fileID: 11400000, guid: fb20c2eae61cb6544a95639046c6d244, type: 2}
+  _segmentFactory: {fileID: 11400000, guid: de32c69e77f90684c84a8e3e420e207d, type: 2}

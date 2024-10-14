@@ -1,7 +1,7 @@
 using Runtime.Models;
 using UnityEngine;
 
-namespace Runtime.Components.Gameplay
+namespace Runtime.Components.Segments
 {
     public class MonoSegment : MonoBehaviour
     {

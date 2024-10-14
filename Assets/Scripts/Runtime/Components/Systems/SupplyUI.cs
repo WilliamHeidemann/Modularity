@@ -1,11 +1,10 @@
-using System;
 using Runtime.Scriptable_Objects;
 using TMPro;
 using UnityEngine;
 
-namespace Runtime.Components.Gameplay
+namespace Runtime.Components.Systems
 {
-    public class SupplyDisplay : MonoBehaviour
+    public class SupplyUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _bloodText;
         [SerializeField] private TextMeshProUGUI _energyText;
@@ -23,9 +22,9 @@ namespace Runtime.Components.Gameplay
 
         private void UpdateTexts(int blood, int energy, int mechanical)
         {
-            _bloodText.text = blood.ToString();
-            _energyText.text = energy.ToString();
-            _mechanicalText.text = mechanical.ToString();
+            _bloodText.text = $"Blood: {blood.ToString()}";
+            _energyText.text = $"Energy: {energy.ToString()}";
+            _mechanicalText.text = $"Mechanical: {mechanical.ToString()}";
         }
     }
 }
