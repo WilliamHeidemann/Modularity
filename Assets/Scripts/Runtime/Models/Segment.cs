@@ -1,35 +1,31 @@
 using System;
+using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Runtime.Models
 {
     [Serializable]
-    public class Segment
+    public struct Segment
     {
         [SerializeField] private Position _position;
         [SerializeField] private Model _model;
-        [SerializeField] private SegmentData _data;
+        [SerializeField] private Supply _supply;
 
         public Segment(Position position, Card card)
         {
             _position = position;
             _model = card.Model;
-            _data = card.SegmentData;
+            _supply = card.Supply;
         }
 
         public Position Position => _position;
         public Model Model => _model;
-        public SegmentData Data => _data;
-
-        public void SetPosition(Position position) => _position = position;
+        public Supply Supply => _supply;
         
         public override string ToString()
         {
             return $"Position: {Position}, Model: {Model}";
         }
-
-        public static Segment StartingSegment(Position position) => 
-            new(position, Card.StartingCard);
     }
 }

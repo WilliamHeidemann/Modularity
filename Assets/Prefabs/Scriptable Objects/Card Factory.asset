@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e41bf3ffd44bfc8b1f42de12d7b736, type: 3}
+  m_Name: Card Factory
+  m_EditorClassIdentifier: 
+  _monoCardPrefab: {fileID: 6461354679655106216, guid: 55cbf4190068020429cdd0deefb8f3d8, type: 3}
+  _cards:
+  - {fileID: 11400000, guid: 4547964bb9bfc5e42b8688d1c3276fbf, type: 2}
+  - {fileID: 11400000, guid: 1682e0cfb79cdf342a5fa78b3da1b735, type: 2}
+  - {fileID: 11400000, guid: f69ee1f2693bfc647a72491235774ea8, type: 2}
+  - {fileID: 11400000, guid: 1737224952623634682be2d26457983b, type: 2}
+  - {fileID: 11400000, guid: c6a740872802a734ea2d0bee1357ed5a, type: 2}
+  - {fileID: 11400000, guid: fb20c2eae61cb6544a95639046c6d244, type: 2}
+  - {fileID: 11400000, guid: 324029080aad9e848be96e99fbea2a3b, type: 2}
+  - {fileID: 11400000, guid: 5a57bc80c33d803449400dc555106627, type: 2}
