@@ -7,26 +7,22 @@ namespace Runtime.Models
     [Serializable]
     public struct Supply
     {
-        [SerializeField] private int _blood;
-        [SerializeField] private int _energy;
-        [SerializeField] private int _mechanical;
+        [field: SerializeField] public int Blood { get; private set; }
+        [field: SerializeField] public int Energy { get; private set; }
+        [field: SerializeField] public int Mechanical { get; private set; }
 
         private Supply(int blood, int energy, int mechanical)
         {
-            _blood = blood;
-            _energy = energy;
-            _mechanical = mechanical;
+            Blood = blood;
+            Energy = energy;
+            Mechanical = mechanical;
         }
-        
-        public int Blood => _blood;
-        public int Energy => _energy;
-        public int Mechanical => _mechanical;
 
         public Supply WithVariation()
         {
-            _blood += Random.Range(-1, 2);
-            _energy += Random.Range(-1, 2);
-            _mechanical += Random.Range(-1, 2);
+            Blood += Random.Range(-4, 4);
+            Energy += Random.Range(-4, 4);
+            Mechanical += Random.Range(-4, 4);
             return this;
         }
     }

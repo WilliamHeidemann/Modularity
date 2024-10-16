@@ -28,7 +28,7 @@ namespace Runtime.Components.Systems
                 Debug.LogError("CardDisplay was instantiated without calling Init!");
                 return;
             }
-            _name.text = Card.Title;
+            _name.text = Card.Model.ToString();
             _blood.text = $"Blood: {Card.Supply.Blood.ToString()}";
             _energy.text = $"Energy: {Card.Supply.Energy.ToString()}";
             _mechanical.text = $"Mechanical: {Card.Supply.Mechanical.ToString()}";

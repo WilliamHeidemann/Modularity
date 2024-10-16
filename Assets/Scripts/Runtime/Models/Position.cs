@@ -1,27 +1,22 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Models
 {
     [Serializable]
     public struct Position
     {
-        [SerializeField] private int _x;
-        [SerializeField] private int _y;
-        [SerializeField] private int _z;
+        [field: SerializeField] public int X { get; private set; }
+        [field: SerializeField] public int Y { get; private set; }
+        [field: SerializeField] public int Z { get; private set; }
         
         public Position(int x, int y, int z)
         {
-            _x = x;
-            _y = y;
-            _z = z;
+            X = x;
+            Y = y;
+            Z = z;
         }
-
-        public int X => _x;
-
-        public int Y => _y;
-
-        public int Z => _z;
         
         public Vector3Int AsVector3 => new(X, Y, Z);
 

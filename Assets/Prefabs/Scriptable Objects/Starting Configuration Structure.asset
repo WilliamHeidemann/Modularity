@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: Starting Configuration Structure
   m_EditorClassIdentifier: 
   _segments:
-  - _position:
-      _x: 0
-      _y: 0
-      _z: 0
-    _model: 0
-    _supply:
-      _blood: 3
-      _energy: 3
-      _mechanical: 3
-  - _position:
-      _x: 0
-      _y: 0
-      _z: -1
-    _model: 0
-    _supply:
-      _blood: 0
-      _energy: 0
-      _mechanical: 0
-  - _position:
-      _x: 1
-      _y: 0
-      _z: 0
-    _model: 0
-    _supply:
-      _blood: 0
-      _energy: 0
-      _mechanical: 0
+  - <Position>k__BackingField:
+      <X>k__BackingField: 0
+      <Y>k__BackingField: 0
+      <Z>k__BackingField: 0
+    <Model>k__BackingField: 0
+    <Supply>k__BackingField:
+      <Blood>k__BackingField: 3
+      <Energy>k__BackingField: 3
+      <Mechanical>k__BackingField: 3
+  - <Position>k__BackingField:
+      <X>k__BackingField: 1
+      <Y>k__BackingField: 0
+      <Z>k__BackingField: 0
+    <Model>k__BackingField: 0
+    <Supply>k__BackingField:
+      <Blood>k__BackingField: 0
+      <Energy>k__BackingField: 0
+      <Mechanical>k__BackingField: 0
+  - <Position>k__BackingField:
+      <X>k__BackingField: 0
+      <Y>k__BackingField: 0
+      <Z>k__BackingField: -1
+    <Model>k__BackingField: 0
+    <Supply>k__BackingField:
+      <Blood>k__BackingField: 0
+      <Energy>k__BackingField: 0
+      <Mechanical>k__BackingField: 0
