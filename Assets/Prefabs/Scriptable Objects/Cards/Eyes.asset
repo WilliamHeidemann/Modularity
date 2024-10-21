@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8b130b4f674270821cb4eab2539c5d, type: 3}
   m_Name: Eyes
   m_EditorClassIdentifier: 
-  _title: Eyes
-  _supply:
-    _blood: 1
-    _energy: 1
-    _mechanical: -2
-  _model: 5
+  <Supply>k__BackingField:
+    <Blood>k__BackingField: 0
+    <Energy>k__BackingField: 0
+    <Mechanical>k__BackingField: 0
+  <Model>k__BackingField: 5

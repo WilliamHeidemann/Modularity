@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8b130b4f674270821cb4eab2539c5d, type: 3}
   m_Name: Cogs
   m_EditorClassIdentifier: 
-  _title: Cogs
-  _supply:
-    _blood: -4
-    _energy: 1
-    _mechanical: 3
-  _model: 2
+  <Supply>k__BackingField:
+    <Blood>k__BackingField: 0
+    <Energy>k__BackingField: 0
+    <Mechanical>k__BackingField: 0
+  <Model>k__BackingField: 2
