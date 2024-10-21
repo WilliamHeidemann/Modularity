@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Runtime.Models;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UtilityToolkit.Runtime;
@@ -51,9 +52,9 @@ namespace Runtime.Components.Systems
             _cards.Add(card);
         }
 
-        public void SpendCard(Card card)
+        public void SpendCard(Model model)
         {
-            var displayOption = _cards.FirstOption(display => display.Card == card);
+            var displayOption = _cards.FirstOption(display => display.Model == model);
             if (displayOption.IsSome(out var cardDisplay))
             {
                 _cards.Remove(cardDisplay);

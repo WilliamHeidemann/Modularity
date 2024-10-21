@@ -12,9 +12,8 @@ namespace Runtime.Components.Systems
     {
         [SerializeField] private Structure _startingConfiguration;
         [SerializeField] private Structure _structure;
-        [SerializeField] private Card _slot;
         [SerializeField] private SegmentFactory _segmentFactory;
-        private Option<Card> _selectedCard = Option<Card>.None;
+        private Option<Model> _selectedCard = Option<Model>.None;
         private static readonly HashSet<Position> Slots = new();
 
         private void Start()
@@ -39,27 +38,21 @@ namespace Runtime.Components.Systems
             CardManager.OnHandReplaced -= Deselect;
         }
         
-        public void Select(Card card) => _selectedCard = Option<Card>.Some(card);
-        public void Deselect() => _selectedCard = Option<Card>.None;
+        public void Select(Model model) => _selectedCard = Option<Model>.Some(model);
+        public void Deselect() => _selectedCard = Option<Model>.None;
 
         public void TryBuild(Position position)
         {
-            if (!_selectedCard.IsSome(out var card))
+            if (!_selectedCard.IsSome(out var model))
             {
                 print("No card selected.");
                 return;
             }
 
-            var segment = new Segment(position, card);
-            if (!_structure.HasResources(segment.Supply))
-            {
-                print("Not enough resources.");
-                return;
-            }
-
+            var segment = new Segment(position, model);
             Build(segment);
             Deselect();
-            CardManager.Instance.SpendCard(card);
+            CardManager.Instance.SpendCard(model);
         }
 
         private void Build(Segment segment)

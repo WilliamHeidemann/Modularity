@@ -10,13 +10,11 @@ namespace Runtime.Models
     {
         [field: SerializeField] public Position Position { get; private set; }
         [field: SerializeField] public Model Model { get; private set; }
-        [field: SerializeField] public Supply Supply { get; private set; }
 
-        public Segment(Position position, Card card)
+        public Segment(Position position, Model model)
         {
             Position = position;
-            Model = card.Model;
-            Supply = card.Supply; //.WithVariation();
+            Model = model;
         }
         
         public override string ToString()
