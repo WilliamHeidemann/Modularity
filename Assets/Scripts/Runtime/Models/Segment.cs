@@ -16,7 +16,7 @@ namespace Runtime.Models
         {
             Position = position;
             Model = card.Model;
-            Supply = card.Supply.WithVariation();
+            Supply = card.Supply; //.WithVariation();
         }
         
         public override string ToString()
