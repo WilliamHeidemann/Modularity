@@ -15,7 +15,7 @@ namespace Runtime.Scriptable_Objects
         
         public MonoCard RandomCard()
         {
-            var model = For.GetValues<Model>().Except(new[] { Model.ConnectionSlot }).RandomElement();
+            var model = For.GetValues<Model>().RandomElement();
             var card = _cards.First(card => card.Model == model);
             var cardDisplay = Instantiate(_monoCardPrefab);
             cardDisplay.Init(card);

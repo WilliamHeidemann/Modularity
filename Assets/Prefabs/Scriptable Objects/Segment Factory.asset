@@ -19,4 +19,4 @@ MonoBehaviour:
   _eyesPrefab: {fileID: -8540501992505524387, guid: 19444d18efd941a4c8b09fb7dc129734, type: 3}
   _tentaclePrefab: {fileID: -8540501992505524387, guid: 5d5047a7f21a36847b46b7e95f7eabb0, type: 3}
   _wingsPrefab: {fileID: -8540501992505524387, guid: 2750eb5514659c24f979b341b4767fe8, type: 3}
-  _connectionSlotPrefab: {fileID: 5548665999734910545, guid: da839395100831441988abd2c5c643cf, type: 3}
+  _slotPrefab: {fileID: 5548665999734910545, guid: da839395100831441988abd2c5c643cf, type: 3}

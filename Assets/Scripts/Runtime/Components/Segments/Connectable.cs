@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Models;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Components.Segments
 {
     public class Connectable : MonoSegment
     {
-        [SerializeField] private ConnectionSlot _connectionSlot;
-        
         [SerializeField] private bool _connectsUp;
         [SerializeField] private bool _connectsDown;
         [SerializeField] private bool _connectsForward;

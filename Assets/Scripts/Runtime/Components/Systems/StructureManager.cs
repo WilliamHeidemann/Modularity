@@ -15,11 +15,12 @@ namespace Runtime.Components.Systems
         [SerializeField] private Card _slot;
         [SerializeField] private SegmentFactory _segmentFactory;
         private Option<Card> _selectedCard = Option<Card>.None;
-        
+        private static readonly HashSet<Position> Slots = new();
+
         private void Start()
         {
             MonoCard.OnCardSelect += Select;
-            ConnectionSlot.OnSlotClicked += TryBuild;
+            Slot.OnSlotClicked += TryBuild;
             Connectable.OnSpawnSlots += AddSlots;
             CardManager.OnHandReplaced += Deselect;
             
@@ -33,7 +34,7 @@ namespace Runtime.Components.Systems
         private void OnDisable()
         {
             MonoCard.OnCardSelect -= Select;
-            ConnectionSlot.OnSlotClicked -= TryBuild;
+            Slot.OnSlotClicked -= TryBuild;
             Connectable.OnSpawnSlots -= AddSlots;
             CardManager.OnHandReplaced -= Deselect;
         }
@@ -69,10 +70,10 @@ namespace Runtime.Components.Systems
         
         private void AddSlots(IEnumerable<Position> positions)
         {
-            foreach (var position in positions.Where(_structure.IsAvailable))
+            foreach (var position in positions.Where(p => _structure.IsAvailable(p) && !Slots.Contains(p)))
             {
-                var segment = new Segment(position, _slot);
-                Build(segment);
+                _segmentFactory.SpawnSlot(position);
+                Slots.Add(position);
             }
         }
     }

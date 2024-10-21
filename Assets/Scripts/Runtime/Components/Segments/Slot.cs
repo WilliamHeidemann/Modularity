@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Runtime.Components.Segments
 {
-    public class ConnectionSlot : MonoSegment
+    public class Slot : MonoBehaviour
     {
         [SerializeField] private GameObject _placeHolder;
+        public Position Position;
         public static event Action<Position> OnSlotClicked;
         
         private void OnMouseEnter()
@@ -21,7 +22,7 @@ namespace Runtime.Components.Segments
 
         private void OnMouseDown()
         {
-            OnSlotClicked?.Invoke(Segment.Position);
+            OnSlotClicked?.Invoke(Position);
         }
     }
 }
