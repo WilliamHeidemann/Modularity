@@ -4,7 +4,8 @@
     "references": [
         "WilliamHeidemann.UtilityToolkit",
         "UnityUtils",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "WilliamHeidemann.UtilityToolkit.Editor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -20,7 +20,7 @@ namespace Runtime.Components.Systems
         {
             MonoCard.OnCardSelect += Select;
             Slot.OnSlotClicked += TryBuild;
-            Connectable.OnSpawnSlots += AddSlots;
+            Connector.OnSpawnSlots += AddSlots;
             CardManager.OnHandReplaced += Deselect;
             
             _structure.Clear();
@@ -34,14 +34,14 @@ namespace Runtime.Components.Systems
         {
             MonoCard.OnCardSelect -= Select;
             Slot.OnSlotClicked -= TryBuild;
-            Connectable.OnSpawnSlots -= AddSlots;
+            Connector.OnSpawnSlots -= AddSlots;
             CardManager.OnHandReplaced -= Deselect;
         }
-        
-        public void Select(Model model) => _selectedCard = Option<Model>.Some(model);
-        public void Deselect() => _selectedCard = Option<Model>.None;
 
-        public void TryBuild(Position position)
+        private void Select(Model model) => _selectedCard = Option<Model>.Some(model);
+        private void Deselect() => _selectedCard = Option<Model>.None;
+
+        private void TryBuild(Position position)
         {
             if (!_selectedCard.IsSome(out var model))
             {

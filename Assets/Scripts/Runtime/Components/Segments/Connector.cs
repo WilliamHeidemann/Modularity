@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 namespace Runtime.Components.Segments
 {
-    public class Connectable : MonoSegment
+    public class Connector : MonoSegment
     {
         [SerializeField] private bool _connectsUp;
         [SerializeField] private bool _connectsDown;
