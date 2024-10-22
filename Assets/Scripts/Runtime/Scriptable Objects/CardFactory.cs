@@ -11,14 +11,13 @@ namespace Runtime.Scriptable_Objects
     public class CardFactory : ScriptableObject
     {
         [SerializeField] private MonoCard _monoCardPrefab;
-        [SerializeField] private Card[] _cards;
         
         public MonoCard RandomCard()
         {
-            var model = For.GetValues<Model>().RandomElement();
-            var card = _cards.First(card => card.Model == model);
+            // var model = For.GetValues<Model>().RandomElement();
+            var model = Model.ConnectorBox;
             var cardDisplay = Instantiate(_monoCardPrefab);
-            cardDisplay.Init(card);
+            cardDisplay.Init(model);
             return cardDisplay;
         }
     }
