@@ -10,7 +10,7 @@ namespace Runtime.Components.Systems
     public class CardManager : MonoSingleton<CardManager>
     {
         [SerializeField] private CardFactory _factory;
-        [SerializeField] private List<MonoCard> _cards = new();
+        [SerializeField] private List<Card> _cards = new();
         public static event Action OnHandReplaced;
 
         private void Start()

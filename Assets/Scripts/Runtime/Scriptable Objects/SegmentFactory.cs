@@ -10,26 +10,14 @@ namespace Runtime.Scriptable_Objects
     public class SegmentFactory : ScriptableObject
     {
         [Header("Prefabs")] 
-        [SerializeField] private MonoSegment _connectorBoxPrefab;
-        [SerializeField] private MonoSegment _cogsPrefab;
-        [SerializeField] private MonoSegment _pipesPrefab;
-        [SerializeField] private MonoSegment _heartPrefab;
-        [SerializeField] private MonoSegment _eyesPrefab;
-        [SerializeField] private MonoSegment _tentaclePrefab;
-        [SerializeField] private MonoSegment _wingsPrefab;
+        [SerializeField] private Connector _connectorPrefab;
         [SerializeField] private Slot _slotPrefab;
 
         public void SpawnSegment(Segment segment)
         {
             var prefab = segment.Model switch
             {
-                Model.ConnectorBox => _connectorBoxPrefab,
-                Model.Cogs => _cogsPrefab,
-                Model.Pipes => _pipesPrefab,
-                Model.Heart => _heartPrefab,
-                Model.Eyes => _eyesPrefab,
-                Model.Tentacle => _tentaclePrefab,
-                Model.Wings => _wingsPrefab,
+                Model.ConnectorBox => _connectorPrefab,
                 _ => throw new ArgumentOutOfRangeException()
             };
 
