@@ -10,13 +10,13 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu(menuName = "Card Factory")]
     public class CardFactory : ScriptableObject
     {
-        [SerializeField] private MonoCard _monoCardPrefab;
+        [FormerlySerializedAs("_monoCardPrefab")] [SerializeField] private Card _cardPrefab;
         
-        public MonoCard RandomCard()
+        public Card RandomCard()
         {
             // var model = For.GetValues<Model>().RandomElement();
             var model = Model.ConnectorBox;
-            var cardDisplay = Instantiate(_monoCardPrefab);
+            var cardDisplay = Instantiate(_cardPrefab);
             cardDisplay.Init(model);
             return cardDisplay;
         }

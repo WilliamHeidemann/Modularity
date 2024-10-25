@@ -852,7 +852,6 @@ MonoBehaviour:
   _sceneCanvas: {fileID: 1852522102}
   _structureManager: {fileID: 5358058811895903941, guid: 971e456fb40fe4e478a52e88772ec557, type: 3}
   _cardManager: {fileID: 1763811349012021342, guid: 6ba43fc7ab944384ca3713ff51bedb23, type: 3}
-  _supplyUI: {fileID: 1037079274825829050, guid: 3b36a743c4c6ab14c8328b00b06ce522, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

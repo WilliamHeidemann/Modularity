@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace Runtime.Components.Systems
 {
-    public class MonoCard : MonoBehaviour, IPointerDownHandler
+    public class Card : MonoBehaviour, IPointerDownHandler
     {
         [SerializeField] private TextMeshProUGUI _name;
 

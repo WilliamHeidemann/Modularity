@@ -18,7 +18,7 @@ namespace Runtime.Components.Systems
 
         private void Start()
         {
-            MonoCard.OnCardSelect += Select;
+            Card.OnCardSelect += Select;
             Slot.OnSlotClicked += TryBuild;
             Connector.OnSpawnSlots += AddSlots;
             CardManager.OnHandReplaced += Deselect;
@@ -32,7 +32,7 @@ namespace Runtime.Components.Systems
 
         private void OnDisable()
         {
-            MonoCard.OnCardSelect -= Select;
+            Card.OnCardSelect -= Select;
             Slot.OnSlotClicked -= TryBuild;
             Connector.OnSpawnSlots -= AddSlots;
             CardManager.OnHandReplaced -= Deselect;
@@ -51,7 +51,7 @@ namespace Runtime.Components.Systems
 
             var segment = new Segment(position, model);
             Build(segment);
-            Deselect();
+            // Deselect();
             CardManager.Instance.SpendCard(model);
         }
 
