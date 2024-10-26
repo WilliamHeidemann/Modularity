@@ -1,5 +1,6 @@
 using Runtime.Components;
 using Runtime.Components.Segments;
+using Runtime.Components.Utility;
 using UnityEngine;
 using UnityUtils;
 
@@ -23,17 +24,28 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnConnector(Vector3 position, Quaternion rotation)
         {
-            // Segments and slots may not be spawned in positions that are already occupied by other segments! 
+            if (_structure.SegmentPositions.Contains(position.AsVector3Int()))
+            {
+                return;
+            }
+            
+            // potentially remove old slot
+            
             var connector = Instantiate(_connectorPrefab, position, rotation);
             connector.ConnectionPoints.Randomize();
+            _structure.SegmentPositions.Add(position.AsVector3Int());
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
         }
 
         private void SpawnSlot(Vector3Int position)
         {
-            // Slots may not be spawned in positions that are already occupied by segments and other slots! 
+            if (_structure.TakenPositions.Contains(position))
+            {
+                return;
+            }
             var slot = Instantiate(_slotPrefab, position, Quaternion.identity);
             slot.Position = position;
+            _structure.SlotPositions.Add(position);
         }
     }
 }

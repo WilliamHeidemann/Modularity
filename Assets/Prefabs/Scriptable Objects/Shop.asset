@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c070d687234146978baea03729fdb832, type: 3}
   m_Name: Shop
   m_EditorClassIdentifier: 
-  _selectedSegment: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
+  _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _resources: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
