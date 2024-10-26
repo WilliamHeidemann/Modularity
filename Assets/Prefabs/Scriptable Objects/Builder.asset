@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c8a610f57c3f844cab0d9cc1af0cf5f, type: 3}
-  m_Name: Segment Factory
+  m_Script: {fileID: 11500000, guid: aa3ebef51f8748b3a0530727c19b29e6, type: 3}
+  m_Name: Builder
   m_EditorClassIdentifier: 
-  _connectorPrefab: {fileID: 4404823909993285501, guid: 746a7a06464a2414ab6e1fc6738870bc, type: 3}
   _slotPrefab: {fileID: 5548665999734910545, guid: da839395100831441988abd2c5c643cf, type: 3}
+  _connectorPrefab: {fileID: 4404823909993285501, guid: 746a7a06464a2414ab6e1fc6738870bc, type: 3}
+  _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}

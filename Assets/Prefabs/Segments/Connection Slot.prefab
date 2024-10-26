@@ -67,17 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0535a4ad16443aba1ef90ffa386ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Segment:
-    _position:
-      _x: 0
-      _y: 0
-      _z: 0
-    _model: 0
-    _data:
-      _blood: 0
-      _energy: 0
-      _mechanical: 0
-  _placeHolder: {fileID: 4925631792201182948}
+  _builder: {fileID: 11400000, guid: 9943406e6d7c44b4a84bddc40a10c0b2, type: 2}
+  _placeHolderBuilder: {fileID: 11400000, guid: b64ebe420f6c3aa46a0cebb265fbd019, type: 2}
+  Position: {x: 0, y: 0, z: 0}
 --- !u!1001 &4417435746552199133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,10 +134,5 @@ PrefabInstance:
 --- !u!4 &260357405765624978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4526429639682708303, guid: 649add0faee4e104d85c88b464ea2819, type: 3}
-  m_PrefabInstance: {fileID: 4417435746552199133}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4925631792201182948 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8725370702361696569, guid: 649add0faee4e104d85c88b464ea2819, type: 3}
   m_PrefabInstance: {fileID: 4417435746552199133}
   m_PrefabAsset: {fileID: 0}

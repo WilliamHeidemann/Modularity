@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a6d641ecb92413dbc9e825c4398c51f, type: 3}
-  m_Name: Starting Configuration Structure
+  m_Script: {fileID: 11500000, guid: 15252300cff740c4a9494c82ba8b6c43, type: 3}
+  m_Name: Place Holder Builder
   m_EditorClassIdentifier: 
-  _segments:
-  - <Position>k__BackingField:
-      <X>k__BackingField: 0
-      <Y>k__BackingField: 0
-      <Z>k__BackingField: 0
-    <Model>k__BackingField: 0
+  _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
+  _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}

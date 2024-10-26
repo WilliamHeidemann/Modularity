@@ -5,7 +5,7 @@ namespace Runtime.Components.Utility
     public class CameraControls : MonoBehaviour
     {
         private const float RotationSpeed = 100f;
-    
+
         private void Update()
         {
             HandleMovement();
