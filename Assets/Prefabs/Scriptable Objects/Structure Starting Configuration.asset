@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a6d641ecb92413dbc9e825c4398c51f, type: 3}
-  m_Name: Starting Configuration Structure
+  m_Name: Structure Starting Configuration
   m_EditorClassIdentifier: 
   _segments:
   - <Position>k__BackingField:

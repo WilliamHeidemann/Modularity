@@ -8,12 +8,13 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Builder : ScriptableObject
     {
-        [Header("Prefabs")] [SerializeField] private Slot _slotPrefab;
+        [Header("Prefabs")] 
+        [SerializeField] private Slot _slotPrefab;
         [SerializeField] private Segment _connectorPrefab;
 
-        [Header("Fields")] [SerializeField] private Structure _structure;
+        [Header("Fields")] 
+        [SerializeField] private Structure _structure;
 
-        // Segments and slots may not be spawned in positions that are already occupied! 
 
         public void Build(Vector3Int position)
         {
@@ -22,12 +23,15 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnConnector(Vector3 position, Quaternion rotation)
         {
+            // Segments and slots may not be spawned in positions that are already occupied by other segments! 
             var connector = Instantiate(_connectorPrefab, position, rotation);
+            connector.ConnectionPoints.Randomize();
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
         }
 
         private void SpawnSlot(Vector3Int position)
         {
+            // Slots may not be spawned in positions that are already occupied by segments and other slots! 
             var slot = Instantiate(_slotPrefab, position, Quaternion.identity);
             slot.Position = position;
         }

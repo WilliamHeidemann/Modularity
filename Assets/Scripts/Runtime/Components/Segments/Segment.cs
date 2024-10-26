@@ -21,7 +21,6 @@ namespace Runtime.Components.Segments
 
         private void Start()
         {
-            ConnectionPoints.Randomize();
             EnableParts();
         }
 

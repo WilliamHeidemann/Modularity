@@ -850,8 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneCanvas: {fileID: 1852522102}
-  _structureManager: {fileID: 5358058811895903941, guid: 971e456fb40fe4e478a52e88772ec557, type: 3}
-  _cardManager: {fileID: 1763811349012021342, guid: 6ba43fc7ab944384ca3713ff51bedb23, type: 3}
+  _builder: {fileID: 11400000, guid: 9943406e6d7c44b4a84bddc40a10c0b2, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

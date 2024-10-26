@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -15,7 +16,7 @@ namespace Runtime.Scriptable_Objects
         // chosen prefab, and the player has enough resources, the 
         // selected segment will change to this segment prefab. 
 
-        [SerializeField] private SelectedSegment _selectedSegment;
+        [SerializeField] private Selection _selection;
         [SerializeField] private Resources _resources;
     }
 }
