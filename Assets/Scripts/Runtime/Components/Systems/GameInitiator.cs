@@ -1,3 +1,4 @@
+using Runtime.Scriptable_Objects;
 using UnityEngine;
 
 namespace Runtime.Components.Systems
@@ -5,12 +6,11 @@ namespace Runtime.Components.Systems
     public class GameInitiator : MonoBehaviour
     {
         [SerializeField] private Transform _sceneCanvas;
-        [SerializeField] private StructureManager _structureManager;
-        [SerializeField] private CardManager _cardManager;
+        [SerializeField] private Builder _builder;
+
         private void Start()
         {
-            Instantiate(_structureManager);
-            Instantiate(_cardManager, _sceneCanvas);
+            _builder.Build(Vector3Int.zero);
         }
     }
 }
