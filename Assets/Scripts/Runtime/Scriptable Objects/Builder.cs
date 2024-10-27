@@ -11,7 +11,7 @@ namespace Runtime.Scriptable_Objects
     {
         [Header("Prefabs")] 
         [SerializeField] private Slot _slotPrefab;
-        [SerializeField] private Segment _connectorPrefab;
+        [SerializeField] private Selection _selection;
 
         [Header("Fields")] 
         [SerializeField] private Structure _structure;
@@ -31,7 +31,7 @@ namespace Runtime.Scriptable_Objects
             
             // potentially remove old slot
             
-            var connector = Instantiate(_connectorPrefab, position, rotation);
+            var connector = Instantiate(_selection.Prefab, position, rotation);
             connector.ConnectionPoints.Randomize();
             _structure.SegmentPositions.Add(position.AsVector3Int());
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
