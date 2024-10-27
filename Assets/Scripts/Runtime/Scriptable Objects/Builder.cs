@@ -12,9 +12,8 @@ namespace Runtime.Scriptable_Objects
         [Header("Prefabs")] 
         [SerializeField] private Slot _slotPrefab;
         [SerializeField] private Selection _selection;
-
-        [Header("Fields")] 
         [SerializeField] private Structure _structure;
+        [SerializeField] private Resources _resources;
 
 
         public void Build(Vector3Int position)
@@ -28,9 +27,15 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
+
+            if (!_resources.HasAtLeast(_selection.Price))
+            {
+                return;
+            }
             
             // potentially remove old slot
             
+            _resources.Pay(_selection.Price);
             var connector = Instantiate(_selection.Prefab, position, rotation);
             connector.ConnectionPoints.Randomize();
             _structure.SegmentPositions.Add(position.AsVector3Int());

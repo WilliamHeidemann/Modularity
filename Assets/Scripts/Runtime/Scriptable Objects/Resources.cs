@@ -13,6 +13,11 @@ namespace Runtime.Scriptable_Objects
             _gears += amount;
         }
 
+        public void Pay(int amount)
+        {
+            _gears -= amount;
+        }
+
         public bool HasAtLeast(int amount)
         {
             return _gears >= amount;
