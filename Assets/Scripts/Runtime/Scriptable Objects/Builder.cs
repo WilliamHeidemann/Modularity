@@ -16,9 +16,9 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Resources _resources;
 
 
-        public void Build(Vector3Int position)
+        public void Build(Vector3Int position, Quaternion placeholderRotation = new())
         {
-            SpawnConnector(position, Quaternion.identity);
+            SpawnConnector(position, placeholderRotation);
         }
 
         private void SpawnConnector(Vector3 position, Quaternion rotation)
@@ -37,9 +37,9 @@ namespace Runtime.Scriptable_Objects
             
             _resources.Pay(_selection.Price);
             var connector = Instantiate(_selection.Prefab, position, rotation);
-            connector.ConnectionPoints.Randomize();
             _structure.SegmentPositions.Add(position.AsVector3Int());
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
+            _selection.Prefab.ConnectionPoints.Randomize();
         }
 
         private void SpawnSlot(Vector3Int position)

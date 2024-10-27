@@ -37,6 +37,8 @@ namespace Runtime.Components.Segments
         public IEnumerable<Vector3Int> AdjacentPlaceholderPositions() =>
             ConnectionPoints
                 .AsVector3Ints()
-                .Select(position => transform.position.AsVector3Int() + position);
+                .Select(direction => transform.TransformDirection(direction))
+                .Select(direction => direction.AsVector3Int())
+                .Select(direction => transform.position.AsVector3Int() + direction);
     }
 }

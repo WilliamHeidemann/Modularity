@@ -621,8 +621,9 @@ GameObject:
   m_Component:
   - component: {fileID: 669413807}
   - component: {fileID: 669413808}
+  - component: {fileID: 669413809}
   m_Layer: 0
-  m_Name: Game Exit
+  m_Name: Input Reader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,6 +656,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b55b26a31074c04fa8ff7cfbf1378d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &669413809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669413806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdce5b932784d0eb9904c01d63be821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _placeHolderBuilder: {fileID: 11400000, guid: b64ebe420f6c3aa46a0cebb265fbd019, type: 2}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
