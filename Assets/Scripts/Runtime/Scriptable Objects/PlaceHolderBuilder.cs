@@ -16,10 +16,9 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
-            
+
             TearDown();
             _placeHolder = Instantiate(_selection.Prefab, position, Quaternion.identity);
-            _placeHolder.ConnectionPoints.Randomize();
         }
 
         public void TearDown()
@@ -28,6 +27,25 @@ namespace Runtime.Scriptable_Objects
             {
                 Destroy(_placeHolder.gameObject);
             }
+        }
+
+        public Quaternion PlaceholderRotation()
+        {
+            return _placeHolder == null 
+                ? Quaternion.identity 
+                : _placeHolder.transform.rotation;
+        }
+
+        public void RotateOnY() => Rotate(Vector3.up);
+        public void RotateOnX() => Rotate(Vector3.right);
+        private void Rotate(Vector3 axis)
+        {
+            if (_placeHolder == null)
+            {
+                return;
+            }
+
+            _placeHolder.transform.Rotate(axis, 90, Space.World);
         }
     }
 }

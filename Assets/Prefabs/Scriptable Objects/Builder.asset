@@ -15,3 +15,4 @@ MonoBehaviour:
   _slotPrefab: {fileID: 5548665999734910545, guid: da839395100831441988abd2c5c643cf, type: 3}
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+  _resources: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
