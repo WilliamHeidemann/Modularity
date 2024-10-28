@@ -40,6 +40,8 @@ namespace Runtime.Scriptable_Objects
             _structure.SegmentPositions.Add(position.AsVector3Int());
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
             _selection.Prefab.ConnectionPoints.Randomize();
+            // inform Strucuture of new segment
+            _structure.AddSegment(position.AsVector3Int(), connector.AdjacentPlaceholderPositions());
         }
 
         private void SpawnSlot(Vector3Int position)
