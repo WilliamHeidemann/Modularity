@@ -12,7 +12,7 @@ namespace Runtime.Components.Segments
     public class Segment : MonoBehaviour
     {
         public ConnectionPoints ConnectionPoints;
-        [SerializeField] private StaticData _staticData;
+        [SerializeField] private StaticSegmentData _staticData;
 
         [SerializeField] private GameObject _upPart;
         [SerializeField] private GameObject _downPart;
