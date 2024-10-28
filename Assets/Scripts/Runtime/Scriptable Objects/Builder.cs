@@ -1,3 +1,4 @@
+using System.Linq;
 using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
@@ -41,7 +42,7 @@ namespace Runtime.Scriptable_Objects
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
             _selection.Prefab.ConnectionPoints.Randomize();
             // inform Strucuture of new segment
-            _structure.AddSegment(position.AsVector3Int(), connector.AdjacentPlaceholderPositions());
+            _structure.AddSegment(position.AsVector3Int(), connector.AdjacentPlaceholderPositions().ToHashSet());
         }
 
         private void SpawnSlot(Vector3Int position)

@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityUtils;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -13,23 +14,17 @@ namespace Runtime.Scriptable_Objects
         public readonly HashSet<Vector3Int> SegmentPositions = new();
         public readonly HashSet<Vector3Int> SlotPositions = new();
         public HashSet<Vector3Int> TakenPositions => SegmentPositions.Concat(SlotPositions).ToHashSet();
-        private Dictionary<Vector3Int, SegmentData> GraphData;
+        private readonly Dictionary<Vector3Int, SegmentData> _graphData = new();
 
-        public void AddSegment(Vector3Int position, IEnumerable<Vector3Int> connections)
+        public void AddSegment(Vector3Int position, HashSet<Vector3Int> connections)
         {
             SegmentData segmentData = new()
             {
-                Connections = connections.ToHashSet()
+                Connections = connections
             };
-            GraphData.Add(position,segmentData);
+            _graphData.Add(position, segmentData);
 
-            foreach (var resident in connections)
-            {
-                AddNeighbour(resident, position);
-            }
-        }
-        public void AddNeighbour(Vector3Int resident, Vector3Int neighbour){
-            GraphData[resident].Connections.Add(neighbour);
+            connections.ForEach(connection => _graphData[connection].Connections.Add(position));
         }
 
         public void UpdateFlow(SegmentData segmentData)
@@ -38,10 +33,10 @@ namespace Runtime.Scriptable_Objects
         }
     }
 
-    public struct SegmentData{
+    public class SegmentData
+    {
         public HashSet<Vector3Int> Connections;
         public int Blood;
         public int Steam;
     }
-
 }
