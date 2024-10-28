@@ -1,4 +1,6 @@
+using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
+using TMPro;
 using UnityEngine;
 
 public class ShopUI : MonoBehaviour
@@ -9,7 +11,6 @@ public class ShopUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _shop.GenerateOptions();
         DisplayOptions();
     }
     
@@ -17,12 +18,11 @@ public class ShopUI : MonoBehaviour
     {
         int displayPosition = 0;
 
-        // Display the options to the player
-        for (int i = 0; i <= _shop._optionsCount; i++)
+        foreach (Segment segment in _shop._segmentsOptions)
         {
-            var displayOption = Instantiate(_shopOption, transform.position, Quaternion.identity);
-            displayOption.transform.position = new Vector3(displayPosition, 0, 0);
-
+            GameObject shopOptionClone = Instantiate(_shopOption, transform.position, Quaternion.identity);
+            shopOptionClone.transform.SetParent(transform);
+            shopOptionClone.transform.localPosition = new Vector3(displayPosition, 0, 0);
             displayPosition += 200;
         }
     }

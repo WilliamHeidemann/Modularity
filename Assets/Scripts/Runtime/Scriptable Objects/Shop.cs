@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
 using UtilityToolkit.Runtime;
+using Codice.CM.Client.Differences.Merge;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -23,22 +24,30 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Resources _resources;
 
         //the segments that the player can choose from
-        [SerializeField] private Segment[] _segments;
+        public Segment[] _segmentsOptions;
         [SerializeField] private List<Segment> _availableSegments;
 
         public int _optionsCount = 3;
 
+        public void Awake()
+        {
+            _segmentsOptions = new Segment[3];
+            GenerateOptions();
+        }
+
         public void SelectSegment(int choosenSegment)
         {
-            _selection.Prefab = _segments[choosenSegment];
-            _selection.Price = _segments[choosenSegment].ConnectionPoints.OpenConnectionPoints();
+            Debug.Log("Selected segment: " + choosenSegment);
+            Debug.Log(_segmentsOptions[choosenSegment]);
+            _selection.Prefab = _segmentsOptions[choosenSegment];
+            _selection.Price = _segmentsOptions[choosenSegment].ConnectionPoints.OpenConnectionPoints();
         }
 
         public void GenerateOptions()
         {
-            for(int i = 0; i <= _optionsCount; i++)
+            for(int i = 0; i < _optionsCount; i++)
             {
-                _segments[i] = _availableSegments.RandomElement();
+                _segmentsOptions[i] = _availableSegments.RandomElement();
             }
         }
     }

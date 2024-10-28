@@ -49,4 +49,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shop: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
-  _shopOption: {fileID: 0}
+  _shopOption: {fileID: 8316582340944209535, guid: f73c017269640fa4a9125e96823feb82, type: 3}
