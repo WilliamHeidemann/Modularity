@@ -1,3 +1,4 @@
+using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
 using TMPro;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class ShopUI : MonoBehaviour
 {
     [SerializeField] private Shop _shop;
-    [SerializeField] private GameObject _shopOption;
+    [SerializeField] private ShopItem _shopOption;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,10 +21,13 @@ public class ShopUI : MonoBehaviour
 
         foreach (Segment segment in _shop._segmentsOptions)
         {
-            GameObject shopOptionClone = Instantiate(_shopOption, transform.position, Quaternion.identity);
+            var shopOptionClone = Instantiate(_shopOption, transform.position, Quaternion.identity);
             shopOptionClone.transform.SetParent(transform);
             shopOptionClone.transform.localPosition = new Vector3(displayPosition, 0, 0);
             displayPosition += 200;
+            
+            shopOptionClone.SetName("Awesome Segment");
+            shopOptionClone.SetCost("100000");
         }
     }
 }
