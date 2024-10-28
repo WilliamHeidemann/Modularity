@@ -37,8 +37,6 @@ namespace Runtime.Scriptable_Objects
 
         public void SelectSegment(int choosenSegment)
         {
-            Debug.Log("Selected segment: " + choosenSegment);
-            Debug.Log(_segmentsOptions[choosenSegment]);
             _selection.Prefab = _segmentsOptions[choosenSegment];
             _selection.Price = _segmentsOptions[choosenSegment].ConnectionPoints.OpenConnectionPoints();
         }

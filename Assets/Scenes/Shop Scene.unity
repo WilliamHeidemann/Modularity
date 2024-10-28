@@ -962,7 +962,7 @@ PrefabInstance:
     - target: {fileID: 8201743035901345200, guid: ee75b1b7b07ad444b843df2926eccb9d, type: 3}
       propertyPath: _shopOption
       value: 
-      objectReference: {fileID: 8316582340944209535, guid: f73c017269640fa4a9125e96823feb82, type: 3}
+      objectReference: {fileID: -2089113411029824522, guid: f73c017269640fa4a9125e96823feb82, type: 3}
     - target: {fileID: 8778649955743661746, guid: ee75b1b7b07ad444b843df2926eccb9d, type: 3}
       propertyPath: m_Name
       value: Shop

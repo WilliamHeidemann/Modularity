@@ -26,8 +26,8 @@ public class ShopUI : MonoBehaviour
             shopOptionClone.transform.localPosition = new Vector3(displayPosition, 0, 0);
             displayPosition += 200;
             
-            shopOptionClone.SetName("Awesome Segment");
-            shopOptionClone.SetCost("100000");
+            shopOptionClone.SetName(segment.name);
+            shopOptionClone.SetCost(segment.ConnectionPoints.OpenConnectionPoints().ToString());
         }
     }
 }
