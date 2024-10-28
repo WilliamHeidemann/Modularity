@@ -25,6 +25,8 @@ namespace Runtime.Scriptable_Objects
             _graphData.Add(position, segmentData);
 
             connections.ForEach(connection => _graphData[connection].Connections.Add(position));
+            
+            UpdateFlow(segmentData);
         }
 
         public void UpdateFlow(SegmentData segmentData)
@@ -36,6 +38,8 @@ namespace Runtime.Scriptable_Objects
     public class SegmentData
     {
         public HashSet<Vector3Int> Connections;
+        public bool TransfersBlood;
+        public bool TransfersSteam;
         public int Blood;
         public int Steam;
     }
