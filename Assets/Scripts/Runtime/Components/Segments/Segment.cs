@@ -13,29 +13,7 @@ namespace Runtime.Components.Segments
     {
         public ConnectionPoints ConnectionPoints;
         [SerializeField] private StaticSegmentData _staticData;
-
-        [SerializeField] private GameObject _upPart;
-        [SerializeField] private GameObject _downPart;
-        [SerializeField] private GameObject _rightPart;
-        [SerializeField] private GameObject _leftPart;
-        [SerializeField] private GameObject _frontPart;
-        [SerializeField] private GameObject _backPart;
-
-        private void Start()
-        {
-            EnableParts();
-        }
-
-        private void EnableParts()
-        {
-            _upPart.SetActive(ConnectionPoints.Up);
-            _downPart.SetActive(ConnectionPoints.Down);
-            _rightPart.SetActive(ConnectionPoints.Right);
-            _leftPart.SetActive(ConnectionPoints.Left);
-            _frontPart.SetActive(ConnectionPoints.Forward);
-            _backPart.SetActive(ConnectionPoints.Back);
-        }
-
+        
         public IEnumerable<Vector3Int> AdjacentPlaceholderPositions() =>
             ConnectionPoints
                 .AsVector3Ints()
