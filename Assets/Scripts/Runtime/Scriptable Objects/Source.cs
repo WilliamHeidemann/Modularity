@@ -5,7 +5,8 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu(menuName = "Source")]
     public class Source : StaticSegmentData
     {
-        public int Blood;
-        public int Steam;
+        public bool Blood;
+        public bool Steam;
+        public int Reach;
     }
 }

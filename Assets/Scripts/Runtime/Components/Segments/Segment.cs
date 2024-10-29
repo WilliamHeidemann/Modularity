@@ -5,6 +5,7 @@ using System.Linq;
 using Runtime.Components.Utility;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Runtime.Components.Segments
@@ -12,7 +13,7 @@ namespace Runtime.Components.Segments
     public class Segment : MonoBehaviour
     {
         public ConnectionPoints ConnectionPoints;
-        [SerializeField] public StaticSegmentData _staticSegmentData;
+        [SerializeField] public StaticSegmentData StaticSegmentData;
         
         public IEnumerable<Vector3Int> AdjacentPlaceholderPositions() =>
             ConnectionPoints

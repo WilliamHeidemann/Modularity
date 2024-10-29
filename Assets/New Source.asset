@@ -19,6 +19,6 @@ MonoBehaviour:
     Left: 0
     Forward: 0
     Back: 0
-  Model: 0
+  Model: 2
   Blood: 0
-  Steam: 0
+  Steam: 5

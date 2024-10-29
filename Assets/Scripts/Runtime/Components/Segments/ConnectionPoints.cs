@@ -34,5 +34,17 @@ namespace Runtime.Components.Segments
             Right = Random.value < 0.5f;
             Left = Random.value < 0.5f;
         }
+
+        public int OpenConnectionPoints()
+        {
+            int count = 0;
+            if (Up) count++;
+            if (Down) count++;
+            if (Forward) count++;
+            if (Back) count++;
+            if (Right) count++;
+            if (Left) count++;
+            return count;
+        }
     }
 }

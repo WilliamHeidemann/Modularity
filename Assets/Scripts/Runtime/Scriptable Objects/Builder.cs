@@ -21,46 +21,43 @@ namespace Runtime.Scriptable_Objects
 
         public void Build(Vector3Int position, Quaternion placeholderRotation = new())
         {
-            SpawnConnector(position, placeholderRotation);
+            SpawnSelection(position, placeholderRotation);
         }
 
-        private void SpawnConnector(Vector3 position, Quaternion rotation)
+        private void SpawnSelection(Vector3 position, Quaternion rotation)
         {
-            if (_structure.SegmentPositions.Contains(position.AsVector3Int()))
+            if (_structure.IsOpenPosition(position.AsVector3Int()))
             {
+                Debug.Log(1);
                 return;
             }
 
             if (!_resources.HasAtLeast(_selection.Price))
             {
+                Debug.Log(2);
                 return;
             }
 
-            var connector = Instantiate(_selection.Prefab, position, rotation);
             
-            if (!_structure.CanConnect(position.AsVector3Int(),connector.AdjacentPlaceholderPositions().ToHashSet()))
+            if (!_structure.ConnectsToSomething(position.AsVector3Int()))
             {
-                Destroy(connector.gameObject);
+                Debug.Log(3);
                 return;
-
             }
             // potentially remove old slot
             
+            var connector = Instantiate(_selection.Prefab, position, rotation);
             _resources.Pay(_selection.Price);
-            _structure.SegmentPositions.Add(position.AsVector3Int());
+            _structure.AddSegment(connector);
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
             
-
             //connectionpoints should not be randomized, rather defined by the prefab
             _selection.Prefab.ConnectionPoints.Randomize();
-            
-            // inform Strucuture of new segment
-            _structure.AddSegment(position.AsVector3Int(), _selection.Prefab._staticSegmentData, connector.AdjacentPlaceholderPositions().ToHashSet());
         }
 
         private void SpawnSlot(Vector3Int position)
         {
-            if (_structure.TakenPositions.Contains(position))
+            if (_structure.IsOpenPosition(position))
             {
                 return;
             }

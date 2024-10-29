@@ -12,7 +12,7 @@ namespace Runtime.Scriptable_Objects
 
         public void Build(Vector3Int position)
         {
-            if (_structure.SegmentPositions.Contains(position))
+            if (_structure.IsOpenPosition(position))
             {
                 return;
             }
