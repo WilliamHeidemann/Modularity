@@ -1,7 +1,9 @@
 using System.Linq;
+using Codice.CM.Client.Differences.Merge;
 using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityUtils;
 
@@ -33,16 +35,27 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
+
+            var connector = Instantiate(_selection.Prefab, position, rotation);
             
+            if (!_structure.CanConnect(position.AsVector3Int(),connector.AdjacentPlaceholderPositions().ToHashSet()))
+            {
+                Destroy(connector.gameObject);
+                return;
+
+            }
             // potentially remove old slot
             
             _resources.Pay(_selection.Price);
-            var connector = Instantiate(_selection.Prefab, position, rotation);
             _structure.SegmentPositions.Add(position.AsVector3Int());
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
+            
+
+            //connectionpoints should not be randomized, rather defined by the prefab
             _selection.Prefab.ConnectionPoints.Randomize();
+            
             // inform Strucuture of new segment
-            _structure.AddSegment(position.AsVector3Int(), connector.AdjacentPlaceholderPositions().ToHashSet());
+            _structure.AddSegment(position.AsVector3Int(), _selection.Prefab._staticSegmentData, connector.AdjacentPlaceholderPositions().ToHashSet());
         }
 
         private void SpawnSlot(Vector3Int position)

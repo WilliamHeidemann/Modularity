@@ -12,7 +12,7 @@ namespace Runtime.Components.Segments
     public class Segment : MonoBehaviour
     {
         public ConnectionPoints ConnectionPoints;
-        [SerializeField] private StaticSegmentData _staticData;
+        [SerializeField] public StaticSegmentData _staticSegmentData;
         
         public IEnumerable<Vector3Int> AdjacentPlaceholderPositions() =>
             ConnectionPoints

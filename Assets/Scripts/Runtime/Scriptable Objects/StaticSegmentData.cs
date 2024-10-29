@@ -8,5 +8,6 @@ namespace Runtime.Scriptable_Objects
     {
         public ConnectionPoints ConnectionPoints;
         public SegmentModel Model;
+        public int Resistance;
     }
 }
