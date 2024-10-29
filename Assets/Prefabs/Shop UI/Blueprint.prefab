@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 5223456003984329033}
   - component: {fileID: -2089113411029824522}
   m_Layer: 5
-  m_Name: SelectionButton
+  m_Name: Blueprint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,7 +402,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -419,5 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d95984128d34aa69e441366309688d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shop: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
   _itemName: {fileID: 430494262864755038}
   _itemCost: {fileID: 551687146565608898}
+  _button: {fileID: 5223456003984329033}

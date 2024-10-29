@@ -8,7 +8,7 @@ using Codice.CM.Client.Differences.Merge;
 namespace Runtime.Scriptable_Objects
 {
     [CreateAssetMenu]
-    public class Shop : ScriptableObject
+    public class Hand : ScriptableObject
     {
         // Contains information of what the player can choose between
         // as well as the cost for each option.
