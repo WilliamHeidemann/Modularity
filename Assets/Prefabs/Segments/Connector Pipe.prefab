@@ -398,12 +398,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 1
-    Down: 0
-    Right: 1
-    Left: 0
+    Down: 1
+    Right: 0
+    Left: 1
     Forward: 0
-    Back: 0
-  _staticData: {fileID: 0}
+    Back: 1
+  StaticSegmentData: {fileID: 11400000, guid: 90d7ed33866fe5546ae909bbd0a09e20, type: 2}
 --- !u!65 &4092756122483640719
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -26,22 +26,19 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnSelection(Vector3 position, Quaternion rotation)
         {
-            if (_structure.IsOpenPosition(position.AsVector3Int()))
+            if (!_structure.IsOpenPosition(position.AsVector3Int()))
             {
-                Debug.Log(1);
                 return;
             }
 
             if (!_resources.HasAtLeast(_selection.Price))
             {
-                Debug.Log(2);
                 return;
             }
 
             
             if (!_structure.ConnectsToSomething(position.AsVector3Int()))
             {
-                Debug.Log(3);
                 return;
             }
             // potentially remove old slot
@@ -57,7 +54,7 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnSlot(Vector3Int position)
         {
-            if (_structure.IsOpenPosition(position))
+            if (!_structure.IsOpenPosition(position) && !_structure.SlotPositions.Contains(position))
             {
                 return;
             }
