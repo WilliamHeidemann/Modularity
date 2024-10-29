@@ -1,5 +1,7 @@
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using System.Collections;
+using Runtime.Components.Segments;
 
 namespace Runtime.Components.Systems
 {
@@ -8,13 +10,18 @@ namespace Runtime.Components.Systems
         [SerializeField] private Blueprint[] _blueprintOptions;
         [SerializeField] private Hand _hand;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        void OnEnable()
         {
-            DisplayOptions();
+            Hand.OnDrawHand += DisplayHand;
+            DisplayHand();
         }
-    
-        void DisplayOptions()
+
+        void OnDisable()
+        {
+            Hand.OnDrawHand -= DisplayHand;
+        }
+
+        void DisplayHand()
         {
             var segments = _hand._segmentsOptions;
 

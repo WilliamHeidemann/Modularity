@@ -871,6 +871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneCanvas: {fileID: 1852522102}
   _builder: {fileID: 11400000, guid: 9943406e6d7c44b4a84bddc40a10c0b2, type: 2}
+  _hand: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
 --- !u!1001 &153451556694517331
 PrefabInstance:
   m_ObjectHideFlags: 0

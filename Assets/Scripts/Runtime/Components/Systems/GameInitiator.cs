@@ -7,10 +7,12 @@ namespace Runtime.Components.Systems
     {
         [SerializeField] private Transform _sceneCanvas;
         [SerializeField] private Builder _builder;
+        [SerializeField] private Hand _hand;
 
         private void Start()
         {
             _builder.Build(Vector3Int.zero);
+            _hand.Initialize();
         }
     }
 }

@@ -12,7 +12,6 @@ namespace Runtime.Components
 
         [SerializeField] private TextMeshProUGUI _itemName;
         [SerializeField] private TextMeshProUGUI _itemCost;
-        [SerializeField] private Button _button;
 
         public void SetName(string itemName)
         {
