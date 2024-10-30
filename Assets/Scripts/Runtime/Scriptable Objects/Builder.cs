@@ -1,9 +1,6 @@
 using System.Linq;
-using Codice.CM.Client.Differences.Merge;
 using Runtime.Components;
-using Runtime.Components.Segments;
 using Runtime.Components.Utility;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityUtils;
 
@@ -19,7 +16,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Resources _resources;
 
 
-        public void Build(Vector3Int position, Quaternion placeholderRotation = new())
+        public void Build(Vector3Int position, Quaternion placeholderRotation)
         {
             SpawnSelection(position, placeholderRotation);
         }

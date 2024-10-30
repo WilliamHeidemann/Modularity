@@ -22,8 +22,8 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = segment.StaticSegmentData,
             };
 
-            Debug.Log("Adding segment");
             _graphData.Add(segmentData);
+            Debug.Log(_graphData.Count);
         }
         
         public bool ConnectsToSomething(Vector3Int position)

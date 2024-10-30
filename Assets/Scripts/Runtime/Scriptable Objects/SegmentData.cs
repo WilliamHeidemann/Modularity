@@ -14,7 +14,7 @@ namespace Runtime.Scriptable_Objects
         public bool ConnectsTo(Vector3Int position)
         {
             // check if Position + one of the connection points is equal to the position
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
