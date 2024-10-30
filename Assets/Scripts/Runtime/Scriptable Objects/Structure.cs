@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
@@ -11,8 +10,8 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Structure : ScriptableObject
     {
-        public readonly HashSet<Vector3Int> SlotPositions = new();
-        private readonly HashSet<SegmentData> _graphData = new();
+        public List<Vector3Int> SlotPositions = new();
+        [SerializeField] private List<SegmentData> _graphData = new();
 
         public void AddSegment(Segment segment)
         {
@@ -23,6 +22,7 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = segment.StaticSegmentData,
             };
 
+            Debug.Log("Adding segment");
             _graphData.Add(segmentData);
         }
         
@@ -45,18 +45,6 @@ namespace Runtime.Scriptable_Objects
         {
             SlotPositions.Clear();
             _graphData.Clear();
-        }
-    }
-
-    public class SegmentData
-    {
-        public Vector3Int Position;
-        public Quaternion Rotation;
-        public StaticSegmentData StaticSegmentData;
-        
-        public bool ConnectsTo(Vector3Int position)
-        {
-            return StaticSegmentData.ConnectionPoints.AsVector3Ints().Contains(position - Position);
         }
     }
 }
