@@ -11,8 +11,8 @@ namespace Runtime.Components.Systems
 
         private void Start()
         {
-            _builder.Build(Vector3Int.zero, Quaternion.identity);
             _structure.Clear();
+            _builder.Build(Vector3Int.zero, Quaternion.identity);
         }
     }
 }
