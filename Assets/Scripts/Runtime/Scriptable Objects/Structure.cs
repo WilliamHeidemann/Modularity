@@ -18,7 +18,7 @@ namespace Runtime.Scriptable_Objects
 
         public bool ConnectsToSomething(SegmentData segmentData)
         {
-            var connectionPoints = segmentData.GetConnectionPoints().ToList();
+            var connectionPoints = segmentData.GetConnectionPoints();
             return _graphData.Any(data => data.GetConnectionPoints().Any(connectionPoints.Contains));
         }
         public bool IsEmpty => _graphData.Count == 0;
