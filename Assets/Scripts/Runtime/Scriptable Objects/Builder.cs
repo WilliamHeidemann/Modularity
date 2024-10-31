@@ -32,18 +32,24 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
-
             
-            if (!_structure.ConnectsToSomething(position.AsVector3Int()))
+            var segmentData = new SegmentData
+            {
+                Position = position.AsVector3Int(),
+                Rotation = rotation,
+                StaticSegmentData = _selection.Prefab.StaticSegmentData,
+            };
+            
+            if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData))
             {
                 return;
             }
             // potentially remove old slot
             
             var connector = Instantiate(_selection.Prefab, position, rotation);
+            segmentData.GetConnectionPoints().ForEach(SpawnSlot);
+            _structure.AddSegment(segmentData);
             _resources.Pay(_selection.Price);
-            _structure.AddSegment(connector);
-            connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
             
             //connectionpoints should not be randomized, rather defined by the prefab
             _selection.Prefab.StaticSegmentData.ConnectionPoints.Randomize();
@@ -51,13 +57,12 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnSlot(Vector3Int position)
         {
-            if (!_structure.IsOpenPosition(position) && !_structure.SlotPositions.Contains(position))
+            if (!_structure.IsOpenSlotPosition(position))
             {
                 return;
             }
             var slot = Instantiate(_slotPrefab, position, Quaternion.identity);
             slot.Position = position;
-            _structure.SlotPositions.Add(position);
         }
     }
 }

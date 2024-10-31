@@ -13,12 +13,5 @@ namespace Runtime.Components.Segments
     public class Segment : MonoBehaviour
     {
         [SerializeField] public StaticSegmentData StaticSegmentData;
-        
-        public IEnumerable<Vector3Int> AdjacentPlaceholderPositions() =>
-            StaticSegmentData.ConnectionPoints
-                .AsVector3Ints()
-                .Select(direction => transform.TransformDirection(direction))
-                .Select(direction => direction.AsVector3Int())
-                .Select(direction => transform.position.AsVector3Int() + direction);
     }
 }

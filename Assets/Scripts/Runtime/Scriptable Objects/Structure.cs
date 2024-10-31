@@ -11,41 +11,41 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Structure : ScriptableObject
     {
-        public List<Vector3Int> SlotPositions = new();
         [SerializeField] private List<SegmentData> _graphData = new();
 
-        public void AddSegment(Segment segment)
-        {
-            var segmentData = new SegmentData
-            {
-                Position = segment.transform.position.AsVector3Int(),
-                Rotation = segment.transform.rotation,
-                StaticSegmentData = segment.StaticSegmentData,
-            };
+        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
 
-            _graphData.Add(segmentData);
-            Debug.Log(_graphData.Count);
-        }
-        
-        public bool ConnectsToSomething(Vector3Int position)
+        public bool ConnectsToSomething(SegmentData segmentData)
         {
-            if (_graphData.Count == 0)
-            {
-                return true;
-            }
-            
-            return _graphData.Any(data => data.ConnectsTo(position));
+            return _graphData.Any(data => CanConnect(segmentData, data));
         }
 
-        public bool IsOpenPosition(Vector3Int position)
+        public bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
-            return _graphData.All(data => data.Position != position);
+            var from1To2 = segmentData1.GetConnectionPoints().Contains(segmentData2.Position);
+            var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
+            return from1To2 && from2To1;
         }
         
+        public IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
+        {
+            var connectionsOneWay = _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
+            return connectionsOneWay.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
+        }
+        
+        public bool IsEmpty => _graphData.Count == 0;
+        public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
+
         public void Clear()
         {
-            SlotPositions.Clear();
             _graphData.Clear();
+        }
+
+        public bool IsOpenSlotPosition(Vector3Int position)
+        {
+            var isOpenPosition = IsOpenPosition(position);
+            var isSlotPosition = _graphData.Any(data => data.GetConnectionPoints().Contains(position));
+            return isOpenPosition && !isSlotPosition;
         }
     }
 }
