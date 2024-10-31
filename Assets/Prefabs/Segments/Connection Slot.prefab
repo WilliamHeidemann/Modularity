@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4562614931737750660}
-  - component: {fileID: 7253802254809535642}
   - component: {fileID: 5548665999734910545}
+  - component: {fileID: 2670460728862133838}
   m_Layer: 0
   m_Name: Connection Slot
   m_TagString: Untagged
@@ -34,8 +34,23 @@ Transform:
   - {fileID: 260357405765624978}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7253802254809535642
-BoxCollider:
+--- !u!114 &5548665999734910545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5443798518834137292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0535a4ad16443aba1ef90ffa386ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _builder: {fileID: 11400000, guid: 9943406e6d7c44b4a84bddc40a10c0b2, type: 2}
+  _placeHolderBuilder: {fileID: 11400000, guid: b64ebe420f6c3aa46a0cebb265fbd019, type: 2}
+  Position: {x: 0, y: 0, z: 0}
+--- !u!135 &2670460728862133838
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -53,23 +68,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5548665999734910545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5443798518834137292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d0535a4ad16443aba1ef90ffa386ff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _builder: {fileID: 11400000, guid: 9943406e6d7c44b4a84bddc40a10c0b2, type: 2}
-  _placeHolderBuilder: {fileID: 11400000, guid: b64ebe420f6c3aa46a0cebb265fbd019, type: 2}
-  Position: {x: 0, y: 0, z: 0}
 --- !u!1001 &4417435746552199133
 PrefabInstance:
   m_ObjectHideFlags: 0

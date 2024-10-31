@@ -30,7 +30,7 @@ namespace Runtime.Components
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireCube(transform.position, Vector3.one);
+            Gizmos.DrawWireSphere(transform.position, 0.3f);
         }
     }
 }
