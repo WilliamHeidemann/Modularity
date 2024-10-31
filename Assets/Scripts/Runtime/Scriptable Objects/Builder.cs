@@ -1,5 +1,5 @@
+using System.Linq;
 using Runtime.Components;
-using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
 using UnityUtils;
@@ -16,14 +16,14 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Resources _resources;
 
 
-        public void Build(Vector3Int position, Quaternion placeholderRotation = new())
+        public void Build(Vector3Int position, Quaternion placeholderRotation)
         {
-            SpawnConnector(position, placeholderRotation);
+            SpawnSelection(position, placeholderRotation);
         }
 
-        private void SpawnConnector(Vector3 position, Quaternion rotation)
+        private void SpawnSelection(Vector3 position, Quaternion rotation)
         {
-            if (_structure.SegmentPositions.Contains(position.AsVector3Int()))
+            if (!_structure.IsOpenPosition(position.AsVector3Int()))
             {
                 return;
             }
@@ -32,19 +32,26 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
+
             
+            if (!_structure.ConnectsToSomething(position.AsVector3Int()))
+            {
+                return;
+            }
             // potentially remove old slot
             
-            _resources.Pay(_selection.Price);
             var connector = Instantiate(_selection.Prefab, position, rotation);
-            _structure.SegmentPositions.Add(position.AsVector3Int());
+            _resources.Pay(_selection.Price);
+            _structure.AddSegment(connector);
             connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
+            
+            //connectionpoints should not be randomized, rather defined by the prefab
             _selection.Prefab.ConnectionPoints.Randomize();
         }
 
         private void SpawnSlot(Vector3Int position)
         {
-            if (_structure.TakenPositions.Contains(position))
+            if (!_structure.IsOpenPosition(position) && !_structure.SlotPositions.Contains(position))
             {
                 return;
             }

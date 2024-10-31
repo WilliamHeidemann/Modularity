@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 927145117438815657}
   - component: {fileID: 4404823909993285501}
   - component: {fileID: 4092756122483640719}
+  - component: {fileID: -6095561410662133319}
   m_Layer: 0
   m_Name: Connector Pipe
   m_TagString: Untagged
@@ -397,17 +398,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 1
-    Down: 0
-    Right: 1
-    Left: 0
+    Down: 1
+    Right: 0
+    Left: 1
     Forward: 0
-    Back: 0
-  _upPart: {fileID: 66808701926144769}
-  _downPart: {fileID: 7717625010711597283}
-  _rightPart: {fileID: 58479222777805977}
-  _leftPart: {fileID: 8802275633607158688}
-  _frontPart: {fileID: 965716751177777920}
-  _backPart: {fileID: 5643238858866509600}
+    Back: 1
+  StaticSegmentData: {fileID: 11400000, guid: 90d7ed33866fe5546ae909bbd0a09e20, type: 2}
 --- !u!65 &4092756122483640719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -429,6 +425,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6095561410662133319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232087903907245791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23908d5e28885b749b73d224da27b40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _segment: {fileID: 4404823909993285501}
+  _upPart: {fileID: 66808701926144769}
+  _downPart: {fileID: 7717625010711597283}
+  _rightPart: {fileID: 58479222777805977}
+  _leftPart: {fileID: 8802275633607158688}
+  _frontPart: {fileID: 965716751177777920}
+  _backPart: {fileID: 5643238858866509600}
 --- !u!1 &7717625010711597283
 GameObject:
   m_ObjectHideFlags: 0
