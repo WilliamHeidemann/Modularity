@@ -50,9 +50,6 @@ namespace Runtime.Scriptable_Objects
             segmentData.GetConnectionPoints().ForEach(SpawnSlot);
             _structure.AddSegment(segmentData);
             _resources.Pay(_selection.Price);
-            
-            //connectionpoints should not be randomized, rather defined by the prefab
-            _selection.Prefab.StaticSegmentData.ConnectionPoints.Randomize();
         }
 
         private void SpawnSlot(Vector3Int position)
