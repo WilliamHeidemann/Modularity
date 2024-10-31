@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 using System.Collections.Generic;
 using Codice.CM.Client.Differences.Merge;
 using Runtime.Components.Systems;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -27,10 +28,9 @@ namespace Runtime.Scriptable_Objects
             GenerateHand();
         }
 
-
         public void SelectBlueprint(int chosenSegment)
         {
-            _selection.Prefab = _segmentsOptions[chosenSegment];
+            _selection.Prefab = Option<Segment>.Some(_segmentsOptions[chosenSegment]);
             _selection.Price = _segmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
         }
 
