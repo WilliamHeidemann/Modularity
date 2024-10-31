@@ -25,14 +25,16 @@ namespace Runtime.Components.Segments
             if (Left) yield return Vector3Int.left;
         }
 
-        public void Randomize()
+        public int OpenConnectionPoints()
         {
-            Up = Random.value < 0.5f;
-            Down = Random.value < 0.5f;
-            Forward = Random.value < 0.5f;
-            Back = Random.value < 0.5f;
-            Right = Random.value < 0.5f;
-            Left = Random.value < 0.5f;
+            int count = 0;
+            if (Up) count++;
+            if (Down) count++;
+            if (Forward) count++;
+            if (Back) count++;
+            if (Right) count++;
+            if (Left) count++;
+            return count;
         }
     }
 }
