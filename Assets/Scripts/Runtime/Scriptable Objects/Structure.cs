@@ -18,9 +18,22 @@ namespace Runtime.Scriptable_Objects
 
         public bool ConnectsToSomething(SegmentData segmentData)
         {
-            var connectionPoints = segmentData.GetConnectionPoints();
-            return _graphData.Any(data => data.GetConnectionPoints().Any(connectionPoints.Contains));
+            return _graphData.Any(data => CanConnect(segmentData, data));
         }
+
+        public bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
+        {
+            var from1To2 = segmentData1.GetConnectionPoints().Contains(segmentData2.Position);
+            var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
+            return from1To2 && from2To1;
+        }
+        
+        public IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
+        {
+            var connectionsOneWay = _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
+            return connectionsOneWay.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
+        }
+        
         public bool IsEmpty => _graphData.Count == 0;
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
 
