@@ -41,8 +41,11 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = _selection.Prefab.StaticSegmentData,
             };
             
+            segmentData.GetConnectionPoints().ForEach(i => Debug.Log(i));
+            
             if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData))
             {
+                Debug.Log("Cannot connect to anything");
                 return;
             }
             // potentially remove old slot
@@ -56,7 +59,7 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)
         {
-            if (!_structure.IsOpenSlotPosition(slotPosition.AsVector3Int()))
+            if (!_structure.IsOpenPosition(slotPosition.AsVector3Int()))
             {
                 return;
             }
