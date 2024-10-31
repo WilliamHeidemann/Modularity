@@ -39,12 +39,5 @@ namespace Runtime.Scriptable_Objects
         {
             _graphData.Clear();
         }
-
-        public bool IsOpenSlotPosition(Vector3Int position)
-        {
-            var isOpenPosition = IsOpenPosition(position);
-            var isSlotPosition = _graphData.Any(data => data.GetConnectionPoints().Contains(position));
-            return isOpenPosition && !isSlotPosition;
-        }
     }
 }

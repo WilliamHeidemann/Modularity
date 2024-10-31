@@ -35,6 +35,7 @@ namespace Runtime.Scriptable_Objects
 
         public Quaternion PlaceholderRotation()
         {
+            Debug.Log(_placeHolder.IsSome(out var _));
             return _placeHolder.IsSome(out var segment) ? segment.transform.rotation : Quaternion.identity;
         }
 

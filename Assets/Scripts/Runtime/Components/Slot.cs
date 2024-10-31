@@ -24,8 +24,8 @@ namespace Runtime.Components
 
         private void OnMouseDown()
         {
-            _placeHolderBuilder.TearDown();
             _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
+            _placeHolderBuilder.TearDown();
         }
 
         private void OnDrawGizmos()
