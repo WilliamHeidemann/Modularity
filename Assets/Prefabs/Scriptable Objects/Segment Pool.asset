@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e743a446bd9e9b74d84e2be7c41c40b0, type: 3}
+  m_Name: Segment Pool
+  m_EditorClassIdentifier: 
+  _segmentPool:
+  - {fileID: 4404823909993285501, guid: efd02dfe0f88c76418c58830459c6c9c, type: 3}
+  - {fileID: 4404823909993285501, guid: ca64daa39572ff643b8f3266ca967066, type: 3}
+  - {fileID: 4404823909993285501, guid: 8485299b55408e245aad7a054e182498, type: 3}
+  - {fileID: 4404823909993285501, guid: 1ab25dbad6b7cf947874b905ece4c921, type: 3}
+  - {fileID: 4404823909993285501, guid: 385b323a98496ad4ca5754dac94fda65, type: 3}
+  - {fileID: 4404823909993285501, guid: 16eec6b3bbb22e541b70d0b5366b794d, type: 3}
+  - {fileID: 4404823909993285501, guid: e29cb256dd950d94c87b85cd13f8cedc, type: 3}
+  - {fileID: 4404823909993285501, guid: a9db3585fa95fe9488bbdfa243e1797c, type: 3}
