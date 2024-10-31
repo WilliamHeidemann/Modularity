@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Simple Connector
   m_EditorClassIdentifier: 
   ConnectionPoints:
-    Up: 0
+    Up: 1
     Down: 0
     Right: 0
-    Left: 0
+    Left: 1
     Forward: 0
     Back: 0
   Model: 4
