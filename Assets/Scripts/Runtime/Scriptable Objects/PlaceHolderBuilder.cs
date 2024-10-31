@@ -1,5 +1,6 @@
 using Runtime.Components.Segments;
 using UnityEngine;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -8,7 +9,7 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
-        private Segment _placeHolder;
+        private Option<Segment> _placeHolder;
 
         public void Build(Vector3Int position)
         {
@@ -18,34 +19,35 @@ namespace Runtime.Scriptable_Objects
             }
 
             TearDown();
-            _placeHolder = Instantiate(_selection.Prefab, position, Quaternion.identity);
+            var placeHolder = Instantiate(_selection.Prefab, position, Quaternion.identity);
+            placeHolder.GetComponent<BoxCollider>().enabled = false;
+            _placeHolder = Option<Segment>.Some(placeHolder);
         }
 
         public void TearDown()
         {
-            if (_placeHolder != null)
+            if (_placeHolder.IsSome(out var segment))
             {
-                Destroy(_placeHolder.gameObject);
+                Destroy(segment.gameObject);
             }
+            _placeHolder = Option<Segment>.None;
         }
 
         public Quaternion PlaceholderRotation()
         {
-            return _placeHolder == null 
-                ? Quaternion.identity 
-                : _placeHolder.transform.rotation;
+            return _placeHolder.IsSome(out var segment) ? segment.transform.rotation : Quaternion.identity;
         }
 
         public void RotateOnY() => Rotate(Vector3.up);
         public void RotateOnX() => Rotate(Vector3.right);
         private void Rotate(Vector3 axis)
         {
-            if (_placeHolder == null)
+            if (!_placeHolder.IsSome(out var segment))
             {
                 return;
             }
-
-            _placeHolder.transform.Rotate(axis, 90, Space.World);
+            
+            segment.transform.Rotate(axis, 90, Space.World);
         }
     }
 }
