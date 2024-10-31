@@ -2,7 +2,6 @@ using Runtime.Components.Segments;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
-using UtilityToolkit.Runtime;
 using Codice.CM.Client.Differences.Merge;
 
 namespace Runtime.Scriptable_Objects
@@ -11,16 +10,16 @@ namespace Runtime.Scriptable_Objects
     public class Hand : ScriptableObject
     {
         [SerializeField] private Selection _selection;
+        [SerializeField] private SegmentPool _pool;
 
         //the segments that the player can choose from
         public Segment[] _segmentsOptions;
-        [SerializeField] private List<Segment> _pool;
 
         public int _optionsCount = 3;
 
         public void Awake()
         {
-            _segmentsOptions = new Segment[3];
+            _segmentsOptions = new Segment[_optionsCount];
             GenerateOptions();
         }
 
@@ -34,7 +33,9 @@ namespace Runtime.Scriptable_Objects
         {
             for(int i = 0; i < _optionsCount; i++)
             {
-                _segmentsOptions[i] = _pool.RandomElement();
+                Segment segment = _pool.GetRandomSegment();
+                _segmentsOptions[i] = segment;
+                Debug.Log("Choosen segment. " + segment);
             }
         }
     }

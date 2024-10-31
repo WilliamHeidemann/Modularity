@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7de8d126de446b2ae54a39c7211ebf8, type: 3}
-  m_Name: Selection
+  m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
+  m_Name: Connector Union
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 4404823909993285501, guid: 16eec6b3bbb22e541b70d0b5366b794d, type: 3}
-  Price: 0
+  ConnectionPoints:
+    Up: 1
+    Down: 1
+    Right: 0
+    Left: 0
+    Forward: 0
+    Back: 0
+  Model: 4
+  Resistance: 0
