@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Runtime.Components.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -10,11 +13,16 @@ namespace Runtime.Scriptable_Objects
         public Vector3Int Position;
         public Quaternion Rotation;
         public StaticSegmentData StaticSegmentData;
-        
-        public bool ConnectsTo(Vector3Int position)
+
+        public IEnumerable<Vector3Int> GetConnectionPoints() =>
+            StaticSegmentData.ConnectionPoints
+                .AsVector3Ints()
+                .Select(TransformDirection)
+                .Select(direction => Position + direction);
+
+        private Vector3Int TransformDirection(Vector3Int direction)
         {
-            // check if Position + one of the connection points is equal to the position
-            return true;
+            return Vector3Int.RoundToInt(Rotation * direction);
         }
     }
 }

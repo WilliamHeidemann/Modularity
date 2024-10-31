@@ -17,7 +17,7 @@ MonoBehaviour:
     Down: 1
     Right: 0
     Left: 1
-    Forward: 1
-    Back: 0
+    Forward: 0
+    Back: 1
   Model: 7
   Resistance: 0
