@@ -21,7 +21,7 @@ namespace Runtime.Scriptable_Objects
 
         public int _optionsCount = 3;
 
-        private void Awake()
+        public void Initialize()
         {
             _segmentsOptions = new Segment[_optionsCount];
             GenerateHand();
