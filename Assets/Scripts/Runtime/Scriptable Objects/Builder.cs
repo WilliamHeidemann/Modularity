@@ -14,6 +14,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
         [SerializeField] private Resources _resources;
+        [SerializeField] private Hand _hand;
 
 
         public void Build(Vector3Int position, Quaternion placeholderRotation)
@@ -50,6 +51,7 @@ namespace Runtime.Scriptable_Objects
             segmentData.GetConnectionPoints().ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             _resources.Pay(_selection.Price);
+            _hand.GenerateHand();
         }
 
         private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)

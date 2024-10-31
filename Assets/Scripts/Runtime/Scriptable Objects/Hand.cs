@@ -32,8 +32,6 @@ namespace Runtime.Scriptable_Objects
         {
             _selection.Prefab = _segmentsOptions[chosenSegment];
             _selection.Price = _segmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
-
-            GenerateHand();
         }
 
         public void GenerateHand()
@@ -42,7 +40,6 @@ namespace Runtime.Scriptable_Objects
             {
                 Segment segment = _pool.GetRandomSegment();
                 _segmentsOptions[i] = segment;
-                Debug.Log("Choosen segment. " + segment);
             }
             OnDrawHand?.Invoke();
         }
