@@ -2,7 +2,6 @@ using Runtime.Components.Segments;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
-using Codice.CM.Client.Differences.Merge;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -35,7 +34,6 @@ namespace Runtime.Scriptable_Objects
             {
                 Segment segment = _pool.GetRandomSegment();
                 _segmentsOptions[i] = segment;
-                Debug.Log("Choosen segment. " + segment);
             }
         }
     }
