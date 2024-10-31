@@ -21,7 +21,7 @@ namespace Runtime.Components.Systems
             for (int i = 0; i < _blueprintOptions.Length; i++)
             {
                 _blueprintOptions[i].SetName(segments[i].name);
-                _blueprintOptions[i].SetCost(segments[i].ConnectionPoints.OpenConnectionPoints().ToString());
+                _blueprintOptions[i].SetCost(segments[i].StaticSegmentData.ConnectionPoints.OpenConnectionPoints().ToString());
             }
         }
     }
