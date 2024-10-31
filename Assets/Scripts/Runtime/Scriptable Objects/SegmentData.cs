@@ -22,10 +22,7 @@ namespace Runtime.Scriptable_Objects
 
         private Vector3Int TransformDirection(Vector3Int direction)
         {
-            var rotation = Rotation.eulerAngles;
-            var x = direction.x * Mathf.Cos(rotation.y) - direction.z * Mathf.Sin(rotation.y);
-            var z = direction.x * Mathf.Sin(rotation.y) + direction.z * Mathf.Cos(rotation.y);
-            return new Vector3Int((int) x, direction.y, (int) z);
+            return Vector3Int.RoundToInt(Rotation * direction);
         }
     }
 }
