@@ -14,11 +14,7 @@ namespace Runtime.Scriptable_Objects
         public List<Vector3Int> SlotPositions = new();
         [SerializeField] private List<SegmentData> _graphData = new();
 
-        public void AddSegment(SegmentData segmentData)
-        {
-            _graphData.Add(segmentData);
-        }
-        
+        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
         public bool ConnectsToSomething(SegmentData segmentData) => _graphData.Any(data => true);
         public bool IsEmpty => _graphData.Count == 0;
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
