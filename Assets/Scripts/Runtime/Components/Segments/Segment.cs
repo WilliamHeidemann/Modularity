@@ -12,11 +12,10 @@ namespace Runtime.Components.Segments
 {
     public class Segment : MonoBehaviour
     {
-        public ConnectionPoints ConnectionPoints;
         [SerializeField] public StaticSegmentData StaticSegmentData;
         
         public IEnumerable<Vector3Int> AdjacentPlaceholderPositions() =>
-            ConnectionPoints
+            StaticSegmentData.ConnectionPoints
                 .AsVector3Ints()
                 .Select(direction => transform.TransformDirection(direction))
                 .Select(direction => direction.AsVector3Int())

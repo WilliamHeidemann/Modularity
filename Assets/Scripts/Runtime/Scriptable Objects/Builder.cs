@@ -52,7 +52,7 @@ namespace Runtime.Scriptable_Objects
             _resources.Pay(_selection.Price);
             
             //connectionpoints should not be randomized, rather defined by the prefab
-            _selection.Prefab.ConnectionPoints.Randomize();
+            _selection.Prefab.StaticSegmentData.ConnectionPoints.Randomize();
         }
 
         private void SpawnSlot(Vector3Int position)
