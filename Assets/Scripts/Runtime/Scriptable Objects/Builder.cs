@@ -47,19 +47,21 @@ namespace Runtime.Scriptable_Objects
             // potentially remove old slot
             
             var connector = Instantiate(_selection.Prefab, position, rotation);
-            segmentData.GetConnectionPoints().ForEach(SpawnSlot);
+            segmentData.GetConnectionPoints().ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             _resources.Pay(_selection.Price);
         }
 
-        private void SpawnSlot(Vector3Int position)
+        private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)
         {
-            if (!_structure.IsOpenSlotPosition(position))
+            if (!_structure.IsOpenSlotPosition(slotPosition.AsVector3Int()))
             {
                 return;
             }
-            var slot = Instantiate(_slotPrefab, position, Quaternion.identity);
-            slot.Position = position;
+
+            var spawnPosition = (segmentPosition + slotPosition) / 2f;
+            var slot = Instantiate(_slotPrefab, spawnPosition, Quaternion.identity);
+            slot.Position = slotPosition.AsVector3Int();
         }
     }
 }
