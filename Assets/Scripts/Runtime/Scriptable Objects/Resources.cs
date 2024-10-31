@@ -8,6 +8,11 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private int _gears;
 
+        public int GetGearAmount()
+        {
+            return _gears;
+        }
+
         public void Add(int amount)
         {
             _gears += amount;
