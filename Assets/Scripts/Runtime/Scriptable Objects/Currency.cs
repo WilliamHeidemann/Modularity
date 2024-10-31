@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Runtime.Scriptable_Objects
 {
     [CreateAssetMenu]
-    public class Resources : ScriptableObject
+    public class Currency : ScriptableObject
     {
         [SerializeField] private int _gears;
 

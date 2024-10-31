@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5241d74ec2454fed9c0d16d7f0257b73, type: 3}
-  m_Name: Resources
+  m_Script: {fileID: 11500000, guid: 1225b811dcb3a8042815f8487495c2c1, type: 3}
+  m_Name: Currencies
   m_EditorClassIdentifier: 
-  _gears: 1811
+  _gears: 100

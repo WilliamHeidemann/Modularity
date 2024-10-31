@@ -1,16 +1,15 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
-public class ResourceUI : MonoBehaviour
+public class CurrencyUI : MonoBehaviour
 {
-    [SerializeField] private Resources _resources;
+    [SerializeField] private Currency _currency;
     [SerializeField] private TextMeshProUGUI _gearText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //_gearText.text = _resources.GetGearAmount().ToString();
+        _gearText.text = _currency.GetGearAmount().ToString();
     }
 
     // Update is called once per frame

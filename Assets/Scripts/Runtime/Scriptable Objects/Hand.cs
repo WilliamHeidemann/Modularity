@@ -15,6 +15,7 @@ namespace Runtime.Scriptable_Objects
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
+        [SerializeField] private Currency _currency;
 
         //the segments that the player can choose from
         public Segment[] _segmentsOptions;

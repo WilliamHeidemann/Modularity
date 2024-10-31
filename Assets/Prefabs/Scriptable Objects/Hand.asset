@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _pool: {fileID: 11400000, guid: 8491676f10891e440994c3895a379feb, type: 2}
-  _segmentsOptions: []
+  _currency: {fileID: 11400000, guid: 3f3ec8eae2d071c4fb65f96eb73a56ce, type: 2}
+  _segmentsOptions:
+  - {fileID: 4404823909993285501, guid: 16eec6b3bbb22e541b70d0b5366b794d, type: 3}
+  - {fileID: 4404823909993285501, guid: 8485299b55408e245aad7a054e182498, type: 3}
+  - {fileID: 4404823909993285501, guid: efd02dfe0f88c76418c58830459c6c9c, type: 3}
   _optionsCount: 3
