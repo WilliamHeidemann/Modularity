@@ -15,7 +15,12 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private List<SegmentData> _graphData = new();
 
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
-        public bool ConnectsToSomething(SegmentData segmentData) => _graphData.Any(data => true);
+
+        public bool ConnectsToSomething(SegmentData segmentData)
+        {
+            var connectionPoints = segmentData.GetConnectionPoints().ToList();
+            return _graphData.Any(data => data.GetConnectionPoints().Any(connectionPoints.Contains));
+        }
         public bool IsEmpty => _graphData.Count == 0;
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
 

@@ -47,7 +47,7 @@ namespace Runtime.Scriptable_Objects
             // potentially remove old slot
             
             var connector = Instantiate(_selection.Prefab, position, rotation);
-            connector.AdjacentPlaceholderPositions().ForEach(SpawnSlot);
+            segmentData.GetConnectionPoints().ForEach(SpawnSlot);
             _structure.AddSegment(segmentData);
             _resources.Pay(_selection.Price);
             
