@@ -13,6 +13,7 @@ namespace Runtime.Scriptable_Objects
         public Vector3Int Position;
         public Quaternion Rotation;
         public StaticSegmentData StaticSegmentData;
+        public bool isActive;
 
         public IEnumerable<Vector3Int> GetConnectionPoints() =>
             StaticSegmentData.ConnectionPoints
@@ -23,6 +24,10 @@ namespace Runtime.Scriptable_Objects
         private Vector3Int TransformDirection(Vector3Int direction)
         {
             return Vector3Int.RoundToInt(Rotation * direction);
+        }
+        public void Activate(int power)
+        {
+            Debug.Log("segment at " + Position + " has been activated with " + power + " power");
         }
     }
 }

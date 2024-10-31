@@ -1,3 +1,4 @@
+using System;
 using Runtime.Components.Segments;
 using UnityEngine;
 
@@ -8,6 +9,10 @@ namespace Runtime.Scriptable_Objects
     {
         public ConnectionPoints ConnectionPoints;
         public SegmentModel Model;
+        public bool Blood;
+        public bool Steam;
         public int Resistance;
+        public int Power;
+
     }
 }
