@@ -24,13 +24,13 @@ namespace Runtime.Components
 
         private void OnMouseDown()
         {
-            _placeHolderBuilder.TearDown();
             _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
+            _placeHolderBuilder.TearDown();
         }
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireCube(transform.position, Vector3.one);
+            Gizmos.DrawWireSphere(transform.position, 0.3f);
         }
     }
 }

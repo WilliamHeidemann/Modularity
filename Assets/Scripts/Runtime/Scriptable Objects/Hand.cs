@@ -2,12 +2,17 @@ using Runtime.Components.Segments;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using Codice.CM.Client.Differences.Merge;
+using Runtime.Components.Systems;
 
 namespace Runtime.Scriptable_Objects
 {
     [CreateAssetMenu]
     public class Hand : ScriptableObject
     {
+        public delegate void DrawHand();
+        public static event DrawHand OnDrawHand;
+
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
 
@@ -16,25 +21,27 @@ namespace Runtime.Scriptable_Objects
 
         public int _optionsCount = 3;
 
-        public void Awake()
+        public void Initialize()
         {
             _segmentsOptions = new Segment[_optionsCount];
-            GenerateOptions();
+            GenerateHand();
         }
 
-        public void SelectSegment(int chosenSegment)
+
+        public void SelectBlueprint(int chosenSegment)
         {
             _selection.Prefab = _segmentsOptions[chosenSegment];
             _selection.Price = _segmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
         }
 
-        public void GenerateOptions()
+        public void GenerateHand()
         {
             for(int i = 0; i < _optionsCount; i++)
             {
                 Segment segment = _pool.GetRandomSegment();
                 _segmentsOptions[i] = segment;
             }
+            OnDrawHand?.Invoke();
         }
     }
 }
