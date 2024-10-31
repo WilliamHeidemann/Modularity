@@ -57,13 +57,12 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnSlot(Vector3Int position)
         {
-            if (!_structure.IsOpenPosition(position) && !_structure.SlotPositions.Contains(position))
+            if (!_structure.IsOpenSlotPosition(position))
             {
                 return;
             }
             var slot = Instantiate(_slotPrefab, position, Quaternion.identity);
             slot.Position = position;
-            _structure.SlotPositions.Add(position);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Structure : ScriptableObject
     {
-        public List<Vector3Int> SlotPositions = new();
         [SerializeField] private List<SegmentData> _graphData = new();
 
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
@@ -39,8 +38,14 @@ namespace Runtime.Scriptable_Objects
 
         public void Clear()
         {
-            SlotPositions.Clear();
             _graphData.Clear();
+        }
+
+        public bool IsOpenSlotPosition(Vector3Int position)
+        {
+            var isOpenPosition = IsOpenPosition(position);
+            var isSlotPosition = _graphData.Any(data => data.GetConnectionPoints().Contains(position));
+            return isOpenPosition && !isSlotPosition;
         }
     }
 }
