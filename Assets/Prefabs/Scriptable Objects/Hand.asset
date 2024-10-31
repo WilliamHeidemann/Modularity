@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Hand
   m_EditorClassIdentifier: 
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
+  _pool: {fileID: 11400000, guid: 8491676f10891e440994c3895a379feb, type: 2}
   _segmentsOptions:
-  - {fileID: 4404823909993285501, guid: 746a7a06464a2414ab6e1fc6738870bc, type: 3}
-  - {fileID: 4404823909993285501, guid: 746a7a06464a2414ab6e1fc6738870bc, type: 3}
-  - {fileID: 4404823909993285501, guid: 746a7a06464a2414ab6e1fc6738870bc, type: 3}
-  _pool:
-  - {fileID: 4404823909993285501, guid: 746a7a06464a2414ab6e1fc6738870bc, type: 3}
+  - {fileID: 4404823909993285501, guid: 1ab25dbad6b7cf947874b905ece4c921, type: 3}
+  - {fileID: 4404823909993285501, guid: 385b323a98496ad4ca5754dac94fda65, type: 3}
+  - {fileID: 4404823909993285501, guid: 16eec6b3bbb22e541b70d0b5366b794d, type: 3}
   _optionsCount: 3
