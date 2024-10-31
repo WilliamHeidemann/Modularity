@@ -16,11 +16,11 @@ public class Pipe : MonoBehaviour
 
     private void EnableParts()
     {
-        _upPart.SetActive(_segment.ConnectionPoints.Up);
-        _downPart.SetActive(_segment.ConnectionPoints.Down);
-        _rightPart.SetActive(_segment.ConnectionPoints.Right);
-        _leftPart.SetActive(_segment.ConnectionPoints.Left);
-        _frontPart.SetActive(_segment.ConnectionPoints.Forward);
-        _backPart.SetActive(_segment.ConnectionPoints.Back);
+        _upPart.SetActive(_segment.StaticSegmentData.ConnectionPoints.Up);
+        _downPart.SetActive(_segment.StaticSegmentData.ConnectionPoints.Down);
+        _rightPart.SetActive(_segment.StaticSegmentData.ConnectionPoints.Right);
+        _leftPart.SetActive(_segment.StaticSegmentData.ConnectionPoints.Left);
+        _frontPart.SetActive(_segment.StaticSegmentData.ConnectionPoints.Forward);
+        _backPart.SetActive(_segment.StaticSegmentData.ConnectionPoints.Back);
     }
 }

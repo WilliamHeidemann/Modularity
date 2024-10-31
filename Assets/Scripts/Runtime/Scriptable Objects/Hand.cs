@@ -27,7 +27,7 @@ namespace Runtime.Scriptable_Objects
         public void SelectSegment(int chosenSegment)
         {
             _selection.Prefab = _segmentsOptions[chosenSegment];
-            _selection.Price = _segmentsOptions[chosenSegment].ConnectionPoints.OpenConnectionPoints();
+            _selection.Price = _segmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
         }
 
         public void GenerateOptions()
