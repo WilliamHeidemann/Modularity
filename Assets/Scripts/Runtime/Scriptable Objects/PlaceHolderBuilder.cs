@@ -17,9 +17,14 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
+            
+            if (!_selection.Prefab.IsSome(out var selectedSegment))
+            {
+                return;
+            }
 
             TearDown();
-            var placeHolder = Instantiate(_selection.Prefab, position, Quaternion.identity);
+            var placeHolder = Instantiate(selectedSegment, position, Quaternion.identity);
             placeHolder.GetComponent<BoxCollider>().enabled = false;
             _placeHolder = Option<Segment>.Some(placeHolder);
         }

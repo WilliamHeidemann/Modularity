@@ -1,8 +1,10 @@
 using System.Linq;
 using Runtime.Components;
+using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
 using UnityUtils;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -34,25 +36,30 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
             
+            if (!_selection.Prefab.IsSome(out var prefab))
+            {
+                return;
+            }
+            
             var segmentData = new SegmentData
             {
                 Position = position.AsVector3Int(),
                 Rotation = rotation,
-                StaticSegmentData = _selection.Prefab.StaticSegmentData,
+                StaticSegmentData = prefab.StaticSegmentData,
             };
             
             if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData))
             {
-                Debug.Log("Cannot connect to anything");
                 return;
             }
             // potentially remove old slot
             
-            var connector = Instantiate(_selection.Prefab, position, rotation);
+            var connector = Instantiate(prefab, position, rotation);
             segmentData.GetConnectionPoints().ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             _resources.Pay(_selection.Price);
             _hand.GenerateHand();
+            _selection.Prefab = Option<Segment>.None;
         }
 
         private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)
