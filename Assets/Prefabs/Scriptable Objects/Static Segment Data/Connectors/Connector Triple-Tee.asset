@@ -17,7 +17,10 @@ MonoBehaviour:
     Down: 1
     Right: 1
     Left: 1
-    Forward: 1
-    Back: 0
+    Forward: 0
+    Back: 1
   Model: 8
+  Blood: 0
+  Steam: 0
   Resistance: 0
+  Power: 0
