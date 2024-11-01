@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47434e5bef5d29a4d99c03368620926f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StaticSegmentData: {fileID: 11400000, guid: 2892ad01dedb4c34493b83d3ebb9164f, type: 2}
+  StaticSegmentData: {fileID: 11400000, guid: 2031c7ac6feb8784097ce47651532001, type: 2}
 --- !u!65 &4092756122483640719
 BoxCollider:
   m_ObjectHideFlags: 0
