@@ -79,7 +79,7 @@ namespace Runtime.Scriptable_Objects
                 if (flow <= 1) continue;
                 foreach (var segment in GetLinks(k))
                 {
-                    if (!segment.isActive) segment.Activate(flow - segment.StaticSegmentData.Resistance);
+                    if (!segment.isActive) ActivateSegment(segment, flow);
 
                     if (!(explored.Keys.Contains(segment) &&
                           explored[segment] >= flow - segment.StaticSegmentData.Resistance))
@@ -89,6 +89,12 @@ namespace Runtime.Scriptable_Objects
                     }
                 }
             }
+        }
+        public void ActivateSegment(SegmentData segmentData, int flow)
+        {
+            segmentData.isActive = true;
+            int power = flow - segmentData.StaticSegmentData.Resistance;
+            Debug.Log("segment at " + segmentData.Position + " has been activated with " + power + " power");
         }
     }
 }

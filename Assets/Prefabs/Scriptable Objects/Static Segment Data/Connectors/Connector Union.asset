@@ -22,5 +22,5 @@ MonoBehaviour:
   Model: 4
   Blood: 0
   Steam: 0
-  Resistance: 0
+  Resistance: 1
   Power: 0
