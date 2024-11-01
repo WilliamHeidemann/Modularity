@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e743a446bd9e9b74d84e2be7c41c40b0, type: 3}
   m_Name: Segment Pool
   m_EditorClassIdentifier: 
-  _ultraRareDropChance: 0.6
+  _ultraRareDropChance: 1.42
   _rareDropChance: 4.6
   _commonDropChance: 10
   _ultraRareSegments:
-  - {fileID: 4404823909993285501, guid: 16eec6b3bbb22e541b70d0b5366b794d, type: 3}
+  - {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
   - {fileID: 4404823909993285501, guid: 4405254c14750b94e9af651e0fa14ea9, type: 3}
   _rareSegments:
-  - {fileID: 4404823909993285501, guid: e29cb256dd950d94c87b85cd13f8cedc, type: 3}
-  - {fileID: 4404823909993285501, guid: 1ab25dbad6b7cf947874b905ece4c921, type: 3}
+  - {fileID: 4404823909993285501, guid: f3182c90d3642f547ac72ff3d47fc372, type: 3}
+  - {fileID: 4404823909993285501, guid: 0123d1ea0f5b96c4e8fd789c103b5fc1, type: 3}
   - {fileID: 4404823909993285501, guid: 42faebf683b3dba4680119df5af8a00f, type: 3}
   _commonSegments:
-  - {fileID: 4404823909993285501, guid: a9db3585fa95fe9488bbdfa243e1797c, type: 3}
-  - {fileID: 4404823909993285501, guid: efd02dfe0f88c76418c58830459c6c9c, type: 3}
-  - {fileID: 4404823909993285501, guid: 8485299b55408e245aad7a054e182498, type: 3}
-  - {fileID: 4404823909993285501, guid: ca64daa39572ff643b8f3266ca967066, type: 3}
-  - {fileID: 4404823909993285501, guid: 385b323a98496ad4ca5754dac94fda65, type: 3}
+  - {fileID: 4404823909993285501, guid: 15d1e1fc811c56a498fb7fd31b858e3d, type: 3}
+  - {fileID: 4404823909993285501, guid: 9b0b025830b94184d9dc8d1744b0b9d9, type: 3}
+  - {fileID: 4404823909993285501, guid: 9c2c3938989ee3446a38a3324b1a3220, type: 3}
+  - {fileID: 4404823909993285501, guid: 9f002303f84a11f4f8933e6b40fb796f, type: 3}
+  - {fileID: 4404823909993285501, guid: 956611ae534ff944bb3610df91bb1500, type: 3}

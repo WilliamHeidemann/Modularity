@@ -29,7 +29,7 @@ namespace Runtime.Scriptable_Objects
             var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
             var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
             var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
-            return from1To2 && from2To1; // &&(steamFlow || bloodFlow);
+            return from1To2 && from2To1 &&(steamFlow || bloodFlow);
         }
 
         private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
