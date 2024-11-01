@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
-  m_Name: Connector Tree
+  m_Name: Connector Tree Steam
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 1
@@ -20,8 +20,8 @@ MonoBehaviour:
     Forward: 1
     Back: 1
   Model: 11
-  Blood: 1
+  Blood: 0
   Steam: 1
-  Resistance: 2
+  Resistance: 1
   Power: 0
   Reward: 0

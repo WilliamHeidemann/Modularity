@@ -20,7 +20,8 @@ MonoBehaviour:
     Forward: 0
     Back: 0
   Model: 5
-  Blood: 0
-  Steam: 0
-  Resistance: 1
+  Blood: 1
+  Steam: 1
+  Resistance: 2
   Power: 0
+  Reward: 0

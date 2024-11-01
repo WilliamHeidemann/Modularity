@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
-  m_Name: Connector Tree
+  m_Name: Connector Elbow Steam
   m_EditorClassIdentifier: 
   ConnectionPoints:
-    Up: 1
+    Up: 0
     Down: 1
-    Right: 1
+    Right: 0
     Left: 1
-    Forward: 1
-    Back: 1
-  Model: 11
-  Blood: 1
+    Forward: 0
+    Back: 0
+  Model: 5
+  Blood: 0
   Steam: 1
-  Resistance: 2
+  Resistance: 1
   Power: 0
   Reward: 0
