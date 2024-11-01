@@ -1051,7 +1051,7 @@ MonoBehaviour:
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
   _hand: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
-  _startingSegment: {fileID: 4404823909993285501, guid: 1ab25dbad6b7cf947874b905ece4c921, type: 3}
+  _startingSegment: {fileID: 4404823909993285501, guid: 4405254c14750b94e9af651e0fa14ea9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

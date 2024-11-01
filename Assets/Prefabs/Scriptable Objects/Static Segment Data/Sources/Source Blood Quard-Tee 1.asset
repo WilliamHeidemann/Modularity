@@ -19,8 +19,9 @@ MonoBehaviour:
     Left: 1
     Forward: 1
     Back: 1
-  Model: 9
+  Model: 0
   Blood: 1
   Steam: 0
   Resistance: 0
   Power: 6
+  Reward: 0
