@@ -95,6 +95,10 @@ namespace Runtime.Scriptable_Objects
             segmentData.isActive = true;
             int power = flow - segmentData.StaticSegmentData.Resistance;
             Debug.Log("segment at " + segmentData.Position + " has been activated with " + power + " power");
+            if (segmentData.StaticSegmentData.Reward > 0)
+            {
+                Debug.Log("Reciever at " + segmentData.Position + " has been activated with " + power + " power, and would like to add: " + segmentData.StaticSegmentData.Reward + " to the Resources");
+            }
         }
     }
 }
