@@ -10,12 +10,7 @@ namespace Runtime.Scriptable_Objects
     public class SegmentPool : ScriptableObject
     {
         [SerializeField] private List<Segment> _segmentPool;
-
-        public Segment[] GetSegmentPool()
-        {
-            return _segmentPool.ToArray();
-        }
-
+        
         public Segment GetRandomSegment()
         {
             return _segmentPool.RandomElement();

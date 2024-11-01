@@ -12,8 +12,8 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private List<SegmentData> _graphData = new();
 
-        public void AddSegment(SegmentData segmentData) 
-        { 
+        public void AddSegment(SegmentData segmentData)
+        {
             _graphData.Add(segmentData);
             UpdateFlow();
         }
@@ -23,23 +23,21 @@ namespace Runtime.Scriptable_Objects
             return _graphData.Any(data => CanConnect(segmentData, data));
         }
 
-        public bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
+        private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
             var from1To2 = segmentData1.GetConnectionPoints().Contains(segmentData2.Position);
             var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
-            var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData1.StaticSegmentData.Steam;
-            var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData1.StaticSegmentData.Blood;
+            var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
+            var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
             return from1To2 && from2To1; // &&(steamFlow || bloodFlow);
         }
-        
-        public IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
+
+        private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
         {
             var connectionsOneWay = _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
-            //return connectionsOneWay.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
             return connectionsOneWay.Where(data => CanConnect(data, segmentData));
-            
         }
-        
+
         public bool IsEmpty => _graphData.Count == 0;
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
 
@@ -48,14 +46,7 @@ namespace Runtime.Scriptable_Objects
             _graphData.Clear();
         }
 
-        public bool IsOpenSlotPosition(Vector3Int position)
-        {
-            var isOpenPosition = IsOpenPosition(position);
-            var isSlotPosition = _graphData.Any(data => data.GetConnectionPoints().Contains(position));
-            return isOpenPosition && !isSlotPosition;
-        }
-
-        public void UpdateFlow()
+        private void UpdateFlow()
         {
             foreach (var segment in _graphData)
             {
@@ -66,41 +57,38 @@ namespace Runtime.Scriptable_Objects
             }
         }
 
-        public void BestFirstFlow(SegmentData segmentData)
+        private void BestFirstFlow(SegmentData segmentData)
         {
-            
-            Dictionary<SegmentData,int> queue = new()
+            Dictionary<SegmentData, int> queue = new()
             {
                 [segmentData] = segmentData.StaticSegmentData.Power
             };
-            
-            Dictionary<SegmentData,int> explored = new()
+
+            Dictionary<SegmentData, int> explored = new()
             {
                 [segmentData] = segmentData.StaticSegmentData.Power
             };
 
 
-            while (queue.Count() > 0)
+            while (queue.Any())
             {
                 var k = queue.Keys.First();
                 int flow = queue[k];
                 queue.Remove(k);
 
-                if (flow > 1)
+                if (flow <= 1) continue;
+                foreach (var segment in GetLinks(k))
                 {
-                    foreach (var segment in GetLinks(k))
-                    {
-                        if (!segment.isActive) segment.Activate(flow - segment.StaticSegmentData.Resistance);
+                    if (!segment.isActive) segment.Activate(flow - segment.StaticSegmentData.Resistance);
 
-                        if (!(explored.Keys.Contains(segment) && explored[segment] >= flow - segment.StaticSegmentData.Resistance))
-                        {
-                            queue[segment] = flow - segment.StaticSegmentData.Resistance;
-                            explored[segment] = flow - segment.StaticSegmentData.Resistance;
-                        }
+                    if (!(explored.Keys.Contains(segment) &&
+                          explored[segment] >= flow - segment.StaticSegmentData.Resistance))
+                    {
+                        queue[segment] = flow - segment.StaticSegmentData.Resistance;
+                        explored[segment] = flow - segment.StaticSegmentData.Resistance;
                     }
                 }
             }
-
         }
     }
 }
