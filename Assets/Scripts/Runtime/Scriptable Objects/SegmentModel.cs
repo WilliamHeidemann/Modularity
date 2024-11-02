@@ -11,7 +11,7 @@ namespace Runtime.Scriptable_Objects
         ConnectorTee,
         ConnectorElbowTee,
         ConnectorTripleTee,
-        ConnectorQuardTee,
+        ConnectorQuadTee,
         ConnectorCross,
         ConnectorTree,
         Receiver1,
