@@ -9,20 +9,19 @@ namespace Runtime.Components.Systems
         [SerializeField] private Hand _hand;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void OnEnable()
+        private void Awake()
         {
             _hand.OnDrawHand += DisplayHand;
-            DisplayHand();
         }
 
-        void OnDisable()
+        private void OnDestroy()
         {
             _hand.OnDrawHand -= DisplayHand;
         }
 
-        void DisplayHand()
+        private void DisplayHand()
         {
-            var segments = _hand._segmentsOptions;
+            var segments = _hand.SegmentsOptions;
 
             for (int i = 0; i < _blueprintOptions.Length; i++)
             {

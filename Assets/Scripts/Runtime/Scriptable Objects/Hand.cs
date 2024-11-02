@@ -18,28 +18,28 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private SegmentPool _pool;
 
         //the segments that the player can choose from
-        public Segment[] _segmentsOptions;
+        public Segment[] SegmentsOptions;
 
-        public int _optionsCount = 3;
+        private int _optionsCount = 3;
 
         public void Initialize()
         {
-            _segmentsOptions = new Segment[_optionsCount];
+            SegmentsOptions = new Segment[_optionsCount];
             GenerateHand();
         }
 
         public void SelectBlueprint(int chosenSegment)
         {
-            _selection.Prefab = Option<Segment>.Some(_segmentsOptions[chosenSegment]);
-            _selection.Price = _segmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
+            _selection.Prefab = Option<Segment>.Some(SegmentsOptions[chosenSegment]);
+            _selection.Price = SegmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
         }
 
         public void GenerateHand()
         {
             for(int i = 0; i < _optionsCount; i++)
             {
-                Segment segment = _pool.GetRandomSegment();
-                _segmentsOptions[i] = segment;
+                var segment = _pool.GetRandomSegment();
+                SegmentsOptions[i] = segment;
             }
             OnDrawHand?.Invoke();
         }
