@@ -3,6 +3,7 @@ using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityUtils;
 using UtilityToolkit.Runtime;
 
@@ -11,11 +12,10 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Builder : ScriptableObject
     {
-        [Header("Prefabs")] 
         [SerializeField] private Slot _slotPrefab;
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
-        [SerializeField] private Resources _resources;
+        [SerializeField] private Currency _currency;
         [SerializeField] private Hand _hand;
 
 
@@ -31,7 +31,7 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (!_resources.HasAtLeast(_selection.Price))
+            if (!_currency.HasAtLeast(_selection.Price))
             {
                 return;
             }
@@ -57,7 +57,7 @@ namespace Runtime.Scriptable_Objects
             var connector = Instantiate(prefab, position, rotation);
             segmentData.GetConnectionPoints().ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
-            _resources.Pay(_selection.Price);
+            _currency.Pay(_selection.Price);
             _hand.GenerateHand();
             _selection.Prefab = Option<Segment>.None;
         }
