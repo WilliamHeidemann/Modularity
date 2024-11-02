@@ -11,13 +11,13 @@ namespace Runtime.Components.Systems
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void OnEnable()
         {
-            Hand.OnDrawHand += DisplayHand;
+            _hand.OnDrawHand += DisplayHand;
             DisplayHand();
         }
 
         void OnDisable()
         {
-            Hand.OnDrawHand -= DisplayHand;
+            _hand.OnDrawHand -= DisplayHand;
         }
 
         void DisplayHand()

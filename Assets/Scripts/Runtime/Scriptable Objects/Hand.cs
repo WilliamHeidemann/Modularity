@@ -12,7 +12,7 @@ namespace Runtime.Scriptable_Objects
     public class Hand : ScriptableObject
     {
         public delegate void DrawHand();
-        public static event DrawHand OnDrawHand;
+        public event DrawHand OnDrawHand;
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
