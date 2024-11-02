@@ -19,12 +19,12 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Hand _hand;
 
 
-        public void Build(Vector3Int position, Quaternion placeholderRotation)
+        public void Build(Vector3Int position, Quaternion placeholderRotation, bool isInitial = false)
         {
-            SpawnSelection(position, placeholderRotation);
+            SpawnSelection(position, placeholderRotation, isInitial);
         }
 
-        private void SpawnSelection(Vector3 position, Quaternion rotation)
+        private void SpawnSelection(Vector3 position, Quaternion rotation, bool isInitial)
         {
             if (!_structure.IsOpenPosition(position.AsVector3Int()))
             {
@@ -48,7 +48,7 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = prefab.StaticSegmentData,
             };
             
-            if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData))
+            if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData) && !isInitial)
             {
                 return;
             }

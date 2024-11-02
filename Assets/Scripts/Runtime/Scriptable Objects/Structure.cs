@@ -29,7 +29,7 @@ namespace Runtime.Scriptable_Objects
             var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
             var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
             var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
-            return from1To2 && from2To1; // &&(steamFlow || bloodFlow);
+            return from1To2 && from2To1 &&(steamFlow || bloodFlow);
         }
 
         private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
@@ -79,7 +79,7 @@ namespace Runtime.Scriptable_Objects
                 if (flow <= 1) continue;
                 foreach (var segment in GetLinks(k))
                 {
-                    if (!segment.isActive) segment.Activate(flow - segment.StaticSegmentData.Resistance);
+                    if (!segment.isActive) ActivateSegment(segment, flow);
 
                     if (!(explored.Keys.Contains(segment) &&
                           explored[segment] >= flow - segment.StaticSegmentData.Resistance))
@@ -88,6 +88,16 @@ namespace Runtime.Scriptable_Objects
                         explored[segment] = flow - segment.StaticSegmentData.Resistance;
                     }
                 }
+            }
+        }
+        public void ActivateSegment(SegmentData segmentData, int flow)
+        {
+            segmentData.isActive = true;
+            int power = flow - segmentData.StaticSegmentData.Resistance;
+            Debug.Log("segment at " + segmentData.Position + " has been activated with " + power + " power");
+            if (segmentData.StaticSegmentData.Reward > 0)
+            {
+                Debug.Log("Reciever at " + segmentData.Position + " has been activated with " + power + " power, and would like to add: " + segmentData.StaticSegmentData.Reward + " to the Resources");
             }
         }
     }
