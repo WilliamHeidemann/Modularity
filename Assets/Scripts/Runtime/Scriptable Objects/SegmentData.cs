@@ -25,9 +25,5 @@ namespace Runtime.Scriptable_Objects
         {
             return Vector3Int.RoundToInt(Rotation * direction);
         }
-        public void Activate(int power)
-        {
-            Debug.Log("segment at " + Position + " has been activated with " + power + " power");
-        }
     }
 }
