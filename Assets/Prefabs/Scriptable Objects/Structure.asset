@@ -12,4 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6d641ecb92413dbc9e825c4398c51f, type: 3}
   m_Name: Structure
   m_EditorClassIdentifier: 
-  _segments: []
+  _graphData:
+  - Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 1, y: 0, z: 0, w: -0.00000004371139}
+    StaticSegmentData: {fileID: 11400000, guid: fe46cc6afd7f9f141af34e8523b4580b, type: 2}
+    isActive: 0
+  - Position: {x: 1, y: 0, z: 0}
+    Rotation: {x: 1, y: 0, z: 0, w: -0.00000004371139}
+    StaticSegmentData: {fileID: 11400000, guid: 33c2a9ab1eb977c48a9cc0fdbaea4c90, type: 2}
+    isActive: 0
+  - Position: {x: 1, y: 1, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    StaticSegmentData: {fileID: 11400000, guid: 67d0a3f3269aed44bb53360c55e85e28, type: 2}
+    isActive: 1
+  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
