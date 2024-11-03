@@ -23,7 +23,7 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (_placeHolder.IsSome(out var placeHolder))
+            if (_placeHolder.IsSome(out var placeHolder) && placeHolder.StaticSegmentData == selectedSegment.StaticSegmentData)
             {
                 placeHolder.gameObject.SetActive(true);
                 placeHolder.transform.position = position;
