@@ -35,29 +35,30 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
-            
+
             if (!_selection.Prefab.IsSome(out var prefab))
             {
                 return;
             }
-            
+
             var segmentData = new SegmentData
             {
                 Position = position.AsVector3Int(),
                 Rotation = rotation,
                 StaticSegmentData = prefab.StaticSegmentData,
             };
-            
+
             if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData) && !isInitial)
             {
                 return;
             }
             // potentially remove old slot
-            
+
             var connector = Instantiate(prefab, position, rotation);
-            segmentData.GetConnectionPoints().ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
+            segmentData.GetConnectionPoints()
+                .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
-            _currency.Pay(_selection.Price);
+            if (!isInitial) _currency.Pay(_selection.Price);
             _hand.GenerateHand();
             _selection.Prefab = Option<Segment>.None;
         }
