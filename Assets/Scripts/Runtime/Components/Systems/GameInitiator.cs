@@ -14,11 +14,13 @@ namespace Runtime.Components.Systems
         [SerializeField] private Selection _selection;
         [SerializeField] private Segment _startingSegment;
         [SerializeField] private Segment _startingSegment2;
+        [SerializeField] private Currency _currency;
         
         private void Start()
         {
             _structure.Clear();
             _hand.Initialize();
+            _currency.Initialize();
             _selection.Prefab = Option<Segment>.Some(_startingSegment);
             _builder.Build(Vector3Int.zero, Quaternion.Euler(180, 0, 0), true);
 

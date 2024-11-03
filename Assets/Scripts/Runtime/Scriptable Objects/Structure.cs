@@ -11,6 +11,7 @@ namespace Runtime.Scriptable_Objects
     public class Structure : ScriptableObject
     {
         [SerializeField] private List<SegmentData> _graphData = new();
+        [SerializeField] private Currency _currency;
 
         public void AddSegment(SegmentData segmentData)
         {
@@ -29,7 +30,7 @@ namespace Runtime.Scriptable_Objects
             var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
             var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
             var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
-            return from1To2 && from2To1 &&(steamFlow || bloodFlow);
+            return from1To2 && from2To1 && (steamFlow || bloodFlow);
         }
 
         private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
@@ -48,12 +49,9 @@ namespace Runtime.Scriptable_Objects
 
         private void UpdateFlow()
         {
-            foreach (var segment in _graphData)
+            foreach (var segment in _graphData.Where(segment => segment.StaticSegmentData.Power > 0))
             {
-                if (segment.StaticSegmentData.Power > 0)
-                {
-                    BestFirstFlow(segment);
-                }
+                BestFirstFlow(segment);
             }
         }
 
@@ -68,7 +66,6 @@ namespace Runtime.Scriptable_Objects
             {
                 [segmentData] = segmentData.StaticSegmentData.Power
             };
-
 
             while (queue.Any())
             {
@@ -90,14 +87,14 @@ namespace Runtime.Scriptable_Objects
                 }
             }
         }
+
         public void ActivateSegment(SegmentData segmentData, int flow)
         {
             segmentData.isActive = true;
-            int power = flow - segmentData.StaticSegmentData.Resistance;
-            Debug.Log("segment at " + segmentData.Position + " has been activated with " + power + " power");
+            var power = flow - segmentData.StaticSegmentData.Resistance;
             if (segmentData.StaticSegmentData.Reward > 0)
             {
-                Debug.Log("Reciever at " + segmentData.Position + " has been activated with " + power + " power, and would like to add: " + segmentData.StaticSegmentData.Reward + " to the Resources");
+                _currency.Add(segmentData.StaticSegmentData.Reward);
             }
         }
     }

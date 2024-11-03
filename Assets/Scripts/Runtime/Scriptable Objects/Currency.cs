@@ -27,5 +27,11 @@ namespace Runtime.Scriptable_Objects
         }
 
         public int Amount => _gears;
+
+        public void Initialize()
+        {
+            _gears = 20;
+            OnGearsChanged?.Invoke(_gears);
+        }
     }
 }
