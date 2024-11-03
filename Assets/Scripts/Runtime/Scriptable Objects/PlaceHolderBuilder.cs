@@ -23,10 +23,17 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            TearDown();
-            var placeHolder = Instantiate(selectedSegment, position, Quaternion.identity);
-            placeHolder.GetComponent<BoxCollider>().enabled = false;
-            _placeHolder = Option<Segment>.Some(placeHolder);
+            if (_placeHolder.IsSome(out var placeHolder))
+            {
+                placeHolder.gameObject.SetActive(true);
+                placeHolder.transform.position = position;
+            }
+            else
+            {
+                var newPlaceHolder = Instantiate(selectedSegment, position, Quaternion.identity);
+                newPlaceHolder.GetComponent<BoxCollider>().enabled = false;
+                _placeHolder = Option<Segment>.Some(newPlaceHolder);
+            }
         }
 
         public void TearDown()
@@ -36,6 +43,14 @@ namespace Runtime.Scriptable_Objects
                 Destroy(segment.gameObject);
             }
             _placeHolder = Option<Segment>.None;
+        }
+
+        public void Hide()
+        {
+            if (_placeHolder.IsSome(out var segment))
+            {
+                segment.gameObject.SetActive(false);
+            }
         }
 
         public Quaternion PlaceholderRotation()
