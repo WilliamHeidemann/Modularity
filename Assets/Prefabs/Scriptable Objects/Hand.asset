@@ -14,5 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _pool: {fileID: 11400000, guid: 8491676f10891e440994c3895a379feb, type: 2}
-  _segmentsOptions: []
-  _optionsCount: 3
+  SegmentsOptions:
+  - {fileID: 4404823909993285501, guid: 4405254c14750b94e9af651e0fa14ea9, type: 3}
+  - {fileID: 4404823909993285501, guid: 42faebf683b3dba4680119df5af8a00f, type: 3}
+  - {fileID: 4404823909993285501, guid: 9b0b025830b94184d9dc8d1744b0b9d9, type: 3}
+  - {fileID: 4404823909993285501, guid: 9c2c3938989ee3446a38a3324b1a3220, type: 3}
+  - {fileID: 4404823909993285501, guid: 9f002303f84a11f4f8933e6b40fb796f, type: 3}
+  - {fileID: 4404823909993285501, guid: 0123d1ea0f5b96c4e8fd789c103b5fc1, type: 3}
+  - {fileID: 4404823909993285501, guid: e49779298a88ae949b9463240dde4c6d, type: 3}
+  - {fileID: 4404823909993285501, guid: 956611ae534ff944bb3610df91bb1500, type: 3}
+  - {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
+  - {fileID: 4404823909993285501, guid: f3182c90d3642f547ac72ff3d47fc372, type: 3}
+  - {fileID: 4404823909993285501, guid: 15d1e1fc811c56a498fb7fd31b858e3d, type: 3}

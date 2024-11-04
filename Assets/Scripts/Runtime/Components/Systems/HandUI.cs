@@ -1,3 +1,4 @@
+using System;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ namespace Runtime.Components.Systems
         private void Awake()
         {
             _hand.OnDrawHand += DisplayHand;
+        }
+
+        private void Start()
+        {
+            DisplayHand();
         }
 
         private void OnDestroy()

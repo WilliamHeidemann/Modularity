@@ -59,7 +59,7 @@ namespace Runtime.Scriptable_Objects
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             if (!isInitial) _currency.Pay(_selection.Price);
-            _hand.GenerateHand();
+            // _hand.GenerateHand();
             _selection.Prefab = Option<Segment>.None;
         }
 

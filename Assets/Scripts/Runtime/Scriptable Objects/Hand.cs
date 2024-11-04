@@ -23,8 +23,8 @@ namespace Runtime.Scriptable_Objects
 
         public void Initialize()
         {
-            SegmentsOptions = new Segment[_optionsCount];
-            GenerateHand();
+            // SegmentsOptions = new Segment[_optionsCount];
+            // GenerateHand();
         }
 
         public void SelectBlueprint(int chosenSegment)
@@ -33,14 +33,14 @@ namespace Runtime.Scriptable_Objects
             _selection.Price = SegmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
         }
 
-        public void GenerateHand()
-        {
-            for(int i = 0; i < _optionsCount; i++)
-            {
-                var segment = _pool.GetRandomSegment();
-                SegmentsOptions[i] = segment;
-            }
-            OnDrawHand?.Invoke();
-        }
+        // public void GenerateHand()
+        // {
+        //     for(int i = 0; i < _optionsCount; i++)
+        //     {
+        //         var segment = _pool.GetRandomSegment();
+        //         SegmentsOptions[i] = segment;
+        //     }
+        //     OnDrawHand?.Invoke();
+        // }
     }
 }
