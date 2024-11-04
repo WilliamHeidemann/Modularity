@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
 using UnityEngine;
+using UnityUtils;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -12,6 +13,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
         private Option<Segment> _placeHolder;
+        private List<Quaternion> _validRotations;
+        private int _index = 0;
 
         public void Build(Vector3Int position)
         {
@@ -24,6 +27,13 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
+            
+            SetValidRotations(position, selectedSegment.StaticSegmentData);
+
+            if (!_validRotations.Any())
+            {
+                return;
+            }
 
             if (_placeHolder.IsSome(out var placeHolder) &&
                 placeHolder.StaticSegmentData == selectedSegment.StaticSegmentData)
@@ -33,9 +43,15 @@ namespace Runtime.Scriptable_Objects
             }
             else
             {
-                var newPlaceHolder = Instantiate(selectedSegment, position, Quaternion.identity);
-                newPlaceHolder.GetComponent<BoxCollider>().enabled = false;
-                _placeHolder = Option<Segment>.Some(newPlaceHolder);
+                placeHolder = Instantiate(selectedSegment, position, Quaternion.identity);
+                placeHolder.GetComponent<BoxCollider>().enabled = false;
+                _placeHolder = Option<Segment>.Some(placeHolder);
+            }
+
+            if (!_validRotations.Contains(placeHolder.transform.rotation))
+            {
+                placeHolder.transform.rotation = _validRotations.First();
+                _index = 0;
             }
         }
 
@@ -62,19 +78,48 @@ namespace Runtime.Scriptable_Objects
             return _placeHolder.IsSome(out var segment) ? segment.transform.rotation : Quaternion.identity;
         }
 
-        public void RotateOnY() => Rotate(Vector3.up);
-        public void RotateOnX() => Rotate(Vector3.right);
-
-        private void Rotate(Vector3 axis)
+        public void Rotate()
         {
             if (!_placeHolder.IsSome(out var segment))
             {
                 return;
             }
 
-            segment.transform.Rotate(axis, 90, Space.World);
+            if (!_validRotations.Any())
+            {
+                return;
+            }
+            
+            _index += 1;
+            _index %= _validRotations.Count;
+            segment.transform.rotation = _validRotations[_index];
         }
 
+        private void SetValidRotations(Vector3Int position, StaticSegmentData staticSegmentData)
+        {
+            List<HashSet<Vector3Int>> seen = new();
+
+            _validRotations = AllRotations()
+                .Select(rotation => new SegmentData
+                {
+                    Position = position,
+                    Rotation = rotation,
+                    StaticSegmentData = staticSegmentData
+                })
+                .Where(segmentData => _structure.ConnectsToSomething(segmentData))
+                .Where(segmentData =>
+                {
+                    var points = segmentData.GetConnectionPoints().ToHashSet();
+                    var unique = !seen.Any(other => other.SetEquals(points));
+                    if (unique)
+                    {
+                        seen.Add(points);
+                    }
+                    return unique;
+                })
+                .Select(segmentData => segmentData.Rotation).ToList();
+        }
+        
         private static IEnumerable<Quaternion> AllRotations()
         {
             // Define the 6 primary orientations with each axis facing "up" (aligned with +Z)
@@ -96,24 +141,6 @@ namespace Runtime.Scriptable_Objects
                 yield return baseRotation * Quaternion.Euler(0, 0, 180); // 180° around Z
                 yield return baseRotation * Quaternion.Euler(0, 0, 270); // 270° around Z
             }
-        }
-
-        private Quaternion[] _validRotations;
-
-        public void SetValidRotations(Vector3Int position, StaticSegmentData staticSegmentData)
-        {
-            HashSet<IEnumerable<Vector3Int>> seen = new();
-            
-            _validRotations = AllRotations()
-                .Select(rotation => new SegmentData
-                {
-                    Position = position,
-                    Rotation = rotation,
-                    StaticSegmentData = staticSegmentData
-                })
-                .Where(segmentData => _structure.ConnectsToSomething(segmentData))
-                .Where(segmentData => seen.Add(segmentData.GetConnectionPoints()))
-                .Select(segmentData => segmentData.Rotation).ToArray();
         }
     }
 }
