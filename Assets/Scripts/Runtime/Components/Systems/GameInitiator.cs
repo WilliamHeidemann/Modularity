@@ -7,7 +7,6 @@ namespace Runtime.Components.Systems
 {
     public class GameInitiator : MonoBehaviour
     {
-        [SerializeField] private Transform _sceneCanvas;
         [SerializeField] private Builder _builder;
         [SerializeField] private Structure _structure;
         [SerializeField] private Hand _hand;

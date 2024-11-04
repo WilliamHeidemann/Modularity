@@ -12,13 +12,13 @@ namespace Runtime.Components
 
         private void Start()
         {
-            _currencyText.text = $"Currency: {_currency.Amount.ToString()}";
+            _currencyText.text = _currency.Amount.ToString();
             _currency.OnGearsChanged += UpdateCurrencyText;
         }
 
         private void UpdateCurrencyText(int newAmount)
         {
-            _currencyText.text = $"Currency: {newAmount.ToString()}";
+            _currencyText.text = newAmount.ToString();
         }
     }
 }
