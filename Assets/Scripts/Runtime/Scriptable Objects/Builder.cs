@@ -60,7 +60,7 @@ namespace Runtime.Scriptable_Objects
             _structure.AddSegment(segmentData);
             if (!isInitial) _currency.Pay(_selection.Price);
             _hand.GenerateHand();
-            _selection.Prefab = Option<Segment>.None;
+            if (!isInitial) _selection.Prefab = Option<Segment>.None;
         }
 
         private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)
