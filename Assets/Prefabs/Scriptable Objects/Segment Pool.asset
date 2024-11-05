@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e743a446bd9e9b74d84e2be7c41c40b0, type: 3}
   m_Name: Segment Pool
   m_EditorClassIdentifier: 
-  _ultraRareDropChance: 4.92
+  _ultraRareDropChance: 6.71
   _rareDropChance: 4.6
   _commonDropChance: 4.4
   _ultraRareSegments:

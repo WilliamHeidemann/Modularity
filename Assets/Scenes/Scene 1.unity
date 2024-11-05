@@ -339,7 +339,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a94f7f355c91d443ac37acbb6b07960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 251622423}
+  _blood1: {fileID: 8300000, guid: dabf63b0e931608429bac33e63bb9751, type: 3}
+  _blood2: {fileID: 8300000, guid: 4a651f7dbc1001f4a94a4ee61022aa44, type: 3}
+  _steam1: {fileID: 8300000, guid: 20f5cf887231d614facdfb977dc74c78, type: 3}
+  _steam2: {fileID: 8300000, guid: 7881da81a90cdab47973ddf09169641e, type: 3}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
