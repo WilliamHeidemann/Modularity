@@ -58,9 +58,10 @@ namespace Runtime.Scriptable_Objects
             segmentData.GetConnectionPoints()
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
+            SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
             if (!isInitial) _currency.Pay(_selection.Price);
             _hand.GenerateHand();
-            _selection.Prefab = Option<Segment>.None;
+            if (!isInitial) _selection.Prefab = Option<Segment>.None;
         }
 
         private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)
