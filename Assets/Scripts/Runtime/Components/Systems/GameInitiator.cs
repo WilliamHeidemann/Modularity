@@ -22,14 +22,15 @@ namespace Runtime.Components.Systems
             _hand.Initialize();
             _currency.Initialize();
             _selection.Prefab = Option<Segment>.Some(_bloodSource);
-            _builder.Build(new Vector3Int(-3, 0, 3), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(3, 3, 3), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(-3, 3, -3), Quaternion.Euler(180, 0, 0), true);
+            _builder.Build(new Vector3Int(-2, 0, 2), Quaternion.Euler(180, 0, 0), true);
+            _builder.Build(new Vector3Int(-1, 10, 1), Quaternion.Euler(180, 0, 0), true);
+            _builder.Build(new Vector3Int(2, 3, 2), Quaternion.Euler(180, 0, 0), true);
+            _builder.Build(new Vector3Int(-2, 3, -2), Quaternion.Euler(180, 0, 0), true);
 
             _selection.Prefab = Option<Segment>.Some(_steamSource);
             _builder.Build(new Vector3Int(2, 0, -2), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(-3, 3, 3), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(0, 10, 0), Quaternion.Euler(0, 0, 0), true);
+            _builder.Build(new Vector3Int(-2, 3, 2), Quaternion.Euler(180, 0, 0), true);
+            _builder.Build(new Vector3Int(0, 10, 0), Quaternion.Euler(180, 0, 0), true);
         }
     }
 }
