@@ -15,6 +15,7 @@ namespace Runtime.Scriptable_Objects
         private Option<Segment> _placeHolder;
         private List<Quaternion> _validRotations;
         private int _index = 0;
+        [SerializeField] private Material _transparentMat;
 
         public void Build(Vector3Int position)
         {
@@ -45,6 +46,10 @@ namespace Runtime.Scriptable_Objects
             {
                 placeHolder = Instantiate(selectedSegment, position, Quaternion.identity);
                 placeHolder.GetComponent<BoxCollider>().enabled = false;
+                foreach(var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
+                {
+                    meshRenderer.material = _transparentMat;
+                }
                 _placeHolder = Option<Segment>.Some(placeHolder);
             }
 

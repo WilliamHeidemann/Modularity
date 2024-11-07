@@ -50,6 +50,7 @@ namespace Runtime.Scriptable_Objects
 
             if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData) && !isInitial)
             {
+                Debug.Log("Cannot connect to anything");
                 return;
             }
             // potentially remove old slot
