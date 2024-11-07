@@ -17,13 +17,12 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private SegmentPool _pool;
 
         //the segments that the player can choose from
-        public Segment[] SegmentsOptions;
+        public List<Segment> SegmentsOptions;
 
         private int _optionsCount = 3;
 
         public void Initialize()
         {
-            SegmentsOptions = new Segment[_optionsCount];
             GenerateHand();
         }
 
@@ -35,10 +34,27 @@ namespace Runtime.Scriptable_Objects
 
         public void GenerateHand()
         {
-            for(int i = 0; i < _optionsCount; i++)
+            SegmentsOptions = new List<Segment>();
+
+            for (int i = 0; i < _optionsCount; i++)
             {
                 var segment = _pool.GetRandomSegment();
-                SegmentsOptions[i] = segment;
+                int failsafe = 0;
+
+                while (SegmentsOptions.Contains(segment))
+                {
+                    segment = _pool.GetRandomSegment();
+                    Debug.Log(segment);
+                    failsafe++;
+
+                    if (failsafe > 10)
+                    {
+                        Debug.LogError("Failsafe triggered, breaking loop");
+                        break;
+                    }
+                };
+
+                SegmentsOptions.Add(segment);
             }
             OnDrawHand?.Invoke();
         }

@@ -60,8 +60,11 @@ namespace Runtime.Scriptable_Objects
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
-            if (!isInitial) _currency.Pay(_selection.Price);
-            _hand.GenerateHand();
+            if (!isInitial)
+            {
+                _currency.Pay(_selection.Price);
+                _hand.GenerateHand();
+            }
             if (!isInitial) _selection.Prefab = Option<Segment>.None;
         }
 

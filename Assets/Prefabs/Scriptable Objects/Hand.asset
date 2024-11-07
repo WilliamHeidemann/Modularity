@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _pool: {fileID: 11400000, guid: 8491676f10891e440994c3895a379feb, type: 2}
-  _segmentsOptions: []
-  _optionsCount: 3
+  SegmentsOptions: []

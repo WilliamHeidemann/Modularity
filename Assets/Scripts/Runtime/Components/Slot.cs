@@ -19,7 +19,8 @@ namespace Runtime.Components
 
         private void OnMouseExit()
         {
-            _placeHolderBuilder.Hide();
+            //_placeHolderBuilder.Hide();
+            _placeHolderBuilder.TearDown();
         }
 
         private void OnMouseDown()
