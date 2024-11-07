@@ -14,19 +14,19 @@ namespace Runtime.Components.Utility
         [SerializeField] private AudioClip _steam2;
         public void PlayBlood1()
         {
-            _audioSource.PlayOneShot(_blood1);
+            _audioSource.PlayOneShot(_blood1, 1f);
         }
         public void PlayBlood2()
         {
-            _audioSource.PlayOneShot(_blood2);
+            _audioSource.PlayOneShot(_blood2, 1f);
         }
         public void PlaySteam1()
         {
-            _audioSource.PlayOneShot(_steam1);
+            _audioSource.PlayOneShot(_steam1, 0.3f);
         }
         public void PlaySteam2()
         {
-            _audioSource.PlayOneShot(_steam2);
+            _audioSource.PlayOneShot(_steam2, 0.3f);
         }
 
         public void PlaySoundEffect(StaticSegmentData staticSegmentData)
