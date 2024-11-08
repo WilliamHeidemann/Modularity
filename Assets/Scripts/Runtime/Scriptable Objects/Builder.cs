@@ -48,7 +48,7 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = prefab.StaticSegmentData,
             };
 
-            if (!_structure.IsEmpty && !_structure.ConnectsToSomething(segmentData) && !isInitial)
+            if (!_structure.IsEmpty && !_structure.ConnectsToNeighbors(segmentData) && !isInitial)
             {
                 Debug.Log("Cannot connect to anything");
                 return;

@@ -117,7 +117,9 @@ namespace Runtime.Scriptable_Objects
                     Rotation = rotation,
                     StaticSegmentData = staticSegmentData
                 })
-                .Where(segmentData => _structure.ConnectsToSomething(segmentData))
+                .Where(segmentData => segmentData.StaticSegmentData.Reward > 0 
+                    ? _structure.ConnectsEverywhere(segmentData) 
+                    : _structure.ConnectsToNeighbors(segmentData))
                 .Where(segmentData =>
                 {
                     var points = segmentData.GetConnectionPoints().ToHashSet();

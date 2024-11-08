@@ -17,12 +17,21 @@ namespace Runtime.Scriptable_Objects
             UpdateFlow();
         }
 
-        public bool ConnectsToSomething(SegmentData segmentData)
+        public bool ConnectsToNeighbors(SegmentData segmentData)
         {
-            return segmentData.GetConnectionPoints()
+            var neighbors = segmentData.GetConnectionPoints()
                 .Where(point => _graphData.Any(data => data.Position == point))
-                .Select(point => _graphData.First(data => data.Position == point))
-                .All(segment => CanConnect(segmentData, segment));
+                .Select(point => _graphData.First(data => data.Position == point));
+            
+            return neighbors.Any() && neighbors.All(segment => CanConnect(segmentData, segment));
+        }
+
+        public bool ConnectsEverywhere(SegmentData segmentData)
+        {
+            var everythingConnects = segmentData.GetConnectionPoints()
+                .All(point => _graphData.Any(data => data.Position == point));
+
+            return everythingConnects && ConnectsToNeighbors(segmentData);
         }
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
