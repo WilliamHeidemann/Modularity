@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Runtime.Components.Segments;
-using Runtime.Components.Utility;
 using UnityEngine;
-using UnityUtils;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -21,7 +19,10 @@ namespace Runtime.Scriptable_Objects
 
         public bool ConnectsToSomething(SegmentData segmentData)
         {
-            return _graphData.Any(data => CanConnect(segmentData, data));
+            return segmentData.GetConnectionPoints()
+                .Where(point => _graphData.Any(data => data.Position == point))
+                .Select(point => _graphData.First(data => data.Position == point))
+                .All(segment => CanConnect(segmentData, segment));
         }
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
@@ -30,7 +31,8 @@ namespace Runtime.Scriptable_Objects
             var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
             var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
             var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
-            return from1To2 && from2To1 && (steamFlow || bloodFlow);
+            var canConnect = from1To2 && from2To1 && (steamFlow || bloodFlow);
+            return canConnect;
         }
 
         private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
