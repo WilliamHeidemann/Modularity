@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e743a446bd9e9b74d84e2be7c41c40b0, type: 3}
   m_Name: Segment Pool
   m_EditorClassIdentifier: 
-  _ultraRareDropChance: 6.71
+  _ultraRareDropChance: 5.23
   _rareDropChance: 4.6
   _commonDropChance: 4.4
   _ultraRareSegments:
@@ -23,8 +23,6 @@ MonoBehaviour:
   - {fileID: 4404823909993285501, guid: 0123d1ea0f5b96c4e8fd789c103b5fc1, type: 3}
   - {fileID: 4404823909993285501, guid: e76c91d0e1d2aed4ca50e40bc476d48a, type: 3}
   - {fileID: 4404823909993285501, guid: 158ec810cefd24746bfffa8ffd76ad46, type: 3}
-  - {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
-  - {fileID: 4404823909993285501, guid: 607b62cc5ae370c4e9ef60c3bc6e456c, type: 3}
   _commonSegments:
   - {fileID: 4404823909993285501, guid: 15d1e1fc811c56a498fb7fd31b858e3d, type: 3}
   - {fileID: 4404823909993285501, guid: 9b0b025830b94184d9dc8d1744b0b9d9, type: 3}
