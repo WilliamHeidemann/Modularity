@@ -1,7 +1,8 @@
 using Runtime.Components.Segments;
+using Runtime.Components.Utility;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityUtils;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Components.Systems
@@ -15,22 +16,23 @@ namespace Runtime.Components.Systems
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private Currency _currency;
+        [SerializeField] private int _startingCurrency;
+        
+        [SerializeField] private Transform[] _startingBloodPoints;
+        [SerializeField] private Transform[] _startingSteamPoints;
 
         private void Start()
         {
             _structure.Clear();
             _hand.Initialize();
-            _currency.Initialize();
+            _currency.Initialize(_startingCurrency);
             _selection.Prefab = Option<Segment>.Some(_bloodSource);
-            _builder.Build(new Vector3Int(-2, 0, 2), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(-1, 10, 1), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(2, 3, 2), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(-2, 3, -2), Quaternion.Euler(180, 0, 0), true);
+            _startingBloodPoints.ForEach(point => 
+                _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 0, 0), true));
 
             _selection.Prefab = Option<Segment>.Some(_steamSource);
-            _builder.Build(new Vector3Int(2, 0, -2), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(-2, 3, 2), Quaternion.Euler(180, 0, 0), true);
-            _builder.Build(new Vector3Int(0, 10, 0), Quaternion.Euler(180, 0, 0), true);
+            _startingSteamPoints.ForEach(point => 
+                _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 0, 0), true));
 
             _selection.Prefab = Option<Segment>.None;
         }

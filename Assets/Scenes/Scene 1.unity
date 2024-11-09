@@ -1364,6 +1364,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0a1cade8f3785a5498483caf954be128, type: 3}
   m_PrefabInstance: {fileID: 1137402636}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &531296109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 531296110}
+  m_Layer: 0
+  m_Name: Steam Starting Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &531296110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531296109}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &532557240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e08d894d1a4dca746a9673007d5c706d, type: 3}
@@ -3390,6 +3421,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8988c881874f4cb4db33f58b6a8e7416, type: 3}
+--- !u!1 &1064948646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064948647}
+  m_Layer: 0
+  m_Name: Blood Starting Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1064948647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064948646}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1075624712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5649,6 +5711,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0a1cade8f3785a5498483caf954be128, type: 3}
   m_PrefabInstance: {fileID: 1838873315}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1628817711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628817712}
+  m_Layer: 0
+  m_Name: Blood Starting Point (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1628817712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628817711}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629722573
 GameObject:
   m_ObjectHideFlags: 0
@@ -8097,6 +8190,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 043111edfa1d129478e041d0c2a324c8, type: 3}
+--- !u!1 &2127582089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2127582090}
+  m_Layer: 0
+  m_Name: Steam Starting Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2127582090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127582089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2134462419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8308,6 +8432,34 @@ PrefabInstance:
       propertyPath: _steamSource
       value: 
       objectReference: {fileID: 4404823909993285501, guid: 2f15fb252de55424fb482f29614a9506, type: 3}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: _startingCurrency
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: _startingBloodPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: _startingSteamPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: '_startingBloodPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1064948647}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: '_startingBloodPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1628817712}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: '_startingSteamPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2127582090}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: '_startingSteamPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 531296110}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8424,3 +8576,7 @@ SceneRoots:
   - {fileID: 2385158981776705328}
   - {fileID: 1941683525}
   - {fileID: 556733231}
+  - {fileID: 2127582090}
+  - {fileID: 531296110}
+  - {fileID: 1064948647}
+  - {fileID: 1628817712}

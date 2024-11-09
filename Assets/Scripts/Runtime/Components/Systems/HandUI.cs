@@ -11,6 +11,7 @@ namespace Runtime.Components.Systems
     {
         [SerializeField] private Blueprint[] _blueprintOptions;
         [SerializeField] private Hand _hand;
+        [SerializeField] private Currency _currency;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
@@ -27,6 +28,15 @@ namespace Runtime.Components.Systems
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                ReRoll();
+            }
+        }
+
+        public void ReRoll()
+        {
+            if (_currency.HasAtLeast(1))
+            {
+                _currency.Pay(1);
                 _hand.GenerateHand();
             }
         }
