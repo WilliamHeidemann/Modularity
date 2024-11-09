@@ -14,6 +14,5 @@ namespace Runtime.Scriptable_Objects
         public int Resistance;
         public int Power;
         public int Reward;
-
     }
 }

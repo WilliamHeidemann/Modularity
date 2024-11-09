@@ -21,7 +21,8 @@ namespace Runtime.Scriptable_Objects
         {
             var neighbors = segmentData.GetConnectionPoints()
                 .Where(point => _graphData.Any(data => data.Position == point))
-                .Select(point => _graphData.First(data => data.Position == point));
+                .Select(point => _graphData.First(data => data.Position == point))
+                .ToList();
             
             return neighbors.Any() && neighbors.All(segment => CanConnect(segmentData, segment));
         }

@@ -31,6 +31,8 @@ namespace Runtime.Components.Systems
             _builder.Build(new Vector3Int(2, 0, -2), Quaternion.Euler(180, 0, 0), true);
             _builder.Build(new Vector3Int(-2, 3, 2), Quaternion.Euler(180, 0, 0), true);
             _builder.Build(new Vector3Int(0, 10, 0), Quaternion.Euler(180, 0, 0), true);
+
+            _selection.Prefab = Option<Segment>.None;
         }
     }
 }
