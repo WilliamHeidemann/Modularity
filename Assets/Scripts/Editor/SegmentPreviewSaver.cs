@@ -49,6 +49,7 @@ namespace Editor
                     AssetDatabase.ImportAsset(spritePath, ImportAssetOptions.ForceUpdate);
 
                     segment.Preview = AssetDatabase.LoadAssetAtPath<Sprite>(spritePath);
+                    EditorUtility.SetDirty(segment);
                 }
                 else
                 {

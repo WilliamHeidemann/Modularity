@@ -209,3 +209,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 81af34f8200375245b147cefa0013857, type: 2}
+  Preview: {fileID: 21300000, guid: 7bc9663371fa8ce4980c54e68212de9c, type: 3}

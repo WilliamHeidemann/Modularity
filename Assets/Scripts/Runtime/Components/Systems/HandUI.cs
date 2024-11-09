@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
@@ -20,6 +21,14 @@ namespace Runtime.Components.Systems
         private void OnDestroy()
         {
             _hand.OnDrawHand -= DisplayHand;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                _hand.GenerateHand();
+            }
         }
 
         private void DisplayHand()
