@@ -940,6 +940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e051a740e48067145b163d553b16bc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotationSpeed: 10
+  TranslationSpeed: 800
 --- !u!4 &337359478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1e2ef0cc5c65717479848f40d793d3ee, type: 3}
