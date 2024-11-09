@@ -5,7 +5,7 @@ namespace Runtime.Components.Utility
     public class CameraControls : MonoBehaviour
     {
         private const float RotationSpeed = 10f;
-        private const float TranslationSpeed = 250f;
+        private const float TranslationSpeed = 1500f;
         private float _lastMouseX;
         private float _lastMouseY;
 
