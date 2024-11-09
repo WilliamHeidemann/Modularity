@@ -4,38 +4,41 @@ namespace Runtime.Components.Utility
 {
     public class CameraControls : MonoBehaviour
     {
-        private const float RotationSpeed = 100f;
+        private const float RotationSpeed = 20f;
+        private const float TranslationSpeed = 5f;
+        private float _lastMouseX;
 
         private void Update()
         {
-            HandleMovement();
             HandleRotation();
+            HandleTranslation();
         }
 
-        private void HandleMovement()
+        private void HandleTranslation()
         {
-            var distanceToOrigin = Vector3.Distance(transform.position, Vector3.zero);
-
-            var input = Input.GetAxis("Vertical");
-
-            if (distanceToOrigin < 3 && input > 0)
-            {
-                return;
-            }
-
-            if (distanceToOrigin > 20 && input < 0)
-            {
-                return;
-            }
-
-            var translation = input * Time.deltaTime * (Vector3.zero - transform.position);
-            transform.Translate(translation, Space.World);
+            var xTranslation = Input.GetAxis("Horizontal") * Time.deltaTime;
+            var yTranslation = Input.GetAxis("QE") * Time.deltaTime;
+            var zTranslation = Input.GetAxis("Vertical") * Time.deltaTime;
+            var translation = new Vector3(xTranslation, yTranslation, zTranslation) * TranslationSpeed;
+            transform.Translate(translation, Space.Self);
         }
 
         private void HandleRotation()
         {
-            var yRotation = Input.GetAxis("Horizontal") * Time.deltaTime * RotationSpeed;
-            transform.RotateAround(Vector3.zero, Vector3.down, yRotation);
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+                Cursor.visible = false;
+                var deltaX = Input.mousePosition.x - _lastMouseX;
+                if (!Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    transform.Rotate(Vector3.up, deltaX * RotationSpeed * Time.deltaTime, Space.World);
+                }
+                _lastMouseX = Input.mousePosition.x;
+            }
+            else
+            {
+                Cursor.visible = true;
+            }
         }
     }
 }
