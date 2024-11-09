@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
-  m_Name: Receiver Double Blood
+  m_Name: Receiver Elbow Blood
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 0
     Down: 0
-    Right: 0
+    Right: 1
     Left: 0
-    Forward: 1
+    Forward: 0
     Back: 1
   Model: 13
   Blood: 1
