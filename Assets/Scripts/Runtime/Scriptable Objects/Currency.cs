@@ -6,32 +6,36 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Currency : ScriptableObject
     {
-        [SerializeField] private int _gears;
-        public event Action<int> OnGearsChanged;
+        [SerializeField] private int _blood;
+        [SerializeField] private int _steam;
+        public event Action<int, int> OnCurrencyChanged;
 
-        public void Add(int amount)
+        public void Add(int bloodAmount, int steamAmount)
         {
-            _gears += amount;
-            OnGearsChanged?.Invoke(_gears);
+            _blood += bloodAmount;
+            _steam += steamAmount;
+            OnCurrencyChanged?.Invoke(_blood, _steam);
         }
 
-        public void Pay(int amount)
+        public void Pay(int bloodAmount, int steamAmount)
         {
-            _gears -= amount;
-            OnGearsChanged?.Invoke(_gears);
+            _blood -= bloodAmount;
+            _steam -= bloodAmount;
+            OnCurrencyChanged?.Invoke(_blood, _steam);
         }
 
-        public bool HasAtLeast(int amount)
+        public bool HasAtLeast(int bloodAmount, int steamAmount)
         {
-            return _gears >= amount;
+            return _blood >= bloodAmount && _steam >= steamAmount;
         }
 
-        public int Amount => _gears;
+        public int BloodAmount => _blood;
+        public int SteamAmount => _steam;
 
         public void Initialize(int startingGears)
         {
-            _gears = startingGears;
-            OnGearsChanged?.Invoke(_gears);
+            _blood = startingGears;
+            OnCurrencyChanged?.Invoke(_blood, _steam);
         }
     }
 }

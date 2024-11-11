@@ -13,6 +13,7 @@ namespace Runtime.Scriptable_Objects
         public bool Steam;
         public int Resistance;
         public int Power;
-        public int Reward;
+        public int BloodReward;
+        public int SteamReward;
     }
 }
