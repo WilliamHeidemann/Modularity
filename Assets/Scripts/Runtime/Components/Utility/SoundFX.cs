@@ -12,6 +12,8 @@ namespace Runtime.Components.Utility
         [SerializeField] private AudioClip _blood2;
         [SerializeField] private AudioClip _steam1;
         [SerializeField] private AudioClip _steam2;
+        [SerializeField] private AudioClip UIHover;
+        
         public void PlayBlood1()
         {
             _audioSource.PlayOneShot(_blood1, 1f);
@@ -27,6 +29,16 @@ namespace Runtime.Components.Utility
         public void PlaySteam2()
         {
             _audioSource.PlayOneShot(_steam2, 0.3f);
+        }
+
+        public void PlayUIHover()
+        {
+            _audioSource.PlayOneShot(UIHover, 1f);
+        }
+        
+        public void PlayOneShot(AudioClip clip, float volume)
+        {
+            _audioSource.PlayOneShot(clip, volume);
         }
 
         public void PlaySoundEffect(StaticSegmentData staticSegmentData)
