@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Runtime.Components.Segments;
-using Runtime.Components.Utility;
 using UnityEngine;
-using UnityUtils;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -19,9 +17,22 @@ namespace Runtime.Scriptable_Objects
             UpdateFlow();
         }
 
-        public bool ConnectsToSomething(SegmentData segmentData)
+        public bool ConnectsToNeighbors(SegmentData segmentData)
         {
-            return _graphData.Any(data => CanConnect(segmentData, data));
+            var neighbors = segmentData.GetConnectionPoints()
+                .Where(point => _graphData.Any(data => data.Position == point))
+                .Select(point => _graphData.First(data => data.Position == point))
+                .ToList();
+            
+            return neighbors.Any() && neighbors.All(segment => CanConnect(segmentData, segment));
+        }
+
+        public bool ConnectsEverywhere(SegmentData segmentData)
+        {
+            var everythingConnects = segmentData.GetConnectionPoints()
+                .All(point => _graphData.Any(data => data.Position == point));
+
+            return everythingConnects && ConnectsToNeighbors(segmentData);
         }
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
@@ -30,7 +41,8 @@ namespace Runtime.Scriptable_Objects
             var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
             var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
             var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
-            return from1To2 && from2To1 && (steamFlow || bloodFlow);
+            var canConnect = from1To2 && from2To1 && (steamFlow || bloodFlow);
+            return canConnect;
         }
 
         private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
@@ -76,7 +88,7 @@ namespace Runtime.Scriptable_Objects
                 if (flow <= 1) continue;
                 foreach (var segment in GetLinks(k))
                 {
-                    if (!segment.isActive) ActivateSegment(segment, flow);
+                    if (!segment.IsActive) ActivateSegment(segment, flow);
 
                     if (!(explored.Keys.Contains(segment) &&
                           explored[segment] >= flow - segment.StaticSegmentData.Resistance))
@@ -90,11 +102,11 @@ namespace Runtime.Scriptable_Objects
 
         public void ActivateSegment(SegmentData segmentData, int flow)
         {
-            segmentData.isActive = true;
+            segmentData.IsActive = true;
             var power = flow - segmentData.StaticSegmentData.Resistance;
-            if (segmentData.StaticSegmentData.Reward > 0)
+            if (segmentData.StaticSegmentData.isReciever)
             {
-                _currency.Add(segmentData.StaticSegmentData.Reward);
+                _currency.Add(segmentData.StaticSegmentData.BloodReward, segmentData.StaticSegmentData.SteamReward);
             }
         }
     }

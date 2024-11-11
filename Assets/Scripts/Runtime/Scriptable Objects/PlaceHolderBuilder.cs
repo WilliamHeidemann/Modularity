@@ -45,21 +45,17 @@ namespace Runtime.Scriptable_Objects
             }
             else
             {
+                TearDown();
+                
                 placeHolder = Instantiate(selectedSegment, position, Quaternion.identity);
                 placeHolder.GetComponent<BoxCollider>().enabled = false;
-                Material transparentMat;
-                if(placeHolder.StaticSegmentData.Steam)
-                {
-                    transparentMat = _transparentMatBlue;
-                }
-                else
-                {
-                    transparentMat = _transparentMatRed;
-                }
+                var transparentMat = placeHolder.StaticSegmentData.Steam ? _transparentMatBlue : _transparentMatRed;
+                
                 foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
                 {
-                    meshRenderer.material = transparentMat;
+                    meshRenderer.sharedMaterial = transparentMat;
                 }
+                
                 _placeHolder = Option<Segment>.Some(placeHolder);
             }
 
@@ -121,7 +117,9 @@ namespace Runtime.Scriptable_Objects
                     Rotation = rotation,
                     StaticSegmentData = staticSegmentData
                 })
-                .Where(segmentData => _structure.ConnectsToSomething(segmentData))
+                .Where(segmentData => segmentData.StaticSegmentData.isReciever
+                    ? _structure.ConnectsEverywhere(segmentData) 
+                    : _structure.ConnectsToNeighbors(segmentData))
                 .Where(segmentData =>
                 {
                     var points = segmentData.GetConnectionPoints().ToHashSet();

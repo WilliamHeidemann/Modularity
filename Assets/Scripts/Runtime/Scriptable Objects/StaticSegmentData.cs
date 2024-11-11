@@ -13,7 +13,11 @@ namespace Runtime.Scriptable_Objects
         public bool Steam;
         public int Resistance;
         public int Power;
-        public int Reward;
+        public int BloodReward;
+        public int SteamReward;
+        public int BloodCost;
+        public int SteamCost;
 
+        public bool isReciever => SteamReward > 0 || BloodReward > 0;
     }
 }
