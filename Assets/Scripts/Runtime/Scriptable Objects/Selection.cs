@@ -8,6 +8,7 @@ namespace Runtime.Scriptable_Objects
     public class Selection : ScriptableObject
     {
         public Option<Segment> Prefab;
-        public int Price;
+        public int PriceBlood;
+        public int PriceSteam;
     }
 }

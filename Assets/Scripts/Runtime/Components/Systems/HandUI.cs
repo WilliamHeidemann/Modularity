@@ -34,9 +34,9 @@ namespace Runtime.Components.Systems
 
         public void ReRoll()
         {
-            if (_currency.HasAtLeast(1))
+            if (_currency.HasAtLeast(1, 1))
             {
-                _currency.Pay(1);
+                _currency.Pay(1, 1);
                 _hand.GenerateHand();
             }
         }

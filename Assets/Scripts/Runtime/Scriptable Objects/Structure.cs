@@ -117,9 +117,9 @@ namespace Runtime.Scriptable_Objects
         {
             segmentData.IsActive = true;
             var power = flow - segmentData.StaticSegmentData.Resistance;
-            if (segmentData.StaticSegmentData.Reward > 0)
+            if (segmentData.StaticSegmentData.isReciever)
             {
-                _currency.Add(segmentData.StaticSegmentData.Reward);
+                _currency.Add(segmentData.StaticSegmentData.BloodReward, segmentData.StaticSegmentData.SteamReward);
             }
         }
     }

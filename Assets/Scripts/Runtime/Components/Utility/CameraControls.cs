@@ -1,47 +1,72 @@
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Components.Utility
 {
     public class CameraControls : MonoBehaviour
     {
-        [SerializeField] private float RotationSpeed = 10f;
-        [SerializeField] private float TranslationSpeed = 1500f;
-        private float _lastMouseX;
-        private float _lastMouseY;
+        [SerializeField] private float _dragSpeed;
+        [SerializeField] private float _rotationSpeed;
+        [SerializeField] private float _zoomSpeed;
+
+        private Vector3 _dragOrigin;
+
+        private float _horizontalRotation;
+        private float _verticalRotation;
+
+        private void Start()
+        {
+            _horizontalRotation = transform.eulerAngles.y;
+            _verticalRotation = transform.eulerAngles.x;
+        }
 
         private void Update()
         {
-            HandleRotation();
             HandleTranslation();
+            HandleRotation();
+            HandleZoom();
         }
 
         private void HandleTranslation()
         {
-            var xTranslation = Input.GetAxis("Horizontal") * Time.deltaTime;
-            var zTranslation = Input.GetAxis("Vertical") * Time.deltaTime;
-            var translation = new Vector3(xTranslation, 0, zTranslation) * (TranslationSpeed * Time.deltaTime);
+            if (Input.GetMouseButtonDown(0))
+            {
+                _dragOrigin = Input.mousePosition;
+                return;
+            }
+
+            if (!Input.GetMouseButton(0))
+            {
+                return;
+            }
+
+            var delta = Input.mousePosition - _dragOrigin;
+            var translation = new Vector3(-delta.x * _dragSpeed, -delta.y * _dragSpeed, 0);
             transform.Translate(translation, Space.Self);
+            _dragOrigin = Input.mousePosition;
         }
 
         private void HandleRotation()
         {
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            if (!Input.GetMouseButton(1))
             {
-                Cursor.visible = false;
-                var deltaX = Input.mousePosition.x - _lastMouseX;
-                var deltaY = Input.mousePosition.y - _lastMouseY;
-                if (!Input.GetKeyDown(KeyCode.LeftShift) && !Input.GetKeyDown(KeyCode.RightShift))
-                {
-                    transform.Rotate(Vector3.up, deltaX * RotationSpeed * Time.deltaTime, Space.World);
-                    transform.Rotate(Vector3.left, deltaY * RotationSpeed * Time.deltaTime, Space.Self);
-                }
-                _lastMouseX = Input.mousePosition.x;
-                _lastMouseY = Input.mousePosition.y;
+                return;
             }
-            else
-            {
-                Cursor.visible = true;
-            }
+            
+            var mouseX = Input.GetAxis("Mouse X");
+            var mouseY = Input.GetAxis("Mouse Y");
+
+            _horizontalRotation += mouseX * _rotationSpeed;
+            _verticalRotation -= mouseY * _rotationSpeed;
+            _verticalRotation = Mathf.Clamp(_verticalRotation, -90f, 90f);
+            transform.rotation = Quaternion.Euler(_verticalRotation, _horizontalRotation, 0.0f);
+        }
+        
+        private void HandleZoom()
+        {
+            var scroll = Input.GetAxis("Mouse ScrollWheel");
+            transform.Translate(0, 0, scroll * _dragSpeed * _zoomSpeed);
         }
     }
 }
