@@ -7,18 +7,21 @@ namespace Runtime.Components
 {
     public class CurrencyDisplay : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _currencyText;
+        [SerializeField] private TextMeshProUGUI _BloodCurrencyText;
+        [SerializeField] private TextMeshProUGUI _SteamCurrencyText;
         [SerializeField] private Currency _currency;
 
         private void Start()
         {
-            _currencyText.text = _currency.Amount.ToString();
-            _currency.OnGearsChanged += UpdateCurrencyText;
+            _BloodCurrencyText.text = _currency.BloodAmount.ToString();
+            _SteamCurrencyText.text = _currency.SteamAmount.ToString();
+            _currency.OnCurrencyChanged += UpdateCurrencyText;
         }
 
-        private void UpdateCurrencyText(int newAmount)
+        private void UpdateCurrencyText(int bloodAmount, int steamAmount)
         {
-            _currencyText.text = newAmount.ToString();
+            _BloodCurrencyText.text = bloodAmount.ToString();
+            _SteamCurrencyText.text = steamAmount.ToString();
         }
     }
 }
