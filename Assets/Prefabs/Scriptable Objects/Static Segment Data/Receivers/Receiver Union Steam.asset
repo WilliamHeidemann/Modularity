@@ -24,4 +24,5 @@ MonoBehaviour:
   Steam: 1
   Resistance: 0
   Power: 500
-  Reward: 10
+  BloodReward: 0
+  SteamReward: 10

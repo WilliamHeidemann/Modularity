@@ -33,10 +33,12 @@ namespace Runtime.Scriptable_Objects
             if (SegmentsOptions[chosenSegment].StaticSegmentData.Blood)
             {
                 _selection.PriceBlood = SegmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
+                _selection.PriceSteam = 0;
             }
             else
             {
                 _selection.PriceSteam = SegmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
+                _selection.PriceBlood = 0;
             }
         }
 

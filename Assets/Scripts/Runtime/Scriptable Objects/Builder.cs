@@ -62,7 +62,7 @@ namespace Runtime.Scriptable_Objects
             SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
             if (!isInitial)
             {
-                _currency.Pay(_selection.PriceBlood, _selection.PriceBlood);
+                _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
                 _hand.GenerateHand();
             }
             if (!isInitial) _selection.Prefab = Option<Segment>.None;

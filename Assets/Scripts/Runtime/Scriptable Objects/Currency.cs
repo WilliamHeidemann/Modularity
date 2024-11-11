@@ -20,7 +20,7 @@ namespace Runtime.Scriptable_Objects
         public void Pay(int bloodAmount, int steamAmount)
         {
             _blood -= bloodAmount;
-            _steam -= bloodAmount;
+            _steam -= steamAmount;
             OnCurrencyChanged?.Invoke(_blood, _steam);
         }
 
@@ -32,9 +32,10 @@ namespace Runtime.Scriptable_Objects
         public int BloodAmount => _blood;
         public int SteamAmount => _steam;
 
-        public void Initialize(int startingGears)
+        public void Initialize(int startingCurrency)
         {
-            _blood = startingGears;
+            _blood = startingCurrency;
+            _steam = startingCurrency;
             OnCurrencyChanged?.Invoke(_blood, _steam);
         }
     }
