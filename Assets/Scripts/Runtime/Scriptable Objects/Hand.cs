@@ -29,17 +29,8 @@ namespace Runtime.Scriptable_Objects
         public void SelectBlueprint(int chosenSegment)
         {
             _selection.Prefab = Option<Segment>.Some(SegmentsOptions[chosenSegment]);
-
-            if (SegmentsOptions[chosenSegment].StaticSegmentData.Blood)
-            {
-                _selection.PriceBlood = SegmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
-                _selection.PriceSteam = 0;
-            }
-            else
-            {
-                _selection.PriceSteam = SegmentsOptions[chosenSegment].StaticSegmentData.ConnectionPoints.OpenConnectionPoints();
-                _selection.PriceBlood = 0;
-            }
+            _selection.PriceBlood = SegmentsOptions[chosenSegment].StaticSegmentData.BloodCost;
+            _selection.PriceSteam = SegmentsOptions[chosenSegment].StaticSegmentData.SteamCost;
         }
 
         public void GenerateHand()

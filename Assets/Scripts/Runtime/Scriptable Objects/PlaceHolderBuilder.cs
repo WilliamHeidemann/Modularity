@@ -117,7 +117,7 @@ namespace Runtime.Scriptable_Objects
                     Rotation = rotation,
                     StaticSegmentData = staticSegmentData
                 })
-                .Where(segmentData => segmentData.StaticSegmentData.SteamReward > 0 || segmentData.StaticSegmentData.BloodReward > 0
+                .Where(segmentData => segmentData.StaticSegmentData.isReciever
                     ? _structure.ConnectsEverywhere(segmentData) 
                     : _structure.ConnectsToNeighbors(segmentData))
                 .Where(segmentData =>

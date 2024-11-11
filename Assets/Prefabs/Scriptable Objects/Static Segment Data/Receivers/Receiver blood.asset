@@ -26,3 +26,5 @@ MonoBehaviour:
   Power: 0
   BloodReward: 8
   SteamReward: 0
+  BloodCost: 1
+  SteamCost: 0
