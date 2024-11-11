@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Connector Cross Steam
   m_EditorClassIdentifier: 
   ConnectionPoints:
-    Up: 1
-    Down: 1
-    Right: 1
-    Left: 1
+    Up: 2
+    Down: 2
+    Right: 2
+    Left: 2
     Forward: 0
     Back: 0
   Model: 10

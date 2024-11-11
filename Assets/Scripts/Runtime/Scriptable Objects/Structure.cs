@@ -24,7 +24,7 @@ namespace Runtime.Scriptable_Objects
                 .Select(point => _graphData.First(data => data.Position == point))
                 .ToList();
             
-            return neighbors.Any() && neighbors.All(segment => CanConnect(segmentData, segment));
+            return neighbors.Any() && neighbors.All(segment => CanConnect2(segmentData, segment));
         }
 
         public bool ConnectsEverywhere(SegmentData segmentData)
@@ -39,16 +39,29 @@ namespace Runtime.Scriptable_Objects
         {
             var from1To2 = segmentData1.GetConnectionPoints().Contains(segmentData2.Position);
             var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
+            
             var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
             var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
             var canConnect = from1To2 && from2To1 && (steamFlow || bloodFlow);
             return canConnect;
         }
 
+
+        private bool CanConnect2(SegmentData segmentData1, SegmentData segmentData2)
+        {
+            foreach (var connectionPoint in segmentData1.GetConnectionPointsPlus())
+            {
+                if (connectionPoint.Item1 == segmentData2.Position 
+                    && segmentData2.GetConnectionPointsPlus().Contains((segmentData1.Position, connectionPoint.Item2))) return true;
+            }
+            return false;
+        }
+
+
         private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
         {
             var connectionsOneWay = _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
-            return connectionsOneWay.Where(data => CanConnect(data, segmentData));
+            return connectionsOneWay.Where(data => CanConnect2(data, segmentData));
         }
 
         public bool IsEmpty => _graphData.Count == 0;

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
-  m_Name: Source Steam Quard-Tee
+  m_Name: converter union
   m_EditorClassIdentifier: 
   ConnectionPoints:
-    Up: 0
+    Up: 1
     Down: 2
-    Right: 2
-    Left: 2
-    Forward: 2
-    Back: 2
-  Model: 2
+    Right: 0
+    Left: 0
+    Forward: 0
+    Back: 0
+  Model: 4
   Blood: 0
-  Steam: 1
-  Resistance: 0
-  Power: 100
+  Steam: 0
+  Resistance: 2
+  Power: 0
   Reward: 0
