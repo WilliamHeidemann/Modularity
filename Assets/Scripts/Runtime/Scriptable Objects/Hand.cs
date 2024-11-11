@@ -44,7 +44,6 @@ namespace Runtime.Scriptable_Objects
                 while (SegmentsOptions.Contains(segment))
                 {
                     segment = _pool.GetRandomSegment();
-                    Debug.Log(segment);
                     failsafe++;
 
                     if (failsafe > 10)

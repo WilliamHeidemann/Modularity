@@ -8,17 +8,17 @@ namespace Runtime.Components
 {
     public class Blueprint : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _itemName;
         [SerializeField] private TextMeshProUGUI _itemCost;
-
-        public void SetName(string itemName)
-        {
-            _itemName.text = itemName;
-        }
+        [SerializeField] private Image _itemPreview;
         
         public void SetCost(string itemCost)
         {
             _itemCost.text = itemCost;
+        }
+
+        public void SetPreview(Sprite itemPreview)
+        {
+            _itemPreview.sprite = itemPreview;
         }
     }
 }
