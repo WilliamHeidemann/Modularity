@@ -104,7 +104,7 @@ namespace Runtime.Scriptable_Objects
         {
             segmentData.IsActive = true;
             var power = flow - segmentData.StaticSegmentData.Resistance;
-            if (segmentData.StaticSegmentData.BloodReward > 0 || segmentData.StaticSegmentData.SteamReward > 0)
+            if (segmentData.StaticSegmentData.isReciever)
             {
                 _currency.Add(segmentData.StaticSegmentData.BloodReward, segmentData.StaticSegmentData.SteamReward);
             }
