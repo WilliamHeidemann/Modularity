@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 2232386006986315898}
   - component: {fileID: 2458416990532299660}
   - component: {fileID: 3223422381655429275}
-  - component: {fileID: 3177937725216668440}
+  - component: {fileID: -7108051438401923763}
   m_Layer: 0
   m_Name: Elbow Blood Receiver
   m_TagString: Untagged
@@ -297,9 +297,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 5cb71550c3567bf429e62cddd8a8b1e1, type: 2}
-  SegmentActivator: {fileID: 3177937725216668440}
+  SegmentActivator: {fileID: -7108051438401923763}
   Preview: {fileID: 21300000, guid: 51fc2cc490c403d40b73ec66866ad382, type: 3}
---- !u!114 &3177937725216668440
+--- !u!114 &-7108051438401923763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,7 +308,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7152264757727068947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dfc8cb152979ce4da85216875f103c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 001599b0a00ece04dacf3b3b7693da0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+  _staticSegmentData: {fileID: 11400000, guid: 5cb71550c3567bf429e62cddd8a8b1e1, type: 2}
+  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}

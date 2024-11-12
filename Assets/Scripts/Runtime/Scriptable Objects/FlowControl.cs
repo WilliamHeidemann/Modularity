@@ -68,6 +68,7 @@ namespace Runtime.Scriptable_Objects
             
             var power = flow - segmentData.StaticSegmentData.Resistance;
 
+
             segment.SegmentActivator.Activate();
             
         }

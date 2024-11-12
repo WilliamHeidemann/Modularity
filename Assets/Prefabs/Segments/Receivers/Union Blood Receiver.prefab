@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 2232386006986315898}
   - component: {fileID: 2458416990532299660}
   - component: {fileID: 3223422381655429275}
-  - component: {fileID: -2407406983999725662}
+  - component: {fileID: -7121646430925895254}
   m_Layer: 0
   m_Name: Union Blood Receiver
   m_TagString: Untagged
@@ -210,9 +210,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 81af34f8200375245b147cefa0013857, type: 2}
-  SegmentActivator: {fileID: -2407406983999725662}
+  SegmentActivator: {fileID: -7121646430925895254}
   Preview: {fileID: 21300000, guid: 7bc9663371fa8ce4980c54e68212de9c, type: 3}
---- !u!114 &-2407406983999725662
+--- !u!114 &-7121646430925895254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +221,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7152264757727068947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dfc8cb152979ce4da85216875f103c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 001599b0a00ece04dacf3b3b7693da0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsActive: 0
+  _staticSegmentData: {fileID: 11400000, guid: 81af34f8200375245b147cefa0013857, type: 2}
+  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
