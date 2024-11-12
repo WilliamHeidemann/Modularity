@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 0
-    Down: 1
+    Down: 2
     Right: 0
     Left: 0
     Forward: 0

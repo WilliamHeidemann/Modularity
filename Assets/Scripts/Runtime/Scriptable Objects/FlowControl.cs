@@ -14,8 +14,8 @@ namespace Runtime.Scriptable_Objects
     public class FlowControl : ScriptableObject
     {
         [SerializeField] private Structure _structure;
+        [SerializeField] private List<GameObject> _gameObjects = new();
 
-        
         public void UpdateFlow()
         {
             foreach (var segment in _structure.GraphData.Where(segment => segment.StaticSegmentData.Power > 0))
@@ -24,6 +24,10 @@ namespace Runtime.Scriptable_Objects
             }
         }
 
+        public void AddToGameObjects(GameObject gameObject)
+        {
+            _gameObjects.Add(gameObject);
+        }
         private void BestFirstFlow(SegmentData segmentData)
         {
             Dictionary<SegmentData, int> queue = new()
@@ -59,7 +63,11 @@ namespace Runtime.Scriptable_Objects
         
         private void ActivateSegment(SegmentData segmentData, int flow)
         {
+
+            var segment = GetSegmentAtPos(segmentData.Position);
+            Debug.Log(segment.name);
             segmentData.IsActive = true;
+            segment.GetComponent<Segment>();
             var power = flow - segmentData.StaticSegmentData.Resistance;
             if (segmentData.StaticSegmentData.isReciever)
             {
@@ -67,5 +75,25 @@ namespace Runtime.Scriptable_Objects
             }
         }
 
+        private GameObject GetSegmentAtPos(Vector3Int position)
+        {
+            GameObject result = new();
+            foreach (var segment in _gameObjects)
+            {
+                if (segment.transform.position.AsVector3Int() == position)
+                {
+                    result = segment;
+                    break;
+                }
+            }
+            return result;
+        }
+        public void Clear()
+        {
+            _gameObjects.Clear();
+        }
+
+
     }
+    
 }

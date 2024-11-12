@@ -15,10 +15,10 @@ MonoBehaviour:
   ConnectionPoints:
     Up: 0
     Down: 0
-    Right: 1
+    Right: 2
     Left: 0
     Forward: 0
-    Back: 1
+    Back: 2
   Model: 13
   Blood: 0
   Steam: 1
