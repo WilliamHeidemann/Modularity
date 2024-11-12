@@ -49,7 +49,7 @@ namespace Runtime.Scriptable_Objects
                 if (flow <= 1) continue;
                 foreach (var segment in _structure.GetLinks(k))
                 {
-                    if (!segment.IsActive) ActivateSegment(segment, flow);
+                    ActivateSegment(segment, flow);
 
                     if (!(explored.Keys.Contains(segment) &&
                           explored[segment] >= flow - segment.StaticSegmentData.Resistance))
@@ -65,29 +65,14 @@ namespace Runtime.Scriptable_Objects
         {
 
             var segment = GetSegmentAtPos(segmentData.Position);
-            Debug.Log(segment.name);
-            segmentData.IsActive = true;
-            segment.GetComponent<Segment>();
+            
             var power = flow - segmentData.StaticSegmentData.Resistance;
-            if (segmentData.StaticSegmentData.isReciever)
-            {
-                //_currency.Add(segmentData.StaticSegmentData.BloodReward, segmentData.StaticSegmentData.SteamReward);
-            }
-        }
 
-        private GameObject GetSegmentAtPos(Vector3Int position)
-        {
-            GameObject result = new();
-            foreach (var segment in _gameObjects)
-            {
-                if (segment.transform.position.AsVector3Int() == position)
-                {
-                    result = segment;
-                    break;
-                }
-            }
-            return result;
+            segment.SegmentActivator.Activate();
+            
         }
+        private Segment GetSegmentAtPos(Vector3Int position) 
+            => _gameObjects.First(go => go.transform.position.AsVector3Int() == position).GetComponent<Segment>();
         public void Clear()
         {
             _gameObjects.Clear();

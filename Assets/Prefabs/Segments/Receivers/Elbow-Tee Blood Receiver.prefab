@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 2232386006986315898}
   - component: {fileID: 2458416990532299660}
   - component: {fileID: 3223422381655429275}
+  - component: {fileID: 810124771432840831}
   m_Layer: 0
   m_Name: Elbow-Tee Blood Receiver
   m_TagString: Untagged
@@ -383,4 +384,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 5295f6f14174ddc4e8a62f916abae87c, type: 2}
+  SegmentActivator: {fileID: 810124771432840831}
   Preview: {fileID: 21300000, guid: 21e6d2aaf32ef094b836b5a50c49dd7d, type: 3}
+--- !u!114 &810124771432840831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7152264757727068947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfc8cb152979ce4da85216875f103c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0
