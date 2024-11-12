@@ -49,7 +49,7 @@ namespace Runtime.Scriptable_Objects
                 if (flow <= 1) continue;
                 foreach (var segment in _structure.GetLinks(k))
                 {
-                    ActivateSegment(segment, flow);
+                    ActivateSegment(segment, segmentData, k, flow);
 
                     if (!(explored.Keys.Contains(segment) &&
                           explored[segment] >= flow - segment.StaticSegmentData.Resistance))
@@ -61,15 +61,16 @@ namespace Runtime.Scriptable_Objects
             }
         }
         
-        private void ActivateSegment(SegmentData segmentData, int flow)
+        private void ActivateSegment(SegmentData segmentData, SegmentData source, SegmentData from, int flow)
         {
 
             var segment = GetSegmentAtPos(segmentData.Position);
             
             var power = flow - segmentData.StaticSegmentData.Resistance;
 
-
-            segment.SegmentActivator.Activate();
+            //here in order to accomodate only activating under certain conditions some data-points are passed to the activator
+            //more could be given if nescesary e.g. turn number given by list count and other stuff if needed for more complex activations
+            segment.SegmentActivator.Activate(source.Position, from.Position);
             
         }
         private Segment GetSegmentAtPos(Vector3Int position) 

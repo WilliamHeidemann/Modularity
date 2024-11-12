@@ -7,7 +7,7 @@ namespace Runtime.Components.Segments
     {
         [SerializeField] StaticSegmentData _staticSegmentData;
         [SerializeField] Currency _currency;
-        override public void Activate(){
+        override public void Activate(Vector3Int source, Vector3Int connector){
             if (!IsActive)
             {
                 _currency.Add(_staticSegmentData.BloodReward,0);

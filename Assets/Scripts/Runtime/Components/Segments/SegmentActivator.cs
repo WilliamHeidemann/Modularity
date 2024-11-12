@@ -12,5 +12,6 @@ namespace Runtime.Components.Segments
                 IsActive = true;
             }
         }
+        public virtual void Activate(Vector3Int source, Vector3Int connection){}
     }
 }
