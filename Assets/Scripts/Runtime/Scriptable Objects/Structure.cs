@@ -11,10 +11,14 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private List<SegmentData> _graphData = new();
         [SerializeField] private Currency _currency;
 
+        public List<SegmentData> GraphData
+        {
+            get { return _graphData; }
+        }
+
         public void AddSegment(SegmentData segmentData)
         {
             _graphData.Add(segmentData);
-            UpdateFlow();
         }
 
         public bool ConnectsToNeighbors(SegmentData segmentData)
@@ -46,7 +50,7 @@ namespace Runtime.Scriptable_Objects
         }
 
 
-        private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
+        public IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
         {
             var connectionsOneWay = _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
             return connectionsOneWay.Where(data => CanConnect(data, segmentData));
@@ -60,55 +64,5 @@ namespace Runtime.Scriptable_Objects
             _graphData.Clear();
         }
 
-        private void UpdateFlow()
-        {
-            foreach (var segment in _graphData.Where(segment => segment.StaticSegmentData.Power > 0))
-            {
-                BestFirstFlow(segment);
-            }
-        }
-
-        private void BestFirstFlow(SegmentData segmentData)
-        {
-            Dictionary<SegmentData, int> queue = new()
-            {
-                [segmentData] = segmentData.StaticSegmentData.Power
-            };
-
-            Dictionary<SegmentData, int> explored = new()
-            {
-                [segmentData] = segmentData.StaticSegmentData.Power
-            };
-
-            while (queue.Any())
-            {
-                var k = queue.Keys.First();
-                int flow = queue[k];
-                queue.Remove(k);
-
-                if (flow <= 1) continue;
-                foreach (var segment in GetLinks(k))
-                {
-                    if (!segment.IsActive) ActivateSegment(segment, flow);
-
-                    if (!(explored.Keys.Contains(segment) &&
-                          explored[segment] >= flow - segment.StaticSegmentData.Resistance))
-                    {
-                        queue[segment] = flow - segment.StaticSegmentData.Resistance;
-                        explored[segment] = flow - segment.StaticSegmentData.Resistance;
-                    }
-                }
-            }
-        }
-
-        public void ActivateSegment(SegmentData segmentData, int flow)
-        {
-            segmentData.IsActive = true;
-            var power = flow - segmentData.StaticSegmentData.Resistance;
-            if (segmentData.StaticSegmentData.isReciever)
-            {
-                _currency.Add(segmentData.StaticSegmentData.BloodReward, segmentData.StaticSegmentData.SteamReward);
-            }
-        }
     }
 }

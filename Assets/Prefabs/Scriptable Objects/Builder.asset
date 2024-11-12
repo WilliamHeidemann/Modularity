@@ -17,3 +17,4 @@ MonoBehaviour:
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
   _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
   _hand: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
+  _flowControl: {fileID: 11400000, guid: 4c3b37f17edb4d04f9e16d641b0974b2, type: 2}

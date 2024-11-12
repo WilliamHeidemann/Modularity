@@ -17,6 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private Currency _currency;
         [SerializeField] private Hand _hand;
+        [SerializeField] private FlowControl _flowControl;
 
 
         public void Build(Vector3Int position, Quaternion placeholderRotation, bool isInitial = false)
@@ -60,6 +61,9 @@ namespace Runtime.Scriptable_Objects
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
+
+            _flowControl.UpdateFlow();
+
             if (!isInitial)
             {
                 _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
