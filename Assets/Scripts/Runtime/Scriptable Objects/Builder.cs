@@ -49,9 +49,22 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = prefab.StaticSegmentData,
             };
 
-            if (!_structure.IsEmpty && 
-                !_structure.ConnectsToNeighbors(segmentData) && 
-                !isInitial)
+            if (segmentData.StaticSegmentData.IsReceiver && !isInitial)
+            {
+                var neighborBloodConnections = _structure.GetInputs(position.AsVector3Int()).Count(type => type == ConnectionType.Blood);
+                var neighborSteamConnections = _structure.GetInputs(position.AsVector3Int()).Count(type => type == ConnectionType.Steam);
+
+                if (segmentData.StaticSegmentData.BloodRequirements < neighborBloodConnections)
+                {
+                    return;
+                }
+                
+                if (segmentData.StaticSegmentData.SteamRequirements < neighborSteamConnections)
+                {
+                    return;
+                }
+            } 
+            else if (!_structure.ConnectsToNeighbors(segmentData) && !isInitial)
             {
                 return;
             }
