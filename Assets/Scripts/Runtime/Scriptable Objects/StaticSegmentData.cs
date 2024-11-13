@@ -11,13 +11,14 @@ namespace Runtime.Scriptable_Objects
         public SegmentModel Model;
         public bool Blood;
         public bool Steam;
-        public int Resistance;
-        public int Power;
+        public bool IsSource;
         public int BloodReward;
         public int SteamReward;
         public int BloodCost;
         public int SteamCost;
+        public int BloodRequirements;
+        public int SteamRequirements;
 
-        public bool isReciever => SteamReward > 0 || BloodReward > 0;
+        public bool IsReceiver => SteamReward > 0 || BloodReward > 0;
     }
 }

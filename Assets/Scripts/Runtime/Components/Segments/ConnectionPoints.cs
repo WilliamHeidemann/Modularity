@@ -8,18 +8,12 @@ namespace Runtime.Components.Segments
     [Serializable]
     public struct ConnectionPoints
     {
-        /*
-        * ConnectionPoints are ints:
-        * 0 = no connection
-        * 1 = Blood
-        * 2 = Steam
-        */
-        public int Up;
-        public int Down;
-        public int Right;
-        public int Left;
-        public int Forward;
-        public int Back;
+        public ConnectionType Up;
+        public ConnectionType Down;
+        public ConnectionType Right;
+        public ConnectionType Left;
+        public ConnectionType Forward;
+        public ConnectionType Back;
 
         public IEnumerable<Vector3Int> AsVector3Ints()
         {
@@ -31,7 +25,7 @@ namespace Runtime.Components.Segments
             if (Left > 0) yield return Vector3Int.left;
         }
 
-        public IEnumerable<(Vector3Int, int)> GetDirectionData()
+        public IEnumerable<(Vector3Int, ConnectionType)> GetDirectionData()
         {
             if (Up > 0) yield return (Vector3Int.up, Up);
             if (Down > 0) yield return (Vector3Int.down, Down);

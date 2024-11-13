@@ -14,73 +14,87 @@ namespace Runtime.Scriptable_Objects
     public class FlowControl : ScriptableObject
     {
         [SerializeField] private Structure _structure;
-        [SerializeField] private List<GameObject> _gameObjects = new();
+        [SerializeField] private List<Segment> _segments = new();
 
+        public void AddSegment(Segment segment) => _segments.Add(segment);
+        public void Clear() => _segments.Clear();
         public void UpdateFlow()
         {
-            foreach (var segment in _structure.GraphData.Where(segment => segment.StaticSegmentData.Power > 0))
+            var everythingConnectedToASource = new HashSet<SegmentData>();
+            
+            foreach (var source in _structure.Sources)
             {
-                BestFirstFlow(segment);
+                var reachableSegments = ReachableSegments(source);
+                everythingConnectedToASource.UnionWith(reachableSegments);
             }
-        }
 
-        public void AddToGameObjects(GameObject gameObject)
-        {
-            _gameObjects.Add(gameObject);
-        }
-        private void BestFirstFlow(SegmentData segmentData)
-        {
-            Dictionary<SegmentData, int> queue = new()
+            foreach (var receiver in _structure.Receivers)
             {
-                [segmentData] = segmentData.StaticSegmentData.Power
-            };
-
-            Dictionary<SegmentData, int> explored = new()
-            {
-                [segmentData] = segmentData.StaticSegmentData.Power
-            };
-
-            while (queue.Any())
-            {
-                var k = queue.Keys.First();
-                int flow = queue[k];
-                queue.Remove(k);
-
-                if (flow <= 1) continue;
-                foreach (var segment in _structure.GetLinks(k))
-                {
-                    ActivateSegment(segment, segmentData, k, flow);
-
-                    if (!(explored.Keys.Contains(segment) &&
-                          explored[segment] >= flow - segment.StaticSegmentData.Resistance))
-                    {
-                        queue[segment] = flow - segment.StaticSegmentData.Resistance;
-                        explored[segment] = flow - segment.StaticSegmentData.Resistance;
-                    }
-                }
+                CheckForActivation(receiver, everythingConnectedToASource);
             }
         }
         
-        private void ActivateSegment(SegmentData segmentData, SegmentData source, SegmentData from, int flow)
+        private void CheckForActivation(SegmentData segmentData, HashSet<SegmentData> everythingConnectedToASource)
         {
+            var links = _structure.GetLinks(segmentData);
+            Debug.Log(0);
+            if (!links.All(everythingConnectedToASource.Contains))
+            {
+                return;
+            }
+            Debug.Log(1);
 
-            var segment = GetSegmentAtPos(segmentData.Position);
+            var connectionTypes = segmentData.GetConnectionPointsPlus().Select(connection => connection.Item2).ToList();
+            var bloodConnections = connectionTypes.Count(type => type == ConnectionType.Blood);
+            var steamConnections = connectionTypes.Count(type => type == ConnectionType.Steam);
             
-            var power = flow - segmentData.StaticSegmentData.Resistance;
+            if (bloodConnections < segmentData.StaticSegmentData.BloodRequirements || 
+                steamConnections < segmentData.StaticSegmentData.SteamRequirements)
+            {
+                return;
+            }
+            
+            Debug.Log(2);
 
-            //here in order to accomodate only activating under certain conditions some data-points are passed to the activator
-            //more could be given if nescesary e.g. turn number given by list count and other stuff if needed for more complex activations
-            segment.SegmentActivator.Activate(source.Position, from.Position);
-            
+            ActivateSegment(segmentData);
         }
-        private Segment GetSegmentAtPos(Vector3Int position) 
-            => _gameObjects.First(go => go.transform.position.AsVector3Int() == position).GetComponent<Segment>();
-        public void Clear()
+
+        private HashSet<SegmentData> ReachableSegments(SegmentData source)
         {
-            _gameObjects.Clear();
+            Queue<SegmentData> queue = new();
+            queue.Enqueue(source);
+
+            HashSet<SegmentData> explored = new() { source };
+
+            while (queue.Any())
+            {
+                var current = queue.Dequeue();
+                foreach (var link in _structure.GetLinks(current))
+                {
+                    if (!explored.Contains(link))
+                    {
+                        queue.Enqueue(link);
+                        explored.Add(link);
+                    }
+                }
+            }
+
+            return explored;
         }
 
+        private void ActivateSegment(SegmentData segmentToActivate)
+        {
+            var segmentOption = GetSegmentAtPosition(segmentToActivate.Position);
+            if (!segmentOption.IsSome(out var segment))
+            {
+                return;
+            }
+            Debug.Log(3);
 
+            segment.SegmentActivator.Activate();
+        }
+
+        private Option<Segment> GetSegmentAtPosition(Vector3Int position)
+            => _segments.FirstOption(segment => segment.transform.position.AsVector3Int() == position);
     }
-    
 }

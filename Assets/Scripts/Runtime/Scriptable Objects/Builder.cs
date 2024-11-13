@@ -62,7 +62,7 @@ namespace Runtime.Scriptable_Objects
             _structure.AddSegment(segmentData);
             SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
 
-            _flowControl.AddToGameObjects(connector.gameObject);
+            _flowControl.AddSegment(connector);
             _flowControl.UpdateFlow();
 
 

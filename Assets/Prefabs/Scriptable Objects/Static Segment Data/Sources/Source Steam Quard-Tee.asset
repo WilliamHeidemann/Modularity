@@ -22,9 +22,10 @@ MonoBehaviour:
   Model: 2
   Blood: 0
   Steam: 1
-  Resistance: 0
-  Power: 100
+  IsSource: 1
   BloodReward: 0
   SteamReward: 0
   BloodCost: 0
   SteamCost: 5
+  BloodRequirements: 0
+  SteamRequirements: 0

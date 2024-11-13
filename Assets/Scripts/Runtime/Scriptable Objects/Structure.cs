@@ -11,10 +11,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private List<SegmentData> _graphData = new();
         [SerializeField] private Currency _currency;
 
-        public List<SegmentData> GraphData
-        {
-            get { return _graphData; }
-        }
+        public IEnumerable<SegmentData> Sources => _graphData.Where(data => data.StaticSegmentData.IsSource);
+        public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
 
         public void AddSegment(SegmentData segmentData)
         {
@@ -27,7 +25,7 @@ namespace Runtime.Scriptable_Objects
                 .Where(point => _graphData.Any(data => data.Position == point))
                 .Select(point => _graphData.First(data => data.Position == point))
                 .ToList();
-            
+
             return neighbors.Any() && neighbors.All(segment => CanConnect(segmentData, segment));
         }
 
@@ -43,12 +41,13 @@ namespace Runtime.Scriptable_Objects
         {
             foreach (var connectionPoint in segmentData1.GetConnectionPointsPlus())
             {
-                if (connectionPoint.Item1 == segmentData2.Position 
-                    && segmentData2.GetConnectionPointsPlus().Contains((segmentData1.Position, connectionPoint.Item2))) return true;
+                if (connectionPoint.Item1 == segmentData2.Position
+                    && segmentData2.GetConnectionPointsPlus().Contains((segmentData1.Position, connectionPoint.Item2)))
+                    return true;
             }
+
             return false;
         }
-
 
         public IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
         {
@@ -63,6 +62,5 @@ namespace Runtime.Scriptable_Objects
         {
             _graphData.Clear();
         }
-
     }
 }
