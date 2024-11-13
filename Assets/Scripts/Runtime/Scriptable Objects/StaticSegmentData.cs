@@ -19,6 +19,7 @@ namespace Runtime.Scriptable_Objects
         public int BloodRequirements;
         public int SteamRequirements;
 
-        public bool IsReceiver => SteamReward > 0 || BloodReward > 0;
+        public bool IsReceiver => BloodRequirements > 0 || SteamRequirements > 0;
+        public int Requirements => BloodRequirements + SteamRequirements;
     }
 }

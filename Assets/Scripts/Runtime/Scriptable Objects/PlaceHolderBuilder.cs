@@ -110,6 +110,12 @@ namespace Runtime.Scriptable_Objects
         {
             List<HashSet<Vector3Int>> seen = new();
 
+            if (staticSegmentData.IsReceiver)
+            {
+                _validRotations = new List<Quaternion> { Quaternion.identity };
+                return;
+            }
+            
             _validRotations = AllRotations()
                 .Select(rotation => new SegmentData
                 {

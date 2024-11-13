@@ -49,11 +49,19 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = prefab.StaticSegmentData,
             };
 
-            if (!_structure.IsEmpty && !_structure.ConnectsToNeighbors(segmentData) && !isInitial)
+            if (!_structure.IsEmpty && 
+                !_structure.ConnectsToNeighbors(segmentData) && 
+                !isInitial)
             {
-                Debug.Log("Cannot connect to anything");
                 return;
             }
+
+            if (segmentData.StaticSegmentData.IsReceiver && 
+                _structure.GetInputs(segmentData).Count() >= segmentData.StaticSegmentData.Requirements)
+            {
+                return;
+            }
+                
             // potentially remove old slot
 
             var connector = Instantiate(prefab, position, rotation);
