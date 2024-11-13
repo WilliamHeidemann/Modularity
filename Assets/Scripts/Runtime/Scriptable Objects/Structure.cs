@@ -60,12 +60,13 @@ namespace Runtime.Scriptable_Objects
 
         public IEnumerable<SegmentData> GetInputSegments(SegmentData segmentData) =>
             _graphData.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
-        
-        public IEnumerable<ConnectionType> GetInputs(SegmentData segmentData) =>
-            _graphData.SelectMany(segment => 
-                segment.GetConnectionPointsPlus())
-                .Where(connection => connection.Item1 == segmentData.Position)
+
+        public IEnumerable<ConnectionType> GetInputs(SegmentData segmentData) => GetInputs(segmentData.Position);
+        public IEnumerable<ConnectionType> GetInputs(Vector3Int position) => 
+            _graphData.SelectMany(segment => segment.GetConnectionPointsPlus())
+                .Where(connection => connection.Item1 == position)
                 .Select(connection => connection.Item2);
+        
         
         private IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
         {

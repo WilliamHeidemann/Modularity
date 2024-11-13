@@ -37,6 +37,22 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
+            if (selectedSegment.StaticSegmentData.IsReceiver)
+            {
+                var neighborBloodConnections = _structure.GetInputs(position).Count(type => type == ConnectionType.Blood);
+                var neighborSteamConnections = _structure.GetInputs(position).Count(type => type == ConnectionType.Steam);
+
+                if (selectedSegment.StaticSegmentData.BloodRequirements < neighborBloodConnections)
+                {
+                    return;
+                }
+                
+                if (selectedSegment.StaticSegmentData.SteamRequirements < neighborSteamConnections)
+                {
+                    return;
+                }
+            }
+
             if (_placeHolder.IsSome(out var placeHolder) &&
                 placeHolder.StaticSegmentData == selectedSegment.StaticSegmentData)
             {
