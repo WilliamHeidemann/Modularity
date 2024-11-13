@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
+  m_Name: Receiver Steam Input=2
+  m_EditorClassIdentifier: 
+  ConnectionPoints:
+    Up: 0
+    Down: 0
+    Right: 0
+    Left: 0
+    Forward: 0
+    Back: 0
+  Model: 13
+  Blood: 0
+  Steam: 1
+  IsSource: 0
+  BloodReward: 0
+  SteamReward: 10
+  BloodCost: 0
+  SteamCost: 2
+  BloodRequirements: 0
+  SteamRequirements: 2
