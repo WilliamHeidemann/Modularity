@@ -46,5 +46,15 @@ namespace Runtime.Components.Segments
             if (Left > 0) count++;
             return count;
         }
+
+        public static IEnumerable<Vector3Int> AllDirections()
+        {
+            yield return Vector3Int.up;
+            yield return Vector3Int.down;
+            yield return Vector3Int.forward;
+            yield return Vector3Int.back;
+            yield return Vector3Int.right;
+            yield return Vector3Int.left;
+        }
     }
 }

@@ -18,7 +18,6 @@ namespace Runtime.Components.Segments
             {
                 return;
             }
-            Debug.Log(4);
 
             GrantReward();
             IsActive = true;

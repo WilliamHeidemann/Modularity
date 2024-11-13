@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Runtime.Components.Segments;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
@@ -13,12 +14,8 @@ namespace Runtime.Scriptable_Objects
 
         public IEnumerable<SegmentData> Sources => _graphData.Where(data => data.StaticSegmentData.IsSource);
         public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
-
-        public void AddSegment(SegmentData segmentData)
-        {
-            _graphData.Add(segmentData);
-        }
-
+        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
+        
         public bool ConnectsToNeighbors(SegmentData segmentData)
         {
             var neighbors = segmentData.GetConnectionPoints()
@@ -58,9 +55,30 @@ namespace Runtime.Scriptable_Objects
         public bool IsEmpty => _graphData.Count == 0;
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
 
-        public void Clear()
+        public void Clear() => _graphData.Clear();
+
+
+        public IEnumerable<SegmentData> GetInputSegments(SegmentData segmentData) =>
+            _graphData.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
+        
+        public IEnumerable<ConnectionType> GetInputs(SegmentData segmentData) =>
+            _graphData.SelectMany(segment => 
+                segment.GetConnectionPointsPlus())
+                .Where(connection => connection.Item1 == segmentData.Position)
+                .Select(connection => connection.Item2);
+        
+        private IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
         {
-            _graphData.Clear();
+            return ConnectionPoints.AllDirections()
+                .Select(direction => segmentData.Position + direction)
+                .Where(position => !IsOpenPosition(position))
+                .Select(position => _graphData.First(data => data.Position == position));
         }
+
+        private IEnumerable<Vector3Int> NeighborPositions(SegmentData segmentData)
+        {
+            return ConnectionPoints.AllDirections().Select(direction => segmentData.Position + direction);
+        }
+
     }
 }

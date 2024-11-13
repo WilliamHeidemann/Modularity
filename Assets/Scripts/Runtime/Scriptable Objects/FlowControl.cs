@@ -36,15 +36,14 @@ namespace Runtime.Scriptable_Objects
         
         private void CheckForActivation(SegmentData segmentData, HashSet<SegmentData> everythingConnectedToASource)
         {
-            var links = _structure.GetLinks(segmentData);
-            Debug.Log(0);
-            if (!links.All(everythingConnectedToASource.Contains))
+            var inputSegments = _structure.GetInputSegments(segmentData);
+            
+            if (!inputSegments.All(everythingConnectedToASource.Contains))
             {
                 return;
             }
-            Debug.Log(1);
 
-            var connectionTypes = segmentData.GetConnectionPointsPlus().Select(connection => connection.Item2).ToList();
+            var connectionTypes = _structure.GetInputs(segmentData).ToList();
             var bloodConnections = connectionTypes.Count(type => type == ConnectionType.Blood);
             var steamConnections = connectionTypes.Count(type => type == ConnectionType.Steam);
             
@@ -54,8 +53,6 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
             
-            Debug.Log(2);
-
             ActivateSegment(segmentData);
         }
 
@@ -69,7 +66,9 @@ namespace Runtime.Scriptable_Objects
             while (queue.Any())
             {
                 var current = queue.Dequeue();
-                foreach (var link in _structure.GetLinks(current))
+                foreach (var link in _structure
+                             .GetLinks(current)
+                             .Where(link => !link.StaticSegmentData.IsReceiver))
                 {
                     if (!explored.Contains(link))
                     {
@@ -89,7 +88,6 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
-            Debug.Log(3);
 
             segment.SegmentActivator.Activate();
         }
