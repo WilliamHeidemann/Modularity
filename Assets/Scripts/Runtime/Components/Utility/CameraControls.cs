@@ -15,10 +15,15 @@ namespace Runtime.Components.Utility
         private float _horizontalRotation;
         private float _verticalRotation;
 
+        private Vector3 _startPosition;
+        private Vector3 _startRotation;
+
         private void Start()
         {
             _horizontalRotation = transform.eulerAngles.y;
             _verticalRotation = transform.eulerAngles.x;
+            _startPosition = transform.position;
+            _startRotation = transform.eulerAngles;
         }
 
         private void Update()
@@ -67,6 +72,15 @@ namespace Runtime.Components.Utility
         {
             var scroll = Input.GetAxis("Mouse ScrollWheel");
             transform.Translate(0, 0, scroll * _dragSpeed * _zoomSpeed);
+        }
+
+        public void ResetCamera()
+        {
+            transform.position = _startPosition;
+            transform.rotation = Quaternion.Euler(_startRotation);
+            _dragOrigin = new Vector3(0, 0, 0);
+            _verticalRotation = _startRotation.x;
+            _horizontalRotation = _startRotation.y;
         }
     }
 }
