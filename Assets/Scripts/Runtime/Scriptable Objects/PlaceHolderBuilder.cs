@@ -37,22 +37,6 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (selectedSegment.StaticSegmentData.IsReceiver)
-            {
-                var neighborBloodConnections = _structure.GetInputs(position).Count(type => type == ConnectionType.Blood);
-                var neighborSteamConnections = _structure.GetInputs(position).Count(type => type == ConnectionType.Steam);
-
-                if (selectedSegment.StaticSegmentData.BloodRequirements < neighborBloodConnections)
-                {
-                    return;
-                }
-                
-                if (selectedSegment.StaticSegmentData.SteamRequirements < neighborSteamConnections)
-                {
-                    return;
-                }
-            }
-
             if (_placeHolder.IsSome(out var placeHolder) &&
                 placeHolder.StaticSegmentData == selectedSegment.StaticSegmentData)
             {
@@ -125,12 +109,6 @@ namespace Runtime.Scriptable_Objects
         private void SetValidRotations(Vector3Int position, StaticSegmentData staticSegmentData)
         {
             List<HashSet<Vector3Int>> seen = new();
-
-            if (staticSegmentData.IsReceiver)
-            {
-                _validRotations = new List<Quaternion> { Quaternion.identity };
-                return;
-            }
             
             _validRotations = AllRotations()
                 .Select(rotation => new SegmentData

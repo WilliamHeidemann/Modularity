@@ -36,6 +36,11 @@ namespace Runtime.Scriptable_Objects
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
+            if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
+            {
+                return false;
+            }
+            
             foreach (var connectionPoint in segmentData1.GetConnectionPointsPlus())
             {
                 if (connectionPoint.Item1 == segmentData2.Position

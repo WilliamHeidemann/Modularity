@@ -21,5 +21,6 @@ namespace Runtime.Scriptable_Objects
 
         public bool IsReceiver => BloodRequirements > 0 || SteamRequirements > 0;
         public int Requirements => BloodRequirements + SteamRequirements;
+        public bool IsConnector => !IsReceiver && !IsSource;
     }
 }
