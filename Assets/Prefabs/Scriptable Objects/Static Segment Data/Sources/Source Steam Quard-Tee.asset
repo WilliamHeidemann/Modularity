@@ -14,17 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 0
-    Down: 1
-    Right: 1
-    Left: 1
-    Forward: 1
-    Back: 1
+    Down: 2
+    Right: 2
+    Left: 2
+    Forward: 2
+    Back: 2
   Model: 2
   Blood: 0
   Steam: 1
-  Resistance: 0
-  Power: 100
+  IsSource: 1
   BloodReward: 0
   SteamReward: 0
   BloodCost: 0
   SteamCost: 5
+  BloodRequirements: 0
+  SteamRequirements: 0

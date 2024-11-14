@@ -17,6 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private Currency _currency;
         [SerializeField] private Hand _hand;
+        [SerializeField] private FlowControl _flowControl;
 
 
         public void Build(Vector3Int position, Quaternion placeholderRotation, bool isInitial = false)
@@ -48,11 +49,17 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = prefab.StaticSegmentData,
             };
 
-            if (!_structure.IsEmpty && !_structure.ConnectsToNeighbors(segmentData) && !isInitial)
+            if (!_structure.ConnectsToNeighbors(segmentData) && !isInitial)
             {
-                Debug.Log("Cannot connect to anything");
                 return;
             }
+
+            if (segmentData.StaticSegmentData.IsReceiver && 
+                _structure.GetInputs(segmentData).Count() >= segmentData.StaticSegmentData.Requirements)
+            {
+                return;
+            }
+                
             // potentially remove old slot
 
             var connector = Instantiate(prefab, position, rotation);
@@ -60,6 +67,11 @@ namespace Runtime.Scriptable_Objects
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
+
+            _flowControl.AddSegment(connector);
+            _flowControl.UpdateFlow();
+
+
             if (!isInitial)
             {
                 _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);

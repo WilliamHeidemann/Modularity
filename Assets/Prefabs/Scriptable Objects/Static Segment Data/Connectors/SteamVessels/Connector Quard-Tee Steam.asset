@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 0
-    Down: 1
-    Right: 1
-    Left: 1
-    Forward: 1
-    Back: 1
+    Down: 2
+    Right: 2
+    Left: 2
+    Forward: 2
+    Back: 2
   Model: 9
   Blood: 0
   Steam: 1

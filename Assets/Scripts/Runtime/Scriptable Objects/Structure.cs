@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Runtime.Components.Segments;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
@@ -11,19 +12,17 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private List<SegmentData> _graphData = new();
         [SerializeField] private Currency _currency;
 
-        public void AddSegment(SegmentData segmentData)
-        {
-            _graphData.Add(segmentData);
-            UpdateFlow();
-        }
-
+        public IEnumerable<SegmentData> Sources => _graphData.Where(data => data.StaticSegmentData.IsSource);
+        public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
+        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
+        
         public bool ConnectsToNeighbors(SegmentData segmentData)
         {
             var neighbors = segmentData.GetConnectionPoints()
                 .Where(point => _graphData.Any(data => data.Position == point))
                 .Select(point => _graphData.First(data => data.Position == point))
                 .ToList();
-            
+
             return neighbors.Any() && neighbors.All(segment => CanConnect(segmentData, segment));
         }
 
@@ -37,15 +36,22 @@ namespace Runtime.Scriptable_Objects
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
-            var from1To2 = segmentData1.GetConnectionPoints().Contains(segmentData2.Position);
-            var from2To1 = segmentData2.GetConnectionPoints().Contains(segmentData1.Position);
-            var steamFlow = segmentData1.StaticSegmentData.Steam && segmentData2.StaticSegmentData.Steam;
-            var bloodFlow = segmentData1.StaticSegmentData.Blood && segmentData2.StaticSegmentData.Blood;
-            var canConnect = from1To2 && from2To1 && (steamFlow || bloodFlow);
-            return canConnect;
+            if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
+            {
+                return false;
+            }
+            
+            foreach (var connectionPoint in segmentData1.GetConnectionPointsPlus())
+            {
+                if (connectionPoint.Item1 == segmentData2.Position
+                    && segmentData2.GetConnectionPointsPlus().Contains((segmentData1.Position, connectionPoint.Item2)))
+                    return true;
+            }
+
+            return false;
         }
 
-        private IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
+        public IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
         {
             var connectionsOneWay = _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
             return connectionsOneWay.Where(data => CanConnect(data, segmentData));
@@ -54,60 +60,31 @@ namespace Runtime.Scriptable_Objects
         public bool IsEmpty => _graphData.Count == 0;
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
 
-        public void Clear()
+        public void Clear() => _graphData.Clear();
+
+
+        public IEnumerable<SegmentData> GetInputSegments(SegmentData segmentData) =>
+            _graphData.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
+
+        public IEnumerable<ConnectionType> GetInputs(SegmentData segmentData) => GetInputs(segmentData.Position);
+        public IEnumerable<ConnectionType> GetInputs(Vector3Int position) => 
+            _graphData.SelectMany(segment => segment.GetConnectionPointsPlus())
+                .Where(connection => connection.Item1 == position)
+                .Select(connection => connection.Item2);
+        
+        
+        private IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
         {
-            _graphData.Clear();
+            return ConnectionPoints.AllDirections()
+                .Select(direction => segmentData.Position + direction)
+                .Where(position => !IsOpenPosition(position))
+                .Select(position => _graphData.First(data => data.Position == position));
         }
 
-        private void UpdateFlow()
+        private IEnumerable<Vector3Int> NeighborPositions(SegmentData segmentData)
         {
-            foreach (var segment in _graphData.Where(segment => segment.StaticSegmentData.Power > 0))
-            {
-                BestFirstFlow(segment);
-            }
+            return ConnectionPoints.AllDirections().Select(direction => segmentData.Position + direction);
         }
 
-        private void BestFirstFlow(SegmentData segmentData)
-        {
-            Dictionary<SegmentData, int> queue = new()
-            {
-                [segmentData] = segmentData.StaticSegmentData.Power
-            };
-
-            Dictionary<SegmentData, int> explored = new()
-            {
-                [segmentData] = segmentData.StaticSegmentData.Power
-            };
-
-            while (queue.Any())
-            {
-                var k = queue.Keys.First();
-                int flow = queue[k];
-                queue.Remove(k);
-
-                if (flow <= 1) continue;
-                foreach (var segment in GetLinks(k))
-                {
-                    if (!segment.IsActive) ActivateSegment(segment, flow);
-
-                    if (!(explored.Keys.Contains(segment) &&
-                          explored[segment] >= flow - segment.StaticSegmentData.Resistance))
-                    {
-                        queue[segment] = flow - segment.StaticSegmentData.Resistance;
-                        explored[segment] = flow - segment.StaticSegmentData.Resistance;
-                    }
-                }
-            }
-        }
-
-        public void ActivateSegment(SegmentData segmentData, int flow)
-        {
-            segmentData.IsActive = true;
-            var power = flow - segmentData.StaticSegmentData.Resistance;
-            if (segmentData.StaticSegmentData.isReciever)
-            {
-                _currency.Add(segmentData.StaticSegmentData.BloodReward, segmentData.StaticSegmentData.SteamReward);
-            }
-        }
     }
 }

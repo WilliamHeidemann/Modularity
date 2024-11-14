@@ -15,16 +15,17 @@ MonoBehaviour:
   ConnectionPoints:
     Up: 0
     Down: 0
-    Right: 1
+    Right: 2
     Left: 0
     Forward: 0
-    Back: 1
+    Back: 2
   Model: 13
   Blood: 0
   Steam: 1
-  Resistance: 0
-  Power: 500
+  IsSource: 0
   BloodReward: 0
   SteamReward: 10
   BloodCost: 0
   SteamCost: 2
+  BloodRequirements: 0
+  SteamRequirements: 2
