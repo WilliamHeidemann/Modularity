@@ -15,9 +15,16 @@ namespace Runtime.Components
         [SerializeField] private Image _itemPreview;
         [SerializeField] private Image _glowBlueprint;
         
-        public void SetCost(string itemCost, bool isBlood)
+        public void SetCost(string itemCost, int costsBlood, int costsSteam)
         {
-            if(isBlood)
+            if(costsBlood > 0 && costsSteam > 0)
+            {
+                _bloodIcon.gameObject.SetActive(true);
+                _steamIcon.gameObject.SetActive(true);
+                _itemCostBlood.text = itemCost;
+                _itemCostSteam.text = itemCost;
+            }
+            else if(costsBlood > 0)
             {
                 _bloodIcon.gameObject.SetActive(true);
                 _steamIcon.gameObject.SetActive(false);
