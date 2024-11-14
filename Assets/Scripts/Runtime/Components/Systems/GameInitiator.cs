@@ -12,6 +12,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private Builder _builder;
         [SerializeField] private Structure _structure;
         [SerializeField] private Hand _hand;
+        [SerializeField] private FlowControl _flowControl;
         [SerializeField] private Selection _selection;
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
@@ -24,6 +25,7 @@ namespace Runtime.Components.Systems
         private void Start()
         {
             _structure.Clear();
+            _flowControl.Clear();
             _hand.Initialize();
             _currency.Initialize(_startingCurrency);
             _selection.Prefab = Option<Segment>.Some(_bloodSource);

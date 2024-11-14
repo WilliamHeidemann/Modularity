@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 927145117438815657}
   - component: {fileID: 4404823909993285501}
   - component: {fileID: 4092756122483640719}
+  - component: {fileID: 6555629886033546436}
   m_Layer: 0
   m_Name: Source Steam Pipe Quard-Tee 1
   m_TagString: Untagged
@@ -397,6 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 33c2a9ab1eb977c48a9cc0fdbaea4c90, type: 2}
+  SegmentActivator: {fileID: 6555629886033546436}
   Preview: {fileID: 21300000, guid: e9ed9e8975d034345b2f69f0dccfef44, type: 3}
 --- !u!65 &4092756122483640719
 BoxCollider:
@@ -419,6 +421,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6555629886033546436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232087903907245791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfc8cb152979ce4da85216875f103c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0
 --- !u!1 &7399759617128453066
 GameObject:
   m_ObjectHideFlags: 0

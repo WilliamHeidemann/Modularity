@@ -47,26 +47,10 @@ namespace Runtime.Components.Systems
 
             for (int i = 0; i < _blueprintOptions.Length; i++)
             {
-                _blueprintOptions[i].SetCost(segments[i].StaticSegmentData.ConnectionPoints.OpenConnectionPoints().ToString(), 
-                                             segments[i].StaticSegmentData.Blood);
+                var cost = segments[i].StaticSegmentData.BloodCost + segments[i].StaticSegmentData.SteamCost;
+                _blueprintOptions[i].SetCost(cost.ToString());
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
-                _blueprintOptions[i].GlowState(false);
             }
-        }
-
-        public void ChangeGlow(int chosenBlueprint)
-        {
-            foreach (var blueprint in _blueprintOptions)
-            {
-                if(blueprint == _blueprintOptions[chosenBlueprint])
-                {
-                    _blueprintOptions[chosenBlueprint].GlowState(true);
-                }
-                else
-                {
-                    blueprint.GlowState(false);
-                }
-            }            
         }
     }
 }

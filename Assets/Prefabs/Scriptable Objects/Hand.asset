@@ -15,6 +15,6 @@ MonoBehaviour:
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _pool: {fileID: 11400000, guid: 8491676f10891e440994c3895a379feb, type: 2}
   SegmentsOptions:
-  - {fileID: 3223422381655429275, guid: 439e274ffe6c21f4b8d9264a533c51ee, type: 3}
+  - {fileID: 4404823909993285501, guid: 3e0d51d406dbfae41a88464356bb6795, type: 3}
+  - {fileID: 4404823909993285501, guid: 15d1e1fc811c56a498fb7fd31b858e3d, type: 3}
   - {fileID: 3223422381655429275, guid: c84a0f1aa0c354947956d1112809e108, type: 3}
-  - {fileID: 3223422381655429275, guid: 8af8c67858799f04da79640de0b8f49c, type: 3}
