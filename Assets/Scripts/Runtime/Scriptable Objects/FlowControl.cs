@@ -81,7 +81,6 @@ namespace Runtime.Scriptable_Objects
                 var current = queue.Dequeue();
                 foreach (var link in _structure
                              .GetLinks(current))
-                             //.Where(link => !link.StaticSegmentData.IsReceiver))
                 {
                     if (!explored.Contains(link))
                     {
