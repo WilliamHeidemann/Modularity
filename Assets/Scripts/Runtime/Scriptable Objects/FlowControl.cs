@@ -19,45 +19,47 @@ namespace Runtime.Scriptable_Objects
 
         public void AddSegment(Segment segment) => _segments.Add(segment);
         public void Clear() => _segments.Clear();
+
         public void UpdateFlow()
         {
-            var everythingConnectedToASource = new HashSet<SegmentData>();
-            
-            foreach (var source in _structure.Sources)
-            {
-                var reachableSegments = ReachableSegments(source);
-                everythingConnectedToASource.UnionWith(reachableSegments);
-            }
-
             foreach (var receiver in _structure.Receivers)
             {
                 CheckForActivation(receiver);
             }
         }
+
         private void CheckForActivation(SegmentData receiver)
         {
-            if (_structure.GetLinks(receiver).Count() != receiver.GetConnectionPoints().Count()) return;
-            foreach (var connector in _structure.GetLinks(receiver))
+            if (_structure.GetLinks(receiver).Count() != receiver.GetConnectionPoints().Count())
             {
-                if (!IsConnectedToSource(connector, receiver)) return;
+                return;
             }
-            ActivateSegment(receiver);
 
+            if (_structure.GetLinks(receiver).Any(connector => !IsConnectedToSource(connector, receiver)))
+            {
+                return;
+            }
+
+            ActivateSegment(receiver);
         }
-        private bool IsConnectedToSource(SegmentData segment, SegmentData notThrough)
+
+        private bool IsConnectedToSource(SegmentData segment, SegmentData receiver)
         {
             Queue<SegmentData> queue = new();
             queue.Enqueue(segment);
 
-            HashSet<SegmentData> explored = new() { segment, notThrough };
+            HashSet<SegmentData> explored = new() { segment, receiver };
 
             while (queue.Any())
             {
                 var current = queue.Dequeue();
                 foreach (var link in _structure.GetLinks(current))
                 {
-                    if (link.StaticSegmentData.IsSource) return true;
-                    
+                    if (link.StaticSegmentData.IsSource)
+                    {
+                        return true;
+                    }
+
                     if (!explored.Contains(link))
                     {
                         queue.Enqueue(link);
@@ -67,30 +69,6 @@ namespace Runtime.Scriptable_Objects
             }
 
             return false;
-        }
-
-        private HashSet<SegmentData> ReachableSegments(SegmentData source)
-        {
-            Queue<SegmentData> queue = new();
-            queue.Enqueue(source);
-
-            HashSet<SegmentData> explored = new() { source };
-
-            while (queue.Any())
-            {
-                var current = queue.Dequeue();
-                foreach (var link in _structure
-                             .GetLinks(current))
-                {
-                    if (!explored.Contains(link))
-                    {
-                        queue.Enqueue(link);
-                        explored.Add(link);
-                    }
-                }
-            }
-
-            return explored;
         }
 
         private void ActivateSegment(SegmentData segmentToActivate)
