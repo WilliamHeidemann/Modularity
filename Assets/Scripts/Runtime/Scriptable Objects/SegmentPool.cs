@@ -27,7 +27,7 @@ namespace Runtime.Scriptable_Objects
             {
                 return _ultraRareSegments.RandomElement();
             } 
-            if (value <= _rareDropChance + _rareDropChance && _rareSegments.Count > 0)
+            if (value <= _ultraRareDropChance + _rareDropChance && _rareSegments.Count > 0)
             {
                 return _rareSegments.RandomElement();
             }

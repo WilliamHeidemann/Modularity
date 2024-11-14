@@ -47,7 +47,8 @@ namespace Runtime.Components.Systems
 
             for (int i = 0; i < _blueprintOptions.Length; i++)
             {
-                _blueprintOptions[i].SetCost(segments[i].StaticSegmentData.ConnectionPoints.OpenConnectionPoints().ToString());
+                var cost = segments[i].StaticSegmentData.BloodCost + segments[i].StaticSegmentData.SteamCost;
+                _blueprintOptions[i].SetCost(cost.ToString());
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
             }
         }
