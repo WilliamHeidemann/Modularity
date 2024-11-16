@@ -16,14 +16,14 @@ namespace Runtime.Scriptable_Objects
         public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
         
-        public bool ConnectsToNeighbors(SegmentData segmentData)
+        public bool ConnectsToAtLeastOneNeighbors(SegmentData segmentData)
         {
             var neighbors = segmentData.GetConnectionPoints()
                 .Where(point => _graphData.Any(data => data.Position == point))
                 .Select(point => _graphData.First(data => data.Position == point))
                 .ToList();
 
-            return neighbors.Any();
+            return neighbors.Any() && neighbors.Any(neighbor => CanConnect(segmentData, neighbor));
         }
 
         public bool ConnectsEverywhere(SegmentData segmentData)
@@ -31,7 +31,7 @@ namespace Runtime.Scriptable_Objects
             var everythingConnects = segmentData.GetConnectionPoints()
                 .All(point => _graphData.Any(data => data.Position == point));
 
-            return everythingConnects && ConnectsToNeighbors(segmentData);
+            return everythingConnects && ConnectsToAtLeastOneNeighbors(segmentData);
         }
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)

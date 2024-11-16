@@ -49,7 +49,7 @@ namespace Runtime.Scriptable_Objects
                 StaticSegmentData = prefab.StaticSegmentData,
             };
 
-            if (!_structure.ConnectsToNeighbors(segmentData) && !isInitial)
+            if (!_structure.ConnectsToAtLeastOneNeighbors(segmentData) && !isInitial)
             {
                 return;
             }
