@@ -23,7 +23,7 @@ namespace Runtime.Scriptable_Objects
                 .Select(point => _graphData.First(data => data.Position == point))
                 .ToList();
 
-            return neighbors.Any() && neighbors.All(segment => CanConnect(segmentData, segment));
+            return neighbors.Any();
         }
 
         public bool ConnectsEverywhere(SegmentData segmentData)
