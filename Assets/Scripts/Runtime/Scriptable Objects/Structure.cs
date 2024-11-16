@@ -11,28 +11,18 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private List<SegmentData> _graphData = new();
         [SerializeField] private Currency _currency;
+        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
+        public void Clear() => _graphData.Clear();
 
         public IEnumerable<SegmentData> Sources => _graphData.Where(data => data.StaticSegmentData.IsSource);
         public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
-        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
-        
-        public bool ConnectsToAtLeastOneNeighbors(SegmentData segmentData)
-        {
-            var neighbors = segmentData.GetConnectionPoints()
-                .Where(point => _graphData.Any(data => data.Position == point))
-                .Select(point => _graphData.First(data => data.Position == point))
-                .ToList();
+        public IEnumerable<SegmentData> Connectors => _graphData.Where(data => data.StaticSegmentData.IsConnector);
 
-            return neighbors.Any() && neighbors.Any(neighbor => CanConnect(segmentData, neighbor));
-        }
+        private bool ConnectsToAtLeastOneNeighbor(SegmentData segmentData) =>
+            Neighbors(segmentData).Any(neighbor => CanConnect(segmentData, neighbor));
 
-        public bool ConnectsEverywhere(SegmentData segmentData)
-        {
-            var everythingConnects = segmentData.GetConnectionPoints()
-                .All(point => _graphData.Any(data => data.Position == point));
-
-            return everythingConnects && ConnectsToAtLeastOneNeighbors(segmentData);
-        }
+        public bool ConnectsEverywhere(SegmentData segmentData) =>
+            Neighbors(segmentData).All(neighbor => CanConnect(segmentData, neighbor));
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
@@ -40,42 +30,39 @@ namespace Runtime.Scriptable_Objects
             {
                 return false;
             }
-            
-            foreach (var connectionPoint in segmentData1.GetConnectionPointsPlus())
+
+            var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
+                point.Item1 == segmentData2.Position);
+            var connection2Option = segmentData2.GetConnectionPointsPlus().FirstOption(point =>
+                point.Item1 == segmentData1.Position);
+
+            if (!connection1Option.IsSome(out var connection1) ||
+                !connection2Option.IsSome(out var connection2))
             {
-                if (connectionPoint.Item1 == segmentData2.Position
-                    && segmentData2.GetConnectionPointsPlus().Contains((segmentData1.Position, connectionPoint.Item2)))
-                    return true;
+                return false;
             }
 
-            return false;
+            return connection1.Item2 == connection2.Item2;
         }
 
-        public IEnumerable<SegmentData> GetLinks(SegmentData segmentData)
-        {
-            var connectionsOneWay = _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
-            return connectionsOneWay.Where(data => CanConnect(data, segmentData));
-        }
+        public IEnumerable<SegmentData> GetValidConnections(SegmentData segmentData) =>
+            GetOutputSegments(segmentData).Where(data => CanConnect(data, segmentData));
 
-        public bool IsEmpty => _graphData.Count == 0;
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
-
-        public void Clear() => _graphData.Clear();
-
 
         public IEnumerable<SegmentData> GetInputSegments(SegmentData segmentData) =>
             _graphData.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
-        
+
         public IEnumerable<SegmentData> GetOutputSegments(SegmentData segmentData) =>
             _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
 
         public IEnumerable<ConnectionType> GetInputs(SegmentData segmentData) => GetInputs(segmentData.Position);
-        public IEnumerable<ConnectionType> GetInputs(Vector3Int position) => 
+
+        public IEnumerable<ConnectionType> GetInputs(Vector3Int position) =>
             _graphData.SelectMany(segment => segment.GetConnectionPointsPlus())
                 .Where(connection => connection.Item1 == position)
                 .Select(connection => connection.Item2);
-        
-        
+
         private IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
         {
             return ConnectionPoints.AllDirections()
@@ -84,10 +71,21 @@ namespace Runtime.Scriptable_Objects
                 .Select(position => _graphData.First(data => data.Position == position));
         }
 
-        private IEnumerable<Vector3Int> NeighborPositions(SegmentData segmentData)
+        public bool IsValidPlacement(SegmentData segmentData)
         {
-            return ConnectionPoints.AllDirections().Select(direction => segmentData.Position + direction);
-        }
+            var atLeastOneConnect = ConnectsToAtLeastOneNeighbor(segmentData);
 
+            if (!atLeastOneConnect)
+            {
+                return false;
+            }
+            
+            if (segmentData.StaticSegmentData.IsConnector)
+            {
+                return true;
+            }
+            
+            return GetOutputSegments(segmentData).All(link => link.StaticSegmentData.IsConnector);
+        }
     }
 }

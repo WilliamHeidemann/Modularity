@@ -3,7 +3,6 @@ using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityUtils;
 using UtilityToolkit.Runtime;
 
@@ -48,8 +47,8 @@ namespace Runtime.Scriptable_Objects
                 Rotation = rotation,
                 StaticSegmentData = prefab.StaticSegmentData,
             };
-
-            if (!_structure.ConnectsToAtLeastOneNeighbors(segmentData) && !isInitial)
+            
+            if (!_structure.IsValidPlacement(segmentData) && !isInitial)
             {
                 return;
             }

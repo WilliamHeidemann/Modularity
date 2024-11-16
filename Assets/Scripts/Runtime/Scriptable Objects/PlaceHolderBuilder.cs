@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityUtils;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -126,7 +124,7 @@ namespace Runtime.Scriptable_Objects
                     Rotation = rotation,
                     StaticSegmentData = staticSegmentData
                 })
-                .Where(segmentData => _structure.ConnectsToAtLeastOneNeighbors(segmentData))
+                .Where(segmentData => _structure.IsValidPlacement(segmentData))
                 .Where(segmentData =>
                 {
                     var points = segmentData.GetConnectionPoints().ToHashSet();

@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityUtils;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -30,12 +26,12 @@ namespace Runtime.Scriptable_Objects
 
         private void CheckForActivation(SegmentData receiver)
         {
-            if (_structure.GetLinks(receiver).Count() != receiver.GetConnectionPoints().Count())
+            if (_structure.GetValidConnections(receiver).Count() != receiver.GetConnectionPoints().Count())
             {
                 return;
             }
 
-            if (_structure.GetLinks(receiver).Any(connector => !IsConnectedToSource(connector, receiver)))
+            if (_structure.GetValidConnections(receiver).Any(connector => !IsConnectedToSource(connector, receiver)))
             {
                 return;
             }
@@ -53,7 +49,7 @@ namespace Runtime.Scriptable_Objects
             while (queue.Any())
             {
                 var current = queue.Dequeue();
-                foreach (var link in _structure.GetLinks(current))
+                foreach (var link in _structure.GetValidConnections(current))
                 {
                     if (link.StaticSegmentData.IsSource)
                     {
