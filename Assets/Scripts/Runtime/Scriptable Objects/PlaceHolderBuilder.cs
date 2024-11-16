@@ -33,12 +33,6 @@ namespace Runtime.Scriptable_Objects
 
             var validSegmentData = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
             _validRotations = validSegmentData.Select(segmentData => segmentData.Rotation).ToList();
-            Debug.Log(_validRotations.Count);
-
-            if (!_validRotations.Any())
-            {
-                return;
-            }
 
             if (_placeHolder.IsSome(out var placeHolder) &&
                 placeHolder.StaticSegmentData == selectedSegment.StaticSegmentData)
@@ -49,7 +43,7 @@ namespace Runtime.Scriptable_Objects
             else
             {
                 TearDown();
-                placeHolder = Instantiate(selectedSegment, position, _validRotations.First());
+                placeHolder = Instantiate(selectedSegment, position, _validRotations.FirstOrDefault());
                 _placeHolder = Option<Segment>.Some(placeHolder);
             }
 
@@ -59,6 +53,12 @@ namespace Runtime.Scriptable_Objects
                 meshRenderer.sharedMaterial = material;
             }
             
+            if (!_validRotations.Any())
+            {
+                _validRotations = AllRotations().ToList();
+                return;
+            }
+
             var currentSegmentData = new SegmentData
             {
                 Position = position,
