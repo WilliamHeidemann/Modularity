@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityUtils;
 using UtilityToolkit.Runtime;
 
@@ -15,8 +16,8 @@ namespace Runtime.Scriptable_Objects
         private Option<Segment> _placeHolder;
         private List<Quaternion> _validRotations;
         private int _index = 0;
-        [SerializeField] private Material _transparentMatBlue;
-        [SerializeField] private Material _transparentMatRed;
+        [SerializeField] private Material _transparentValidMat;
+        [SerializeField] private Material _transparentInvalidMat;
 
         public void Build(Vector3Int position)
         {
@@ -49,7 +50,7 @@ namespace Runtime.Scriptable_Objects
                 TearDown();
 
                 placeHolder = Instantiate(selectedSegment, position, _validRotations.First());
-                var transparentMat = placeHolder.StaticSegmentData.Steam ? _transparentMatBlue : _transparentMatRed;
+                var transparentMat = placeHolder.StaticSegmentData.Steam ? _transparentValidMat : _transparentInvalidMat;
 
                 foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
                 {
