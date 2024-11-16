@@ -33,6 +33,7 @@ namespace Runtime.Scriptable_Objects
 
             var validSegmentData = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
             _validRotations = validSegmentData.Select(segmentData => segmentData.Rotation).ToList();
+            Debug.Log(_validRotations.Count);
 
             if (!_validRotations.Any())
             {
@@ -48,16 +49,14 @@ namespace Runtime.Scriptable_Objects
             else
             {
                 TearDown();
-
                 placeHolder = Instantiate(selectedSegment, position, _validRotations.First());
-                var transparentMat = placeHolder.StaticSegmentData.Steam ? _transparentValidMat : _transparentInvalidMat;
-
-                foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
-                {
-                    meshRenderer.sharedMaterial = transparentMat;
-                }
-
                 _placeHolder = Option<Segment>.Some(placeHolder);
+            }
+
+            var material = _validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
+            foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
+            {
+                meshRenderer.sharedMaterial = material;
             }
             
             var currentSegmentData = new SegmentData
