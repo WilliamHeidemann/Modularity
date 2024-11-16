@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityUtils;
 using UtilityToolkit.Runtime;
 
@@ -15,8 +16,8 @@ namespace Runtime.Scriptable_Objects
         private Option<Segment> _placeHolder;
         private List<Quaternion> _validRotations;
         private int _index = 0;
-        [SerializeField] private Material _transparentMatBlue;
-        [SerializeField] private Material _transparentMatRed;
+        [SerializeField] private Material _transparentValidMat;
+        [SerializeField] private Material _transparentInvalidMat;
 
         public void Build(Vector3Int position)
         {
@@ -33,11 +34,6 @@ namespace Runtime.Scriptable_Objects
             var validSegmentData = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
             _validRotations = validSegmentData.Select(segmentData => segmentData.Rotation).ToList();
 
-            if (!_validRotations.Any())
-            {
-                return;
-            }
-
             if (_placeHolder.IsSome(out var placeHolder) &&
                 placeHolder.StaticSegmentData == selectedSegment.StaticSegmentData)
             {
@@ -47,18 +43,22 @@ namespace Runtime.Scriptable_Objects
             else
             {
                 TearDown();
-
-                placeHolder = Instantiate(selectedSegment, position, _validRotations.First());
-                var transparentMat = placeHolder.StaticSegmentData.Steam ? _transparentMatBlue : _transparentMatRed;
-
-                foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
-                {
-                    meshRenderer.sharedMaterial = transparentMat;
-                }
-
+                placeHolder = Instantiate(selectedSegment, position, _validRotations.FirstOrDefault());
                 _placeHolder = Option<Segment>.Some(placeHolder);
             }
+
+            var material = _validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
+            foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
+            {
+                meshRenderer.sharedMaterial = material;
+            }
             
+            if (!_validRotations.Any())
+            {
+                _validRotations = AllRotations().ToList();
+                return;
+            }
+
             var currentSegmentData = new SegmentData
             {
                 Position = position,
