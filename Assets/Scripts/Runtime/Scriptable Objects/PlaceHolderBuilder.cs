@@ -29,8 +29,9 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
-            
-            SetValidRotations(position, selectedSegment.StaticSegmentData);
+
+            var validSegmentData = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
+            _validRotations = validSegmentData.Select(segmentData => segmentData.Rotation).ToList();
 
             if (!_validRotations.Any())
             {
@@ -46,24 +47,32 @@ namespace Runtime.Scriptable_Objects
             else
             {
                 TearDown();
-                
-                placeHolder = Instantiate(selectedSegment, position, Quaternion.identity);
-                placeHolder.GetComponent<BoxCollider>().enabled = false;
+
+                placeHolder = Instantiate(selectedSegment, position, _validRotations.First());
                 var transparentMat = placeHolder.StaticSegmentData.Steam ? _transparentMatBlue : _transparentMatRed;
-                
+
                 foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
                 {
                     meshRenderer.sharedMaterial = transparentMat;
                 }
-                
+
                 _placeHolder = Option<Segment>.Some(placeHolder);
             }
+            
+            var currentSegmentData = new SegmentData
+            {
+                Position = position,
+                Rotation = placeHolder.transform.rotation,
+                StaticSegmentData = selectedSegment.StaticSegmentData
+            };
+            var currentConnections = _structure.GetOutputSegments(currentSegmentData).Count();
+            var bestConnectionCount = _structure.GetOutputSegments(validSegmentData.First()).Count();
 
-            if (!_validRotations.Contains(placeHolder.transform.rotation))
+            if (currentConnections < bestConnectionCount)
             {
                 placeHolder.transform.rotation = _validRotations.First();
                 _index = 0;
-            }
+            } 
         }
 
         public void TearDown()
@@ -100,17 +109,17 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
-            
+
             _index += 1;
             _index %= _validRotations.Count;
             segment.transform.rotation = _validRotations[_index];
         }
 
-        private void SetValidRotations(Vector3Int position, StaticSegmentData staticSegmentData)
+        private IEnumerable<SegmentData> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData)
         {
             List<HashSet<Vector3Int>> seen = new();
-            
-            _validRotations = AllRotations()
+
+            return AllRotations()
                 .Select(rotation => new SegmentData
                 {
                     Position = position,
@@ -126,11 +135,12 @@ namespace Runtime.Scriptable_Objects
                     {
                         seen.Add(points);
                     }
+
                     return unique;
                 })
-                .Select(segmentData => segmentData.Rotation).ToList();
+                .OrderByDescending(segmentData => _structure.GetOutputSegments(segmentData).Count());
         }
-        
+
         private static IEnumerable<Quaternion> AllRotations()
         {
             // Define the 6 primary orientations with each axis facing "up" (aligned with +Z)

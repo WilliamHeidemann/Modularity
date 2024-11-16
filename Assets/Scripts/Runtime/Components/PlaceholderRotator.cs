@@ -10,16 +10,6 @@ namespace Runtime.Components
 
         private void Update()
         {
-            // if (Input.GetKeyDown(KeyCode.E))
-            // {
-            //     _placeHolderBuilder.RotateOnY();
-            // }
-            //
-            // if (Input.GetKeyDown(KeyCode.Q))
-            // {
-            //     _placeHolderBuilder.RotateOnX();
-            // }
-
             if (Input.GetKeyDown(KeyCode.R))
             {
                 _placeHolderBuilder.Rotate();
