@@ -227,3 +227,5 @@ MonoBehaviour:
   IsActive: 0
   _staticSegmentData: {fileID: 11400000, guid: 8926e29824d37d54ba808cc817371772, type: 2}
   _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
+  _rewardDisplayPrefab: {fileID: 7702011667287614595, guid: 6b318a6f4494fc44e8cbcfcd5135c4af, type: 3}
+  _animationTime: 0

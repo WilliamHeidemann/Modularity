@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using Runtime.Scriptable_Objects;
@@ -24,6 +25,7 @@ namespace Runtime.Components.Systems
 
         private void Start()
         {
+            DOTween.Init();
             _structure.Clear();
             _flowControl.Clear();
             _hand.Initialize();

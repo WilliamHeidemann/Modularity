@@ -5,7 +5,8 @@
         "WilliamHeidemann.UtilityToolkit",
         "UnityUtils",
         "Unity.TextMeshPro",
-        "WilliamHeidemann.UtilityToolkit.Editor"
+        "WilliamHeidemann.UtilityToolkit.Editor",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
