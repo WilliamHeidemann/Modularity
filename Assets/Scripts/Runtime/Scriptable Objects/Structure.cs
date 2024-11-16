@@ -65,6 +65,9 @@ namespace Runtime.Scriptable_Objects
 
         public IEnumerable<SegmentData> GetInputSegments(SegmentData segmentData) =>
             _graphData.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
+        
+        public IEnumerable<SegmentData> GetOutputSegments(SegmentData segmentData) =>
+            _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
 
         public IEnumerable<ConnectionType> GetInputs(SegmentData segmentData) => GetInputs(segmentData.Position);
         public IEnumerable<ConnectionType> GetInputs(Vector3Int position) => 
