@@ -73,6 +73,13 @@ namespace Runtime.Scriptable_Objects
 
         public bool IsValidPlacement(SegmentData segmentData)
         {
+            var connectsToWrongType = GetOutputSegments(segmentData).Any(neighbor => !CanConnect(segmentData, neighbor));
+            
+            if (connectsToWrongType)
+            {
+                return false;
+            }
+            
             var atLeastOneConnect = ConnectsToAtLeastOneNeighbor(segmentData);
 
             if (!atLeastOneConnect)
