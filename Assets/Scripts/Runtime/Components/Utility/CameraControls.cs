@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Runtime.Components.Utility
 {
     public class CameraControls : MonoBehaviour
     {
+        [SerializeField] private float _keyboardSpeed;
         [SerializeField] private float _dragSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _zoomSpeed;
@@ -28,12 +27,21 @@ namespace Runtime.Components.Utility
 
         private void Update()
         {
-            HandleTranslation();
+            HandleKeyboardTranslation();
+            HandleDragTranslation();
             HandleRotation();
             HandleZoom();
         }
 
-        private void HandleTranslation()
+        private void HandleKeyboardTranslation()
+        {
+            var horizontal = Input.GetAxis("Horizontal");
+            var vertical = Input.GetAxis("Vertical");
+            var translation = new Vector3(horizontal, 0, vertical) * (_keyboardSpeed * Time.deltaTime);
+            transform.Translate(translation, Space.Self);
+        }
+
+        private void HandleDragTranslation()
         {
             if (Input.GetMouseButtonDown(0))
             {
