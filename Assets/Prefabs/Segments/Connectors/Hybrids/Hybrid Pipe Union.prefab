@@ -103,7 +103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &345124150965489691
 Transform:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 50e1040c59222824097ed618222acd45, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -355,9 +355,9 @@ GameObject:
   - component: {fileID: 927145117438815657}
   - component: {fileID: 4404823909993285501}
   - component: {fileID: 4092756122483640719}
-  - component: {fileID: 6238383720401507160}
+  - component: {fileID: 1826383497253793754}
   m_Layer: 0
-  m_Name: Mix Connector Pipe Elbow
+  m_Name: Hybrid Pipe Union
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,9 +396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47434e5bef5d29a4d99c03368620926f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StaticSegmentData: {fileID: 11400000, guid: bccb834d42b474d489a90f18282e9c64, type: 2}
-  SegmentActivator: {fileID: 6238383720401507160}
-  Preview: {fileID: 21300000, guid: 015e032a8a71b5b4a9faa04b536a3b3d, type: 3}
+  StaticSegmentData: {fileID: 11400000, guid: ae34cba318a47484aa80658c6927cf9d, type: 2}
+  SegmentActivator: {fileID: 1826383497253793754}
+  Preview: {fileID: 21300000, guid: 05c7e8d0735192b47b3cc3ab23fa3443, type: 3}
 --- !u!65 &4092756122483640719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6238383720401507160
+--- !u!114 &1826383497253793754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,7 +536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4177788672925693616
 Transform:
   m_ObjectHideFlags: 0
@@ -583,7 +583,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 50e1040c59222824097ed618222acd45, type: 2}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
