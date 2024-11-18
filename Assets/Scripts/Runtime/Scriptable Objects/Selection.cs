@@ -10,5 +10,12 @@ namespace Runtime.Scriptable_Objects
         public Option<Segment> Prefab;
         public int PriceBlood;
         public int PriceSteam;
+
+        public void Reset()
+        {
+            Prefab = Option<Segment>.None;
+            PriceBlood = 0;
+            PriceSteam = 0;
+        }
     }
 }
