@@ -20,6 +20,7 @@ namespace Runtime.Scriptable_Objects
         public List<Segment> SegmentsOptions;
 
         private int _optionsCount = 3;
+        private int _selectedCardIndex;
 
         public void Initialize()
         {
@@ -31,6 +32,7 @@ namespace Runtime.Scriptable_Objects
             _selection.Prefab = Option<Segment>.Some(SegmentsOptions[chosenSegment]);
             _selection.PriceBlood = SegmentsOptions[chosenSegment].StaticSegmentData.BloodCost;
             _selection.PriceSteam = SegmentsOptions[chosenSegment].StaticSegmentData.SteamCost;
+            _selectedCardIndex = chosenSegment;
         }
 
         public void GenerateHand()
@@ -39,24 +41,37 @@ namespace Runtime.Scriptable_Objects
 
             for (int i = 0; i < _optionsCount; i++)
             {
-                var segment = _pool.GetRandomSegment();
-                int failsafe = 0;
-
-                while (SegmentsOptions.Contains(segment))
-                {
-                    segment = _pool.GetRandomSegment();
-                    failsafe++;
-
-                    if (failsafe > 10)
-                    {
-                        Debug.LogError("Failsafe triggered, breaking loop");
-                        break;
-                    }
-                };
-
+                var segment = GetUniqueRandomSegment();
                 SegmentsOptions.Add(segment);
             }
             OnDrawHand?.Invoke();
+        }
+
+        public void ReplaceSelectedCard()
+        {
+            var newSegment = GetUniqueRandomSegment();
+            SegmentsOptions[_selectedCardIndex] = newSegment;
+            OnDrawHand?.Invoke();
+        }
+
+        private Segment GetUniqueRandomSegment()
+        {
+            var segment = _pool.GetRandomSegment();
+            int failsafe = 0;
+
+            while (SegmentsOptions.Contains(segment))
+            {
+                segment = _pool.GetRandomSegment();
+                failsafe++;
+
+                if (failsafe > 10)
+                {
+                    Debug.LogError("Failsafe triggered, breaking loop");
+                    break;
+                }
+            };
+            
+            return segment;
         }
     }
 }

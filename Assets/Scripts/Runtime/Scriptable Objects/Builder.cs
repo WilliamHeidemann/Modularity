@@ -74,7 +74,7 @@ namespace Runtime.Scriptable_Objects
             if (!isInitial)
             {
                 _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
-                _hand.GenerateHand();
+                _hand.ReplaceSelectedCard();
             }
             if (!isInitial) _selection.Prefab = Option<Segment>.None;
         }
