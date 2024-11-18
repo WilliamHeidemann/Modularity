@@ -299,7 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 9c52c8fbc375e7e4bb16fdc790769be3, type: 2}
   SegmentActivator: {fileID: -2844420069805364700}
-  Preview: {fileID: 21300000, guid: 2999cc6b1a90e55468162642bde67df1, type: 3}
+  Preview: {fileID: 21300000, guid: ca49c2c574e9f6541aea10453d8c80c1, type: 3}
 --- !u!114 &-2844420069805364700
 MonoBehaviour:
   m_ObjectHideFlags: 0
