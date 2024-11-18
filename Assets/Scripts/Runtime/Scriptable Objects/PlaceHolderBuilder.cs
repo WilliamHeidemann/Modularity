@@ -136,7 +136,7 @@ namespace Runtime.Scriptable_Objects
 
                     return unique;
                 })
-                .OrderByDescending(segmentData => _structure.GetOutputSegments(segmentData).Count());
+                .OrderByDescending(segmentData => _structure.GetValidConnections(segmentData).Count());
         }
 
         private static IEnumerable<Quaternion> AllRotations()
