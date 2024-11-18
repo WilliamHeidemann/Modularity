@@ -14,6 +14,7 @@ namespace Runtime.Scriptable_Objects
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
         public void Clear() => _graphData.Clear();
 
+        public IEnumerable<SegmentData> Segments => _graphData;
         public IEnumerable<SegmentData> Sources => _graphData.Where(data => data.StaticSegmentData.IsSource);
         public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
         public IEnumerable<SegmentData> Connectors => _graphData.Where(data => data.StaticSegmentData.IsConnector);
@@ -93,6 +94,11 @@ namespace Runtime.Scriptable_Objects
             }
             
             return GetOutputSegments(segmentData).All(link => link.StaticSegmentData.IsConnector);
+        }
+
+        public bool IsValidSourcePlacement(Vector3Int position)
+        {
+            return !GetInputs(position).Any() && IsOpenPosition(position);
         }
     }
 }
