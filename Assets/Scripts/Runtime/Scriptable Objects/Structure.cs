@@ -26,10 +26,10 @@ namespace Runtime.Scriptable_Objects
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
-            if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
-            {
-                return false;
-            }
+            // if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
+            // {
+            //     return false;
+            // }
 
             var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
                 point.Item1 == segmentData2.Position);
@@ -92,7 +92,8 @@ namespace Runtime.Scriptable_Objects
                 return true;
             }
             
-            return GetOutputSegments(segmentData).All(link => link.StaticSegmentData.IsConnector);
+            // return GetOutputSegments(segmentData).All(link => link.StaticSegmentData.IsConnector);
+            return true;
         }
     }
 }
