@@ -16,6 +16,13 @@ namespace Runtime.Components.Utility
 
         private Vector3 _startPosition;
         private Vector3 _startRotation;
+        
+        public float verticalLimit = 80f; // Limit for vertical rotation (to prevent flipping)
+        public float distanceFromTarget = 10f; // Distance from the target object
+
+        private float currentYaw = 0f; // Horizontal rotation
+        private float currentPitch = 0f; // Vertical rotation
+        
 
         private void Start()
         {
@@ -27,10 +34,34 @@ namespace Runtime.Components.Utility
 
         private void Update()
         {
-            HandleKeyboardTranslation();
-            HandleDragTranslation();
-            HandleRotation();
+            // HandleKeyboardTranslation();
+            // HandleDragTranslation();
+            // HandleRotation();
             HandleZoom();
+            NewRotationSystem();
+        }
+
+        private void NewRotationSystem()
+        {
+
+            // Get input for rotation
+            float horizontalInput = -Input.GetAxis("Horizontal"); // Arrow keys or A/D
+            float verticalInput = -Input.GetAxis("Vertical"); // Arrow keys or W/S
+
+            // Adjust yaw (horizontal rotation) and pitch (vertical rotation)
+            currentYaw += horizontalInput * _rotationSpeed * Time.deltaTime;
+            currentPitch -= verticalInput * _rotationSpeed * Time.deltaTime;
+
+            // Clamp pitch to prevent flipping upside down
+            currentPitch = Mathf.Clamp(currentPitch, -verticalLimit, verticalLimit);
+
+            // Calculate the new position of the camera
+            Quaternion rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
+            Vector3 offset = rotation * new Vector3(0, 0, -distanceFromTarget);
+
+            // Set the camera's position and look at the target
+            transform.position = Vector3.zero + offset;
+            transform.LookAt(Vector3.zero);
         }
 
         private void HandleKeyboardTranslation()
@@ -79,7 +110,7 @@ namespace Runtime.Components.Utility
         private void HandleZoom()
         {
             var scroll = Input.GetAxis("Mouse ScrollWheel");
-            transform.Translate(0, 0, scroll * _dragSpeed * _zoomSpeed);
+            transform.Translate(0, 0, scroll * _dragSpeed * _zoomSpeed * 1000);
         }
 
         public void ResetCamera()
