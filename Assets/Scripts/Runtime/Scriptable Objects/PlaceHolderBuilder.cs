@@ -63,8 +63,8 @@ namespace Runtime.Scriptable_Objects
                 Rotation = placeHolder.transform.rotation,
                 StaticSegmentData = selectedSegment.StaticSegmentData
             };
-            var currentConnections = _structure.GetOutputSegments(currentSegmentData).Count();
-            var bestConnectionCount = _structure.GetOutputSegments(validSegmentData.First()).Count();
+            var currentConnections = _structure.GetValidConnections(currentSegmentData).Count();
+            var bestConnectionCount = _structure.GetValidConnections(validSegmentData.First()).Count();
 
             if (currentConnections < bestConnectionCount)
             {
