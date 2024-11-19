@@ -12,7 +12,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
         private Option<Segment> _placeHolder;
-        private List<Quaternion> _validRotations;
+        private List<Quaternion> _rotations;
         private int _index = 0;
         [SerializeField] private Material _transparentValidMat;
         [SerializeField] private Material _transparentInvalidMat;
@@ -29,8 +29,9 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            var validSegmentData = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
-            _validRotations = validSegmentData.Select(segmentData => segmentData.Rotation).ToList();
+            var validRotations = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
+            var directionallyValidRotations = ValidRotations(position, selectedSegment.StaticSegmentData, true).ToList();
+            _rotations = validRotations.Any() ? validRotations : directionallyValidRotations;
 
             if (_placeHolder.IsSome(out var placeHolder) &&
                 placeHolder.StaticSegmentData == selectedSegment.StaticSegmentData)
@@ -41,36 +42,21 @@ namespace Runtime.Scriptable_Objects
             else
             {
                 TearDown();
-                placeHolder = Instantiate(selectedSegment, position, _validRotations.FirstOrDefault());
+                placeHolder = Instantiate(selectedSegment, position, _rotations.FirstOrDefault());
                 _placeHolder = Option<Segment>.Some(placeHolder);
             }
 
-            var material = _validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
+            var material = validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
             foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
             {
                 meshRenderer.sharedMaterial = material;
             }
             
-            if (!_validRotations.Any())
+            if (!_rotations.Contains(placeHolder.transform.rotation))
             {
-                _validRotations = AllRotations().ToList();
-                return;
-            }
-
-            var currentSegmentData = new SegmentData
-            {
-                Position = position,
-                Rotation = placeHolder.transform.rotation,
-                StaticSegmentData = selectedSegment.StaticSegmentData
-            };
-            var currentConnections = _structure.GetValidConnections(currentSegmentData).Count();
-            var bestConnectionCount = _structure.GetValidConnections(validSegmentData.First()).Count();
-
-            if (currentConnections < bestConnectionCount)
-            {
-                placeHolder.transform.rotation = _validRotations.First();
+                placeHolder.transform.rotation = _rotations.First();
                 _index = 0;
-            } 
+            }
         }
 
         public void TearDown()
@@ -103,17 +89,18 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (!_validRotations.Any())
+            if (!_rotations.Any())
             {
                 return;
             }
 
             _index += 1;
-            _index %= _validRotations.Count;
-            segment.transform.rotation = _validRotations[_index];
+            _index %= _rotations.Count;
+            segment.transform.rotation = _rotations[_index];
         }
 
-        private IEnumerable<SegmentData> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData)
+        private IEnumerable<Quaternion> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData,
+            bool disregardValidity = false)
         {
             List<HashSet<Vector3Int>> seen = new();
 
@@ -124,7 +111,10 @@ namespace Runtime.Scriptable_Objects
                     Rotation = rotation,
                     StaticSegmentData = staticSegmentData
                 })
-                .Where(segmentData => _structure.IsValidPlacement(segmentData))
+                .Where(segmentData =>
+                    disregardValidity
+                        ? _structure.IsDirectionallyValidPlacement(segmentData)
+                        : _structure.IsValidPlacement(segmentData))
                 .Where(segmentData =>
                 {
                     var points = segmentData.GetConnectionPoints().ToHashSet();
@@ -136,7 +126,8 @@ namespace Runtime.Scriptable_Objects
 
                     return unique;
                 })
-                .OrderByDescending(segmentData => _structure.GetValidConnections(segmentData).Count());
+                .OrderByDescending(segmentData => _structure.GetValidConnections(segmentData).Count())
+                .Select(segmentData => segmentData.Rotation);
         }
 
         private static IEnumerable<Quaternion> AllRotations()
