@@ -1,13 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Components.Utility
 {
     public class CameraControls : MonoBehaviour
     {
-        [SerializeField] private float _keyboardSpeed;
-        [SerializeField] private float _dragSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _zoomSpeed;
+        [SerializeField] private float _minZoom;
+        [SerializeField] private float _maxZoom;
 
         private Vector3 _dragOrigin;
 
@@ -16,13 +17,13 @@ namespace Runtime.Components.Utility
 
         private Vector3 _startPosition;
         private Vector3 _startRotation;
-        
-        public float verticalLimit = 80f; // Limit for vertical rotation (to prevent flipping)
-        public float distanceFromTarget = 10f; // Distance from the target object
 
-        private float currentYaw = 0f; // Horizontal rotation
-        private float currentPitch = 0f; // Vertical rotation
-        
+        private const float VerticalLimit = 80f;
+        private float _distanceFromTarget = 10f;
+
+        private float _currentHorizontalRotation;
+        private float _currentVerticalRotation;
+
 
         private void Start()
         {
@@ -37,80 +38,28 @@ namespace Runtime.Components.Utility
             // HandleKeyboardTranslation();
             // HandleDragTranslation();
             // HandleRotation();
-            HandleZoom();
+            // HandleZoom();
             NewRotationSystem();
         }
 
         private void NewRotationSystem()
         {
+            var scroll = Input.GetAxis("Mouse ScrollWheel");
+            _distanceFromTarget = Mathf.Clamp(_distanceFromTarget - scroll * _zoomSpeed, _minZoom, _maxZoom);
 
-            // Get input for rotation
-            float horizontalInput = -Input.GetAxis("Horizontal"); // Arrow keys or A/D
-            float verticalInput = -Input.GetAxis("Vertical"); // Arrow keys or W/S
+            var horizontalInput = Input.GetAxis("Horizontal"); // Arrow keys or A/D
+            var verticalInput = Input.GetAxis("Vertical"); // Arrow keys or W/S
 
-            // Adjust yaw (horizontal rotation) and pitch (vertical rotation)
-            currentYaw += horizontalInput * _rotationSpeed * Time.deltaTime;
-            currentPitch -= verticalInput * _rotationSpeed * Time.deltaTime;
+            _currentHorizontalRotation -= horizontalInput * _rotationSpeed * Time.deltaTime;
+            _verticalRotation += verticalInput * _rotationSpeed * Time.deltaTime;
 
-            // Clamp pitch to prevent flipping upside down
-            currentPitch = Mathf.Clamp(currentPitch, -verticalLimit, verticalLimit);
+            _verticalRotation = Mathf.Clamp(_verticalRotation, -VerticalLimit, VerticalLimit);
 
-            // Calculate the new position of the camera
-            Quaternion rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
-            Vector3 offset = rotation * new Vector3(0, 0, -distanceFromTarget);
+            var rotation = Quaternion.Euler(_verticalRotation, _currentHorizontalRotation, 0f);
+            var offset = rotation * new Vector3(0, 0, -_distanceFromTarget);
 
-            // Set the camera's position and look at the target
             transform.position = Vector3.zero + offset;
             transform.LookAt(Vector3.zero);
-        }
-
-        private void HandleKeyboardTranslation()
-        {
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
-            var translation = new Vector3(horizontal, 0, vertical) * (_keyboardSpeed * Time.deltaTime);
-            transform.Translate(translation, Space.Self);
-        }
-
-        private void HandleDragTranslation()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                _dragOrigin = Input.mousePosition;
-                return;
-            }
-
-            if (!Input.GetMouseButton(0))
-            {
-                return;
-            }
-
-            var delta = Input.mousePosition - _dragOrigin;
-            var translation = new Vector3(-delta.x * _dragSpeed, -delta.y * _dragSpeed, 0);
-            transform.Translate(translation, Space.Self);
-            _dragOrigin = Input.mousePosition;
-        }
-
-        private void HandleRotation()
-        {
-            if (!Input.GetMouseButton(1))
-            {
-                return;
-            }
-            
-            var mouseX = Input.GetAxis("Mouse X");
-            var mouseY = Input.GetAxis("Mouse Y");
-
-            _horizontalRotation += mouseX * _rotationSpeed;
-            _verticalRotation -= mouseY * _rotationSpeed;
-            _verticalRotation = Mathf.Clamp(_verticalRotation, -90f, 90f);
-            transform.rotation = Quaternion.Euler(_verticalRotation, _horizontalRotation, 0.0f);
-        }
-        
-        private void HandleZoom()
-        {
-            var scroll = Input.GetAxis("Mouse ScrollWheel");
-            transform.Translate(0, 0, scroll * _dragSpeed * _zoomSpeed * 1000);
         }
 
         public void ResetCamera()
