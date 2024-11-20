@@ -25,7 +25,7 @@ namespace Runtime.Scriptable_Objects
                 CheckForActivation(receiver);
             }
 
-            if (_structure.Sources.Count() > 0 && AllSourcesLnked(_structure.Sources.First()))
+            if (_structure.Sources.Any() && AllSourcesLnked(_structure.Sources.First()))
             {
                 _sourceSpawner.SpawnRandomSource();
                 _sourceSpawner.SpawnRandomSource();
@@ -89,7 +89,7 @@ namespace Runtime.Scriptable_Objects
                 var current = queue.Dequeue();
                 foreach (var link in _structure.GetValidConnections(current))
                 {
-                    if (link.StaticSegmentData.IsSource && !sources.Contains(link))
+                    if (link.StaticSegmentData.IsSource)
                     {
                         sources.Add(link);
                     }
