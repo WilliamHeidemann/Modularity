@@ -28,19 +28,16 @@ namespace Runtime.Scriptable_Objects
         {
             if (!_structure.IsOpenPosition(position.AsVector3Int()))
             {
-                Debug.Log(1);
                 return;
             }
 
             if (!_currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam))
             {
-                Debug.Log(2);
                 return;
             }
 
             if (!_selection.Prefab.IsSome(out var prefab))
             {
-                Debug.Log(3);
                 return;
             }
 
@@ -53,14 +50,12 @@ namespace Runtime.Scriptable_Objects
             
             if (!_structure.IsValidPlacement(segmentData) && !isInitial)
             {
-                Debug.Log(4);
                 return;
             }
 
             if (segmentData.StaticSegmentData.IsReceiver && 
                 _structure.GetInputs(segmentData).Count() > segmentData.StaticSegmentData.Requirements)
             {
-                Debug.Log(5);
                 return;
             }
                 
