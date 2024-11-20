@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using log4net.DateFormatter;
+using NUnit.Framework;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
@@ -55,7 +57,12 @@ namespace Runtime.Scriptable_Objects
             var zCenter = (maxZ + minZ) / 2;
             var offset = new Vector3(xCenter, yCenter, zCenter);
 
-            var radius = 5f;
+            var averageDistToRelativeCenter = (
+                (Math.Max(maxX, Math.Abs(minX)) - xCenter)+
+                (Math.Max(maxY, Math.Abs(minY)) - yCenter)+
+                (Math.Max(maxZ, Math.Abs(minZ)) - zCenter)) /3;
+
+            var radius = averageDistToRelativeCenter + 5f;
 
             var unitSpherePosition = Random.onUnitSphere;
             unitSpherePosition.y = Mathf.Abs(unitSpherePosition.y);
