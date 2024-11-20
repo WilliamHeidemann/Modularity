@@ -12,7 +12,7 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Structure _structure;
         [SerializeField] private List<Segment> _segments = new();
-        [SerializeField] private AutomaticSourceSpawning _sourceSpawner = new();
+        [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
 
 
         public void AddSegment(Segment segment) => _segments.Add(segment);
