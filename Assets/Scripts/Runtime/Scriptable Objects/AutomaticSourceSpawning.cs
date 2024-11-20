@@ -19,6 +19,7 @@ namespace Runtime.Scriptable_Objects
 
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
+        [SerializeField] private float DistanceConstant;
 
         public void SpawnRandomSource()
         {
@@ -62,7 +63,7 @@ namespace Runtime.Scriptable_Objects
                 (Math.Max(maxY, Math.Abs(minY)) - yCenter)+
                 (Math.Max(maxZ, Math.Abs(minZ)) - zCenter)) /3;
 
-            var radius = averageDistToRelativeCenter + 5f;
+            var radius = averageDistToRelativeCenter + DistanceConstant;
 
             var unitSpherePosition = Random.onUnitSphere;
             unitSpherePosition.y = Mathf.Abs(unitSpherePosition.y);
