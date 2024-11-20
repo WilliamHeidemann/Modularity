@@ -58,10 +58,14 @@ namespace Runtime.Scriptable_Objects
             var zCenter = (maxZ + minZ) / 2;
             var offset = new Vector3(xCenter, yCenter, zCenter);
 
+            var maxDistX = Math.Max(maxX, Math.Abs(minX));
+            var maxDistY = Math.Max(maxY, Math.Abs(minY));
+            var maxDistZ = Math.Max(maxZ, Math.Abs(minZ));
+            
             var averageDistToRelativeCenter = (
-                (Math.Max(maxX, Math.Abs(minX)) - xCenter)+
-                (Math.Max(maxY, Math.Abs(minY)) - yCenter)+
-                (Math.Max(maxZ, Math.Abs(minZ)) - zCenter)) /3;
+                (maxDistX - xCenter)+
+                (maxDistY - yCenter)+
+                (maxDistZ - zCenter)) /3;
 
             var radius = averageDistToRelativeCenter + DistanceConstant;
 
