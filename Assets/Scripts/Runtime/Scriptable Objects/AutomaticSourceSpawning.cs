@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using log4net.DateFormatter;
+using NUnit.Framework;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
@@ -17,6 +19,7 @@ namespace Runtime.Scriptable_Objects
 
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
+        [SerializeField] private float DistanceConstant;
 
         public void SpawnRandomSource()
         {
@@ -55,7 +58,16 @@ namespace Runtime.Scriptable_Objects
             var zCenter = (maxZ + minZ) / 2;
             var offset = new Vector3(xCenter, yCenter, zCenter);
 
-            var radius = 5f;
+            var maxDistX = Math.Max(maxX, Math.Abs(minX));
+            var maxDistY = Math.Max(maxY, Math.Abs(minY));
+            var maxDistZ = Math.Max(maxZ, Math.Abs(minZ));
+            
+            var averageDistToRelativeCenter = (
+                (maxDistX - xCenter)+
+                (maxDistY - yCenter)+
+                (maxDistZ - zCenter)) /3;
+
+            var radius = averageDistToRelativeCenter + DistanceConstant;
 
             var unitSpherePosition = Random.onUnitSphere;
             unitSpherePosition.y = Mathf.Abs(unitSpherePosition.y);
