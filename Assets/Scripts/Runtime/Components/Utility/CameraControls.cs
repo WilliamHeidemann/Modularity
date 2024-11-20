@@ -1,65 +1,74 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Runtime.Components.Utility
 {
     public class CameraControls : MonoBehaviour
     {
+        [SerializeField] private float _keyboardSpeed;
+        [SerializeField] private float _dragSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _zoomSpeed;
-        [SerializeField] private float _minZoom;
-        [SerializeField] private float _maxZoom;
+        [SerializeField] private float _rotationPointOffset;
 
         private Vector3 _dragOrigin;
-
-        private float _horizontalRotation;
-        private float _verticalRotation;
-
         private Vector3 _startPosition;
         private Vector3 _startRotation;
 
-        private const float VerticalLimit = 80f;
-        private float _distanceFromTarget = 10f;
-
-        private float _currentHorizontalRotation;
-        private float _currentVerticalRotation;
-
-
         private void Start()
         {
-            _horizontalRotation = transform.eulerAngles.y;
-            _verticalRotation = transform.eulerAngles.x;
             _startPosition = transform.position;
             _startRotation = transform.eulerAngles;
         }
 
         private void Update()
         {
-            // HandleKeyboardTranslation();
-            // HandleDragTranslation();
-            // HandleRotation();
-            // HandleZoom();
-            NewRotationSystem();
+            HandleRotation();
+            HandleDragTranslation();
+            HandleZoom();
         }
 
-        private void NewRotationSystem()
+        private void HandleDragTranslation()
         {
-            var scroll = Input.GetAxis("Mouse ScrollWheel");
-            _distanceFromTarget = Mathf.Clamp(_distanceFromTarget - scroll * _zoomSpeed, _minZoom, _maxZoom);
+            if (Input.GetMouseButtonDown(0))
+            {
+                _dragOrigin = Input.mousePosition;
+                return;
+            }
 
-            var horizontalInput = Input.GetAxis("Horizontal"); // Arrow keys or A/D
-            var verticalInput = Input.GetAxis("Vertical"); // Arrow keys or W/S
+            if (!Input.GetMouseButton(0))
+            {
+                return;
+            }
 
-            _currentHorizontalRotation -= horizontalInput * _rotationSpeed * Time.deltaTime;
-            _verticalRotation += verticalInput * _rotationSpeed * Time.deltaTime;
+            var delta = Input.mousePosition - _dragOrigin;
+            var translation = new Vector3(-delta.x * _dragSpeed, -delta.y * _dragSpeed, 0);
+            transform.Translate(translation, Space.Self);
+            _dragOrigin = Input.mousePosition;
+        }
 
-            _verticalRotation = Mathf.Clamp(_verticalRotation, -VerticalLimit, VerticalLimit);
+        private void HandleRotation()
+        {
+            var xAxis = Input.GetAxis("Horizontal");
+            var yAxis = Input.GetAxis("Vertical");
+            
+            if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0))
+            {
+                return;
+            }
 
-            var rotation = Quaternion.Euler(_verticalRotation, _currentHorizontalRotation, 0f);
-            var offset = rotation * new Vector3(0, 0, -_distanceFromTarget);
+            var xRotation = -xAxis * _rotationSpeed * Time.deltaTime;
+            var yRotation = yAxis * _rotationSpeed * Time.deltaTime;
+            var rotationPoint = transform.position + transform.forward * _rotationPointOffset;
 
-            transform.position = Vector3.zero + offset;
-            transform.LookAt(Vector3.zero);
+            transform.RotateAround(rotationPoint, Vector3.up, xRotation);
+            transform.RotateAround(rotationPoint, transform.right, yRotation);
+            transform.LookAt(rotationPoint);
+        }
+        
+        private void HandleZoom()
+        {
+            var zoom = Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * Time.deltaTime;
+            transform.Translate(0, 0, zoom);
         }
 
         public void ResetCamera()
@@ -67,8 +76,6 @@ namespace Runtime.Components.Utility
             transform.position = _startPosition;
             transform.rotation = Quaternion.Euler(_startRotation);
             _dragOrigin = new Vector3(0, 0, 0);
-            _verticalRotation = _startRotation.x;
-            _horizontalRotation = _startRotation.y;
         }
     }
 }

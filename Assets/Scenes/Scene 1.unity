@@ -8591,8 +8591,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8443729550061900408, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: _dragSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443729550061900408, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: _zoomSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443729550061900408, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
       propertyPath: _keyboardSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443729550061900408, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: _rotationSpeed
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9209876859269089322, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
       propertyPath: m_Name
