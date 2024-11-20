@@ -150,7 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e051a740e48067145b163d553b16bc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyboardSpeed: 10
+  _dragSpeed: 0.01
   _rotationSpeed: 100
-  _zoomSpeed: 3
-  _minZoom: 0.1
-  _maxZoom: 10
+  _zoomSpeed: 100
+  _rotationPointOffset: 10
