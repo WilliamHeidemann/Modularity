@@ -12,6 +12,8 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Structure _structure;
         [SerializeField] private List<Segment> _segments = new();
+        [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
+
 
         public void AddSegment(Segment segment) => _segments.Add(segment);
         public void Clear() => _segments.Clear();
@@ -21,6 +23,12 @@ namespace Runtime.Scriptable_Objects
             foreach (var receiver in _structure.Receivers)
             {
                 CheckForActivation(receiver);
+            }
+
+            if (_structure.Sources.Any() && AllSourcesLnked(_structure.Sources.First()))
+            {
+                _sourceSpawner.SpawnRandomSource();
+                _sourceSpawner.SpawnRandomSource();
             }
         }
 
@@ -66,6 +74,37 @@ namespace Runtime.Scriptable_Objects
 
             return false;
         }
+
+
+        private bool AllSourcesLnked(SegmentData segment)
+        {
+            Queue<SegmentData> queue = new();
+            queue.Enqueue(segment);
+
+            HashSet<SegmentData> explored = new() { segment};
+            HashSet<SegmentData> sources = new() { segment};
+
+            while (queue.Any())
+            {
+                var current = queue.Dequeue();
+                foreach (var link in _structure.GetValidConnections(current))
+                {
+                    if (link.StaticSegmentData.IsSource)
+                    {
+                        sources.Add(link);
+                    }
+
+                    if (!explored.Contains(link))
+                    {
+                        queue.Enqueue(link);
+                        explored.Add(link);
+                    }
+                }
+            }
+
+            return sources.Count() == _structure.Sources.Count();
+        }
+
 
         private void ActivateSegment(SegmentData segmentToActivate)
         {
