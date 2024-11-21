@@ -8,37 +8,23 @@ namespace Runtime.Components.Utility
         [SerializeField] private float _dragSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _zoomSpeed;
+        [SerializeField] private float _rotationPointOffset;
 
         private Vector3 _dragOrigin;
-
-        private float _horizontalRotation;
-        private float _verticalRotation;
-
         private Vector3 _startPosition;
         private Vector3 _startRotation;
 
         private void Start()
         {
-            _horizontalRotation = transform.eulerAngles.y;
-            _verticalRotation = transform.eulerAngles.x;
             _startPosition = transform.position;
             _startRotation = transform.eulerAngles;
         }
 
         private void Update()
         {
-            HandleKeyboardTranslation();
-            HandleDragTranslation();
             HandleRotation();
+            HandleDragTranslation();
             HandleZoom();
-        }
-
-        private void HandleKeyboardTranslation()
-        {
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
-            var translation = new Vector3(horizontal, 0, vertical) * (_keyboardSpeed * Time.deltaTime);
-            transform.Translate(translation, Space.Self);
         }
 
         private void HandleDragTranslation()
@@ -62,24 +48,27 @@ namespace Runtime.Components.Utility
 
         private void HandleRotation()
         {
-            if (!Input.GetMouseButton(1))
+            var xAxis = Input.GetAxis("Horizontal");
+            var yAxis = Input.GetAxis("Vertical");
+            
+            if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0))
             {
                 return;
             }
-            
-            var mouseX = Input.GetAxis("Mouse X");
-            var mouseY = Input.GetAxis("Mouse Y");
 
-            _horizontalRotation += mouseX * _rotationSpeed;
-            _verticalRotation -= mouseY * _rotationSpeed;
-            _verticalRotation = Mathf.Clamp(_verticalRotation, -90f, 90f);
-            transform.rotation = Quaternion.Euler(_verticalRotation, _horizontalRotation, 0.0f);
+            var xRotation = -xAxis * _rotationSpeed * Time.deltaTime;
+            var yRotation = yAxis * _rotationSpeed * Time.deltaTime;
+            var rotationPoint = transform.position + transform.forward * _rotationPointOffset;
+
+            transform.RotateAround(rotationPoint, Vector3.up, xRotation);
+            transform.RotateAround(rotationPoint, transform.right, yRotation);
+            transform.LookAt(rotationPoint);
         }
         
         private void HandleZoom()
         {
-            var scroll = Input.GetAxis("Mouse ScrollWheel");
-            transform.Translate(0, 0, scroll * _dragSpeed * _zoomSpeed);
+            var zoom = Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * Time.deltaTime;
+            transform.Translate(0, 0, zoom);
         }
 
         public void ResetCamera()
@@ -87,8 +76,6 @@ namespace Runtime.Components.Utility
             transform.position = _startPosition;
             transform.rotation = Quaternion.Euler(_startRotation);
             _dragOrigin = new Vector3(0, 0, 0);
-            _verticalRotation = _startRotation.x;
-            _horizontalRotation = _startRotation.y;
         }
     }
 }

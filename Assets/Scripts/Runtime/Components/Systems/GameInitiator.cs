@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
@@ -18,6 +19,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private Currency _currency;
+        [SerializeField] private AutomaticSourceSpawning _automaticSourceSpawning;
         [SerializeField] private int _startingCurrency;
         
         [SerializeField] private Transform[] _startingBloodPoints;
@@ -38,7 +40,15 @@ namespace Runtime.Components.Systems
             _startingSteamPoints.ForEach(point => 
                 _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 0, 0), true));
 
-            _selection.Prefab = Option<Segment>.None;
+            _selection.Reset();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                _automaticSourceSpawning.SpawnRandomSource();
+            }
         }
     }
 }

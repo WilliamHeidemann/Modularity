@@ -68,15 +68,16 @@ namespace Runtime.Scriptable_Objects
             SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
 
             _flowControl.AddSegment(connector);
-            _flowControl.UpdateFlow();
 
-
-            if (!isInitial)
+            if (isInitial)
             {
-                _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
-                _hand.ReplaceSelectedCard();
+                return;
             }
-            if (!isInitial) _selection.Prefab = Option<Segment>.None;
+            
+            _flowControl.UpdateFlow();
+            _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
+            _hand.ReplaceSelectedCard();
+            _selection.Prefab = Option<Segment>.None;
         }
 
         private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)
