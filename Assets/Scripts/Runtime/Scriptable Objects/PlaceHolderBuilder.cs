@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
+using Runtime.Components.Utility;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
@@ -57,6 +58,8 @@ namespace Runtime.Scriptable_Objects
                 placeHolder.transform.rotation = _rotations.First();
                 _index = 0;
             }
+            
+            SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 
         public void TearDown()

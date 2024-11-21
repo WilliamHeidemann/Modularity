@@ -1275,10 +1275,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 251622423}
-  _blood1: {fileID: 8300000, guid: dabf63b0e931608429bac33e63bb9751, type: 3}
-  _blood2: {fileID: 8300000, guid: 4a651f7dbc1001f4a94a4ee61022aa44, type: 3}
-  _steam1: {fileID: 8300000, guid: 20f5cf887231d614facdfb977dc74c78, type: 3}
-  _steam2: {fileID: 8300000, guid: 7881da81a90cdab47973ddf09169641e, type: 3}
+  _fleshConnectorPlacement: {fileID: 8300000, guid: 898c961bd22dd664e92f3571b0f34323, type: 3}
+  _fleshReceiverPlacement: {fileID: 8300000, guid: 969c509f9684e4b4a9c5334024527b2f, type: 3}
+  _steamConnectorPlacement: {fileID: 8300000, guid: e83c01e19a268d7448859cd28b413a67, type: 3}
+  _steamReceiverPlacement: {fileID: 8300000, guid: 148582b061dd42645b8940d58da7a367, type: 3}
+  _mixConnectorPlacement: {fileID: 8300000, guid: 24dc740ee96a8e247a62ff471cab9b0e, type: 3}
+  _mixReceiverPlacement: {fileID: 8300000, guid: 455b5c6f0e7abd141baef500b5dadb7e, type: 3}
+  _income: {fileID: 8300000, guid: 426c7510bfd412346b0bc1632567c380, type: 3}
+  _cardMouseOver: {fileID: 8300000, guid: 5df688694d97bc54e88c4da7d2a98498, type: 3}
+  _cardSelection: {fileID: 8300000, guid: 77c8848e6ddad614d9f9e7c68c7db12d, type: 3}
 --- !u!4 &257120417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e08d894d1a4dca746a9673007d5c706d, type: 3}
