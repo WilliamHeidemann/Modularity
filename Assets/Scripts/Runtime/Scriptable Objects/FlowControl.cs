@@ -11,6 +11,7 @@ namespace Runtime.Scriptable_Objects
     public class FlowControl : ScriptableObject
     {
         [SerializeField] private Structure _structure;
+        [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private List<Segment> _segments = new();
         [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
 
@@ -109,12 +110,13 @@ namespace Runtime.Scriptable_Objects
         private void ActivateSegment(SegmentData segmentToActivate)
         {
             var segmentOption = GetSegmentAtPosition(segmentToActivate.Position);
-            if (!segmentOption.IsSome(out var segment))
+            if (!segmentOption.IsSome(out var segment) || segment.IsActive)
             {
                 return;
             }
 
-            segment.SegmentActivator.Activate();
+            _currencyPopup.Activate(segment.transform.position, segmentToActivate.StaticSegmentData);
+            segment.IsActive = true;
         }
 
         private Option<Segment> GetSegmentAtPosition(Vector3Int position)
