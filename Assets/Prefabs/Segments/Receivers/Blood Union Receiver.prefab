@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2232386006986315898}
   - component: {fileID: 2458416990532299660}
   - component: {fileID: 3223422381655429275}
-  - component: {fileID: 4747333087381998882}
   m_Layer: 0
   m_Name: Blood Union Receiver
   m_TagString: Untagged
@@ -124,24 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 81af34f8200375245b147cefa0013857, type: 2}
-  SegmentActivator: {fileID: 4747333087381998882}
+  SegmentActivator: {fileID: 0}
   Preview: {fileID: 21300000, guid: def54b8e022fb734e812a0214e3ca48a, type: 3}
---- !u!114 &4747333087381998882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7152264757727068947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 981d40e9f62e45ad8d80031517b20af2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   IsActive: 0
-  _staticSegmentData: {fileID: 11400000, guid: 81af34f8200375245b147cefa0013857, type: 2}
-  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
-  _rewardDisplayPrefab: {fileID: 7702011667287614595, guid: 6b318a6f4494fc44e8cbcfcd5135c4af, type: 3}
 --- !u!1001 &8955668594516851787
 PrefabInstance:
   m_ObjectHideFlags: 0
