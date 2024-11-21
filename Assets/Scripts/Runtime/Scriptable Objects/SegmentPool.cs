@@ -17,7 +17,14 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private List<Segment> _ultraRareSegments;
         [SerializeField] private List<Segment> _rareSegments;
         [SerializeField] private List<Segment> _commonSegments;
-        
+
+        [Header("Tutorial Segment Lists")]
+        [SerializeField] private List<Segment> _bloodConnectors;
+        [SerializeField] private List<Segment> _bloodReceivers;
+        [SerializeField] private List<Segment> _steamConnectors;
+        [SerializeField] private List<Segment> _steamReceivers;
+        [SerializeField] private List<Segment> _hybridSegments;
+
         public Segment GetRandomSegment()
         {
             var maxValue = _ultraRareDropChance + _rareDropChance + _commonDropChance;
