@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Flow Control
   m_EditorClassIdentifier: 
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+  _currencyPopup: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
   _segments: []
   _sourceSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
