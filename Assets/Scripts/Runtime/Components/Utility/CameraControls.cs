@@ -43,6 +43,8 @@ namespace Runtime.Components.Utility
             var delta = Input.mousePosition - _dragOrigin;
             var translation = new Vector3(-delta.x * _dragSpeed, -delta.y * _dragSpeed, 0);
             transform.Translate(translation, Space.Self);
+            var position = transform.position;
+            transform.position = new Vector3(position.x, Mathf.Abs(position.y), position.z);
             _dragOrigin = Input.mousePosition;
         }
 
@@ -50,10 +52,20 @@ namespace Runtime.Components.Utility
         {
             var xAxis = Input.GetAxis("Horizontal");
             var yAxis = Input.GetAxis("Vertical");
-            
+
             if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0))
             {
                 return;
+            }
+
+            var xValue = transform.rotation.eulerAngles.x;
+
+            var isGoingTooHigh = xValue is > 80 and < 100f && yAxis > 0f;
+            var isGoingTooLow = transform.position.y < 0f && yAxis < 0f;
+
+            if (isGoingTooHigh || isGoingTooLow)
+            {
+                yAxis = 0;
             }
 
             var xRotation = -xAxis * _rotationSpeed * Time.deltaTime;
@@ -64,7 +76,7 @@ namespace Runtime.Components.Utility
             transform.RotateAround(rotationPoint, transform.right, yRotation);
             transform.LookAt(rotationPoint);
         }
-        
+
         private void HandleZoom()
         {
             var zoom = Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * Time.deltaTime;
