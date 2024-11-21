@@ -43,9 +43,14 @@ namespace Runtime.Components.Utility
             var delta = Input.mousePosition - _dragOrigin;
             var translation = new Vector3(-delta.x * _dragSpeed, -delta.y * _dragSpeed, 0);
             transform.Translate(translation, Space.Self);
+            PreventGoingThroughFloor();
+            _dragOrigin = Input.mousePosition;
+        }
+
+        private void PreventGoingThroughFloor()
+        {
             var position = transform.position;
             transform.position = new Vector3(position.x, Mathf.Abs(position.y), position.z);
-            _dragOrigin = Input.mousePosition;
         }
 
         private void HandleRotation()
@@ -80,7 +85,13 @@ namespace Runtime.Components.Utility
         private void HandleZoom()
         {
             var zoom = Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * Time.deltaTime;
+            if (zoom == 0f)
+            {
+                return;
+            }
+            
             transform.Translate(0, 0, zoom);
+            PreventGoingThroughFloor();
         }
 
         public void ResetCamera()
