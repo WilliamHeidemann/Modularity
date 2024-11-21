@@ -43,6 +43,8 @@ namespace Runtime.Components.Utility
             var delta = Input.mousePosition - _dragOrigin;
             var translation = new Vector3(-delta.x * _dragSpeed, -delta.y * _dragSpeed, 0);
             transform.Translate(translation, Space.Self);
+            var position = transform.position;
+            transform.position = new Vector3(position.x, Mathf.Abs(position.y), position.z);
             _dragOrigin = Input.mousePosition;
         }
 
@@ -58,11 +60,10 @@ namespace Runtime.Components.Utility
 
             var xValue = transform.rotation.eulerAngles.x;
 
-            var isGoingTooHigh = xValue is > 80 and < 100 && yAxis > 0;
-            var isGoingTooLow = xValue is > 270 and < 280 && yAxis < 0;
+            var isGoingTooHigh = xValue is > 80 and < 100f && yAxis > 0f;
+            var isGoingTooLow = transform.position.y < 0f && yAxis < 0f;
 
-            if (isGoingTooHigh ||
-                isGoingTooLow)
+            if (isGoingTooHigh || isGoingTooLow)
             {
                 yAxis = 0;
             }
@@ -74,14 +75,6 @@ namespace Runtime.Components.Utility
             transform.RotateAround(rotationPoint, Vector3.up, xRotation);
             transform.RotateAround(rotationPoint, transform.right, yRotation);
             transform.LookAt(rotationPoint);
-            
-            ClampYPosition();
-        }
-
-        private void ClampYPosition()
-        {
-            var position = transform.position;
-            transform.position = new Vector3(position.x, Mathf.Abs(position.y), position.z);
         }
 
         private void HandleZoom()
