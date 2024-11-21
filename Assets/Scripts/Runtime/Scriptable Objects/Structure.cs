@@ -14,6 +14,7 @@ namespace Runtime.Scriptable_Objects
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
         public void Clear() => _graphData.Clear();
 
+        public IEnumerable<SegmentData> Segments => _graphData;
         public IEnumerable<SegmentData> Sources => _graphData.Where(data => data.StaticSegmentData.IsSource);
         public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
         public IEnumerable<SegmentData> Connectors => _graphData.Where(data => data.StaticSegmentData.IsConnector);
@@ -31,18 +32,31 @@ namespace Runtime.Scriptable_Objects
             //     return false;
             // }
 
+            var connectsDirectionally = CanConnectDirectionally(
+                segmentData1, segmentData2, 
+                out var connection1, 
+                out var connection2);
+
+            if (!connectsDirectionally)
+            {
+                return false;
+            }
+            
+            return connection1.Item2 == connection2.Item2;
+        }
+
+        private bool CanConnectDirectionally(SegmentData segmentData1, SegmentData segmentData2, out (Vector3Int, ConnectionType) connection1, out (Vector3Int, ConnectionType) connection2)
+        {
             var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
                 point.Item1 == segmentData2.Position);
             var connection2Option = segmentData2.GetConnectionPointsPlus().FirstOption(point =>
                 point.Item1 == segmentData1.Position);
 
-            if (!connection1Option.IsSome(out var connection1) ||
-                !connection2Option.IsSome(out var connection2))
-            {
-                return false;
-            }
-
-            return connection1.Item2 == connection2.Item2;
+            var connectsOut = connection1Option.IsSome(out var c1);
+            var connectsIn = connection2Option.IsSome(out var c2);
+            connection1 = c1;
+            connection2 = c2;
+            return connectsOut && connectsIn;
         }
 
         public IEnumerable<SegmentData> GetValidConnections(SegmentData segmentData) =>
@@ -94,6 +108,20 @@ namespace Runtime.Scriptable_Objects
             
             // return GetOutputSegments(segmentData).All(link => link.StaticSegmentData.IsConnector);
             return true;
+        }
+
+        public bool IsDirectionallyValidPlacement(SegmentData segmentData)
+        {
+            var connectsToAtLeastOneNeighborDirectionally = 
+                Neighbors(segmentData).Any(neighbor =>
+                    CanConnectDirectionally(segmentData, neighbor, out var _, out var _));
+
+            return connectsToAtLeastOneNeighborDirectionally;
+        }
+
+        public bool IsValidSourcePlacement(Vector3Int position)
+        {
+            return !GetInputs(position).Any() && IsOpenPosition(position);
         }
     }
 }
