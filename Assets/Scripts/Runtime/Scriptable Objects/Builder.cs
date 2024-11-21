@@ -65,7 +65,7 @@ namespace Runtime.Scriptable_Objects
             segmentData.GetConnectionPoints()
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
-            SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
+            SoundFXPlayer.Instance.Play(segmentData.StaticSegmentData.SoundFX);
 
             _flowControl.AddSegment(connector);
 
