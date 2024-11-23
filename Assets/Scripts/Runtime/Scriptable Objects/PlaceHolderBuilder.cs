@@ -50,7 +50,8 @@ namespace Runtime.Scriptable_Objects
             var material = validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
             foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
             {
-                meshRenderer.sharedMaterial = material;
+                var newMaterials = meshRenderer.sharedMaterials.Select(mat => material).ToArray();
+                meshRenderer.sharedMaterials = newMaterials;
             }
             
             if (!_rotations.Contains(placeHolder.transform.rotation))
