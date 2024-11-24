@@ -13,6 +13,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private List<Segment> _segments = new();
+        [SerializeField] private List<Vector3Int> _activated = new();
         [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
 
 
@@ -23,10 +24,13 @@ namespace Runtime.Scriptable_Objects
         {
             foreach (var receiver in _structure.Receivers)
             {
-                CheckForActivation(receiver);
+                if (!_activated.Contains(receiver.Position))
+                {
+                    CheckForActivation(receiver);
+                }
             }
 
-            if (_structure.Sources.Any() && AllSourcesLnked(_structure.Sources.First()))
+            if (_structure.Sources.Any() && AllSourcesLnked(_structure.Sources.Last()))
             {
                 _sourceSpawner.SpawnRandomSource();
                 _sourceSpawner.SpawnRandomSource();
@@ -46,6 +50,7 @@ namespace Runtime.Scriptable_Objects
             }
 
             ActivateSegment(receiver);
+            _activated.Add(receiver.Position);
         }
 
         private bool IsConnectedToSource(SegmentData segment, SegmentData receiver)
