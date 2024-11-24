@@ -18,7 +18,11 @@ namespace Runtime.Scriptable_Objects
 
 
         public void AddSegment(Segment segment) => _segments.Add(segment);
-        public void Clear() => _segments.Clear();
+        public void Clear()
+        {
+            _segments.Clear();
+            _activated.Clear();
+        }
 
         public void UpdateFlow()
         {
