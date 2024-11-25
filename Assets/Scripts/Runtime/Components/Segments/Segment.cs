@@ -8,6 +8,5 @@ namespace Runtime.Components.Segments
     {
         [SerializeField] public StaticSegmentData StaticSegmentData;
         public Sprite Preview;
-        [HideInInspector] public bool IsActive;
     }
 }
