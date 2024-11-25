@@ -12,6 +12,7 @@ namespace Runtime.Scriptable_Objects
         public Vector3Int Position;
         public Quaternion Rotation;
         public StaticSegmentData StaticSegmentData;
+        public bool IsActivated;
 
         public IEnumerable<Vector3Int> GetConnectionPoints() =>
             StaticSegmentData.ConnectionPoints

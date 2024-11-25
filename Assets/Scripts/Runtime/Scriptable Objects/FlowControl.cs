@@ -17,16 +17,20 @@ namespace Runtime.Scriptable_Objects
 
 
         public void AddSegment(Segment segment) => _segments.Add(segment);
-        public void Clear() => _segments.Clear();
+
+        public void Clear()
+        {
+            _segments.Clear();
+        }
 
         public void UpdateFlow()
         {
-            foreach (var receiver in _structure.Receivers)
+            foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
                 CheckForActivation(receiver);
             }
 
-            if (_structure.Sources.Any() && AllSourcesLnked(_structure.Sources.First()))
+            if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))
             {
                 _sourceSpawner.SpawnRandomSource();
                 _sourceSpawner.SpawnRandomSource();
@@ -77,13 +81,13 @@ namespace Runtime.Scriptable_Objects
         }
 
 
-        private bool AllSourcesLnked(SegmentData segment)
+        private bool AllSourcesLinked(SegmentData segment)
         {
             Queue<SegmentData> queue = new();
             queue.Enqueue(segment);
 
-            HashSet<SegmentData> explored = new() { segment};
-            HashSet<SegmentData> sources = new() { segment};
+            HashSet<SegmentData> explored = new() { segment };
+            HashSet<SegmentData> sources = new() { segment };
 
             while (queue.Any())
             {
@@ -110,13 +114,13 @@ namespace Runtime.Scriptable_Objects
         private void ActivateSegment(SegmentData segmentToActivate)
         {
             var segmentOption = GetSegmentAtPosition(segmentToActivate.Position);
-            if (!segmentOption.IsSome(out var segment) || segment.IsActive)
+            if (!segmentOption.IsSome(out var segment) || segmentToActivate.IsActivated)
             {
                 return;
             }
 
+            segmentToActivate.IsActivated = true;
             _currencyPopup.Activate(segment.transform.position, segmentToActivate.StaticSegmentData);
-            segment.IsActive = true;
         }
 
         private Option<Segment> GetSegmentAtPosition(Vector3Int position)
