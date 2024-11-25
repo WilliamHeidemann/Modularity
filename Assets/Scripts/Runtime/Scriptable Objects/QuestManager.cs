@@ -14,8 +14,25 @@ namespace Runtime.Scriptable_Objects
         
         public void Initialize()
         {
+            // subscribe to events
+            
             _mainQuest = _questPool.CameraQuest;
             _sideQuests = new List<Quest>();
+        }
+
+        public void SegmentRotated()
+        {
+            
+        }
+        
+        public void SegmentPlaced(SegmentData segmentData)
+        {
+            
+        }
+        
+        public void ReceiversActivated(IEnumerable<SegmentData> receivers)
+        {
+            
         }
     }
 }

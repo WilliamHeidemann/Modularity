@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -8,9 +9,13 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Quest _camera;
         [SerializeField] private Quest _placeOneSegment;
         [SerializeField] private Quest _rotateOneSegment;
-        [SerializeField] private CountingQuest _collectible;
+        [SerializeField] private CountingQuest _activateXReceivers;
+        [SerializeField] private CountingQuest _activateXReceiversSimultaneously;
+        [SerializeField] private CountingQuest _reachXBloodResources;
+        [SerializeField] private CountingQuest _reachXSteamResources;
+        [SerializeField] private CountingQuest _collectX;
         
         public Quest CameraQuest => _camera.Build();
-        public CountingQuest CollectibleQuest => _collectible.Build(0);
+        public CountingQuest CollectibleQuest => _collectX.Build(0);
     }
 }
