@@ -13,28 +13,24 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private List<Segment> _segments = new();
-        [SerializeField] private List<Vector3Int> _activated = new();
         [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
 
 
         public void AddSegment(Segment segment) => _segments.Add(segment);
+
         public void Clear()
         {
             _segments.Clear();
-            _activated.Clear();
         }
 
         public void UpdateFlow()
         {
-            foreach (var receiver in _structure.Receivers)
+            foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
-                if (!_activated.Contains(receiver.Position))
-                {
-                    CheckForActivation(receiver);
-                }
+                CheckForActivation(receiver);
             }
 
-            if (_structure.Sources.Any() && AllSourcesLnked(_structure.Sources.Last()))
+            if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))
             {
                 _sourceSpawner.SpawnRandomSource();
                 _sourceSpawner.SpawnRandomSource();
@@ -54,7 +50,6 @@ namespace Runtime.Scriptable_Objects
             }
 
             ActivateSegment(receiver);
-            _activated.Add(receiver.Position);
         }
 
         private bool IsConnectedToSource(SegmentData segment, SegmentData receiver)
@@ -86,13 +81,13 @@ namespace Runtime.Scriptable_Objects
         }
 
 
-        private bool AllSourcesLnked(SegmentData segment)
+        private bool AllSourcesLinked(SegmentData segment)
         {
             Queue<SegmentData> queue = new();
             queue.Enqueue(segment);
 
-            HashSet<SegmentData> explored = new() { segment};
-            HashSet<SegmentData> sources = new() { segment};
+            HashSet<SegmentData> explored = new() { segment };
+            HashSet<SegmentData> sources = new() { segment };
 
             while (queue.Any())
             {
@@ -119,13 +114,13 @@ namespace Runtime.Scriptable_Objects
         private void ActivateSegment(SegmentData segmentToActivate)
         {
             var segmentOption = GetSegmentAtPosition(segmentToActivate.Position);
-            if (!segmentOption.IsSome(out var segment) || segment.IsActive)
+            if (!segmentOption.IsSome(out var segment) || segmentToActivate.IsActivated)
             {
                 return;
             }
 
+            segmentToActivate.IsActivated = true;
             _currencyPopup.Activate(segment.transform.position, segmentToActivate.StaticSegmentData);
-            segment.IsActive = true;
         }
 
         private Option<Segment> GetSegmentAtPosition(Vector3Int position)
