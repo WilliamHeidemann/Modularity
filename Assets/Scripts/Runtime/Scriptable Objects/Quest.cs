@@ -2,6 +2,7 @@ using Runtime.Components.Segments;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -10,30 +11,30 @@ namespace Runtime.Scriptable_Objects
     {
         [TextArea(3, 10)]
         public string Description;
-        public QuestType QuestType;
-        public bool IsCompleted => Count >= Target;
-        public void Advance(int amount = 1) => Count += amount;
-        public int Count;
-        public int Target;
-
-        public Quest Copy()
+        public Quest Build()
         {
             return new Quest()
             {
                 Description = Description,
-                QuestType = QuestType,
-                Count = 0,
-                Target = Target
             };
         }
     }
-
-    public enum QuestType
+    
+    [Serializable]
+    public class CountingQuest : Quest
     {
-        Camera,
-        PlaceSegment,
-        RotateSegment,
-        PlaceManySegments,
-        ActivateManyReceiversAtOnce
+        public void Advance(int amount) => _count += amount;
+        private int _count;
+        private int _target;
+        public bool IsCompleted => _count >= _target;
+
+        public CountingQuest Build(int target)
+        {
+            return new CountingQuest()
+            {
+                Description = Description,
+                _target = target,
+            };
+        }
     }
 }
