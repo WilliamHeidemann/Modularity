@@ -12,7 +12,7 @@ namespace Runtime.Components
         [SerializeField] private Builder _builder;
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
         public Vector3Int Position;
-        private bool MousePressed;
+        private bool _mousePressed;
         
         private void OnMouseEnter()
         {
@@ -22,19 +22,19 @@ namespace Runtime.Components
         private void OnMouseExit()
         {
             _placeHolderBuilder.Hide();
-            MousePressed = false;
+            _mousePressed = false;
         }
 
         private void OnMouseUp()
         {
-            if (!MousePressed || EventSystem.current.IsPointerOverGameObject()) return;
+            if (!_mousePressed || EventSystem.current.IsPointerOverGameObject()) return;
             _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
             _placeHolderBuilder.TearDown();
-            MousePressed = false;
+            _mousePressed = false;
         }
         private void OnMouseDown()
         {
-            MousePressed = true;
+            _mousePressed = true;
         }
 
         private void OnDrawGizmos()
