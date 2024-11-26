@@ -5,7 +5,7 @@ namespace Runtime.Components.Utility
 {
     public class Exit : MonoBehaviour
     {
-        [SerializeField] private GameObject _pauseMenu;
+        [SerializeField] private PauseMenuController _pauseMenu;
 
         private bool _isGameStarted = false;
         private bool _isGamePaused = false;
@@ -22,7 +22,7 @@ namespace Runtime.Components.Utility
             PauseMenuController.OnGamePause -= TogglePause;
         }
 
-        public void TogglePause()
+        private void TogglePause()
         {
             _isGameStarted = true;
             _isGamePaused = !_isGamePaused;
@@ -39,12 +39,12 @@ namespace Runtime.Components.Utility
 
                 if (!_isGamePaused)
                 {
-                    _pauseMenu.SetActive(true);
-                    _pauseMenu.GetComponent<PauseMenuController>().OnPause();
+                    _pauseMenu.gameObject.SetActive(true);
+                    _pauseMenu.OnPause();
                 }
                 else
                 {
-                    _pauseMenu.GetComponent<PauseMenuController>().StartGame();
+                    _pauseMenu.StartGame();
                 }
             }
         }

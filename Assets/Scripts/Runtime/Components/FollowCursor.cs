@@ -1,20 +1,22 @@
 using UnityEngine;
 
-public class FollowCursor : MonoBehaviour
+namespace Runtime.Components
 {
-    [SerializeField] private float speed = 5f;
-
-    // Update is called once per frame
-    void Update()
+    public class FollowCursor : MonoBehaviour
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector2 direction = new Vector2(
-            mousePos.x - transform.position.x,
-            mousePos.y - transform.position.y
-        );
+        [SerializeField] private float _speed = 5f;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
+        private void Update()
+        {
+            var mousePos = Input.mousePosition;
+            var direction = new Vector2(
+                mousePos.x - transform.position.x,
+                mousePos.y - transform.position.y
+            );
+
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _speed * Time.deltaTime);
+        }
     }
 }
