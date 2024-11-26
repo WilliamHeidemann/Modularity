@@ -12,19 +12,23 @@ namespace Runtime.Components.Utility
 
         private void OnEnable()
         {
-            MainMenuController.OnGameStart += TogglePause;
+            MainMenuController.OnGameStart += GameStarted;
             PauseMenuController.OnGamePause += TogglePause;
         }
 
         private void OnDisable()
         {
-            MainMenuController.OnGameStart -= TogglePause;
+            MainMenuController.OnGameStart -= GameStarted;
             PauseMenuController.OnGamePause -= TogglePause;
+        }
+
+        private void GameStarted()
+        {
+            _isGameStarted = true;
         }
 
         private void TogglePause()
         {
-            _isGameStarted = true;
             _isGamePaused = !_isGamePaused;
         }
 
@@ -34,16 +38,19 @@ namespace Runtime.Components.Utility
             {
                 if (!_isGameStarted)
                 {
+                    Debug.LogWarning("Game has not started yet.");
                     return;
                 }
 
                 if (!_isGamePaused)
                 {
+                    Debug.Log("Game paused.");
                     _pauseMenu.gameObject.SetActive(true);
                     _pauseMenu.OnPause();
                 }
                 else
                 {
+                    Debug.Log("Game resumed.");
                     _pauseMenu.StartGame();
                 }
             }
