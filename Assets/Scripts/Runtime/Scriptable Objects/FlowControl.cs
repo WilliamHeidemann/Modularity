@@ -16,11 +16,22 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
 
 
-        public void AddSegment(Segment segment) => _segments.Add(segment);
+        public void AddSegment(Segment segment)
+        {
+            _segments.Add(segment);
+            var position = segment.transform.position.AsVector3Int();
+            if (_sourceSpawner.IsOnCollectable(position))
+            {
+                var collectable = _sourceSpawner.GetCollectable(position);
+                _currencyPopup.Activate(position, collectable.StaticSegmentData);
+                Destroy(collectable.gameObject);
+            }
+        } 
 
         public void Clear()
         {
             _segments.Clear();
+            _sourceSpawner.Clear();
         }
 
         public void UpdateFlow()
@@ -34,6 +45,10 @@ namespace Runtime.Scriptable_Objects
             {
                 _sourceSpawner.SpawnRandomSource();
                 _sourceSpawner.SpawnRandomSource();
+                _sourceSpawner.SpawnRandomWhisp();
+                _sourceSpawner.SpawnRandomWhisp();
+                _sourceSpawner.SpawnRandomWhisp();
+
             }
         }
 

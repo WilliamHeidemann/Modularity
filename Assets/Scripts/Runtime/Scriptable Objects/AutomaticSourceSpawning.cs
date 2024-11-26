@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using log4net.DateFormatter;
 using NUnit.Framework;
@@ -16,10 +18,13 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private Builder _builder;
         [SerializeField] private Selection _selection;
-
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private float DistanceConstant;
+        [SerializeField] private List<Collectable> _collectables = new();
+        [SerializeField] private  Collectable _whisp;
+
+        public void Clear() => _collectables.Clear();
 
         public void SpawnRandomSource()
         {
@@ -75,5 +80,33 @@ namespace Runtime.Scriptable_Objects
             var spawnPosition = unitSpherePosition * radius + offset;
             return spawnPosition.AsVector3Int();
         }
+
+        public void SpawnRandomWhisp()
+        {
+            var spawnPosition = GetSpawnPosition();
+            //clears throat
+            for (int i = 0; i < 10; i++)
+            {
+                if (_structure.IsValidSourcePlacement(spawnPosition))
+                {
+                    break;
+                }
+
+                spawnPosition = GetSpawnPosition();
+            }
+
+            var whisp = Instantiate(_whisp, spawnPosition, Quaternion.identity);
+            whisp.position = spawnPosition;
+            _collectables.Add(whisp);
+        }
+
+        public Collectable GetCollectable(Vector3Int position)
+        {
+            var collectable = _collectables.First(c => c.position == position);
+            _collectables.Remove(collectable);
+            return collectable;
+        }
+        public bool IsOnCollectable(Vector3Int position) => _collectables.Any(collectable => collectable.position == position);
+        
     }
 }
