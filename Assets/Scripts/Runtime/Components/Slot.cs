@@ -2,6 +2,7 @@ using System;
 using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
 namespace Runtime.Components
@@ -11,6 +12,7 @@ namespace Runtime.Components
         [SerializeField] private Builder _builder;
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
         public Vector3Int Position;
+        private bool MousePressed;
         
         private void OnMouseEnter()
         {
@@ -20,12 +22,19 @@ namespace Runtime.Components
         private void OnMouseExit()
         {
             _placeHolderBuilder.Hide();
+            MousePressed = false;
         }
 
-        private void OnMouseDown()
+        private void OnMouseUp()
         {
+            if (!MousePressed || EventSystem.current.IsPointerOverGameObject()) return;
             _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
             _placeHolderBuilder.TearDown();
+            MousePressed = false;
+        }
+        private void OnMouseDown()
+        {
+            MousePressed = true;
         }
 
         private void OnDrawGizmos()
