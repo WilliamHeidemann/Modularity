@@ -48,7 +48,8 @@ namespace Runtime.Components.Systems
             for (int i = 0; i < _blueprintOptions.Length; i++)
             {
                 var cost = segments[i].StaticSegmentData.BloodCost + segments[i].StaticSegmentData.SteamCost;
-                _blueprintOptions[i].SetCost(cost.ToString(), segments[i].StaticSegmentData.BloodCost, segments[i].StaticSegmentData.SteamCost);
+                _blueprintOptions[i].SetCardValues(cost.ToString(), segments[i].StaticSegmentData.BloodCost, segments[i].StaticSegmentData.SteamCost,
+                    segments[i].StaticSegmentData.BloodRequirements, segments[i].StaticSegmentData.SteamRequirements, segments[i].StaticSegmentData.BloodReward + segments[i].StaticSegmentData.SteamReward);
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
                 _blueprintOptions[i].GlowState(false);
             }
