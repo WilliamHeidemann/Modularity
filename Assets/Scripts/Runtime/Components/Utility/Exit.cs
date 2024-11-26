@@ -38,19 +38,16 @@ namespace Runtime.Components.Utility
             {
                 if (!_isGameStarted)
                 {
-                    Debug.LogWarning("Game has not started yet.");
                     return;
                 }
 
                 if (!_isGamePaused)
                 {
-                    Debug.Log("Game paused.");
                     _pauseMenu.gameObject.SetActive(true);
                     _pauseMenu.OnPause();
                 }
                 else
                 {
-                    Debug.Log("Game resumed.");
                     _pauseMenu.StartGame();
                 }
             }
