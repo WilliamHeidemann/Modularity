@@ -16,6 +16,12 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private CountingQuest _collectX;
         
         public Quest CameraQuest => _camera.Build();
-        public CountingQuest CollectibleQuest => _collectX.Build(0);
+        public Quest PlaceOneSegmentQuest => _placeOneSegment.Build();
+        public Quest RotateOneSegmentQuest => _rotateOneSegment.Build();
+        public CountingQuest ActivateXReceiversQuest(int x) => _activateXReceivers.Build(x);
+        public CountingQuest ActivateXReceiversSimultaneouslyQuest(int x) => _activateXReceiversSimultaneously.Build(x);
+        public CountingQuest ReachXBloodResourcesQuest(int x) => _reachXBloodResources.Build(x);
+        public CountingQuest ReachXSteamResourcesQuest(int x) => _reachXSteamResources.Build(x);
+        public CountingQuest CollectibleQuest(int x) => _collectX.Build(x);
     }
 }
