@@ -25,7 +25,17 @@ namespace Runtime.Components.Systems
         [SerializeField] private Transform[] _startingBloodPoints;
         [SerializeField] private Transform[] _startingSteamPoints;
 
-        private void Start()
+        private void OnEnable()
+        {
+            MainMenuController.OnGameStart += Initialize;
+        }
+
+        private void OnDisable()
+        {
+            MainMenuController.OnGameStart -= Initialize;
+        }
+
+        private void Initialize()
         {
             DOTween.Init();
             _structure.Clear();

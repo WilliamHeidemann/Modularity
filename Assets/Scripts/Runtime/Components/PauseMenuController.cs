@@ -1,18 +1,25 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+public class PauseMenuController : MonoBehaviour
 {
     [SerializeField] private GameObject _gameUI;
     [SerializeField] private GameObject _optionsPanel;
     [SerializeField] private GameObject _buttonsPanel;
 
-    public delegate void GameStart();
-    public static event GameStart OnGameStart;
+    public delegate void GamePause();
+    public static event GamePause OnGamePause;
+
+    public void OnPause()
+    {
+        OnGamePause?.Invoke();
+        _gameUI.SetActive(false);
+    }
 
     public void StartGame()
     {
         _gameUI.SetActive(true);
-        OnGameStart?.Invoke();
+        OnGamePause?.Invoke();
         this.gameObject.SetActive(false);
     }
 
@@ -23,8 +30,9 @@ public class MainMenuController : MonoBehaviour
         _buttonsPanel.SetActive(false);
     }
 
-    public void QuitGame()
+    public void MainMenu()
     {
-        Application.Quit();
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
     }
 }

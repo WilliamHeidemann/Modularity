@@ -4,23 +4,26 @@ using System.Collections;
 
 public class OptionMenuController : MonoBehaviour
 {
-    [SerializeField] private GameObject _mainMenu;
+    [HideInInspector] public GameObject _menuToReturnTo;
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _SFXSlider;
 
+    public delegate void SoundChange(float musicVolume, float SFXVolume);
+    public static event SoundChange OnSoundChange;
+
     public void Return()
     {
-        _mainMenu.SetActive(true);
+        _menuToReturnTo.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
     public void OnMusicVolumeChanged()
     {
-        Debug.Log($"Music volume changed to {_musicSlider.value}");
+        OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
     }
 
     public void OnSFXVolumeChanged()
     {
-        Debug.Log($"SFX volume changed to {_SFXSlider.value}");
+        OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
     }
 }
