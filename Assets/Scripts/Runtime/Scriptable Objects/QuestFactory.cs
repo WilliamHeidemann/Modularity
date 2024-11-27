@@ -17,7 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private ResourcesQuest _reachXSteamResources;
         [SerializeField] private Quest<int> _collectX;
         
-        public Quest CameraQuest => _camera.Build(CameraCompleted);
+        public Quest CameraQuest => _camera.Build(OnCameraCompleted);
         public Quest<SegmentData> PlaceOneSegmentQuest => _placeOneSegment.Build(1, SegmentPlaced);
         public Quest RotateOneSegmentQuest => _rotateOneSegment.Build(SegmentRotated);
         public Quest<IEnumerable<SegmentData>> ActivateXReceiversQuest(int x) => _activateXReceivers.Build(x, ReceiversActivated);
@@ -25,13 +25,13 @@ namespace Runtime.Scriptable_Objects
         public Quest<(int, int)> ReachXBloodResourcesQuest(int x) => _reachXBloodResources.Build(x, ResourcesReached);
         public Quest<(int, int)> ReachXSteamResourcesQuest(int x) => _reachXSteamResources.Build(x, ResourcesReached);
         public Quest<int> CollectXQuest(int x) => _collectX.Build(x, CollectableCollected);
-        
+        public void CameraCompleted() => OnCameraCompleted?.Invoke();
         public void SegmentRotated() => OnSegmentRotated?.Invoke();
         public void SegmentPlaced(SegmentData segmentData) => OnSegmentPlaced?.Invoke(segmentData);
         public void CollectableCollected(int x) => OnCollectableCollected?.Invoke(x);
         public void ReceiversActivated(IEnumerable<SegmentData> receivers) => OnReceiversActivated?.Invoke(receivers);
         public void ResourcesReached((int bloodResources, int steamResources) resources) => OnResourcesReached?.Invoke(resources.bloodResources, resources.steamResources);
-        private event Action CameraCompleted;
+        private event Action OnCameraCompleted;
         private event Action OnSegmentRotated;
         private event Action<SegmentData> OnSegmentPlaced;
         private event Action<int> OnCollectableCollected;
