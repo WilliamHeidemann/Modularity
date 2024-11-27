@@ -10,13 +10,16 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] [TextArea(3, 10)] protected string Description;
         public bool IsCompleted { get; protected set; }
-        public void Complete() => IsCompleted = true;
+        protected void Complete() => IsCompleted = true;
+        protected Action CompleteAction;
 
-        public Quest Build()
+        public Quest Build(Action completeAction)
         {
+            completeAction += Complete;
             return new Quest
             {
-                Description = Description
+                CompleteAction = completeAction,
+                Description = Description,
             };
         }
     }
@@ -26,9 +29,11 @@ namespace Runtime.Scriptable_Objects
     {
         protected int Count;
         protected int Target;
+        protected Action<T> ProgressAction;
 
-        public virtual Quest<T> Build(int x)
+        public virtual Quest<T> Build(int x, Action<T> progressAction)
         {
+            progressAction += Progress;
             return new Quest<T>
             {
                 Description = Description,
@@ -36,7 +41,7 @@ namespace Runtime.Scriptable_Objects
             };
         }
 
-        public virtual void Progress(T t)
+        protected virtual void Progress(T t)
         {
             if (t is int amount)
             {
@@ -60,7 +65,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        public override void Progress(SegmentData segments)
+        protected override void Progress(SegmentData segments)
         {
             if (_countBlood && segments.StaticSegmentData.IsBlood)
             {
@@ -87,7 +92,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countSteam;
         [SerializeField] private bool _mustBeSimultaneous;
 
-        public override void Progress(IEnumerable<SegmentData> segments)
+        protected override void Progress(IEnumerable<SegmentData> segments)
         {
             var receivers = segments.Where(segment => segment.StaticSegmentData.IsReceiver).ToList();
 
@@ -121,7 +126,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        public override void Progress((int, int) resources)
+        protected override void Progress((int, int) resources)
         {
             Count = _countBlood ? resources.Item1 : resources.Item2;
 
