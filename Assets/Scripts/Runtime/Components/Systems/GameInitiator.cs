@@ -20,6 +20,8 @@ namespace Runtime.Components.Systems
         [SerializeField] private Segment _steamSource;
         [SerializeField] private Currency _currency;
         [SerializeField] private AutomaticSourceSpawning _automaticSourceSpawning;
+        [SerializeField] private QuestFactory _questFactory;
+        private Quest _quest;
         [SerializeField] private int _startingCurrency;
         
         [SerializeField] private Transform[] _startingBloodPoints;
@@ -50,6 +52,8 @@ namespace Runtime.Components.Systems
             _startingSteamPoints.ForEach(point => 
                 _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 0, 0), true));
 
+            _quest = _questFactory.CameraQuest();
+            
             _selection.Reset();
         }
 

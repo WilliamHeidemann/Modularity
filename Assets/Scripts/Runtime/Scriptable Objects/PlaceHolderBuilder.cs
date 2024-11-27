@@ -12,6 +12,7 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
+        [SerializeField] private QuestFactory _questFactory;
         private Option<Segment> _placeHolder;
         private List<Quaternion> _rotations;
         private int _index = 0;
@@ -101,6 +102,7 @@ namespace Runtime.Scriptable_Objects
             _index += 1;
             _index %= _rotations.Count;
             segment.transform.rotation = _rotations[_index];
+            _questFactory.SegmentRotated();
         }
 
         private IEnumerable<Quaternion> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData,
