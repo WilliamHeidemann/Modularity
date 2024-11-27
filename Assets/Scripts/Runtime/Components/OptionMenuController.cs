@@ -1,29 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
-public class OptionMenuController : MonoBehaviour
+namespace Runtime.Components
 {
-    [HideInInspector] public GameObject _menuToReturnTo;
-    [SerializeField] private Slider _musicSlider;
-    [SerializeField] private Slider _SFXSlider;
-
-    public delegate void SoundChange(float musicVolume, float SFXVolume);
-    public static event SoundChange OnSoundChange;
-
-    public void Return()
+    public class OptionMenuController : MonoBehaviour
     {
-        _menuToReturnTo.SetActive(true);
-        this.gameObject.SetActive(false);
-    }
+        [HideInInspector] public GameObject _menuToReturnTo;
+        [SerializeField] private Slider _musicSlider;
+        [SerializeField] private Slider _SFXSlider;
 
-    public void OnMusicVolumeChanged()
-    {
-        OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
-    }
+        public delegate void SoundChange(float musicVolume, float SFXVolume);
+        public static event SoundChange OnSoundChange;
 
-    public void OnSFXVolumeChanged()
-    {
-        OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
+        public void Return()
+        {
+            _menuToReturnTo.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
+
+        public void OnMusicVolumeChanged()
+        {
+            OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
+        }
+
+        public void OnSFXVolumeChanged()
+        {
+            OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
+        }
     }
 }
