@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.13243146, g: 0.64603287, b: 0.9056604, a: 0.78431374}
+      maxColor: {r: 0.47172287, g: 0.13333334, b: 0.90588236, a: 0.78431374}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5056,7 +5056,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.22272164, g: 0.6242984, b: 0.8584906, a: 1}
+      maxColor: {r: 0.49664912, g: 0.22352938, b: 0.85882354, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9889,7 +9889,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.22272164, g: 0.6242984, b: 0.8584906, a: 1}
+      maxColor: {r: 0.53216726, g: 0.22352938, b: 0.85882354, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14567,7 +14567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6618120500719401901}
   m_Layer: 0
-  m_Name: Glowing Orb
+  m_Name: Glowing Orb Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15902,8 +15902,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.8039217, b: 1, a: 0}
-        key1: {r: 0.8537736, g: 0.97751445, b: 1, a: 1}
+        key0: {r: 0.46165276, g: 0, b: 1, a: 0}
+        key1: {r: 1, g: 0.5235849, b: 0.9959484, a: 1}
         key2: {r: 0.8537736, g: 0.97751445, b: 1, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -19650,7 +19650,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.39999998, g: 0.9488266, b: 1, a: 1}
+      maxColor: {r: 0.9073192, g: 0.39999998, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24303,7 +24303,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0, g: 0.9226117, b: 1, a: 1}
+  m_Color: {r: 0.71133995, g: 0, b: 1, a: 1}
   m_Intensity: 7
   m_Range: 7
   m_SpotAngle: 30
@@ -24446,7 +24446,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b283b09e9a858b409be8f8a44fab69c, type: 2}
+  - {fileID: 2100000, guid: da7be8cd07ebb1947af085fadd0e7e61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
