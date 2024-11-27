@@ -1,3 +1,4 @@
+using Runtime.Scriptable_Objects;
 using UnityEngine;
 
 namespace Runtime.Components.Utility
@@ -9,12 +10,18 @@ namespace Runtime.Components.Utility
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _zoomSpeed;
         [SerializeField] private float _rotationPointOffset;
+        [SerializeField] private QuestFactory _questFactory;
 
         private Vector3 _dragOrigin;
         private Vector3 _startPosition;
         private Vector3 _startRotation;
 
         private bool _isGamePaused = true;
+
+        private bool _hasDragged;
+        private bool _hasRotated;
+        private bool _hasZoomed;
+        private bool _hasCompletedQuest;
 
         private void OnEnable()
         {
@@ -49,6 +56,8 @@ namespace Runtime.Components.Utility
             HandleRotation();
             HandleDragTranslation();
             HandleZoom();
+
+            HandleCameraQuest();
         }
 
         private void HandleDragTranslation()
@@ -116,6 +125,16 @@ namespace Runtime.Components.Utility
             
             transform.Translate(0, 0, zoom);
             PreventGoingThroughFloor();
+        }
+        
+        private void HandleCameraQuest()
+        {
+            if (!_hasCompletedQuest && _hasDragged && _hasRotated && _hasZoomed)
+            {
+                _hasCompletedQuest = true;
+                Debug.Log("Camera quest completed!");
+                _questFactory.CameraCompleted();
+            }
         }
 
         public void ResetCamera()
