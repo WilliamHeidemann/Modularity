@@ -69,7 +69,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 52f0366fe1239104dbb496123f67a359, type: 2}
   Preview: {fileID: 21300000, guid: 786ce612cca5bdc4b8659ded4a306ced, type: 3}
-  IsActive: 0
 --- !u!1001 &232740572293503305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,6 +116,14 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e104ccc4111b3b644b841dca97d0d051, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: e104ccc4111b3b644b841dca97d0d051, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 170267940495033341, guid: e104ccc4111b3b644b841dca97d0d051, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e104ccc4111b3b644b841dca97d0d051, type: 3}
       propertyPath: m_Name

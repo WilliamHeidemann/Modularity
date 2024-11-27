@@ -14,14 +14,38 @@ namespace Runtime.Components.Utility
         private Vector3 _startPosition;
         private Vector3 _startRotation;
 
+        private bool _isGamePaused = true;
+
+        private void OnEnable()
+        {
+            MainMenuController.OnGameStart += TogglePause;
+            PauseMenuController.OnGamePause += TogglePause;
+        }
+
+        private void OnDisable()
+        {
+            MainMenuController.OnGameStart -= TogglePause;
+            PauseMenuController.OnGamePause -= TogglePause;
+        }
+
         private void Start()
         {
             _startPosition = transform.position;
             _startRotation = transform.eulerAngles;
         }
 
+        public void TogglePause()
+        {
+            _isGamePaused = !_isGamePaused;
+        }
+
         private void Update()
         {
+            if (_isGamePaused)
+            {
+                return;
+            }
+
             HandleRotation();
             HandleDragTranslation();
             HandleZoom();

@@ -154,7 +154,7 @@ MonoBehaviour:
   _keyboardSpeed: 10
   _dragSpeed: 0.01
   _rotationSpeed: 100
-  _zoomSpeed: 100
+  _zoomSpeed: 300
   _rotationPointOffset: 10
 --- !u!114 &5765446847287956704
 MonoBehaviour:
