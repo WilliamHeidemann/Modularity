@@ -78,6 +78,7 @@ namespace Runtime.Components.Utility
             transform.Translate(translation, Space.Self);
             PreventGoingThroughFloor();
             _dragOrigin = Input.mousePosition;
+            _hasDragged = true;
         }
 
         private void PreventGoingThroughFloor()
@@ -113,6 +114,7 @@ namespace Runtime.Components.Utility
             transform.RotateAround(rotationPoint, Vector3.up, xRotation);
             transform.RotateAround(rotationPoint, transform.right, yRotation);
             transform.LookAt(rotationPoint);
+            _hasRotated = true;
         }
 
         private void HandleZoom()
@@ -125,6 +127,7 @@ namespace Runtime.Components.Utility
             
             transform.Translate(0, 0, zoom);
             PreventGoingThroughFloor();
+            _hasZoomed = true;
         }
         
         private void HandleCameraQuest()
@@ -132,7 +135,6 @@ namespace Runtime.Components.Utility
             if (!_hasCompletedQuest && _hasDragged && _hasRotated && _hasZoomed)
             {
                 _hasCompletedQuest = true;
-                Debug.Log("Camera quest completed!");
                 _questFactory.CameraCompleted();
             }
         }

@@ -10,18 +10,19 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] [TextArea(3, 10)] protected string Description;
         public bool IsCompleted { get; protected set; }
-        protected void Complete() => IsCompleted = true;
-        protected Action CompleteAction;
 
-        public Quest Build(Action completeAction)
+        protected Quest(string description)
         {
-            completeAction += Complete;
-            return new Quest
-            {
-                CompleteAction = completeAction,
-                Description = Description,
-            };
+            Description = description;
         }
+
+        public void Complete()
+        {
+            Debug.Log($"{GetType()} Quest completed! {Description}");
+            IsCompleted = true;
+        }
+
+        public Quest Build() => new(Description);
     }
 
     [Serializable]
@@ -29,19 +30,11 @@ namespace Runtime.Scriptable_Objects
     {
         protected int Count;
         protected int Target;
-        protected Action<T> ProgressAction;
 
-        public virtual Quest<T> Build(int x, Action<T> progressAction)
-        {
-            progressAction += Progress;
-            return new Quest<T>
-            {
-                Description = Description,
-                Target = x
-            };
-        }
+        protected Quest(string description, int target) : base(description) => Target = target;
+        public virtual Quest<T> Build(int target) => new(Description, target);
 
-        protected virtual void Progress(T t)
+        public virtual void Progress(T t)
         {
             if (t is int amount)
             {
@@ -54,7 +47,7 @@ namespace Runtime.Scriptable_Objects
 
             if (Count >= Target)
             {
-                IsCompleted = true;
+                Complete();
             }
         }
     }
@@ -65,7 +58,17 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        protected override void Progress(SegmentData segments)
+        protected SegmentQuest(string description, int target, bool countBlood, bool countSteam) 
+            : base(description, target)
+        {
+            _countBlood = countBlood;
+            _countSteam = countSteam;
+        }
+
+        public override Quest<SegmentData> Build(int target) =>
+            new SegmentQuest(Description, target, _countBlood, _countSteam);
+
+        public override void Progress(SegmentData segments)
         {
             if (_countBlood && segments.StaticSegmentData.IsBlood)
             {
@@ -79,7 +82,7 @@ namespace Runtime.Scriptable_Objects
 
             if (Count >= Target)
             {
-                IsCompleted = true;
+                Complete();
             }
         }
     }
@@ -92,7 +95,18 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countSteam;
         [SerializeField] private bool _mustBeSimultaneous;
 
-        protected override void Progress(IEnumerable<SegmentData> segments)
+        protected ReceiverQuest(string description, int target, bool countBlood, bool countSteam, bool mustBeSimultaneous) 
+            : base(description, target)
+        {
+            _countBlood = countBlood;
+            _countSteam = countSteam;
+            _mustBeSimultaneous = mustBeSimultaneous;
+        }
+        
+        public override Quest<IEnumerable<SegmentData>> Build(int target) =>
+            new ReceiverQuest(Description, target, _countBlood, _countSteam, _mustBeSimultaneous);
+        
+        public override void Progress(IEnumerable<SegmentData> segments)
         {
             var receivers = segments.Where(segment => segment.StaticSegmentData.IsReceiver).ToList();
 
@@ -110,7 +124,7 @@ namespace Runtime.Scriptable_Objects
 
             if (Count >= Target)
             {
-                IsCompleted = true;
+                Complete();
             }
 
             if (_mustBeSimultaneous)
@@ -126,13 +140,21 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        protected override void Progress((int, int) resources)
+        protected ResourcesQuest(string description, int target, bool countBlood, bool countSteam) : base(description, target)
+        {
+            _countBlood = countBlood;
+            _countSteam = countSteam;
+        }
+        
+        public override Quest<(int, int)> Build(int target) => new ResourcesQuest(Description, target, _countBlood, _countSteam);
+        
+        public override void Progress((int, int) resources)
         {
             Count = _countBlood ? resources.Item1 : resources.Item2;
 
             if (Count >= Target)
             {
-                IsCompleted = true;
+                Complete();
             }
         }
     }

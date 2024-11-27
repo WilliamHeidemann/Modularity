@@ -156,6 +156,7 @@ MonoBehaviour:
   _rotationSpeed: 100
   _zoomSpeed: 300
   _rotationPointOffset: 10
+  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
 --- !u!114 &5765446847287956704
 MonoBehaviour:
   m_ObjectHideFlags: 0
