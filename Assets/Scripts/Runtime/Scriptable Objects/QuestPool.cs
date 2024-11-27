@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,21 +8,21 @@ namespace Runtime.Scriptable_Objects
     public class QuestPool : ScriptableObject
     {
         [SerializeField] private Quest _camera;
-        [SerializeField] private Quest _placeOneSegment;
+        [SerializeField] private SegmentQuest _placeOneSegment;
         [SerializeField] private Quest _rotateOneSegment;
-        [SerializeField] private CountingQuest _activateXReceivers;
-        [SerializeField] private CountingQuest _activateXReceiversSimultaneously;
-        [SerializeField] private CountingQuest _reachXBloodResources;
-        [SerializeField] private CountingQuest _reachXSteamResources;
-        [SerializeField] private CountingQuest _collectX;
+        [SerializeField] private ReceiverQuest _activateXReceivers;
+        [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
+        [SerializeField] private ResourcesQuest _reachXBloodResources;
+        [SerializeField] private ResourcesQuest _reachXSteamResources;
+        [SerializeField] private Quest<int> _collectX;
         
         public Quest CameraQuest => _camera.Build();
-        public Quest PlaceOneSegmentQuest => _placeOneSegment.Build();
+        public Quest<SegmentData> PlaceOneSegmentQuest => _placeOneSegment.Build(1);
         public Quest RotateOneSegmentQuest => _rotateOneSegment.Build();
-        public CountingQuest ActivateXReceiversQuest(int x) => _activateXReceivers.Build(x);
-        public CountingQuest ActivateXReceiversSimultaneouslyQuest(int x) => _activateXReceiversSimultaneously.Build(x);
-        public CountingQuest ReachXBloodResourcesQuest(int x) => _reachXBloodResources.Build(x);
-        public CountingQuest ReachXSteamResourcesQuest(int x) => _reachXSteamResources.Build(x);
-        public CountingQuest CollectibleQuest(int x) => _collectX.Build(x);
+        public Quest<IEnumerable<SegmentData>> ActivateXReceiversQuest(int x) => _activateXReceivers.Build(x);
+        public Quest<IEnumerable<SegmentData>> ActivateXReceiversSimultaneouslyQuest(int x) => _activateXReceiversSimultaneously.Build(x);
+        public Quest<(int, int)> ReachXBloodResourcesQuest(int x) => _reachXBloodResources.Build(x);
+        public Quest<(int, int)> ReachXSteamResourcesQuest(int x) => _reachXSteamResources.Build(x);
+        public Quest<int> CollectXQuest(int x) => _collectX.Build(x);
     }
 }
