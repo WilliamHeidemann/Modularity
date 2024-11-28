@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
   _camera:
-    <Description>k__BackingField: Explore the camera controls
+    <Description>k__BackingField: Perform all 3 control actions
     <Explanation>k__BackingField: Controls to rotate, move and zoom
   _placeOneSegment:
     <Description>k__BackingField: Select a pipe or vein from your hand and place
