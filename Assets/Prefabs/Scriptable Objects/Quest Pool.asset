@@ -13,19 +13,25 @@ MonoBehaviour:
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
   _camera:
-    <Description>k__BackingField: Pan, rotate and zoom
-    <Explanation>k__BackingField: Rotate To Move Zoom
+    <Description>k__BackingField: Perform all 3 control actions
+    <Explanation>k__BackingField: Controls to rotate, move and zoom
   _placeOneSegment:
-    <Description>k__BackingField: Place one segment
-    <Explanation>k__BackingField: 
+    <Description>k__BackingField: Select a pipe or vein from your hand and place
+      it.
+    <Explanation>k__BackingField: 'Select a piece from your hand by clicking on it.
+      Mouse over a valid position to preview the piece. (Left-click) to place it.
+      Remember that Mechanical pieces can only connect to other Mechanical pieces,
+      and Flesh can only connect to other Flesh. '
     _countBlood: 1
     _countSteam: 1
   _rotateOneSegment:
-    <Description>k__BackingField: Rotate one segment
-    <Explanation>k__BackingField: 
+    <Description>k__BackingField: Rotate a connector
+    <Explanation>k__BackingField: Pieces can be rotated by pressing (R).
   _activateXReceivers:
-    <Description>k__BackingField: Activate 1 receiver
-    <Explanation>k__BackingField: 
+    <Description>k__BackingField: Place a Brain or Mechanical Box and activate it
+    <Explanation>k__BackingField: 'To activate it, it must be connected at both of
+      its inputs to a Heart or a Furnace. Hybrids are activated the in the same way,
+      though they require energy from both a Heart and a Furnace.   '
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0

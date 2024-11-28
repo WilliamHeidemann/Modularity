@@ -2057,6 +2057,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e08d894d1a4dca746a9673007d5c706d, type: 3}
   m_PrefabInstance: {fileID: 1363190903}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &556258310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6287885865318622123, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
+  m_PrefabInstance: {fileID: 44506896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &556733230
 GameObject:
   m_ObjectHideFlags: 0
@@ -8265,7 +8270,8 @@ MonoBehaviour:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: 
   _questIndex: 0
-  _cameraControlExplanation: {fileID: 433584825}
+  _cameraControlImages: {fileID: 433584825}
+  _explanationContainer: {fileID: 556258310}
 --- !u!1001 &2035793973
 PrefabInstance:
   m_ObjectHideFlags: 0
