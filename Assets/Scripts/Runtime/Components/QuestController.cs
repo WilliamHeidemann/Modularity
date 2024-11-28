@@ -9,8 +9,10 @@ namespace Runtime.Components
     {
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private TextMeshProUGUI _questDescription;
+        [SerializeField] private TextMeshProUGUI _questExplanation;
         [SerializeField] private Quest _mainQuest;
         [SerializeField] private int _questIndex = 0;
+        [SerializeField] private GameObject _cameraControlExplanation;
         
         private void Start()
         {
@@ -37,6 +39,7 @@ namespace Runtime.Components
 
         private void NextQuest()
         {
+            _cameraControlExplanation.SetActive(_questIndex == 0);
             _mainQuest = _questIndex switch
             {
                 0 => _questFactory.CameraQuest(),
@@ -49,7 +52,8 @@ namespace Runtime.Components
                 // 7 => _questFactory.CollectXQuest(1),
                 _ => _mainQuest
             };
-            _questDescription.text = _mainQuest.Description;
+            _questDescription.text = $"Quest: {_mainQuest.Description}";
+            _questExplanation.text = _mainQuest.Explanation;
             _questIndex++;
         }
     }

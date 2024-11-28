@@ -8,12 +8,20 @@ namespace Runtime.Scriptable_Objects
     [Serializable]
     public class Quest
     {
-        [field: SerializeField] [TextArea(3, 10)] public string Description { get; protected set; }
+        [field: SerializeField]
+        [TextArea(3, 10)]
+        public string Description { get; protected set; }
+
+        [field: SerializeField]
+        [TextArea(3, 10)]
+        public string Explanation { get; protected set; }
+
         public bool IsCompleted { get; protected set; }
 
-        protected Quest(string description)
+        protected Quest(string description, string explanation)
         {
             Description = description;
+            Explanation = explanation;
         }
 
         public void Complete()
@@ -22,7 +30,7 @@ namespace Runtime.Scriptable_Objects
             IsCompleted = true;
         }
 
-        public Quest Build() => new(Description);
+        public Quest Build() => new(Description, Explanation);
     }
 
     [Serializable]
@@ -31,8 +39,10 @@ namespace Runtime.Scriptable_Objects
         protected int Count;
         protected int Target;
 
-        protected Quest(string description, int target) : base(description) => Target = target;
-        public virtual Quest<T> Build(int target) => new(Description, target);
+        protected Quest(string description, string explanation, int target) : base(description, explanation) =>
+            Target = target;
+
+        public virtual Quest<T> Build(int target) => new(Description, Explanation, target);
 
         public virtual void Progress(T t)
         {
@@ -58,15 +68,15 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        protected SegmentQuest(string description, int target, bool countBlood, bool countSteam) 
-            : base(description, target)
+        protected SegmentQuest(string description, string explanation, int target, bool countBlood, bool countSteam)
+            : base(description, explanation, target)
         {
             _countBlood = countBlood;
             _countSteam = countSteam;
         }
 
         public override Quest<SegmentData> Build(int target) =>
-            new SegmentQuest(Description, target, _countBlood, _countSteam);
+            new SegmentQuest(Description, Explanation, target, _countBlood, _countSteam);
 
         public override void Progress(SegmentData segments)
         {
@@ -95,17 +105,18 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countSteam;
         [SerializeField] private bool _mustBeSimultaneous;
 
-        protected ReceiverQuest(string description, int target, bool countBlood, bool countSteam, bool mustBeSimultaneous) 
-            : base(description, target)
+        protected ReceiverQuest(string description, string explanation, int target, bool countBlood, bool countSteam,
+            bool mustBeSimultaneous)
+            : base(description, explanation, target)
         {
             _countBlood = countBlood;
             _countSteam = countSteam;
             _mustBeSimultaneous = mustBeSimultaneous;
         }
-        
+
         public override Quest<IEnumerable<SegmentData>> Build(int target) =>
-            new ReceiverQuest(Description, target, _countBlood, _countSteam, _mustBeSimultaneous);
-        
+            new ReceiverQuest(Description, Explanation, target, _countBlood, _countSteam, _mustBeSimultaneous);
+
         public override void Progress(IEnumerable<SegmentData> segments)
         {
             var receivers = segments.Where(segment => segment.StaticSegmentData.IsReceiver).ToList();
@@ -140,14 +151,16 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        protected ResourcesQuest(string description, int target, bool countBlood, bool countSteam) : base(description, target)
+        protected ResourcesQuest(string description, string explanation, int target, bool countBlood, bool countSteam)
+            : base(description, explanation, target)
         {
             _countBlood = countBlood;
             _countSteam = countSteam;
         }
-        
-        public override Quest<(int, int)> Build(int target) => new ResourcesQuest(Description, target, _countBlood, _countSteam);
-        
+
+        public override Quest<(int, int)> Build(int target) =>
+            new ResourcesQuest(Description, Explanation, target, _countBlood, _countSteam);
+
         public override void Progress((int, int) resources)
         {
             Count = _countBlood ? resources.Item1 : resources.Item2;
