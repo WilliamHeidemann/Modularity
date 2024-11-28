@@ -17,6 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Currency _currency;
         [SerializeField] private Hand _hand;
         [SerializeField] private FlowControl _flowControl;
+        [SerializeField] private QuestFactory _questFactory;
 
 
         public void Build(Vector3Int position, Quaternion placeholderRotation, bool isInitial = false)
@@ -74,8 +75,9 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
             
-            _flowControl.UpdateFlow();
             _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
+            _flowControl.UpdateFlow();
+            _questFactory.SegmentPlaced(segmentData);
             _hand.GenerateHand();
             _selection.Prefab = Option<Segment>.None;
         }

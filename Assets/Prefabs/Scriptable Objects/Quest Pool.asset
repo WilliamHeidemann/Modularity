@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed30f24acabe4d1b8b5dc6d90db57930, type: 3}
+  m_Name: Quest Pool
+  m_EditorClassIdentifier: 
+  _camera:
+    <Description>k__BackingField: Perform all 3 control actions
+    <Explanation>k__BackingField: Controls to rotate, move and zoom
+  _placeOneSegment:
+    <Description>k__BackingField: Select a pipe or vein from your hand and place
+      it.
+    <Explanation>k__BackingField: 'Select a piece from your hand by clicking on it.
+      Mouse over a valid position to preview the piece. (Left-click) to place it.
+      Remember that Mechanical pieces can only connect to other Mechanical pieces,
+      and Flesh can only connect to other Flesh. '
+    _countBlood: 1
+    _countSteam: 1
+  _rotateOneSegment:
+    <Description>k__BackingField: Rotate a connector
+    <Explanation>k__BackingField: Pieces can be rotated by pressing (R).
+  _activateXReceivers:
+    <Description>k__BackingField: Place a Brain or Mechanical Box and activate it
+    <Explanation>k__BackingField: 'To activate it, it must be connected at both of
+      its inputs to a Heart or a Furnace. Hybrids are activated the in the same way,
+      though they require energy from both a Heart and a Furnace.   '
+    _countBlood: 1
+    _countSteam: 1
+    _mustBeSimultaneous: 0
+  _activateXReceiversSimultaneously:
+    <Description>k__BackingField: Activate 2 simultaneously
+    <Explanation>k__BackingField: 
+    _countBlood: 1
+    _countSteam: 1
+    _mustBeSimultaneous: 1
+  _reachXBloodResources:
+    <Description>k__BackingField: Reach 50 blood
+    <Explanation>k__BackingField: 
+    _countBlood: 1
+    _countSteam: 0
+  _reachXSteamResources:
+    <Description>k__BackingField: Reach 50 steam
+    <Explanation>k__BackingField: 
+    _countBlood: 0
+    _countSteam: 0
+  _collectX:
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: 

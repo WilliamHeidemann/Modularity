@@ -14,7 +14,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private List<Segment> _segments = new();
         [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
-
+        [SerializeField] private QuestFactory _questFactory;
+        private readonly List<SegmentData> _receiversActivatedLast = new();
 
         public void AddSegment(Segment segment)
         {
@@ -36,10 +37,13 @@ namespace Runtime.Scriptable_Objects
 
         public void UpdateFlow()
         {
+            _receiversActivatedLast.Clear();
             foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
                 CheckForActivation(receiver);
             }
+            
+            _questFactory.ReceiversActivated(_receiversActivatedLast);
 
             if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))
             {
@@ -134,6 +138,7 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
+            _receiversActivatedLast.Add(segmentToActivate);
             segmentToActivate.IsActivated = true;
             _currencyPopup.Activate(segment.transform.position, segmentToActivate.StaticSegmentData);
         }
