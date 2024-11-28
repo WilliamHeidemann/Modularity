@@ -17,6 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Currency _currency;
         [SerializeField] private Hand _hand;
         [SerializeField] private FlowControl _flowControl;
+        [SerializeField] private QuestFactory _questFactory;
 
 
         public void Build(Vector3Int position, Quaternion placeholderRotation, bool isInitial = false)
@@ -65,7 +66,7 @@ namespace Runtime.Scriptable_Objects
             segmentData.GetConnectionPoints()
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
-            SoundFX.Instance.PlaySoundEffect(segmentData.StaticSegmentData);
+            SoundFXPlayer.Instance.Play(segmentData.StaticSegmentData.SoundFX);
 
             _flowControl.AddSegment(connector);
 
@@ -74,9 +75,11 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
             
-            _flowControl.UpdateFlow();
             _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
             _hand.ReplaceSelectedCard();
+            _flowControl.UpdateFlow();
+            _questFactory.SegmentPlaced(segmentData);
+            _hand.GenerateHand();
             _selection.Prefab = Option<Segment>.None;
         }
 

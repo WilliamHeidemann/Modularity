@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 927145117438815657}
   - component: {fileID: 4404823909993285501}
   - component: {fileID: 4092756122483640719}
-  - component: {fileID: 4769485380514258396}
   m_Layer: 0
   m_Name: Steam Connector Pipe Quad-Tee
   m_TagString: Untagged
@@ -48,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 927e3b53543bc9e44a05a5ede3878b8b, type: 2}
-  SegmentActivator: {fileID: 4769485380514258396}
   Preview: {fileID: 21300000, guid: f0b3f7bdc5aa85a4cbdb6f53a08580cb, type: 3}
+  IsActive: 0
 --- !u!65 &4092756122483640719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -71,19 +70,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4769485380514258396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6232087903907245791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dfc8cb152979ce4da85216875f103c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsActive: 0
 --- !u!1001 &9201334395151327525
 PrefabInstance:
   m_ObjectHideFlags: 0

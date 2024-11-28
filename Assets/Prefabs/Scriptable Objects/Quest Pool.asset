@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed30f24acabe4d1b8b5dc6d90db57930, type: 3}
+  m_Name: Quest Pool
+  m_EditorClassIdentifier: 
+  _camera:
+    <Description>k__BackingField: Pan, rotate and zoom
+    <Explanation>k__BackingField: Rotate To Move Zoom
+  _placeOneSegment:
+    <Description>k__BackingField: Place one segment
+    <Explanation>k__BackingField: 
+    _countBlood: 1
+    _countSteam: 1
+  _rotateOneSegment:
+    <Description>k__BackingField: Rotate one segment
+    <Explanation>k__BackingField: 
+  _activateXReceivers:
+    <Description>k__BackingField: Activate 1 receiver
+    <Explanation>k__BackingField: 
+    _countBlood: 1
+    _countSteam: 1
+    _mustBeSimultaneous: 0
+  _activateXReceiversSimultaneously:
+    <Description>k__BackingField: Activate 2 simultaneously
+    <Explanation>k__BackingField: 
+    _countBlood: 1
+    _countSteam: 1
+    _mustBeSimultaneous: 1
+  _reachXBloodResources:
+    <Description>k__BackingField: Reach 50 blood
+    <Explanation>k__BackingField: 
+    _countBlood: 1
+    _countSteam: 0
+  _reachXSteamResources:
+    <Description>k__BackingField: Reach 50 steam
+    <Explanation>k__BackingField: 
+    _countBlood: 0
+    _countSteam: 0
+  _collectX:
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: 

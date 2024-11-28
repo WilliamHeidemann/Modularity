@@ -20,8 +20,8 @@ MonoBehaviour:
     Forward: 2
     Back: 1
   Model: 13
-  Blood: 1
-  Steam: 0
+  IsBlood: 1
+  IsSteam: 1
   IsSource: 0
   BloodReward: 6
   SteamReward: 6

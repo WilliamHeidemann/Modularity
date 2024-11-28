@@ -53,6 +53,7 @@ MonoBehaviour:
   _steamSource: {fileID: 4404823909993285501, guid: 2f15fb252de55424fb482f29614a9506, type: 3}
   _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
   _automaticSourceSpawning: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
+  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _startingCurrency: 30
   _startingBloodPoints: []
   _startingSteamPoints: []

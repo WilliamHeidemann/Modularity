@@ -84,10 +84,16 @@ namespace Runtime.Scriptable_Objects
                 .Where(position => !IsOpenPosition(position))
                 .Select(position => _graphData.First(data => data.Position == position));
         }
+        
+        public IEnumerable<SegmentData> GetNeighborsFacingThis(SegmentData segmentData)
+        {
+            return Neighbors(segmentData)
+                .Where(neighbor => CanConnectDirectionally(segmentData, neighbor, out _, out _));
+        }
 
         public bool IsValidPlacement(SegmentData segmentData)
         {
-            var connectsToWrongType = GetOutputSegments(segmentData).Any(neighbor => !CanConnect(segmentData, neighbor));
+            var connectsToWrongType = GetNeighborsFacingThis(segmentData).Any(neighbor => !CanConnect(segmentData, neighbor));
             
             if (connectsToWrongType)
             {
@@ -106,7 +112,7 @@ namespace Runtime.Scriptable_Objects
                 return true;
             }
             
-            return GetOutputSegments(segmentData).All(link => link.StaticSegmentData.IsConnector);
+            return GetNeighborsFacingThis(segmentData).All(link => link.StaticSegmentData.IsConnector);
         }
 
         public bool IsDirectionallyValidPlacement(SegmentData segmentData)

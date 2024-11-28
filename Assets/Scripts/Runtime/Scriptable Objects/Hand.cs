@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
 using Runtime.Components.Systems;
+using Runtime.Components.Utility;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -33,6 +34,7 @@ namespace Runtime.Scriptable_Objects
             _selection.PriceBlood = SegmentsOptions[chosenSegment].StaticSegmentData.BloodCost;
             _selection.PriceSteam = SegmentsOptions[chosenSegment].StaticSegmentData.SteamCost;
             _selectedCardIndex = chosenSegment;
+            SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 
         public void GenerateHand()
