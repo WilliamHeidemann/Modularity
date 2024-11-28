@@ -79,7 +79,7 @@ namespace Runtime.Scriptable_Objects
             _hand.ReplaceSelectedCard();
             _flowControl.UpdateFlow();
             _questFactory.SegmentPlaced(segmentData);
-            _hand.GenerateHand();
+            // _hand.GenerateHand();
             _selection.Prefab = Option<Segment>.None;
         }
 
