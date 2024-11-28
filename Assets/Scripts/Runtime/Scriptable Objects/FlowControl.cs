@@ -20,14 +20,7 @@ namespace Runtime.Scriptable_Objects
         public void AddSegment(Segment segment)
         {
             _segments.Add(segment);
-            var position = segment.transform.position.AsVector3Int();
-            if (_sourceSpawner.IsOnCollectable(position))
-            {
-                var collectable = _sourceSpawner.GetCollectable(position);
-                _currencyPopup.Activate(position, collectable.StaticSegmentData);
-                Destroy(collectable.gameObject);
-            }
-        } 
+        }
 
         public void Clear()
         {
@@ -37,12 +30,13 @@ namespace Runtime.Scriptable_Objects
 
         public void UpdateFlow()
         {
+            CheckForCollectables();
             _receiversActivatedLast.Clear();
             foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
                 CheckForActivation(receiver);
             }
-            
+
             _questFactory.ReceiversActivated(_receiversActivatedLast);
 
             if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))
@@ -52,7 +46,6 @@ namespace Runtime.Scriptable_Objects
                 _sourceSpawner.SpawnRandomWhisp();
                 _sourceSpawner.SpawnRandomWhisp();
                 _sourceSpawner.SpawnRandomWhisp();
-
             }
         }
 
@@ -145,5 +138,16 @@ namespace Runtime.Scriptable_Objects
 
         private Option<Segment> GetSegmentAtPosition(Vector3Int position)
             => _segments.FirstOption(segment => segment.transform.position.AsVector3Int() == position);
+
+        private void CheckForCollectables()
+        {
+            var positions = _sourceSpawner.Collectables
+                .Where(c => _segments.Any(s => s.transform.position.AsVector3Int() == c.position)).ToList();
+            if (!positions.Any()) return;
+            var position = positions.First().transform.position.AsVector3Int();
+            var collectable = _sourceSpawner.GetCollectable(position);
+            _currencyPopup.Activate(position, collectable.StaticSegmentData);
+            Destroy(collectable.gameObject);
+        }
     }
 }

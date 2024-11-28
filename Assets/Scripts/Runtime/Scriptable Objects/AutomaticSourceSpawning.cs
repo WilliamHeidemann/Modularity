@@ -22,9 +22,10 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Segment _steamSource;
         [SerializeField] private float DistanceConstant;
         [SerializeField] private List<Collectable> _collectables = new();
-        [SerializeField] private  Collectable _whisp;
+        [SerializeField] private Collectable _whisp;
 
         public void Clear() => _collectables.Clear();
+        public List<Collectable> Collectables => _collectables;
 
         public void SpawnRandomSource()
         {
