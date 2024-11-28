@@ -107,13 +107,7 @@ namespace Runtime.Scriptable_Objects
                 return false;
             }
             
-            if (segmentData.StaticSegmentData.IsConnector)
-            {
-                return true;
-            }
-            
             return true;
-            return GetNeighborsFacingThis(segmentData).All(link => link.StaticSegmentData.IsConnector);
         }
 
         public bool IsDirectionallyValidPlacement(SegmentData segmentData)

@@ -14,7 +14,7 @@ namespace Runtime.Components
         [SerializeField] private int _questIndex = 0;
         [SerializeField] private GameObject _cameraControlImages;
         [SerializeField] private GameObject _explanationContainer;
-        
+
         private void Start()
         {
             _questFactory.OnCameraCompleted += CheckCompletion;
