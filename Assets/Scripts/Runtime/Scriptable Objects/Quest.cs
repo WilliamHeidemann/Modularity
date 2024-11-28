@@ -26,7 +26,6 @@ namespace Runtime.Scriptable_Objects
 
         public void Complete()
         {
-            Debug.Log($"{GetType()} Quest completed! {Description}");
             IsCompleted = true;
         }
 
