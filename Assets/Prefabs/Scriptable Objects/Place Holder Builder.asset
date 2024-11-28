@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _transparentValidMat: {fileID: 2100000, guid: 73d1e55431c157d4c81adfed4fd938bd, type: 2}
   _transparentInvalidMat: {fileID: 2100000, guid: 220125f953549a643b05d2bab69224e2, type: 2}

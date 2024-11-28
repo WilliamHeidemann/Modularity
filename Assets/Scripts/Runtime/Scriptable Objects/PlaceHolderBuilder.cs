@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
+using Runtime.Components.Utility;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
@@ -11,6 +12,7 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
+        [SerializeField] private QuestFactory _questFactory;
         private Option<Segment> _placeHolder;
         private List<Quaternion> _rotations;
         private int _index = 0;
@@ -49,7 +51,8 @@ namespace Runtime.Scriptable_Objects
             var material = validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
             foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
             {
-                meshRenderer.sharedMaterial = material;
+                var newMaterials = meshRenderer.sharedMaterials.Select(mat => material).ToArray();
+                meshRenderer.sharedMaterials = newMaterials;
             }
             
             if (!_rotations.Contains(placeHolder.transform.rotation))
@@ -57,6 +60,8 @@ namespace Runtime.Scriptable_Objects
                 placeHolder.transform.rotation = _rotations.First();
                 _index = 0;
             }
+            
+            SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 
         public void TearDown()
@@ -97,6 +102,7 @@ namespace Runtime.Scriptable_Objects
             _index += 1;
             _index %= _rotations.Count;
             segment.transform.rotation = _rotations[_index];
+            _questFactory.SegmentRotated();
         }
 
         private IEnumerable<Quaternion> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData,

@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: Source Steam Quard-Tee
   m_EditorClassIdentifier: 
   ConnectionPoints:
-    Up: 0
+    Up: 2
     Down: 2
-    Right: 2
+    Right: 0
     Left: 2
-    Forward: 2
+    Forward: 0
     Back: 2
   Model: 2
-  Blood: 0
-  Steam: 1
+  IsBlood: 0
+  IsSteam: 1
   IsSource: 1
   BloodReward: 0
   SteamReward: 0
   BloodCost: 0
-  SteamCost: 5
+  SteamCost: 4
   BloodRequirements: 0
   SteamRequirements: 0

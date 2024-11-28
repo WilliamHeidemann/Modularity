@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7512001010267243110}
   - component: {fileID: 7486694023737831687}
   - component: {fileID: 8443729550061900408}
+  - component: {fileID: 5765446847287956704}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -153,5 +154,43 @@ MonoBehaviour:
   _keyboardSpeed: 10
   _dragSpeed: 0.01
   _rotationSpeed: 100
-  _zoomSpeed: 100
+  _zoomSpeed: 300
   _rotationPointOffset: 10
+  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
+--- !u!114 &5765446847287956704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209876859269089322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b177957abb684bb384292367fbd4b391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transform: {fileID: 843783539917897353}
+  _fogDensityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 5
+      value: 0.4
+      inSlope: -0.016666668
+      outSlope: -0.016666668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20
+      value: 0.15
+      inSlope: -0.016666668
+      outSlope: -0.016666668
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

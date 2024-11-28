@@ -8,12 +8,14 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private int _blood;
         [SerializeField] private int _steam;
+        [SerializeField] private QuestFactory _questFactory;
         public event Action<int, int> OnCurrencyChanged;
 
         public void Add(int bloodAmount, int steamAmount)
         {
             _blood += bloodAmount;
             _steam += steamAmount;
+            _questFactory.ResourcesReached((_blood, _steam));
             OnCurrencyChanged?.Invoke(_blood, _steam);
         }
 
@@ -21,6 +23,7 @@ namespace Runtime.Scriptable_Objects
         {
             _blood -= bloodAmount;
             _steam -= steamAmount;
+            _questFactory.ResourcesReached((_blood, _steam));
             OnCurrencyChanged?.Invoke(_blood, _steam);
         }
 

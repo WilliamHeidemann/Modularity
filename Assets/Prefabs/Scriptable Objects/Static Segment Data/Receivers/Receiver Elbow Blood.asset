@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 0
-    Down: 0
+    Down: 1
     Right: 1
     Left: 0
     Forward: 0
-    Back: 1
+    Back: 0
   Model: 13
-  Blood: 1
-  Steam: 0
+  IsBlood: 1
+  IsSteam: 0
   IsSource: 0
   BloodReward: 10
   SteamReward: 0

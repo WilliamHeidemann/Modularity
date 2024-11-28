@@ -20,11 +20,12 @@ MonoBehaviour:
     Forward: 0
     Back: 0
   Model: 4
-  Blood: 0
-  Steam: 1
-  Resistance: 1
-  Power: 0
+  IsBlood: 0
+  IsSteam: 1
+  IsSource: 0
   BloodReward: 0
   SteamReward: 0
   BloodCost: 0
   SteamCost: 2
+  BloodRequirements: 0
+  SteamRequirements: 0
