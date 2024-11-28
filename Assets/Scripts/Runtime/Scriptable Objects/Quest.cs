@@ -8,7 +8,7 @@ namespace Runtime.Scriptable_Objects
     [Serializable]
     public class Quest
     {
-        [SerializeField] [TextArea(3, 10)] protected string Description;
+        [field: SerializeField] [TextArea(3, 10)] public string Description { get; protected set; }
         public bool IsCompleted { get; protected set; }
 
         protected Quest(string description)

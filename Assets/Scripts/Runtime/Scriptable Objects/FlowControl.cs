@@ -26,12 +26,12 @@ namespace Runtime.Scriptable_Objects
 
         public void UpdateFlow()
         {
+            _receiversActivatedLast.Clear();
             foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
                 CheckForActivation(receiver);
             }
             
-            _receiversActivatedLast.Clear();
             _questFactory.ReceiversActivated(_receiversActivatedLast);
 
             if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))

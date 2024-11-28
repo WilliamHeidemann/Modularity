@@ -69,21 +69,21 @@ namespace Runtime.Scriptable_Objects
         public Quest<int> CollectXQuest(int x)
         {
             var quest = _collectX.Build(x);
-            OnCollectableCollected += quest.Progress;
+            OnCollect += quest.Progress;
             return quest;
         }
 
         public void CameraCompleted() => OnCameraCompleted?.Invoke();
         public void SegmentRotated() => OnSegmentRotated?.Invoke();
         public void SegmentPlaced(SegmentData segmentData) => OnSegmentPlaced?.Invoke(segmentData);
-        public void CollectableCollected(int x) => OnCollectableCollected?.Invoke(x);
+        public void CollectableCollected(int x) => OnCollect?.Invoke(x);
         public void ReceiversActivated(IEnumerable<SegmentData> receivers) => OnReceiversActivated?.Invoke(receivers);
         public void ResourcesReached((int bloodResources, int steamResources) resources) => OnResourcesReached?.Invoke((resources.bloodResources, resources.steamResources));
-        private event Action OnCameraCompleted;
-        private event Action OnSegmentRotated;
-        private event Action<SegmentData> OnSegmentPlaced;
-        private event Action<int> OnCollectableCollected;
-        private event Action<IEnumerable<SegmentData>> OnReceiversActivated;
-        private event Action<(int, int)> OnResourcesReached;
+        public event Action OnCameraCompleted;
+        public event Action OnSegmentRotated;
+        public event Action<SegmentData> OnSegmentPlaced;
+        public event Action<int> OnCollect;
+        public event Action<IEnumerable<SegmentData>> OnReceiversActivated;
+        public event Action<(int, int)> OnResourcesReached;
     }
 }

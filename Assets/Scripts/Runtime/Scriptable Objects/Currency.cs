@@ -23,6 +23,7 @@ namespace Runtime.Scriptable_Objects
         {
             _blood -= bloodAmount;
             _steam -= steamAmount;
+            _questFactory.ResourcesReached((_blood, _steam));
             OnCurrencyChanged?.Invoke(_blood, _steam);
         }
 

@@ -12,11 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed30f24acabe4d1b8b5dc6d90db57930, type: 3}
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
-  _cameraQuest:
-    Description: 
-    Count: 0
-    Target: 0
-  _collectibleQuest:
-    Description: 
-    Count: 0
-    Target: 0
+  _camera:
+    <Description>k__BackingField: Pan, rotate and zoom
+  _placeOneSegment:
+    <Description>k__BackingField: Place one segment
+    _countBlood: 1
+    _countSteam: 1
+  _rotateOneSegment:
+    <Description>k__BackingField: Rotate one segment
+  _activateXReceivers:
+    <Description>k__BackingField: Activate 1 receiver
+    _countBlood: 1
+    _countSteam: 1
+    _mustBeSimultaneous: 0
+  _activateXReceiversSimultaneously:
+    <Description>k__BackingField: Activate 2 simultaneously
+    _countBlood: 1
+    _countSteam: 1
+    _mustBeSimultaneous: 1
+  _reachXBloodResources:
+    <Description>k__BackingField: Reach 50 blood
+    _countBlood: 1
+    _countSteam: 0
+  _reachXSteamResources:
+    <Description>k__BackingField: Reach 50 steam
+    _countBlood: 0
+    _countSteam: 0
+  _collectX:
+    <Description>k__BackingField: 
