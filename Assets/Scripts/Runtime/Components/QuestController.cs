@@ -12,7 +12,8 @@ namespace Runtime.Components
         [SerializeField] private TextMeshProUGUI _questExplanation;
         [SerializeField] private Quest _mainQuest;
         [SerializeField] private int _questIndex = 0;
-        [SerializeField] private GameObject _cameraControlExplanation;
+        [SerializeField] private GameObject _cameraControlImages;
+        [SerializeField] private GameObject _explanationContainer;
         
         private void Start()
         {
@@ -29,17 +30,15 @@ namespace Runtime.Components
         private async void CheckCompletion()
         {
             await Awaitable.NextFrameAsync();
-            Debug.Log("Checking quest completion.");
             if (_mainQuest.IsCompleted)
             {
-                Debug.Log("Quest completed.");
                 NextQuest();
             }
         }
 
         private void NextQuest()
         {
-            _cameraControlExplanation.SetActive(_questIndex == 0);
+            _cameraControlImages.SetActive(_questIndex == 0);
             _mainQuest = _questIndex switch
             {
                 0 => _questFactory.CameraQuest(),
@@ -52,6 +51,7 @@ namespace Runtime.Components
                 // 7 => _questFactory.CollectXQuest(1),
                 _ => _mainQuest
             };
+            _explanationContainer.SetActive(_mainQuest.Explanation != string.Empty);
             _questDescription.text = $"- {_mainQuest.Description}";
             _questExplanation.text = _mainQuest.Explanation;
             _questIndex++;
