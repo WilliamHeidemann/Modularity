@@ -27,10 +27,10 @@ namespace Runtime.Scriptable_Objects
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
-            if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
-            {
-                return false;
-            }
+            // if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
+            // {
+            //     return false;
+            // }
 
             var connectsDirectionally = CanConnectDirectionally(
                 segmentData1, segmentData2, 
@@ -112,6 +112,7 @@ namespace Runtime.Scriptable_Objects
                 return true;
             }
             
+            return true;
             return GetNeighborsFacingThis(segmentData).All(link => link.StaticSegmentData.IsConnector);
         }
 
