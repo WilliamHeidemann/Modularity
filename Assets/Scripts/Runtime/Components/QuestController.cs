@@ -52,7 +52,7 @@ namespace Runtime.Components
                 // 7 => _questFactory.CollectXQuest(1),
                 _ => _mainQuest
             };
-            _questDescription.text = $"Quest: {_mainQuest.Description}";
+            _questDescription.text = $"- {_mainQuest.Description}";
             _questExplanation.text = _mainQuest.Explanation;
             _questIndex++;
         }
