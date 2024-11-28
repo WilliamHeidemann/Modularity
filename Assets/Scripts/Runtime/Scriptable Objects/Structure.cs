@@ -102,12 +102,7 @@ namespace Runtime.Scriptable_Objects
             
             var atLeastOneConnect = ConnectsToAtLeastOneNeighbor(segmentData);
 
-            if (!atLeastOneConnect)
-            {
-                return false;
-            }
-            
-            return true;
+            return atLeastOneConnect;
         }
 
         public bool IsDirectionallyValidPlacement(SegmentData segmentData)
