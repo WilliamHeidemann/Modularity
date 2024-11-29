@@ -45,7 +45,6 @@ namespace Runtime.Scriptable_Objects
                 _sourceSpawner.SpawnSteamSource();
                 _sourceSpawner.SpawnCollectable();
                 _sourceSpawner.SpawnCollectable();
-                _sourceSpawner.SpawnCollectable();
             }
         }
 
@@ -56,7 +55,7 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (_structure.GetValidConnections(receiver).Any(connector => !IsConnectedToSource(connector, receiver)))
+            if (_structure.GetValidConnections(receiver).Any(connector => !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
             {
                 return;
             }
