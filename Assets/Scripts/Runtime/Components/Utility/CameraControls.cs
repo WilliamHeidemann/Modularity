@@ -16,7 +16,7 @@ namespace Runtime.Components.Utility
         private Vector3 _startPosition;
         private Vector3 _startRotation;
 
-        private bool _isGamePaused = true;
+        private bool _isGamePaused = false;
 
         private bool _hasDragged;
         private bool _hasRotated;
