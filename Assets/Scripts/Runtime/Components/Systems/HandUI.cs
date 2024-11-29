@@ -24,14 +24,6 @@ namespace Runtime.Components.Systems
             _hand.OnDrawHand -= DisplayHand;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                ReRoll();
-            }
-        }
-
         public void ReRoll()
         {
             if (_currency.HasAtLeast(1, 1))

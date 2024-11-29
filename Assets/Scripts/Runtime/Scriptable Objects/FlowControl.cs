@@ -40,6 +40,8 @@ namespace Runtime.Scriptable_Objects
 
             if (_receiversActivatedLast.Any())
             {
+                Debug.Log("Activating Receivers");
+                _autoSpawner.StartSpawningCollectables();
                 _questFactory.ReceiversActivated(_receiversActivatedLast);
             }
         }
@@ -115,7 +117,7 @@ namespace Runtime.Scriptable_Objects
                 }
             }
 
-            return sources.Count() == _structure.Sources.Count();
+            return sources.Count == _structure.Sources.Count();
         }
 
 

@@ -29,7 +29,12 @@ namespace Runtime.Scriptable_Objects
         private readonly List<Collectable> _collectables = new();
         private bool _shouldSpawnCollectables;
 
-        public void Clear() => _collectables.Clear();
+        public void Clear()
+        {
+            _collectables.Clear();
+            _shouldSpawnCollectables = false;
+        }
+
         public void StartSpawningCollectables() => _shouldSpawnCollectables = true;
 
 

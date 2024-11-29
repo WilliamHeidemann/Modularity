@@ -10,6 +10,7 @@ namespace Runtime.Components
     public class QuestController : MonoBehaviour
     {
         [SerializeField] private QuestFactory _questFactory;
+        [SerializeField] private Hand _hand;
         [SerializeField] private TextMeshProUGUI _questDescription;
         [SerializeField] private TextMeshProUGUI _questExplanation;
         [SerializeField] private Quest _mainQuest;
@@ -17,6 +18,8 @@ namespace Runtime.Components
         [SerializeField] private GameObject _cameraControlImages;
         [SerializeField] private GameObject _explanationContainer;
         [SerializeField] private AutoSpawner _autoSpawner;
+        [SerializeField] private GameObject _handUI;
+        [SerializeField] private GameObject _resourcesUI;
 
         private void Start()
         {
@@ -26,6 +29,9 @@ namespace Runtime.Components
             _questFactory.OnReceiversActivated += _ => CheckCompletion();
             _questFactory.OnResourcesReached += _ => CheckCompletion();
             _questFactory.OnCollect += _ => CheckCompletion();
+            
+            _handUI.SetActive(false);
+            _resourcesUI.SetActive(false);
             
             NextQuest();
         }
@@ -55,6 +61,12 @@ namespace Runtime.Components
                 _ => _mainQuest
             };
 
+            if (_questIndex == 1)
+            {
+                _handUI.SetActive(true);
+                _resourcesUI.SetActive(true);
+                _hand.Initialize();
+            }
             if (_questIndex == 3)
             {
                 _questFactory.OnReceiversActivated += SpawnSteamSourceOnBrainActivated;
@@ -62,7 +74,6 @@ namespace Runtime.Components
             if (_questIndex == 4)
             {
                 _questFactory.OnReceiversActivated -= SpawnSteamSourceOnBrainActivated;
-                _autoSpawner.StartSpawningCollectables();
             }
             
             _explanationContainer.SetActive(_mainQuest.Explanation != string.Empty);

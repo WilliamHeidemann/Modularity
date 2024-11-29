@@ -12,6 +12,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private SegmentQuest _placeOneSegment;
         [SerializeField] private Quest _rotateOneSegment;
         [SerializeField] private ReceiverQuest _activateXReceivers;
+        [SerializeField] private Quest _connectSteamAndFlesh;
         [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
         [SerializeField] private ResourcesQuest _reachXBloodResources;
         [SerializeField] private ResourcesQuest _reachXSteamResources;
