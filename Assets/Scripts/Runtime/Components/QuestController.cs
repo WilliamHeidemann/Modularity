@@ -16,7 +16,7 @@ namespace Runtime.Components
         [SerializeField] private int _questIndex = 0;
         [SerializeField] private GameObject _cameraControlImages;
         [SerializeField] private GameObject _explanationContainer;
-        [FormerlySerializedAs("_automaticSourceSpawning")] [SerializeField] private AutoSpawner _autoSpawner;
+        [SerializeField] private AutoSpawner _autoSpawner;
 
         private void Start()
         {
@@ -62,6 +62,7 @@ namespace Runtime.Components
             if (_questIndex == 4)
             {
                 _questFactory.OnReceiversActivated -= SpawnSteamSourceOnBrainActivated;
+                _autoSpawner.StartSpawningCollectables();
             }
             
             _explanationContainer.SetActive(_mainQuest.Explanation != string.Empty);

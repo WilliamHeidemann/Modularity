@@ -4,6 +4,7 @@ using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityUtils;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -31,14 +32,16 @@ namespace Runtime.Scriptable_Objects
 
         public void UpdateFlow()
         {
-            CheckForCollectables();
             _receiversActivatedLast.Clear();
             foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
                 CheckForActivation(receiver);
             }
 
-            _questFactory.ReceiversActivated(_receiversActivatedLast);
+            if (_receiversActivatedLast.Any())
+            {
+                _questFactory.ReceiversActivated(_receiversActivatedLast);
+            }
         }
 
         private void CheckForActivation(SegmentData receiver)
@@ -48,7 +51,8 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (_structure.GetValidConnections(receiver).Any(connector => !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
+            if (_structure.GetValidConnections(receiver).Any(connector =>
+                    !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
             {
                 return;
             }
@@ -130,18 +134,5 @@ namespace Runtime.Scriptable_Objects
 
         private Option<Segment> GetSegmentAtPosition(Vector3Int position)
             => _segments.FirstOption(segment => segment.transform.position.AsVector3Int() == position);
-
-        private void CheckForCollectables()
-        {
-            var segmentPositions = _structure.Segments.Select(s => s.Position).ToHashSet();
-            var collectables = _autoSpawner.Collectables
-                .Where(collectable => segmentPositions.Contains(collectable.Position));
-            
-            foreach (var collectable in collectables)
-            {
-                _currencyPopup.Activate(collectable.Position, collectable.StaticSegmentData);
-                Destroy(collectable.gameObject);
-            }
-        }
     }
 }

@@ -21,15 +21,47 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private Builder _builder;
         [SerializeField] private Selection _selection;
+        [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private float DistanceConstant;
         [SerializeField] private Collectable _collectablePrefab;
         private readonly List<Collectable> _collectables = new();
+        private bool _shouldSpawnCollectables;
 
         public void Clear() => _collectables.Clear();
-        public List<Collectable> Collectables => _collectables;
+        public void StartSpawningCollectables() => _shouldSpawnCollectables = true;
 
+
+        public void CheckForCollectables()
+        {
+            var segmentPositions = _structure.Segments.Select(s => s.Position).ToHashSet();
+            var collectables = _collectables
+                .Where(collectable => segmentPositions.Contains(collectable.Position))
+                .ToList();
+
+            collectables.ForEach(c => _currencyPopup.Activate(c.Position, c.StaticSegmentData));
+            collectables.ForEach(c => _collectables.Remove(c));
+            collectables.ForEach(c => Destroy(c.gameObject));
+
+            CheckToSpawnCollectables();
+        }
+        
+        private void CheckToSpawnCollectables()
+        {
+            if (!_shouldSpawnCollectables)
+            {
+                return;
+            }
+
+            if (_collectables.Any())
+            {
+                return;
+            }
+
+            SpawnCollectable();
+            SpawnCollectable();
+        }
 
         public void SpawnBloodSource() => SpawnRandomSource(_bloodSource);
         public void SpawnSteamSource() => SpawnRandomSource(_steamSource);

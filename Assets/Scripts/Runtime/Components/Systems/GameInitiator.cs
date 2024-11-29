@@ -20,7 +20,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private Currency _currency;
-        [FormerlySerializedAs("_automaticSourceSpawning")] [SerializeField] private AutoSpawner _autoSpawner;
+        [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private int _startingCurrency;
 
@@ -44,12 +44,12 @@ namespace Runtime.Components.Systems
             _questFactory.OnCameraCompleted += _autoSpawner.SpawnBloodSource;
         }
 
-        // private void Update()
-        // {
-        //     if (Input.GetKeyDown(KeyCode.N))
-        //     {
-        //         _automaticSourceSpawning.SpawnSteamSource();
-        //     }
-        // }
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                _autoSpawner.SpawnCollectable();
+            }
+        }
     }
 }
