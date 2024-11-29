@@ -55,7 +55,7 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (_structure.GetValidConnections(receiver).Any(connector => connector.StaticSegmentData.IsSource || !IsConnectedToSource(connector, receiver)))
+            if (_structure.GetValidConnections(receiver).Any(connector => !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
             {
                 return;
             }
