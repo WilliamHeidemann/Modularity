@@ -4,6 +4,7 @@ using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityUtils;
 using UtilityToolkit.Runtime;
 
@@ -19,12 +20,9 @@ namespace Runtime.Components.Systems
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private Currency _currency;
-        [SerializeField] private AutomaticSourceSpawning _automaticSourceSpawning;
+        [FormerlySerializedAs("_automaticSourceSpawning")] [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private int _startingCurrency;
-
-        [SerializeField] private Transform[] _startingBloodPoints;
-        [SerializeField] private Transform[] _startingSteamPoints;
 
         private void OnEnable()
         {
@@ -43,8 +41,15 @@ namespace Runtime.Components.Systems
             _flowControl.Clear();
             _hand.Initialize();
             _currency.Initialize(_startingCurrency);
-            _questFactory.OnCameraCompleted += _automaticSourceSpawning.SpawnBloodSource;
-            _questFactory.OnCameraCompleted += _automaticSourceSpawning.SpawnSteamSource;
+            _questFactory.OnCameraCompleted += _autoSpawner.SpawnBloodSource;
         }
+
+        // private void Update()
+        // {
+        //     if (Input.GetKeyDown(KeyCode.N))
+        //     {
+        //         _automaticSourceSpawning.SpawnSteamSource();
+        //     }
+        // }
     }
 }

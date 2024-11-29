@@ -7987,6 +7987,7 @@ MonoBehaviour:
   _questIndex: 0
   _cameraControlImages: {fileID: 433584825}
   _explanationContainer: {fileID: 556258310}
+  _automaticSourceSpawning: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
 --- !u!1001 &2035793973
 PrefabInstance:
   m_ObjectHideFlags: 0
