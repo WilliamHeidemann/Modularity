@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Runtime.Scriptable_Objects;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Components
 {
@@ -14,6 +16,7 @@ namespace Runtime.Components
         [SerializeField] private int _questIndex = 0;
         [SerializeField] private GameObject _cameraControlImages;
         [SerializeField] private GameObject _explanationContainer;
+        [SerializeField] private AutoSpawner _autoSpawner;
 
         private void Start()
         {
@@ -51,10 +54,26 @@ namespace Runtime.Components
                 // 7 => _questFactory.CollectXQuest(1),
                 _ => _mainQuest
             };
+
+            if (_questIndex == 3)
+            {
+                _questFactory.OnReceiversActivated += SpawnSteamSourceOnBrainActivated;
+            }
+            if (_questIndex == 4)
+            {
+                _questFactory.OnReceiversActivated -= SpawnSteamSourceOnBrainActivated;
+                _autoSpawner.StartSpawningCollectables();
+            }
+            
             _explanationContainer.SetActive(_mainQuest.Explanation != string.Empty);
             _questDescription.text = $"- {_mainQuest.Description}";
             _questExplanation.text = _mainQuest.Explanation;
             _questIndex++;
+        }
+
+        private void SpawnSteamSourceOnBrainActivated(IEnumerable<SegmentData> _)
+        {
+            _autoSpawner.SpawnSteamSource();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Currency _currency;
         [SerializeField] private Hand _hand;
         [SerializeField] private FlowControl _flowControl;
+        [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
 
 
@@ -75,9 +76,10 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
             
-            _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
-            _flowControl.UpdateFlow();
             _questFactory.SegmentPlaced(segmentData);
+            _flowControl.UpdateFlow();
+            _autoSpawner.CheckForCollectables();
+            _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
             _hand.GenerateHand();
             _selection.Prefab = Option<Segment>.None;
         }

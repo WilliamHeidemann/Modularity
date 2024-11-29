@@ -3,6 +3,8 @@ using System.Linq;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityUtils;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -13,7 +15,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private List<Segment> _segments = new();
-        [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
+        [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
         private readonly List<SegmentData> _receiversActivatedLast = new();
 
@@ -25,26 +27,20 @@ namespace Runtime.Scriptable_Objects
         public void Clear()
         {
             _segments.Clear();
-            _sourceSpawner.Clear();
+            _autoSpawner.Clear();
         }
 
         public void UpdateFlow()
         {
-            CheckForCollectables();
             _receiversActivatedLast.Clear();
             foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
                 CheckForActivation(receiver);
             }
 
-            _questFactory.ReceiversActivated(_receiversActivatedLast);
-
-            if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))
+            if (_receiversActivatedLast.Any())
             {
-                _sourceSpawner.SpawnBloodSource();
-                _sourceSpawner.SpawnSteamSource();
-                _sourceSpawner.SpawnCollectable();
-                _sourceSpawner.SpawnCollectable();
+                _questFactory.ReceiversActivated(_receiversActivatedLast);
             }
         }
 
@@ -55,7 +51,8 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (_structure.GetValidConnections(receiver).Any(connector => !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
+            if (_structure.GetValidConnections(receiver).Any(connector =>
+                    !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
             {
                 return;
             }
@@ -137,16 +134,5 @@ namespace Runtime.Scriptable_Objects
 
         private Option<Segment> GetSegmentAtPosition(Vector3Int position)
             => _segments.FirstOption(segment => segment.transform.position.AsVector3Int() == position);
-
-        private void CheckForCollectables()
-        {
-            var positions = _sourceSpawner.Collectables
-                .Where(c => _segments.Any(s => s.transform.position.AsVector3Int() == c.position)).ToList();
-            if (!positions.Any()) return;
-            var position = positions.First().transform.position.AsVector3Int();
-            var collectable = _sourceSpawner.GetCollectable(position);
-            _currencyPopup.Activate(position, collectable.StaticSegmentData);
-            Destroy(collectable.gameObject);
-        }
     }
 }

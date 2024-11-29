@@ -15,8 +15,8 @@ MonoBehaviour:
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
   _builder: {fileID: 11400000, guid: 9943406e6d7c44b4a84bddc40a10c0b2, type: 2}
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
+  _currencyPopup: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
   _bloodSource: {fileID: 4404823909993285501, guid: 4405254c14750b94e9af651e0fa14ea9, type: 3}
   _steamSource: {fileID: 4404823909993285501, guid: 2f15fb252de55424fb482f29614a9506, type: 3}
-  DistanceConstant: 4
-  _collectables: []
-  _whisp: {fileID: -7843324000993477682, guid: e53b7690f5bcabf4d9d3f3a947f861fb, type: 3}
+  DistanceConstant: 3
+  _collectablePrefab: {fileID: -7843324000993477682, guid: e53b7690f5bcabf4d9d3f3a947f861fb, type: 3}

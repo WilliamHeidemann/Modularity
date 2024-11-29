@@ -19,5 +19,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _sourceSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
+  _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
