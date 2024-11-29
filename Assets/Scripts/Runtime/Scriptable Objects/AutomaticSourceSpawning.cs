@@ -27,7 +27,11 @@ namespace Runtime.Scriptable_Objects
         public void Clear() => _collectables.Clear();
         public List<Collectable> Collectables => _collectables;
 
-        public void SpawnRandomSource()
+
+        public void SpawnBloodSource() => SpawnRandomSource(_bloodSource);
+        public void SpawnSteamSource() => SpawnRandomSource(_steamSource);
+
+        private void SpawnRandomSource(Segment source)
         {
             var spawnPosition = GetSpawnPosition();
             for (int i = 0; i < 10; i++)
@@ -40,8 +44,6 @@ namespace Runtime.Scriptable_Objects
                 spawnPosition = GetSpawnPosition();
             }
             
-            
-            var source = Random.value < 0.5f ? _bloodSource : _steamSource;
 
             _selection.Reset();
             _selection.Prefab = Option<Segment>.Some(source);

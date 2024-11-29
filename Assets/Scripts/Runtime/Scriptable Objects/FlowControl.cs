@@ -41,8 +41,8 @@ namespace Runtime.Scriptable_Objects
 
             if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))
             {
-                _sourceSpawner.SpawnRandomSource();
-                _sourceSpawner.SpawnRandomSource();
+                _sourceSpawner.SpawnBloodSource();
+                _sourceSpawner.SpawnSteamSource();
                 _sourceSpawner.SpawnRandomWhisp();
                 _sourceSpawner.SpawnRandomWhisp();
                 _sourceSpawner.SpawnRandomWhisp();

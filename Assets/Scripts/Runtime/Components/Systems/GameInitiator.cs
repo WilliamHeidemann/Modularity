@@ -22,7 +22,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private AutomaticSourceSpawning _automaticSourceSpawning;
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private int _startingCurrency;
-        
+
         [SerializeField] private Transform[] _startingBloodPoints;
         [SerializeField] private Transform[] _startingSteamPoints;
 
@@ -44,22 +44,14 @@ namespace Runtime.Components.Systems
             _hand.Initialize();
             _currency.Initialize(_startingCurrency);
             _selection.Prefab = Option<Segment>.Some(_bloodSource);
-            _startingBloodPoints.ForEach(point => 
+            _startingBloodPoints.ForEach(point =>
                 _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 0, 0), true));
 
             _selection.Prefab = Option<Segment>.Some(_steamSource);
-            _startingSteamPoints.ForEach(point => 
+            _startingSteamPoints.ForEach(point =>
                 _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 180, 0), true));
-            
-            _selection.Reset();
-        }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                _automaticSourceSpawning.SpawnRandomSource();
-            }
+            _selection.Reset();
         }
     }
 }
