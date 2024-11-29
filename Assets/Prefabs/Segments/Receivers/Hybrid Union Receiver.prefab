@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 203683957859940905}
   - component: {fileID: 2458416990532299660}
   - component: {fileID: 3223422381655429275}
+  - component: {fileID: 3198156919813793591}
   m_Layer: 0
   m_Name: Hybrid Union Receiver
   m_TagString: Untagged
@@ -69,6 +70,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 9c52c8fbc375e7e4bb16fdc790769be3, type: 2}
   Preview: {fileID: 21300000, guid: ca49c2c574e9f6541aea10453d8c80c1, type: 3}
+--- !u!95 &3198156919813793591
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7152264757727068947}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36fe37742bae3754c85bfb2d33b64f75, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &4901369208305149442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: cb26d15f4c422b5489ab0a8e98e3df82, type: 3}
       propertyPath: m_Name
-      value: Hybrid Receiver Union
+      value: Blood Receiver
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
