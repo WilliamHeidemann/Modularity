@@ -43,9 +43,9 @@ namespace Runtime.Scriptable_Objects
             {
                 _sourceSpawner.SpawnBloodSource();
                 _sourceSpawner.SpawnSteamSource();
-                _sourceSpawner.SpawnRandomWhisp();
-                _sourceSpawner.SpawnRandomWhisp();
-                _sourceSpawner.SpawnRandomWhisp();
+                _sourceSpawner.SpawnCollectable();
+                _sourceSpawner.SpawnCollectable();
+                _sourceSpawner.SpawnCollectable();
             }
         }
 

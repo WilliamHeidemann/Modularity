@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UtilityToolkit.Runtime;
 using Random = UnityEngine.Random;
 
@@ -22,7 +23,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Segment _steamSource;
         [SerializeField] private float DistanceConstant;
         [SerializeField] private List<Collectable> _collectables = new();
-        [SerializeField] private Collectable _whisp;
+        [SerializeField] private Collectable _collectable;
 
         public void Clear() => _collectables.Clear();
         public List<Collectable> Collectables => _collectables;
@@ -43,7 +44,7 @@ namespace Runtime.Scriptable_Objects
 
                 spawnPosition = GetSpawnPosition();
             }
-            
+
 
             _selection.Reset();
             _selection.Prefab = Option<Segment>.Some(source);
@@ -52,6 +53,25 @@ namespace Runtime.Scriptable_Objects
         }
 
         private Vector3Int GetSpawnPosition()
+        {
+            if (!_structure.Segments.Any())
+            {
+                return GetRandomSpawnPosition();
+            }
+            else
+            {
+                return GetWeightedSpawnPosition();
+            }
+        }
+
+        private Vector3Int GetRandomSpawnPosition()
+        {
+            var spherePosition = Random.onUnitSphere * 2f;
+            spherePosition.y = Mathf.Abs(spherePosition.y) + 1f;
+            return spherePosition.AsVector3Int();
+        }
+
+        private Vector3Int GetWeightedSpawnPosition()
         {
             var positions = _structure.Segments.Select(segment => segment.Position).ToList();
             var minX = positions.Min(position => position.x);
@@ -69,25 +89,24 @@ namespace Runtime.Scriptable_Objects
             var maxDistX = Math.Max(maxX, Math.Abs(minX));
             var maxDistY = Math.Max(maxY, Math.Abs(minY));
             var maxDistZ = Math.Max(maxZ, Math.Abs(minZ));
-            
+
             var averageDistToRelativeCenter = (
-                (maxDistX - xCenter)+
-                (maxDistY - yCenter)+
-                (maxDistZ - zCenter)) /3;
+                (maxDistX - xCenter) +
+                (maxDistY - yCenter) +
+                (maxDistZ - zCenter)) / 3;
 
             var radius = averageDistToRelativeCenter + DistanceConstant;
 
             var unitSpherePosition = Random.onUnitSphere;
             unitSpherePosition.y = Mathf.Abs(unitSpherePosition.y);
-            
+
             var spawnPosition = unitSpherePosition * radius + offset;
             return spawnPosition.AsVector3Int();
         }
 
-        public void SpawnRandomWhisp()
+        public void SpawnCollectable()
         {
             var spawnPosition = GetSpawnPosition();
-            //clears throat
             for (int i = 0; i < 10; i++)
             {
                 if (_structure.IsValidSourcePlacement(spawnPosition))
@@ -98,9 +117,9 @@ namespace Runtime.Scriptable_Objects
                 spawnPosition = GetSpawnPosition();
             }
 
-            var whisp = Instantiate(_whisp, spawnPosition, Quaternion.identity);
-            whisp.position = spawnPosition;
-            _collectables.Add(whisp);
+            var collectable = Instantiate(_collectable, spawnPosition, Quaternion.identity);
+            collectable.position = spawnPosition;
+            _collectables.Add(collectable);
         }
 
         public Collectable GetCollectable(Vector3Int position)
@@ -109,7 +128,8 @@ namespace Runtime.Scriptable_Objects
             _collectables.Remove(collectable);
             return collectable;
         }
-        public bool IsOnCollectable(Vector3Int position) => _collectables.Any(collectable => collectable.position == position);
-        
+
+        public bool IsOnCollectable(Vector3Int position) =>
+            _collectables.Any(collectable => collectable.position == position);
     }
 }

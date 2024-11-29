@@ -43,15 +43,8 @@ namespace Runtime.Components.Systems
             _flowControl.Clear();
             _hand.Initialize();
             _currency.Initialize(_startingCurrency);
-            _selection.Prefab = Option<Segment>.Some(_bloodSource);
-            _startingBloodPoints.ForEach(point =>
-                _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 0, 0), true));
-
-            _selection.Prefab = Option<Segment>.Some(_steamSource);
-            _startingSteamPoints.ForEach(point =>
-                _builder.Build(point.position.AsVector3Int(), Quaternion.Euler(180, 180, 0), true));
-
-            _selection.Reset();
+            _questFactory.OnCameraCompleted += _automaticSourceSpawning.SpawnBloodSource;
+            _questFactory.OnCameraCompleted += _automaticSourceSpawning.SpawnSteamSource;
         }
     }
 }
