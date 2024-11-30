@@ -55,7 +55,7 @@ namespace Runtime.Scriptable_Objects
                 meshRenderer.sharedMaterials = newMaterials;
             }
             
-            if (!_rotations.Contains(placeHolder.transform.rotation))
+            if (!_rotations.ContainsRotation(placeHolder.transform.rotation))
             {
                 placeHolder.transform.rotation = _rotations.First();
                 _index = 0;
