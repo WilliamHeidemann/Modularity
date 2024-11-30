@@ -94,7 +94,7 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (!_rotations.Any())
+            if (_rotations.Count <= 1)
             {
                 return;
             }

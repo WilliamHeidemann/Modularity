@@ -22,7 +22,7 @@ MonoBehaviour:
     _countBlood: 1
     _countSteam: 1
   _rotateOneSegment:
-    <Description>k__BackingField: Rotate a connector
+    <Description>k__BackingField: Rotate a piece
     <Explanation>k__BackingField: Pieces can be rotated by pressing (R).
   _activateXReceivers:
     <Description>k__BackingField: Place a Brain and activate it.
