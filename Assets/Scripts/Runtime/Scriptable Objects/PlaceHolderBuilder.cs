@@ -31,8 +31,9 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            var validRotations = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
-            var directionallyValidRotations = ValidRotations(position, selectedSegment.StaticSegmentData, true).ToList();
+            var validSegmentData = ValidRotations(position, selectedSegment.StaticSegmentData).ToList();
+            var validRotations = validSegmentData.Select(segmentData => segmentData.Rotation).ToList();
+            var directionallyValidRotations = ValidRotations(position, selectedSegment.StaticSegmentData, true).Select(segmentData => segmentData.Rotation).ToList();
             _rotations = validRotations.Any() ? validRotations : directionallyValidRotations;
 
             if (_placeHolder.IsSome(out var placeHolder) &&
@@ -60,7 +61,22 @@ namespace Runtime.Scriptable_Objects
                 placeHolder.transform.rotation = _rotations.First();
                 _index = 0;
             }
-            
+
+            var segmentData = new SegmentData
+            {
+                Position = position,
+                Rotation = placeHolder.transform.rotation,
+                StaticSegmentData = selectedSegment.StaticSegmentData
+            };
+
+            var connections = _structure.GetValidConnections(segmentData).Count();
+            var maxConnections = _structure.GetValidConnections(validSegmentData.First()).Count();
+            if (maxConnections > connections)
+            {
+                placeHolder.transform.rotation = _rotations.First();
+                _index = 0;
+            }
+                
             SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 
@@ -105,7 +121,7 @@ namespace Runtime.Scriptable_Objects
             _questFactory.SegmentRotated();
         }
 
-        private IEnumerable<Quaternion> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData,
+        private IEnumerable<SegmentData> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData,
             bool disregardValidity = false)
         {
             List<HashSet<Vector3Int>> seen = new();
@@ -132,8 +148,8 @@ namespace Runtime.Scriptable_Objects
 
                     return unique;
                 })
-                .OrderByDescending(segmentData => _structure.GetValidConnections(segmentData).Count())
-                .Select(segmentData => segmentData.Rotation);
+                .OrderByDescending(segmentData => _structure.GetValidConnections(segmentData).Count());
+            // .Select(segmentData => segmentData.Rotation);
         }
 
         private static IEnumerable<Quaternion> AllRotations()
