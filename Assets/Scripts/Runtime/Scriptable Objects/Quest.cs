@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -38,8 +39,11 @@ namespace Runtime.Scriptable_Objects
         protected int Count;
         protected int Target;
 
-        protected Quest(string description, string explanation, int target) : base(description, explanation) =>
+        protected Quest(string description, string explanation, int target) : base(description, explanation)
+        {
             Target = target;
+            Explanation = Regex.Replace(Explanation, @"\b x \b", $" {target} ");
+        }
 
         public virtual Quest<T> Build(int target) => new(Description, Explanation, target);
 

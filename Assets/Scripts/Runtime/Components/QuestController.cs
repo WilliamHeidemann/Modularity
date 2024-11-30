@@ -59,7 +59,7 @@ namespace Runtime.Components
                 6 => _questFactory.ActivateXReceiversSimultaneouslyQuest(2),
                 7 => _questFactory.ReachXBloodResourcesQuest(50),
                 8 => _questFactory.ReachXSteamResourcesQuest(50),
-                // 8 => _questFactory.CollectXQuest(1),
+                9 => _questFactory.ActivateXReceiversSimultaneouslyQuest(6),
                 _ => _mainQuest
             };
 

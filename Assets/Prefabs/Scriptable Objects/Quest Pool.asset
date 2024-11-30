@@ -38,10 +38,10 @@ MonoBehaviour:
       vein.
   _collectX:
     <Description>k__BackingField: 
-    <Explanation>k__BackingField: Absorb 2 energy spheres to empower your amalgamation.
+    <Explanation>k__BackingField: Absorb x energy spheres to empower your amalgamation.
   _activateXReceiversSimultaneously:
     <Description>k__BackingField: 
-    <Explanation>k__BackingField: Activate a combination of 2 furnaces and brains
+    <Explanation>k__BackingField: Activate a combination of x furnaces and brains
       simultaneously.
     _countBlood: 1
     _countSteam: 1
