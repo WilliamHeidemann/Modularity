@@ -4,6 +4,7 @@ using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
 using UnityEditor;
 using UnityEngine;
+using Selection = Runtime.Scriptable_Objects.Selection;
 
 namespace Runtime.Components.Systems
 {
@@ -12,6 +13,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private Blueprint[] _blueprintOptions;
         [SerializeField] private Hand _hand;
         [SerializeField] private Currency _currency;
+        [SerializeField] private Selection _selection;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
@@ -30,6 +32,7 @@ namespace Runtime.Components.Systems
             {
                 _currency.Pay(1, 1);
                 _hand.GenerateHand();
+                _selection.Reset();
             }
         }
 
