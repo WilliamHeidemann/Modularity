@@ -51,7 +51,7 @@ namespace Runtime.Scriptable_Objects
 
             CheckToSpawnCollectables();
         }
-        
+
         private void CheckToSpawnCollectables()
         {
             if (!_shouldSpawnCollectables)
@@ -73,18 +73,7 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnRandomSource(Segment source)
         {
-            var spawnPosition = GetSpawnPosition();
-            for (int i = 0; i < 10; i++)
-            {
-                if (_structure.IsValidSourcePlacement(spawnPosition))
-                {
-                    break;
-                }
-
-                spawnPosition = GetSpawnPosition();
-            }
-
-
+            var spawnPosition = SpawnUtility.Get(GetSpawnPosition, _structure.IsValidSourcePlacement);
             _selection.Reset();
             _selection.Prefab = Option<Segment>.Some(source);
             _builder.Build(spawnPosition, Quaternion.identity, true);
@@ -104,17 +93,7 @@ namespace Runtime.Scriptable_Objects
 
         public void SpawnCollectable()
         {
-            var spawnPosition = GetSpawnPosition();
-            for (int i = 0; i < 10; i++)
-            {
-                if (_structure.IsValidSourcePlacement(spawnPosition))
-                {
-                    break;
-                }
-
-                spawnPosition = GetSpawnPosition();
-            }
-
+            var spawnPosition = SpawnUtility.Get(GetSpawnPosition, _structure.IsValidSourcePlacement);
             var collectable = Instantiate(_collectablePrefab, spawnPosition, Quaternion.identity);
             collectable.Position = spawnPosition;
             _collectables.Add(collectable);

@@ -9,6 +9,22 @@ namespace Runtime.Backend
 {
     public static class SpawnUtility
     {
+        public static T Get<T>(Func<T> create, Predicate<T> predicate)
+        {
+            var item = create();
+            for (int i = 0; i < 30; i++)
+            {
+                if (predicate(item))
+                {
+                    return item;
+                }
+
+                item = create();
+            }
+
+            return item;
+        }
+        
         public static Vector3Int GetRandomSpawnPosition()
         {
             var spherePosition = Random.onUnitSphere * 2f;
