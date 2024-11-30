@@ -22,12 +22,12 @@ MonoBehaviour:
     _countBlood: 1
     _countSteam: 1
   _rotateOneSegment:
-    <Description>k__BackingField: Rotate a piece
-    <Explanation>k__BackingField: Pieces can be rotated by pressing (R).
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Rotate a piece by pressing (R).
   _activateXReceivers:
-    <Description>k__BackingField: Place a Brain and activate it.
-    <Explanation>k__BackingField: 'To activate it, it must be connected at both of
-      its inputs to a Heart. '
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: 'Activate a brain by connecting both of its inputs
+      to the Heart. '
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0

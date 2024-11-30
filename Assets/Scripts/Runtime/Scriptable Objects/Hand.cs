@@ -16,6 +16,7 @@ namespace Runtime.Scriptable_Objects
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
+        private bool _onlyGenerateBloodSegments;
 
         //the segments that the player can choose from
         public List<Segment> SegmentsOptions;
@@ -24,6 +25,7 @@ namespace Runtime.Scriptable_Objects
 
         public void Initialize()
         {
+            _onlyGenerateBloodSegments = true;
             GenerateHand();
         }
 
@@ -44,14 +46,13 @@ namespace Runtime.Scriptable_Objects
                 var segment = _pool.GetRandomSegment();
                 int failsafe = 0;
 
-                while (SegmentsOptions.Contains(segment))
+                while (!IsValid(segment))
                 {
                     segment = _pool.GetRandomSegment();
                     failsafe++;
 
-                    if (failsafe > 10)
+                    if (failsafe > 30)
                     {
-                        Debug.LogError("Failsafe triggered, breaking loop");
                         break;
                     }
                 };
@@ -59,6 +60,26 @@ namespace Runtime.Scriptable_Objects
                 SegmentsOptions.Add(segment);
             }
             OnDrawHand?.Invoke();
+        }
+
+        public void EnableSteamSegments()
+        {
+            _onlyGenerateBloodSegments = false;
+        }
+
+        private bool IsValid(Segment segment)
+        {
+            if (SegmentsOptions.Contains(segment))
+            {
+                return false;
+            }
+
+            if (_onlyGenerateBloodSegments && segment.StaticSegmentData.IsSteam)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

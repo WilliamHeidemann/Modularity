@@ -70,6 +70,7 @@ namespace Runtime.Components
             if (_questIndex == 3)
             {
                 _questFactory.OnReceiversActivated += SpawnSteamSourceOnBrainActivated;
+                _hand.EnableSteamSegments();
             }
             if (_questIndex == 4)
             {
