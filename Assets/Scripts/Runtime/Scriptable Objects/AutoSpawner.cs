@@ -66,6 +66,8 @@ namespace Runtime.Scriptable_Objects
 
             SpawnCollectable();
             SpawnCollectable();
+            SpawnBloodSource();
+            SpawnSteamSource();
         }
 
         public void SpawnBloodSource() => SpawnRandomSource(_bloodSource);

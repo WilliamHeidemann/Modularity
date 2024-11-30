@@ -62,6 +62,11 @@ namespace Runtime.Scriptable_Objects
                 _index = 0;
             }
 
+            if (validSegmentData.Count == 0)
+            {
+                return;
+            }
+            
             var segmentData = new SegmentData
             {
                 Position = position,
