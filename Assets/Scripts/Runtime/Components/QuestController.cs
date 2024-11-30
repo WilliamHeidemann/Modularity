@@ -54,10 +54,12 @@ namespace Runtime.Components
                 1 => _questFactory.PlaceOneSegmentQuest(),
                 2 => _questFactory.RotateOneSegmentQuest(),
                 3 => _questFactory.ActivateXReceiversQuest(1),
-                4 => _questFactory.ActivateXReceiversSimultaneouslyQuest(2),
-                5 => _questFactory.ReachXBloodResourcesQuest(50),
-                6 => _questFactory.ReachXSteamResourcesQuest(50),
-                // 7 => _questFactory.CollectXQuest(1),
+                4 => _questFactory.ConnectSteamAndFleshQuest(),
+                5 => _questFactory.CollectXQuest(2),
+                6 => _questFactory.ActivateXReceiversSimultaneouslyQuest(2),
+                7 => _questFactory.ReachXBloodResourcesQuest(50),
+                8 => _questFactory.ReachXSteamResourcesQuest(50),
+                // 8 => _questFactory.CollectXQuest(1),
                 _ => _mainQuest
             };
 
@@ -79,6 +81,13 @@ namespace Runtime.Components
                 _hand.EnableSteamSegments();
             }
 
+            if (_questIndex == 5)
+            {
+                _autoSpawner.StartSpawningCollectables();
+                _autoSpawner.SpawnCollectable();
+                _autoSpawner.SpawnCollectable();
+            }
+            
             _explanationContainer.SetActive(_mainQuest.Explanation != string.Empty);
             _questDescription.text = $"- {_mainQuest.Description}";
             _questExplanation.text = _mainQuest.Explanation;

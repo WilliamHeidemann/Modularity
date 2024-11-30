@@ -13,10 +13,10 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Quest _rotateOneSegment;
         [SerializeField] private ReceiverQuest _activateXReceivers;
         [SerializeField] private Quest _connectSteamAndFlesh;
+        [SerializeField] private Quest<int> _collectX;
         [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
         [SerializeField] private ResourcesQuest _reachXBloodResources;
         [SerializeField] private ResourcesQuest _reachXSteamResources;
-        [SerializeField] private Quest<int> _collectX;
         
         public Quest CameraQuest()
         {
@@ -45,6 +45,20 @@ namespace Runtime.Scriptable_Objects
             OnReceiversActivated += quest!.Progress;
             return quest;
         }
+        
+        public Quest ConnectSteamAndFleshQuest()
+        {
+            var quest = _connectSteamAndFlesh.Build();
+            OnBloodAndSteamConnected += quest.Complete;
+            return quest;
+        }
+        
+        public Quest<int> CollectXQuest(int x)
+        {
+            var quest = _collectX.Build(x);
+            OnCollect += quest.Progress;
+            return quest;
+        }
 
         public ReceiverQuest ActivateXReceiversSimultaneouslyQuest(int x)
         {
@@ -67,24 +81,19 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
 
-        public Quest<int> CollectXQuest(int x)
-        {
-            var quest = _collectX.Build(x);
-            OnCollect += quest.Progress;
-            return quest;
-        }
-
         public void CameraCompleted() => OnCameraCompleted?.Invoke();
         public void SegmentRotated() => OnSegmentRotated?.Invoke();
         public void SegmentPlaced(SegmentData segmentData) => OnSegmentPlaced?.Invoke(segmentData);
         public void CollectableCollected(int x) => OnCollect?.Invoke(x);
         public void ReceiversActivated(IEnumerable<SegmentData> receivers) => OnReceiversActivated?.Invoke(receivers);
         public void ResourcesReached((int bloodResources, int steamResources) resources) => OnResourcesReached?.Invoke((resources.bloodResources, resources.steamResources));
+        public void BloodAndSteamConnected() => OnBloodAndSteamConnected?.Invoke();
         public event Action OnCameraCompleted;
         public event Action OnSegmentRotated;
         public event Action<SegmentData> OnSegmentPlaced;
         public event Action<int> OnCollect;
         public event Action<IEnumerable<SegmentData>> OnReceiversActivated;
         public event Action<(int, int)> OnResourcesReached;
+        public event Action OnBloodAndSteamConnected;
     }
 }

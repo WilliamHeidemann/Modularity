@@ -22,6 +22,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Builder _builder;
         [SerializeField] private Selection _selection;
         [SerializeField] private CurrencyPopup _currencyPopup;
+        [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private float DistanceConstant;
@@ -45,6 +46,7 @@ namespace Runtime.Scriptable_Objects
                 .Where(collectable => segmentPositions.Contains(collectable.Position))
                 .ToList();
 
+            _questFactory.CollectableCollected(collectables.Count);
             collectables.ForEach(c => _currencyPopup.Activate(c.Position, c.StaticSegmentData));
             collectables.ForEach(c => _collectables.Remove(c));
             collectables.ForEach(c => Destroy(c.gameObject));

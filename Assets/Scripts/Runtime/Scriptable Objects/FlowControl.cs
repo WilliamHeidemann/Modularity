@@ -40,9 +40,12 @@ namespace Runtime.Scriptable_Objects
 
             if (_receiversActivatedLast.Any())
             {
-                Debug.Log("Activating Receivers");
-                _autoSpawner.StartSpawningCollectables();
                 _questFactory.ReceiversActivated(_receiversActivatedLast);
+            }
+
+            if (AllSourcesLinked(_structure.Sources.First()))
+            {
+                _questFactory.BloodAndSteamConnected();
             }
         }
 

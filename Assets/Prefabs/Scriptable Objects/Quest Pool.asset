@@ -18,23 +18,27 @@ MonoBehaviour:
       zoom.
   _placeOneSegment:
     <Description>k__BackingField: 
-    <Explanation>k__BackingField: Select a vein from your hand and place it on the
-      beating heart.
+    <Explanation>k__BackingField: Lengthen the organism by selecting a vein and placing
+      it on the beating heart.
     _countBlood: 1
     _countSteam: 1
   _rotateOneSegment:
     <Description>k__BackingField: 
-    <Explanation>k__BackingField: Rotate a piece by pressing (R).
+    <Explanation>k__BackingField: Rotate a flesh piece by pressing (R).
   _activateXReceivers:
     <Description>k__BackingField: 
-    <Explanation>k__BackingField: 'Activate a brain by connecting both of its inputs
-      to the Heart. '
+    <Explanation>k__BackingField: Fuel a brain by connecting both its veins to the
+      Heart.
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0
   _connectSteamAndFlesh:
     <Description>k__BackingField: 
-    <Explanation>k__BackingField: 
+    <Explanation>k__BackingField: Connect the furnace via metal pipes to a flesh
+      vein.
+  _collectX:
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Absorb 2 energy spheres to empower your amalgamation.
   _activateXReceiversSimultaneously:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: Activate a combination of 2 furnaces and brains
@@ -52,6 +56,3 @@ MonoBehaviour:
     <Explanation>k__BackingField: 
     _countBlood: 0
     _countSteam: 0
-  _collectX:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: 
