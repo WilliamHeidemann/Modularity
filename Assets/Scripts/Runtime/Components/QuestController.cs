@@ -29,10 +29,10 @@ namespace Runtime.Components
             _questFactory.OnReceiversActivated += _ => CheckCompletion();
             _questFactory.OnResourcesReached += _ => CheckCompletion();
             _questFactory.OnCollect += _ => CheckCompletion();
-            
+
             _handUI.SetActive(false);
             _resourcesUI.SetActive(false);
-            
+
             NextQuest();
         }
 
@@ -67,16 +67,18 @@ namespace Runtime.Components
                 _resourcesUI.SetActive(true);
                 _hand.Initialize();
             }
+
             if (_questIndex == 3)
             {
                 _questFactory.OnReceiversActivated += SpawnSteamSourceOnBrainActivated;
-                _hand.EnableSteamSegments();
             }
+
             if (_questIndex == 4)
             {
                 _questFactory.OnReceiversActivated -= SpawnSteamSourceOnBrainActivated;
+                _hand.EnableSteamSegments();
             }
-            
+
             _explanationContainer.SetActive(_mainQuest.Explanation != string.Empty);
             _questDescription.text = $"- {_mainQuest.Description}";
             _questExplanation.text = _mainQuest.Explanation;

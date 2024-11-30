@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
   _camera:
-    <Description>k__BackingField: Perform all 3 control actions
-    <Explanation>k__BackingField: Controls to rotate, move and zoom
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Navigate the area with WASD, left-mouse drag and
+      zoom.
   _placeOneSegment:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: Select a vein from your hand and place it on the
-      heart.
+      beating heart.
     _countBlood: 1
     _countSteam: 1
   _rotateOneSegment:
@@ -35,8 +36,9 @@ MonoBehaviour:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: 
   _activateXReceiversSimultaneously:
-    <Description>k__BackingField: Activate 2 simultaneously
-    <Explanation>k__BackingField: 
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Activate a combination of 2 furnaces and brains
+      simultaneously.
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 1
