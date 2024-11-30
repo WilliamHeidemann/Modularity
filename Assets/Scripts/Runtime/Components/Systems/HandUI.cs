@@ -26,6 +26,25 @@ namespace Runtime.Components.Systems
             _hand.OnDrawHand -= DisplayHand;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                _hand.SelectBlueprint(0);
+                ChangeGlow(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _hand.SelectBlueprint(1);
+                ChangeGlow(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                _hand.SelectBlueprint(2);
+                ChangeGlow(2);
+            }
+        }
+
         public void ReRoll()
         {
             if (_currency.HasAtLeast(1, 1))

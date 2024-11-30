@@ -44,12 +44,12 @@ namespace Runtime.Components.Systems
             _questFactory.OnCameraCompleted += _autoSpawner.SpawnBloodSource;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                _autoSpawner.SpawnCollectable();
-            }
-        }
+        // private void Update()
+        // {
+        //     if (Input.GetKeyDown(KeyCode.N))
+        //     {
+        //         _autoSpawner.SpawnCollectable();
+        //     }
+        // }
     }
 }
