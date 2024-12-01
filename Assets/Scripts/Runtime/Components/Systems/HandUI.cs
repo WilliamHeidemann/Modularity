@@ -50,7 +50,7 @@ namespace Runtime.Components.Systems
             if (_currency.HasAtLeast(1, 1))
             {
                 _currency.Pay(1, 1);
-                _hand.GenerateHand();
+                _hand.DrawHand();
                 _selection.Reset();
             }
         }

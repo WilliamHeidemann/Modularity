@@ -78,7 +78,7 @@ namespace Runtime.Scriptable_Objects
             _flowControl.UpdateFlow();
             _autoSpawner.CheckForCollectables();
             _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
-            _hand.GenerateHand();
+            _hand.DrawHand();
             _selection.Prefab = Option<Segment>.None;
         }
 
