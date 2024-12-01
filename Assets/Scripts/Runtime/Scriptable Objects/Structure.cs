@@ -10,7 +10,6 @@ namespace Runtime.Scriptable_Objects
     public class Structure : ScriptableObject
     {
         [SerializeField] private List<SegmentData> _graphData = new();
-        [SerializeField] private Currency _currency;
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
         public void Clear() => _graphData.Clear();
 
@@ -27,11 +26,6 @@ namespace Runtime.Scriptable_Objects
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
-            // if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
-            // {
-            //     return false;
-            // }
-
             var connectsDirectionally = CanConnectDirectionally(
                 segmentData1, segmentData2,
                 out var connection1,
