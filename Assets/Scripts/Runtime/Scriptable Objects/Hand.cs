@@ -2,6 +2,7 @@ using Runtime.Components.Segments;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using Runtime.Backend;
 using Runtime.Components.Systems;
 using Runtime.Components.Utility;
 using UtilityToolkit.Runtime;
@@ -12,6 +13,7 @@ namespace Runtime.Scriptable_Objects
     public class Hand : ScriptableObject
     {
         public delegate void DrawHand();
+
         public event DrawHand OnDrawHand;
 
         [SerializeField] private Selection _selection;
@@ -21,7 +23,7 @@ namespace Runtime.Scriptable_Objects
         //the segments that the player can choose from
         public List<Segment> SegmentsOptions;
 
-        private int _optionsCount = 3;
+        private const int OptionsCount = 3;
 
         public void Initialize()
         {
@@ -40,25 +42,12 @@ namespace Runtime.Scriptable_Objects
         public void GenerateHand()
         {
             SegmentsOptions = new List<Segment>();
-
-            for (int i = 0; i < _optionsCount; i++)
+            for (int i = 0; i < OptionsCount; i++)
             {
-                var segment = _pool.GetRandomSegment();
-                int failsafe = 0;
-
-                while (!IsValid(segment))
-                {
-                    segment = _pool.GetRandomSegment();
-                    failsafe++;
-
-                    if (failsafe > 30)
-                    {
-                        break;
-                    }
-                };
-
+                var segment = SpawnUtility.Get(_pool.GetRandomSegment, IsValid);
                 SegmentsOptions.Add(segment);
             }
+
             OnDrawHand?.Invoke();
         }
 
