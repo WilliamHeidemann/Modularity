@@ -15,7 +15,6 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private List<Segment> _segments = new();
-        [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
         private readonly List<SegmentData> _receiversActivatedLast = new();
 
@@ -27,7 +26,6 @@ namespace Runtime.Scriptable_Objects
         public void Clear()
         {
             _segments.Clear();
-            _autoSpawner.Clear();
         }
 
         public void UpdateFlow()
