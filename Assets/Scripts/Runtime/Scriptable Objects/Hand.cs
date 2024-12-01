@@ -1,7 +1,9 @@
+using System;
 using Runtime.Components.Segments;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using System.Linq;
 using Runtime.Backend;
 using Runtime.Components.Systems;
 using Runtime.Components.Utility;
@@ -12,12 +14,11 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Hand : ScriptableObject
     {
-        public delegate void DrawHand();
-
-        public event DrawHand OnDrawHand;
+        public event Action OnDrawHand;
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
+        private readonly Queue<List<Segment>> _queuedHands = new();
         private bool _onlyGenerateBloodSegments;
 
         //the segments that the player can choose from
@@ -28,7 +29,7 @@ namespace Runtime.Scriptable_Objects
         public void Initialize()
         {
             _onlyGenerateBloodSegments = true;
-            GenerateHand();
+            DrawHand();
         }
 
         public void SelectBlueprint(int chosenSegment)
@@ -39,7 +40,19 @@ namespace Runtime.Scriptable_Objects
             SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 
-        public void GenerateHand()
+        public void DrawHand()
+        {
+            if (_queuedHands.Count > 0)
+            {
+                DrawSpecificHand(_queuedHands.Dequeue());
+            }
+            else
+            {
+                GenerateHand();
+            }
+        }
+
+        private void GenerateHand()
         {
             SegmentsOptions = new List<Segment>();
             for (int i = 0; i < OptionsCount; i++)
@@ -49,6 +62,32 @@ namespace Runtime.Scriptable_Objects
             }
 
             OnDrawHand?.Invoke();
+        }
+
+        public void DrawSpecificHand(List<Segment> segments)
+        {
+            if (segments.Count != 3)
+            {
+                Debug.LogError("Hand must have 3 segments");
+                return;
+            }
+
+            SegmentsOptions = segments;
+            OnDrawHand?.Invoke();
+        }
+        
+        public void QueueSpecificHands(List<List<Segment>> hands)
+        {
+            if (hands.Any(hand => hand.Count != 3))
+            {
+                Debug.LogError("All hands must have exactly 3 segments");
+                return;
+            }
+
+            foreach (var hand in hands)
+            {
+                _queuedHands.Enqueue(hand);
+            }
         }
 
         public void EnableSteamSegments()

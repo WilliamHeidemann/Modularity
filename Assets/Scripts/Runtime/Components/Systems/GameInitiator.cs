@@ -34,7 +34,6 @@ namespace Runtime.Components.Systems
             DOTween.Init();
             _structure.Clear();
             _autoSpawner.Clear();
-            _hand.Initialize();
             _currency.Initialize(_startingCurrency);
             _questFactory.OnCameraCompleted += _autoSpawner.SpawnBloodSource;
         }

@@ -19,6 +19,7 @@ namespace Runtime.Components
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private GameObject _handUI;
         [SerializeField] private GameObject _resourcesUI;
+        [SerializeField] private PredefinedHands _predefinedHands;
         private int _questIndex;
 
         private void Start()
@@ -42,6 +43,7 @@ namespace Runtime.Components
                     _cameraControlImages.SetActive(false);
                     _handUI.SetActive(true);
                     _resourcesUI.SetActive(true);
+                    _hand.QueueSpecificHands(_predefinedHands.BloodHands);
                     _hand.Initialize();
                     break;
                 case 2:
@@ -53,7 +55,8 @@ namespace Runtime.Components
                 case 4:
                     _quest = _questFactory.ConnectSteamAndFleshQuest();
                     _hand.EnableSteamSegments();
-                    _hand.GenerateHand();
+                    _hand.QueueSpecificHands(_predefinedHands.SteamHands);
+                    _hand.DrawHand();
                     _autoSpawner.SpawnSteamSource();
                     break;
                 case 5:
