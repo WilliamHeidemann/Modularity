@@ -17,7 +17,7 @@ namespace Runtime.Scriptable_Objects
         [TextArea(3, 10)]
         public string Explanation { get; protected set; }
 
-        public bool IsCompleted { get; protected set; }
+        public Action OnComplete;
 
         protected Quest(string description, string explanation)
         {
@@ -27,7 +27,7 @@ namespace Runtime.Scriptable_Objects
 
         public void Complete()
         {
-            IsCompleted = true;
+            OnComplete?.Invoke();
         }
 
         public Quest Build() => new(Description, Explanation);

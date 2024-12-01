@@ -29,6 +29,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _placeOneSegment.Build(1) as SegmentQuest;
             OnSegmentPlaced += quest!.Progress;
+            quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;
         }
 
@@ -36,6 +37,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _rotateOneSegment.Build();
             OnSegmentRotated += quest.Complete;
+            quest.OnComplete += () => OnSegmentRotated -= quest.Complete;
             return quest;
         }
 
@@ -43,6 +45,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _activateXReceivers.Build(x) as ReceiverQuest;
             OnReceiversActivated += quest!.Progress;
+            quest.OnComplete += () => OnReceiversActivated -= quest.Progress;
             return quest;
         }
         
@@ -50,6 +53,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _connectSteamAndFlesh.Build();
             OnBloodAndSteamConnected += quest.Complete;
+            quest.OnComplete += () => OnBloodAndSteamConnected -= quest.Complete;
             return quest;
         }
         
@@ -57,6 +61,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _collectX.Build(x);
             OnCollect += quest.Progress;
+            quest.OnComplete += () => OnCollect -= quest.Progress;
             return quest;
         }
 
@@ -64,6 +69,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _activateXReceiversSimultaneously.Build(x) as ReceiverQuest;
             OnReceiversActivated += quest!.Progress;
+            quest.OnComplete += () => OnReceiversActivated -= quest.Progress;
             return quest;
         }
 
@@ -71,6 +77,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _reachXBloodResources.Build(x) as ResourcesQuest;
             OnResourcesReached += quest!.Progress;
+            quest.OnComplete += () => OnResourcesReached -= quest.Progress;
             return quest;
         }
 
@@ -78,6 +85,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _reachXSteamResources.Build(x) as ResourcesQuest;
             OnResourcesReached += quest!.Progress;
+            quest.OnComplete += () => OnResourcesReached -= quest.Progress;
             return quest;
         }
 

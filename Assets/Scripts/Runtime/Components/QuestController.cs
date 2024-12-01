@@ -13,90 +13,77 @@ namespace Runtime.Components
         [SerializeField] private Hand _hand;
         [SerializeField] private TextMeshProUGUI _questDescription;
         [SerializeField] private TextMeshProUGUI _questExplanation;
-        [SerializeField] private Quest _mainQuest;
-        [SerializeField] private int _questIndex = 0;
+        [SerializeField] private Quest _quest;
         [SerializeField] private GameObject _cameraControlImages;
         [SerializeField] private GameObject _explanationContainer;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private GameObject _handUI;
         [SerializeField] private GameObject _resourcesUI;
+        private int _questIndex;
 
         private void Start()
         {
-            _questFactory.OnCameraCompleted += CheckCompletion;
-            _questFactory.OnSegmentPlaced += _ => CheckCompletion();
-            _questFactory.OnSegmentRotated += CheckCompletion;
-            _questFactory.OnReceiversActivated += _ => CheckCompletion();
-            _questFactory.OnResourcesReached += _ => CheckCompletion();
-            _questFactory.OnCollect += _ => CheckCompletion();
-
             _handUI.SetActive(false);
             _resourcesUI.SetActive(false);
 
             NextQuest();
         }
 
-        private async void CheckCompletion()
-        {
-            await Awaitable.NextFrameAsync();
-            if (_mainQuest.IsCompleted)
-            {
-                NextQuest();
-            }
-        }
-
         private void NextQuest()
         {
-            _cameraControlImages.SetActive(_questIndex == 0);
-            _mainQuest = _questIndex switch
+            switch (_questIndex)
             {
-                0 => _questFactory.CameraQuest(),
-                1 => _questFactory.PlaceOneSegmentQuest(),
-                2 => _questFactory.RotateOneSegmentQuest(),
-                3 => _questFactory.ActivateXReceiversQuest(1),
-                4 => _questFactory.ConnectSteamAndFleshQuest(),
-                5 => _questFactory.CollectXQuest(2),
-                6 => _questFactory.ActivateXReceiversSimultaneouslyQuest(2),
-                7 => _questFactory.ReachXBloodResourcesQuest(50),
-                8 => _questFactory.ReachXSteamResourcesQuest(50),
-                9 => _questFactory.ActivateXReceiversSimultaneouslyQuest(6),
-                _ => _mainQuest
-            };
-
-            if (_questIndex == 1)
-            {
-                _handUI.SetActive(true);
-                _resourcesUI.SetActive(true);
-                _hand.Initialize();
-            }
-
-            if (_questIndex == 3)
-            {
-                _questFactory.OnReceiversActivated += SpawnSteamSourceOnBrainActivated;
-            }
-
-            if (_questIndex == 4)
-            {
-                _questFactory.OnReceiversActivated -= SpawnSteamSourceOnBrainActivated;
-                _hand.EnableSteamSegments();
-            }
-
-            if (_questIndex == 5)
-            {
-                _autoSpawner.StartSpawningCollectables();
-                _autoSpawner.SpawnCollectable();
-                _autoSpawner.SpawnCollectable();
+                case 0:
+                    _quest = _questFactory.CameraQuest();
+                    _cameraControlImages.SetActive(true);
+                    break;
+                case 1:
+                    _quest = _questFactory.PlaceOneSegmentQuest();
+                    _cameraControlImages.SetActive(false);
+                    _handUI.SetActive(true);
+                    _resourcesUI.SetActive(true);
+                    _hand.Initialize();
+                    break;
+                case 2:
+                    _quest = _questFactory.RotateOneSegmentQuest();
+                    break;
+                case 3:
+                    _quest = _questFactory.ActivateXReceiversQuest(1);
+                    break;
+                case 4:
+                    _quest = _questFactory.ConnectSteamAndFleshQuest();
+                    _hand.EnableSteamSegments();
+                    _hand.GenerateHand();
+                    _autoSpawner.SpawnSteamSource();
+                    break;
+                case 5:
+                    _quest = _questFactory.CollectXQuest(2);
+                    _autoSpawner.StartSpawningCollectables();
+                    _autoSpawner.SpawnCollectable();
+                    _autoSpawner.SpawnCollectable();
+                    break;
+                case 6:
+                    _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(2);
+                    break;
+                case 7:
+                    _quest = _questFactory.ReachXBloodResourcesQuest(50);
+                    break;
+                case 8:
+                    _quest = _questFactory.ReachXSteamResourcesQuest(50);
+                    break;
+                case 9:
+                    _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
+                    break;
+                default:
+                    _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
+                    break;
             }
             
-            _explanationContainer.SetActive(_mainQuest.Explanation != string.Empty);
-            _questDescription.text = $"- {_mainQuest.Description}";
-            _questExplanation.text = _mainQuest.Explanation;
+            _quest.OnComplete += NextQuest;
+            _explanationContainer.SetActive(_quest.Explanation != string.Empty);
+            _questDescription.text = $"{_quest.Description}";
+            _questExplanation.text = _quest.Explanation;
             _questIndex++;
-        }
-
-        private void SpawnSteamSourceOnBrainActivated(IEnumerable<SegmentData> _)
-        {
-            _autoSpawner.SpawnSteamSource();
         }
     }
 }
