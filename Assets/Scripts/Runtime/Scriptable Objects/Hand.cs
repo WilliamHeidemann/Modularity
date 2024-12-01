@@ -18,7 +18,7 @@ namespace Runtime.Scriptable_Objects
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
-        private readonly Queue<List<Segment>> _queuedHands = new();
+        private readonly LinkedList<List<Segment>> _queuedHands = new();
         private bool _onlyGenerateBloodSegments;
 
         //the segments that the player can choose from
@@ -30,7 +30,7 @@ namespace Runtime.Scriptable_Objects
         {
             _queuedHands.Clear();
         }
-        
+
         public void ExcludeSteamSegments()
         {
             _onlyGenerateBloodSegments = true;
@@ -48,7 +48,9 @@ namespace Runtime.Scriptable_Objects
         {
             if (_queuedHands.Count > 0)
             {
-                DrawSpecificHand(_queuedHands.Dequeue());
+                var hand = _queuedHands.First.Value;
+                _queuedHands.RemoveFirst();
+                DrawQueuedHand(hand);
             }
             else
             {
@@ -68,7 +70,7 @@ namespace Runtime.Scriptable_Objects
             OnDrawHand?.Invoke();
         }
 
-        public void DrawSpecificHand(List<Segment> segments)
+        public void DrawQueuedHand(List<Segment> segments)
         {
             if (segments.Count != 3)
             {
@@ -79,8 +81,8 @@ namespace Runtime.Scriptable_Objects
             SegmentsOptions = segments;
             OnDrawHand?.Invoke();
         }
-        
-        public void QueueSpecificHands(List<List<Segment>> hands)
+
+        public void QueueHandsLast(List<List<Segment>> hands)
         {
             if (hands.Any(hand => hand.Count != 3))
             {
@@ -90,8 +92,13 @@ namespace Runtime.Scriptable_Objects
 
             foreach (var hand in hands)
             {
-                _queuedHands.Enqueue(hand);
+                _queuedHands.AddLast(hand);
             }
+        }
+
+        public void QueueHandFirst(List<Segment> hand)
+        {
+            _queuedHands.AddFirst(hand);
         }
 
         public void EnableSteamSegments()

@@ -44,7 +44,7 @@ namespace Runtime.Components
                     _cameraControlImages.SetActive(false);
                     _handUI.SetActive(true);
                     _resourcesUI.SetActive(true);
-                    _hand.QueueSpecificHands(_predefinedHands.BloodHands);
+                    _hand.QueueHandsLast(_predefinedHands.BloodHands);
                     _hand.ExcludeSteamSegments();
                     _hand.DrawHand();
                     break;
@@ -53,11 +53,12 @@ namespace Runtime.Components
                     break;
                 case 3:
                     _quest = _questFactory.ActivateXReceiversQuest(1);
+                    _hand.QueueHandFirst(_predefinedHands.Brains);
                     break;
                 case 4:
                     _quest = _questFactory.ConnectSteamAndFleshQuest();
                     _hand.EnableSteamSegments();
-                    _hand.QueueSpecificHands(_predefinedHands.SteamHands);
+                    _hand.QueueHandsLast(_predefinedHands.SteamHands);
                     _hand.DrawHand();
                     _autoSpawner.SpawnSteamSource();
                     break;

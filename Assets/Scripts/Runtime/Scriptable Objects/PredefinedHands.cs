@@ -32,5 +32,7 @@ namespace Runtime.Scriptable_Objects
             SteamHand2,
             SteamHand3
         };
+        
+        public List<Segment> Brains;
     }
 }
