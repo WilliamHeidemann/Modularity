@@ -27,6 +27,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Collectable _collectablePrefab;
         private readonly List<Collectable> _collectables = new();
         private bool _shouldSpawnCollectables;
+        public delegate void CollectedCollectables(int collectedAmount);
+        public static event CollectedCollectables OnCollectedCollectables;
 
         public void Clear()
         {
@@ -45,6 +47,7 @@ namespace Runtime.Scriptable_Objects
                 .ToList();
 
             _questFactory.CollectableCollected(collectables.Count);
+            OnCollectedCollectables?.Invoke(collectables.Count);
             collectables.ForEach(c => _currencyPopup.Activate(c.Position, c.StaticSegmentData));
             collectables.ForEach(c => _collectables.Remove(c));
             collectables.ForEach(c => Destroy(c.gameObject));

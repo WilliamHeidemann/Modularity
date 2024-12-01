@@ -17,6 +17,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private Currency _currency;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
+        [SerializeField] private ScoreTracker _scoreTracker;
         [SerializeField] private int _startingCurrency;
 
         private void OnEnable()
