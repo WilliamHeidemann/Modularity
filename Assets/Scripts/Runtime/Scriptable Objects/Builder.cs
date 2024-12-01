@@ -69,8 +69,6 @@ namespace Runtime.Scriptable_Objects
             _structure.AddSegment(segmentData);
             SoundFXPlayer.Instance.Play(segmentData.StaticSegmentData.SoundFX);
 
-            _flowControl.AddSegment(connector);
-
             if (isInitial)
             {
                 return;

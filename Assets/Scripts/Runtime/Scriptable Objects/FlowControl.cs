@@ -14,19 +14,8 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Structure _structure;
         [SerializeField] private CurrencyPopup _currencyPopup;
-        [SerializeField] private List<Segment> _segments = new();
         [SerializeField] private QuestFactory _questFactory;
         private readonly List<SegmentData> _receiversActivatedLast = new();
-
-        public void AddSegment(Segment segment)
-        {
-            _segments.Add(segment);
-        }
-
-        public void Clear()
-        {
-            _segments.Clear();
-        }
 
         public void UpdateFlow()
         {
@@ -121,21 +110,16 @@ namespace Runtime.Scriptable_Objects
             return sources.Count == _structure.Sources.Count();
         }
 
-
         private void ActivateSegment(SegmentData segmentToActivate)
         {
-            var segmentOption = GetSegmentAtPosition(segmentToActivate.Position);
-            if (!segmentOption.IsSome(out var segment) || segmentToActivate.IsActivated)
+            if (segmentToActivate.IsActivated)
             {
                 return;
             }
 
             _receiversActivatedLast.Add(segmentToActivate);
             segmentToActivate.IsActivated = true;
-            _currencyPopup.Activate(segment.transform.position, segmentToActivate.StaticSegmentData);
+            _currencyPopup.Activate(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
         }
-
-        private Option<Segment> GetSegmentAtPosition(Vector3Int position)
-            => _segments.FirstOption(segment => segment.transform.position.AsVector3Int() == position);
     }
 }

@@ -38,7 +38,6 @@ namespace Runtime.Components.Systems
         {
             DOTween.Init();
             _structure.Clear();
-            _flowControl.Clear();
             _autoSpawner.Clear();
             _hand.Initialize();
             _currency.Initialize(_startingCurrency);
