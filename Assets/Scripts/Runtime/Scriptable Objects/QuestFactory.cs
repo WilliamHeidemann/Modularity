@@ -22,6 +22,7 @@ namespace Runtime.Scriptable_Objects
         {
             var quest = _camera.Build();
             OnCameraCompleted += quest.Complete;
+            quest.OnComplete += () => OnCameraCompleted -= quest.Complete;
             return quest;
         }
 
