@@ -4,6 +4,7 @@ using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 namespace Runtime.Components
 {
@@ -13,16 +14,19 @@ namespace Runtime.Components
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
         public Vector3Int Position;
         private bool _mousePressed;
+        private bool _mouseIn;
         
         private void OnMouseEnter()
         {
             _placeHolderBuilder.Build(Position);
+            _mouseIn = true;
         }
 
         private void OnMouseExit()
         {
             _placeHolderBuilder.Hide();
             _mousePressed = false;
+            _mouseIn = false;
         }
 
         private void OnMouseUp()
@@ -41,5 +45,21 @@ namespace Runtime.Components
         {
             Gizmos.DrawWireSphere(transform.position, 0.3f);
         }
+
+        private void RefreshBuildableHover()
+        {
+            _placeHolderBuilder.Hide();
+            _placeHolderBuilder.Build(Position);
+        }
+
+        private void Update()
+        {
+            if (!_mouseIn) return;
+            if (Input.GetKeyUp(KeyCode.Alpha1) || Input.GetKeyUp(KeyCode.Alpha2) || Input.GetKeyUp(KeyCode.Alpha3))
+            {
+                RefreshBuildableHover();
+            }
+        }
+
     }
 }
