@@ -32,10 +32,10 @@ namespace Runtime.Components.Systems
         private void Initialize()
         {
             DOTween.Init();
+            _hand.Clear();
             _structure.Clear();
             _autoSpawner.Clear();
             _currency.Initialize(_startingCurrency);
-            _questFactory.OnCameraCompleted += _autoSpawner.SpawnBloodSource;
         }
 
         // private void Update()

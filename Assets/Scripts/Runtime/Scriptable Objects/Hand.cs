@@ -26,10 +26,14 @@ namespace Runtime.Scriptable_Objects
 
         private const int OptionsCount = 3;
 
-        public void Initialize()
+        public void Clear()
+        {
+            _queuedHands.Clear();
+        }
+        
+        public void ExcludeSteamSegments()
         {
             _onlyGenerateBloodSegments = true;
-            DrawHand();
         }
 
         public void SelectBlueprint(int chosenSegment)

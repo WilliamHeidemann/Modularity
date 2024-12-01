@@ -40,11 +40,13 @@ namespace Runtime.Components
                     break;
                 case 1:
                     _quest = _questFactory.PlaceOneSegmentQuest();
+                    _autoSpawner.SpawnBloodSource();
                     _cameraControlImages.SetActive(false);
                     _handUI.SetActive(true);
                     _resourcesUI.SetActive(true);
                     _hand.QueueSpecificHands(_predefinedHands.BloodHands);
-                    _hand.Initialize();
+                    _hand.ExcludeSteamSegments();
+                    _hand.DrawHand();
                     break;
                 case 2:
                     _quest = _questFactory.RotateOneSegmentQuest();
