@@ -1,5 +1,6 @@
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Runtime.Components.Utility
 {
@@ -22,6 +23,7 @@ namespace Runtime.Components.Utility
         private bool _hasRotated;
         private bool _hasZoomed;
         private bool _hasCompletedQuest;
+        private bool _wasClickedOverCard;
 
         private void OnEnable()
         {
@@ -64,9 +66,17 @@ namespace Runtime.Components.Utility
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    _wasClickedOverCard = true;
+                    return;
+                }
+                _wasClickedOverCard = false;
                 _dragOrigin = Input.mousePosition;
                 return;
             }
+
+            if (_wasClickedOverCard) return;
 
             if (!Input.GetMouseButton(0))
             {
