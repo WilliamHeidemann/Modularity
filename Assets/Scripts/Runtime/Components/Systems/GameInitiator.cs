@@ -12,13 +12,8 @@ namespace Runtime.Components.Systems
 {
     public class GameInitiator : MonoBehaviour
     {
-        [SerializeField] private Builder _builder;
         [SerializeField] private Structure _structure;
         [SerializeField] private Hand _hand;
-        [SerializeField] private FlowControl _flowControl;
-        [SerializeField] private Selection _selection;
-        [SerializeField] private Segment _bloodSource;
-        [SerializeField] private Segment _steamSource;
         [SerializeField] private Currency _currency;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
