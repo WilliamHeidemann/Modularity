@@ -31,7 +31,7 @@ namespace Runtime.Backend
             spherePosition.y = Mathf.Abs(spherePosition.y) + 1f;
             return spherePosition.AsVector3Int();
         }
-        
+
         public static Vector3Int GetWeightedSpawnPosition(List<Vector3Int> positions, float distanceConstant)
         {
             var minX = positions.Min(position => position.x);

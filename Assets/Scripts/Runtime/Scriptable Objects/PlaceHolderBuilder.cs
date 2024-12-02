@@ -61,6 +61,10 @@ namespace Runtime.Scriptable_Objects
                 placeHolder.transform.rotation = _rotations.First();
                 _index = 0;
             }
+            else
+            {
+                _index = _rotations.IndexOfRotation(placeHolder.transform.rotation);
+            }
 
             if (validSegmentData.Count == 0)
             {

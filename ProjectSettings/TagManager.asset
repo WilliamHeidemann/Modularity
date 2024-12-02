@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Render Ontop
+  - Particles
   - Water
   - UI
   - 
@@ -40,9 +40,6 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: World Space UI
-    uniqueID: 2998148137
     locked: 0
   m_RenderingLayers:
   - Default
