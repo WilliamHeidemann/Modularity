@@ -16,5 +16,11 @@ namespace Runtime.Components.Utility
         {
             return quaternions.Any(quaternion => Quaternion.Angle(quaternion, rotation) < 1);
         }
+
+        public static int IndexOfRotation(this IEnumerable<Quaternion> quaternions, Quaternion rotation)
+        {
+            return quaternions.Select((quaternion, index) => (quaternion, index))
+                .First(pair => Quaternion.Angle(pair.quaternion, rotation) < 1).index;
+        }
     }
 }
