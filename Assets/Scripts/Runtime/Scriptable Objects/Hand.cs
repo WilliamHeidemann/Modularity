@@ -1,7 +1,10 @@
+using System;
 using Runtime.Components.Segments;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System.Collections.Generic;
+using System.Linq;
+using Runtime.Backend;
 using Runtime.Components.Systems;
 using Runtime.Components.Utility;
 using UtilityToolkit.Runtime;
@@ -11,20 +14,26 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class Hand : ScriptableObject
     {
-        public delegate void DrawHand();
-        public event DrawHand OnDrawHand;
+        public event Action OnDrawHand;
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
+        private readonly LinkedList<List<Segment>> _queuedHands = new();
+        private bool _onlyGenerateBloodSegments;
 
         //the segments that the player can choose from
         public List<Segment> SegmentsOptions;
 
-        private int _optionsCount = 3;
+        private const int OptionsCount = 3;
 
-        public void Initialize()
+        public void Clear()
         {
-            GenerateHand();
+            _queuedHands.Clear();
+        }
+
+        public void ExcludeSteamSegments()
+        {
+            _onlyGenerateBloodSegments = true;
         }
 
         public void SelectBlueprint(int chosenSegment)
@@ -35,30 +44,81 @@ namespace Runtime.Scriptable_Objects
             SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 
-        public void GenerateHand()
+        public void DrawHand()
+        {
+            if (_queuedHands.Count > 0)
+            {
+                var hand = _queuedHands.First.Value;
+                _queuedHands.RemoveFirst();
+                DrawQueuedHand(hand);
+            }
+            else
+            {
+                GenerateHand();
+            }
+        }
+
+        private void GenerateHand()
         {
             SegmentsOptions = new List<Segment>();
-
-            for (int i = 0; i < _optionsCount; i++)
+            for (int i = 0; i < OptionsCount; i++)
             {
-                var segment = _pool.GetRandomSegment();
-                int failsafe = 0;
-
-                while (SegmentsOptions.Contains(segment))
-                {
-                    segment = _pool.GetRandomSegment();
-                    failsafe++;
-
-                    if (failsafe > 10)
-                    {
-                        Debug.LogError("Failsafe triggered, breaking loop");
-                        break;
-                    }
-                };
-
+                var segment = SpawnUtility.Get(_pool.GetRandomSegment, IsValid);
                 SegmentsOptions.Add(segment);
             }
+
             OnDrawHand?.Invoke();
+        }
+
+        public void DrawQueuedHand(List<Segment> segments)
+        {
+            if (segments.Count != 3)
+            {
+                Debug.LogError("Hand must have 3 segments");
+                return;
+            }
+
+            SegmentsOptions = segments;
+            OnDrawHand?.Invoke();
+        }
+
+        public void QueueHandsLast(List<List<Segment>> hands)
+        {
+            if (hands.Any(hand => hand.Count != 3))
+            {
+                Debug.LogError("All hands must have exactly 3 segments");
+                return;
+            }
+
+            foreach (var hand in hands)
+            {
+                _queuedHands.AddLast(hand);
+            }
+        }
+
+        public void QueueHandFirst(List<Segment> hand)
+        {
+            _queuedHands.AddFirst(hand);
+        }
+
+        public void EnableSteamSegments()
+        {
+            _onlyGenerateBloodSegments = false;
+        }
+
+        private bool IsValid(Segment segment)
+        {
+            if (SegmentsOptions.Contains(segment))
+            {
+                return false;
+            }
+
+            if (_onlyGenerateBloodSegments && segment.StaticSegmentData.IsSteam)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

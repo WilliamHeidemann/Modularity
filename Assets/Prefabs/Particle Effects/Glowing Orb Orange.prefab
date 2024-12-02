@@ -14608,7 +14608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 3233549392008a440aa5d58cada3cdfd, type: 2}
-  position: {x: 0, y: 0, z: 0}
+  Position: {x: 0, y: 0, z: 0}
 --- !u!1 &4368990839423898867
 GameObject:
   m_ObjectHideFlags: 0
@@ -24358,7 +24358,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

@@ -570,6 +570,7 @@ MonoBehaviour:
   - {fileID: 9036032926041637573}
   _hand: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
   _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
+  _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
 --- !u!114 &3735443164991434793
 MonoBehaviour:
   m_ObjectHideFlags: 0

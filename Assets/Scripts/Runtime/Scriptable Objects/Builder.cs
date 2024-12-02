@@ -17,6 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Currency _currency;
         [SerializeField] private Hand _hand;
         [SerializeField] private FlowControl _flowControl;
+        [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
 
 
@@ -68,17 +69,16 @@ namespace Runtime.Scriptable_Objects
             _structure.AddSegment(segmentData);
             SoundFXPlayer.Instance.Play(segmentData.StaticSegmentData.SoundFX);
 
-            _flowControl.AddSegment(connector);
-
             if (isInitial)
             {
                 return;
             }
             
-            _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
-            _flowControl.UpdateFlow();
             _questFactory.SegmentPlaced(segmentData);
-            _hand.GenerateHand();
+            _flowControl.UpdateFlow();
+            _autoSpawner.CheckForCollectables();
+            _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
+            _hand.DrawHand();
             _selection.Prefab = Option<Segment>.None;
         }
 

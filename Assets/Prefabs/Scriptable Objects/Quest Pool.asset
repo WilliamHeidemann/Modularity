@@ -13,31 +13,36 @@ MonoBehaviour:
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
   _camera:
-    <Description>k__BackingField: Perform all 3 control actions
-    <Explanation>k__BackingField: Controls to rotate, move and zoom
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Navigate the area with WASD, left-mouse drag and
+      zoom.
   _placeOneSegment:
-    <Description>k__BackingField: Select a pipe or vein from your hand and place
-      it.
-    <Explanation>k__BackingField: 'Select a piece from your hand by clicking on it.
-      Mouse over a valid position to preview the piece. (Left-click) to place it.
-      Remember that Mechanical pieces can only connect to other Mechanical pieces,
-      and Flesh can only connect to other Flesh. '
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Lengthen the organism by selecting a vein and placing
+      it on the beating heart.
     _countBlood: 1
     _countSteam: 1
   _rotateOneSegment:
-    <Description>k__BackingField: Rotate a connector
-    <Explanation>k__BackingField: Pieces can be rotated by pressing (R).
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Rotate a flesh piece by pressing (R).
   _activateXReceivers:
-    <Description>k__BackingField: Place a Brain or Mechanical Box and activate it
-    <Explanation>k__BackingField: 'To activate it, it must be connected at both of
-      its inputs to a Heart or a Furnace. Hybrids are activated the in the same way,
-      though they require energy from both a Heart and a Furnace.   '
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Fuel a brain by connecting both its veins to the
+      Heart.
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0
+  _connectSteamAndFlesh:
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Connect the furnace via metal pipes to a flesh
+      vein.
+  _collectX:
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Absorb x energy spheres to empower your amalgamation.
   _activateXReceiversSimultaneously:
-    <Description>k__BackingField: Activate 2 simultaneously
-    <Explanation>k__BackingField: 
+    <Description>k__BackingField: 
+    <Explanation>k__BackingField: Activate a combination of x furnaces and brains
+      simultaneously.
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 1
@@ -51,6 +56,3 @@ MonoBehaviour:
     <Explanation>k__BackingField: 
     _countBlood: 0
     _countSteam: 0
-  _collectX:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: 

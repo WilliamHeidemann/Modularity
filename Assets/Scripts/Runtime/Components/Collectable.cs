@@ -1,9 +1,12 @@
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Collectable : MonoBehaviour
+namespace Runtime.Components
 {
-    public StaticSegmentData StaticSegmentData;
-    public Vector3Int position;
-
+    public class Collectable : MonoBehaviour
+    {
+        public StaticSegmentData StaticSegmentData;
+        public Vector3Int Position;
+    }
 }

@@ -3,6 +3,8 @@ using System.Linq;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityUtils;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -12,40 +14,30 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Structure _structure;
         [SerializeField] private CurrencyPopup _currencyPopup;
-        [SerializeField] private List<Segment> _segments = new();
-        [SerializeField] private AutomaticSourceSpawning _sourceSpawner;
         [SerializeField] private QuestFactory _questFactory;
         private readonly List<SegmentData> _receiversActivatedLast = new();
 
-        public void AddSegment(Segment segment)
-        {
-            _segments.Add(segment);
-        }
-
-        public void Clear()
-        {
-            _segments.Clear();
-            _sourceSpawner.Clear();
-        }
+        public delegate void ProducerActivated(StaticSegmentData staticSegmentData);
+        public static event ProducerActivated OnProducerActivated;
+        public delegate void SourcesLinked(HashSet<SegmentData> sources);
+        public static event SourcesLinked OnSourcesLinkedCheck;
 
         public void UpdateFlow()
         {
-            CheckForCollectables();
             _receiversActivatedLast.Clear();
             foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
                 CheckForActivation(receiver);
             }
 
-            _questFactory.ReceiversActivated(_receiversActivatedLast);
-
-            if (_structure.Sources.Any() && AllSourcesLinked(_structure.Sources.Last()))
+            if (_receiversActivatedLast.Any())
             {
-                _sourceSpawner.SpawnRandomSource();
-                _sourceSpawner.SpawnRandomSource();
-                _sourceSpawner.SpawnRandomWhisp();
-                _sourceSpawner.SpawnRandomWhisp();
-                _sourceSpawner.SpawnRandomWhisp();
+                _questFactory.ReceiversActivated(_receiversActivatedLast);
+            }
+
+            if (AllSourcesLinked(_structure.Sources.First()))
+            {
+                _questFactory.BloodAndSteamConnected();
             }
         }
 
@@ -56,12 +48,14 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (_structure.GetValidConnections(receiver).Any(connector => !IsConnectedToSource(connector, receiver)))
+            if (_structure.GetValidConnections(receiver).Any(connector =>
+                    !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
             {
                 return;
             }
 
             ActivateSegment(receiver);
+            OnProducerActivated?.Invoke(receiver.StaticSegmentData);
         }
 
         private bool IsConnectedToSource(SegmentData segment, SegmentData receiver)
@@ -119,35 +113,20 @@ namespace Runtime.Scriptable_Objects
                 }
             }
 
-            return sources.Count() == _structure.Sources.Count();
+            OnSourcesLinkedCheck?.Invoke(sources);
+            return sources.Count == _structure.Sources.Count();
         }
-
 
         private void ActivateSegment(SegmentData segmentToActivate)
         {
-            var segmentOption = GetSegmentAtPosition(segmentToActivate.Position);
-            if (!segmentOption.IsSome(out var segment) || segmentToActivate.IsActivated)
+            if (segmentToActivate.IsActivated)
             {
                 return;
             }
 
             _receiversActivatedLast.Add(segmentToActivate);
             segmentToActivate.IsActivated = true;
-            _currencyPopup.Activate(segment.transform.position, segmentToActivate.StaticSegmentData);
-        }
-
-        private Option<Segment> GetSegmentAtPosition(Vector3Int position)
-            => _segments.FirstOption(segment => segment.transform.position.AsVector3Int() == position);
-
-        private void CheckForCollectables()
-        {
-            var positions = _sourceSpawner.Collectables
-                .Where(c => _segments.Any(s => s.transform.position.AsVector3Int() == c.position)).ToList();
-            if (!positions.Any()) return;
-            var position = positions.First().transform.position.AsVector3Int();
-            var collectable = _sourceSpawner.GetCollectable(position);
-            _currencyPopup.Activate(position, collectable.StaticSegmentData);
-            Destroy(collectable.gameObject);
+            _currencyPopup.Activate(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
         }
     }
 }

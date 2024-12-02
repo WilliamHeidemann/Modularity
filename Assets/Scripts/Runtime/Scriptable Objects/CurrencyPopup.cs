@@ -1,4 +1,3 @@
-using log4net.Util;
 using System;
 using Runtime.Components;
 using Runtime.Components.Utility;

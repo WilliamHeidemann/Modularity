@@ -10,7 +10,6 @@ namespace Runtime.Scriptable_Objects
     public class Structure : ScriptableObject
     {
         [SerializeField] private List<SegmentData> _graphData = new();
-        [SerializeField] private Currency _currency;
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
         public void Clear() => _graphData.Clear();
 
@@ -27,25 +26,21 @@ namespace Runtime.Scriptable_Objects
 
         private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
         {
-            if (!segmentData1.StaticSegmentData.IsConnector && !segmentData2.StaticSegmentData.IsConnector)
-            {
-                return false;
-            }
-
             var connectsDirectionally = CanConnectDirectionally(
-                segmentData1, segmentData2, 
-                out var connection1, 
+                segmentData1, segmentData2,
+                out var connection1,
                 out var connection2);
 
             if (!connectsDirectionally)
             {
                 return false;
             }
-            
+
             return connection1.Item2 == connection2.Item2;
         }
 
-        private bool CanConnectDirectionally(SegmentData segmentData1, SegmentData segmentData2, out (Vector3Int, ConnectionType) connection1, out (Vector3Int, ConnectionType) connection2)
+        private bool CanConnectDirectionally(SegmentData segmentData1, SegmentData segmentData2,
+            out (Vector3Int, ConnectionType) connection1, out (Vector3Int, ConnectionType) connection2)
         {
             var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
                 point.Item1 == segmentData2.Position);
@@ -84,7 +79,7 @@ namespace Runtime.Scriptable_Objects
                 .Where(position => !IsOpenPosition(position))
                 .Select(position => _graphData.First(data => data.Position == position));
         }
-        
+
         public IEnumerable<SegmentData> GetNeighborsFacingThis(SegmentData segmentData)
         {
             return Neighbors(segmentData)
@@ -93,31 +88,22 @@ namespace Runtime.Scriptable_Objects
 
         public bool IsValidPlacement(SegmentData segmentData)
         {
-            var connectsToWrongType = GetNeighborsFacingThis(segmentData).Any(neighbor => !CanConnect(segmentData, neighbor));
-            
+            var connectsToWrongType =
+                GetNeighborsFacingThis(segmentData).Any(neighbor => !CanConnect(segmentData, neighbor));
+
             if (connectsToWrongType)
             {
                 return false;
             }
-            
+
             var atLeastOneConnect = ConnectsToAtLeastOneNeighbor(segmentData);
 
-            if (!atLeastOneConnect)
-            {
-                return false;
-            }
-            
-            if (segmentData.StaticSegmentData.IsConnector)
-            {
-                return true;
-            }
-            
-            return GetNeighborsFacingThis(segmentData).All(link => link.StaticSegmentData.IsConnector);
+            return atLeastOneConnect;
         }
 
         public bool IsDirectionallyValidPlacement(SegmentData segmentData)
         {
-            var connectsToAtLeastOneNeighborDirectionally = 
+            var connectsToAtLeastOneNeighborDirectionally =
                 Neighbors(segmentData).Any(neighbor =>
                     CanConnectDirectionally(segmentData, neighbor, out var _, out var _));
 

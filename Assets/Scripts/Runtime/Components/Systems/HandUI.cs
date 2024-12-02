@@ -4,6 +4,7 @@ using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
 using UnityEditor;
 using UnityEngine;
+using Selection = Runtime.Scriptable_Objects.Selection;
 
 namespace Runtime.Components.Systems
 {
@@ -12,6 +13,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private Blueprint[] _blueprintOptions;
         [SerializeField] private Hand _hand;
         [SerializeField] private Currency _currency;
+        [SerializeField] private Selection _selection;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
@@ -26,9 +28,20 @@ namespace Runtime.Components.Systems
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                ReRoll();
+                _hand.SelectBlueprint(0);
+                ChangeGlow(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _hand.SelectBlueprint(1);
+                ChangeGlow(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                _hand.SelectBlueprint(2);
+                ChangeGlow(2);
             }
         }
 
@@ -37,7 +50,8 @@ namespace Runtime.Components.Systems
             if (_currency.HasAtLeast(1, 1))
             {
                 _currency.Pay(1, 1);
-                _hand.GenerateHand();
+                _hand.DrawHand();
+                _selection.Reset();
             }
         }
 

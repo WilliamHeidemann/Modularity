@@ -10,7 +10,6 @@ namespace Runtime.Scriptable_Objects
     public class StaticSegmentData : ScriptableObject
     {
         public ConnectionPoints ConnectionPoints;
-        public SegmentModel Model;
         public bool IsBlood;
         public bool IsSteam;
         public bool IsSource;
@@ -33,7 +32,7 @@ namespace Runtime.Scriptable_Objects
             false when IsBlood && IsSteam => SoundFX.MixConnectorPlacement,
             false when IsBlood => SoundFX.FleshConnectorPlacement,
             false when IsSteam => SoundFX.SteamConnectorPlacement,
-            _ => throw new ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException($"Segment is neither blood nor steam: {name}")
         };
     }
 }
