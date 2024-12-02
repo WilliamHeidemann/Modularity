@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 203683957859940905}
   - component: {fileID: 2458416990532299660}
   - component: {fileID: 3223422381655429275}
+  - component: {fileID: 4687105756972579838}
   m_Layer: 0
   m_Name: Hybrid Elbow Receiver
   m_TagString: Untagged
@@ -69,6 +70,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: a996d97351ec6454fac160f8b7688f90, type: 2}
   Preview: {fileID: 21300000, guid: 726e1d54fbc395a43bfb2b9a21924dad, type: 3}
+--- !u!95 &4687105756972579838
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7152264757727068947}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 36fe37742bae3754c85bfb2d33b64f75, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2164136553233039276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,9 +140,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1661674868191470006, guid: 47bdcb23a7a498d41a16a1a4a8b6f81c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 47bdcb23a7a498d41a16a1a4a8b6f81c, type: 3}
       propertyPath: m_Name
-      value: Hybrid Receiver Elbow
+      value: Blood Receiver
+      objectReference: {fileID: 0}
+    - target: {fileID: 5439375026865791287, guid: 47bdcb23a7a498d41a16a1a4a8b6f81c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
