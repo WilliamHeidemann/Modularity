@@ -36,6 +36,7 @@ namespace Runtime.Components.Systems
             _hand.Clear();
             _structure.Clear();
             _autoSpawner.Clear();
+            _scoreTracker.Clear();
             _currency.Initialize(_startingCurrency);
         }
 

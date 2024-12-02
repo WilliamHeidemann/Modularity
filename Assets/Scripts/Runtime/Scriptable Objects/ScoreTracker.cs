@@ -15,7 +15,6 @@ namespace Runtime.Scriptable_Objects
 
         private void OnEnable()
         {
-            ResetScore();
             FlowControl.OnProducerActivated += ProducerActivation;
             FlowControl.OnSourcesLinkedCheck += UpdateSourceScore;
             AutoSpawner.OnCollectedCollectables += Collected;
@@ -62,12 +61,12 @@ namespace Runtime.Scriptable_Objects
         {
             _energySpheresCollected += noCollected;
         }
-
-        private void ResetScore()
+        public void Clear()
         {
             _heartsConnected = 0;
             _furnacesConnected = 0;
             _brainsActivated = 0;
+            _hybridsActivated = 0;
             _enginesActivated = 0;
             _energySpheresCollected = 0;
         }

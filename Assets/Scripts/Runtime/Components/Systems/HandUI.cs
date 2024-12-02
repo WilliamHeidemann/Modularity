@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
@@ -67,6 +68,7 @@ namespace Runtime.Components.Systems
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
                 _blueprintOptions[i].GlowState(false);
             }
+            if (!CanAffordCard(segments)) Debug.Log("YOU RAN OUTTA MULAH!");
         }
 
         public void ChangeGlow(int chosenBlueprint)
@@ -82,6 +84,20 @@ namespace Runtime.Components.Systems
                     blueprint.GlowState(false);
                 }
             }
+        }
+        public bool CanAffordCard(List<Segment> segments)
+        {      
+            if (_currency.BloodAmount > 0 && _currency.SteamAmount > 0) return true;
+            foreach (var segment in segments)
+            {
+                if (segment.StaticSegmentData.BloodCost > 0 && segment.StaticSegmentData.SteamCost > 0)
+                {
+                    if(_currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1 && _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
+                }
+                else if (segment.StaticSegmentData.BloodCost > 0 && _currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1) return true;
+                else if (segment.StaticSegmentData.SteamCost > 0 && _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
+            }
+            return false;
         }
     }
 }
