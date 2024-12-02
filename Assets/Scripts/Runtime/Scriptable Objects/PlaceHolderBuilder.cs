@@ -124,13 +124,9 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            Debug.Log($"Index first: {_index}");
             _index += 1;
             _index %= _rotations.Count;
-            Debug.Log($"Index last: {_index}");
-            Debug.Log($"Rotation first: {segment.transform.rotation}");
             segment.transform.rotation = _rotations[_index];
-            Debug.Log($"Rotation last: {segment.transform.rotation}");
             _questFactory.SegmentRotated();
         }
 
