@@ -19,6 +19,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private ScoreTracker _scoreTracker;
         [SerializeField] private int _startingCurrency;
+        [SerializeField] private QuestController _questController;
 
         private void OnEnable()
         {
@@ -37,14 +38,7 @@ namespace Runtime.Components.Systems
             _structure.Clear();
             _autoSpawner.Clear();
             _currency.Initialize(_startingCurrency);
+            _questController.Initialize();
         }
-
-        // private void Update()
-        // {
-        //     if (Input.GetKeyDown(KeyCode.N))
-        //     {
-        //         _autoSpawner.SpawnCollectable();
-        //     }
-        // }
     }
 }

@@ -20,18 +20,13 @@ MonoBehaviour:
     DescriptionText: {fileID: 0}
   _placeFirstHeartSegment:
     <Description>k__BackingField: Connect Veins to the Heart (0/2)
-    <Explanation>k__BackingField: Veins transport Blood from the Hearts. Note the
-      cost of a piece in the upper left corner of their cards. Placing it reduces
-      your total resource amount of that type. (Left-click) on a card to select it
-      in your hand. Mouse over a valid position to preview the piece. Rotate it to
-      a desired orientation with (R). (Left-click) to place it.
+    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 0
   _placeFirstSteamSegment:
-    <Description>k__BackingField: Connect Pipes to a Furnace (0/2)
-    <Explanation>k__BackingField: Mechanical pieces can only connect to other Mechanical
-      pieces. Flesh can only connect to other Flesh.
+    <Description>k__BackingField: Connect Pipes to the Furnace (0/2)
+    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 0
     _countSteam: 1
@@ -40,11 +35,9 @@ MonoBehaviour:
     <Explanation>k__BackingField: Rotate a flesh piece by pressing (R).
     DescriptionText: {fileID: 0}
   _activateXReceivers:
-    <Description>k__BackingField: Activate a Brain or Engine
-    <Explanation>k__BackingField: "Brains and Engines produce more resources of their
-      type, but only when they are activated. They activate when connected at both
-      of their inputs to a Heart or Furnace, respectively.  If don\u2019t have the
-      pieces you need, refresh your hand with the refresh button."
+    <Description>k__BackingField: Activate a Brain or Engine. Brains and Engines
+      activate when part of a closed circuit.
+    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
