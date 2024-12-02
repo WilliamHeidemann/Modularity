@@ -126,7 +126,7 @@ namespace Runtime.Scriptable_Objects
 
             _receiversActivatedLast.Add(segmentToActivate);
             segmentToActivate.IsActivated = true;
-            _currencyPopup.Activate(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
+            _currencyPopup.GainCurrency(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
         }
     }
 }
