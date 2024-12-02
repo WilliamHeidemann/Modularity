@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5315412599579519802}
   - component: {fileID: 8912865105592956661}
   - component: {fileID: 4460682617374712009}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: World Space Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
