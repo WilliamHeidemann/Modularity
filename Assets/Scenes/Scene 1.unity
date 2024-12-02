@@ -9085,6 +9085,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5417571450632699085, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476007291392720019, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 319
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486694023737831687, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: m_Cameras.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9209876859269089322, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
       propertyPath: m_Name
       value: Main Camera

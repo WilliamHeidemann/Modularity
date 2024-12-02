@@ -15,6 +15,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
         [SerializeField] private Currency _currency;
+        [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private Hand _hand;
         [SerializeField] private FlowControl _flowControl;
         [SerializeField] private AutoSpawner _autoSpawner;
@@ -78,6 +79,7 @@ namespace Runtime.Scriptable_Objects
             _flowControl.UpdateFlow();
             _autoSpawner.CheckForCollectables();
             _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
+            _currencyPopup.SpendCurrency(position.AsVector3Int(), segmentData.StaticSegmentData);
             _hand.DrawHand();
             _selection.Prefab = Option<Segment>.None;
         }

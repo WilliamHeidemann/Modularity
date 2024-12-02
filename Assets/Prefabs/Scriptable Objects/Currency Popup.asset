@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Currency Popup
   m_EditorClassIdentifier: 
   _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
-  _displayPopupPrefab: {fileID: 611213822823737394, guid: 6b318a6f4494fc44e8cbcfcd5135c4af, type: 3}
+  _displayPopupPrefab: {fileID: 4577449526745561560, guid: 6b318a6f4494fc44e8cbcfcd5135c4af, type: 3}
+  _WorldSpaceCanvas: {fileID: 5094969953790309964, guid: db84b5af2e7724c48bcbee646e4a3034, type: 3}
