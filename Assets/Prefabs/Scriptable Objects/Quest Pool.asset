@@ -13,46 +13,70 @@ MonoBehaviour:
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
   _camera:
-    <Description>k__BackingField: Rotate, Pan, and Zoom the camera
-    <Explanation>k__BackingField: Navigate the area with WASD, left-mouse drag and
-      zoom.
-  _placeOneSegment:
-    <Description>k__BackingField: Connect a Vein to the Heart
-    <Explanation>k__BackingField: Lengthen the organism by selecting a vein and placing
-      it on the beating heart.
+    <Description>k__BackingField: Rotate, Pan, and Zoom your view
+    <Explanation>k__BackingField: Use WASD to rotate your view. Left-click-dragging
+      moves your view, and scrolling zooms in and out. You can reset your view by
+      clicking the View Reset button in the bottom right corner of the screen.
+    DescriptionText: {fileID: 0}
+  _placeFirstHeartSegment:
+    <Description>k__BackingField: Connect Veins to the Heart (0/2)
+    <Explanation>k__BackingField: Veins transport Blood from the Hearts. Note the
+      cost of a piece in the upper left corner of their cards. Placing it reduces
+      your total resource amount of that type. (Left-click) on a card to select it
+      in your hand. Mouse over a valid position to preview the piece. Rotate it to
+      a desired orientation with (R). (Left-click) to place it.
+    DescriptionText: {fileID: 0}
     _countBlood: 1
+    _countSteam: 0
+  _placeFirstSteamSegment:
+    <Description>k__BackingField: Connect Pipes to a Furnace (0/2)
+    <Explanation>k__BackingField: Mechanical pieces can only connect to other Mechanical
+      pieces. Flesh can only connect to other Flesh.
+    DescriptionText: {fileID: 0}
+    _countBlood: 0
     _countSteam: 1
   _rotateOneSegment:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: Rotate a flesh piece by pressing (R).
+    DescriptionText: {fileID: 0}
   _activateXReceivers:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Fuel a brain by connecting both its veins to the
-      Heart.
+    <Description>k__BackingField: Activate a Brain or Engine
+    <Explanation>k__BackingField: "Brains and Engines produce more resources of their
+      type, but only when they are activated. They activate when connected at both
+      of their inputs to a Heart or Furnace, respectively.  If don\u2019t have the
+      pieces you need, refresh your hand with the refresh button."
+    DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0
   _connectSteamAndFlesh:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Connect the furnace via metal pipes to a flesh
-      vein.
+    <Description>k__BackingField: Connect a Heart and Furnace together
+    <Explanation>k__BackingField: Hybrid pieces allow you transform steam into blood
+      and vice-versa, so you can connect across the systems. The hybrid brain also
+      allows you to do the same, while granting you both steam and blood when activated.
+      Note that these pieces appear more rarely, and cost both currencies to place.
+    DescriptionText: {fileID: 0}
   _collectX:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: Absorb x energy spheres to empower your amalgamation.
+    DescriptionText: {fileID: 0}
   _activateXReceiversSimultaneously:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: Activate a combination of x furnaces and brains
       simultaneously.
+    DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 1
   _reachXBloodResources:
     <Description>k__BackingField: Reach 50 blood
     <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 0
   _reachXSteamResources:
     <Description>k__BackingField: Reach 50 steam
     <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
     _countBlood: 0
     _countSteam: 0

@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using Runtime.Scriptable_Objects;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Runtime.Components
 {
@@ -15,6 +12,7 @@ namespace Runtime.Components
         [SerializeField] private TextMeshProUGUI _questExplanation;
         [SerializeField] private Quest _quest;
         [SerializeField] private GameObject _cameraControlImages;
+        [SerializeField] private GameObject _cameraControlImages2;
         [SerializeField] private GameObject _explanationContainer;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private GameObject _handUI;
@@ -37,9 +35,10 @@ namespace Runtime.Components
                 case 0:
                     _quest = _questFactory.CameraQuest();
                     _cameraControlImages.SetActive(true);
+                    _quest.OnComplete += () => _cameraControlImages2.SetActive(false);
                     break;
                 case 1:
-                    _quest = _questFactory.PlaceOneSegmentQuest();
+                    _quest = _questFactory.PlaceFirstBloodSegmentQuest();
                     _autoSpawner.SpawnBloodSource();
                     _cameraControlImages.SetActive(false);
                     _handUI.SetActive(true);
@@ -49,18 +48,18 @@ namespace Runtime.Components
                     _hand.DrawHand();
                     break;
                 case 2:
-                    _quest = _questFactory.RotateOneSegmentQuest();
-                    break;
-                case 3:
-                    _quest = _questFactory.ActivateXReceiversQuest(1);
-                    _hand.QueueHandFirst(_predefinedHands.Brains);
-                    break;
-                case 4:
-                    _quest = _questFactory.ConnectSteamAndFleshQuest();
+                    _quest = _questFactory.PlaceFirstSteamSegmentQuest();
+                    _autoSpawner.SpawnSteamSource();
                     _hand.EnableSteamSegments();
                     _hand.QueueHandsLast(_predefinedHands.SteamHands);
                     _hand.DrawHand();
-                    _autoSpawner.SpawnSteamSource();
+                    break;
+                case 3:
+                    _quest = _questFactory.ConnectSteamAndFleshQuest();
+                    break;
+                case 4:
+                    _quest = _questFactory.ActivateXReceiversQuest(1);
+                    _hand.QueueHandFirst(_predefinedHands.Producers);
                     break;
                 case 5:
                     _quest = _questFactory.CollectXQuest(2);
@@ -68,23 +67,28 @@ namespace Runtime.Components
                     _autoSpawner.SpawnCollectable();
                     _autoSpawner.SpawnCollectable();
                     break;
-                case 6:
-                    _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(2);
-                    break;
-                case 7:
-                    _quest = _questFactory.ReachXBloodResourcesQuest(50);
-                    break;
-                case 8:
-                    _quest = _questFactory.ReachXSteamResourcesQuest(50);
-                    break;
-                case 9:
-                    _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
-                    break;
                 default:
-                    _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
+                    Debug.Log("No more quests");
                     break;
+                // END OF TUTORIAL
+                // case 6:
+                //     _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(2);
+                //     break;
+                // case 7:
+                //     _quest = _questFactory.ReachXBloodResourcesQuest(50);
+                //     break;
+                // case 8:
+                //     _quest = _questFactory.ReachXSteamResourcesQuest(50);
+                //     break;
+                // case 9:
+                //     _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
+                //     break;
+                // default:
+                //     _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
+                //     break;
             }
-            
+
+            _quest.DescriptionText = _questDescription;
             _quest.OnComplete += NextQuest;
             _explanationContainer.SetActive(_quest.Explanation != string.Empty);
             _questDescription.text = $"{_quest.Description}";
