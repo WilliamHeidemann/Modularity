@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
   _camera:
-    <Description>k__BackingField: 
+    <Description>k__BackingField: Rotate, Pan, and Zoom the camera
     <Explanation>k__BackingField: Navigate the area with WASD, left-mouse drag and
       zoom.
   _placeOneSegment:
-    <Description>k__BackingField: 
+    <Description>k__BackingField: Connect a Vein to the Heart
     <Explanation>k__BackingField: Lengthen the organism by selecting a vein and placing
       it on the beating heart.
     _countBlood: 1
