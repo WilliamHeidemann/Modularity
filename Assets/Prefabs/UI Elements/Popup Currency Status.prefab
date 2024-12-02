@@ -538,7 +538,7 @@ MonoBehaviour:
   isCurrencyGained: 0
   bloodText: {fileID: 2861078849272069561}
   steamText: {fileID: 1507912875307672770}
-  AnimationTime: 2
+  AnimationTime: 1.5
 --- !u!114 &2368725490118553376
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -53,18 +53,26 @@ namespace Runtime.Components
 
         private void PlayAnimation(TMP_Text[] textToDisplay)
         {
+            var textSequence = DOTween.Sequence();
+
             foreach (var text in textToDisplay)
             {
-                var fade = text.DOFade(0, AnimationTime * 3f);
-                text.GetComponentInChildren<Image>().DOFade(0, AnimationTime * 3f);
+                var textPause = text.DOFade(1, AnimationTime * 0.75f);
+                var textFade = text.DOFade(0, AnimationTime * 1.5f);
+                var imageFade = text.GetComponentInChildren<Image>().DOFade(0, AnimationTime * 1.5f);
+                textSequence.Append(textPause);
+                textSequence.Append(textFade);
+                textSequence.Join(imageFade);
             }
 
             var startingScale = transform.localScale;
             var scaleUp = transform.DOScale(startingScale * 1.5f, AnimationTime * 0.25f).SetEase(Ease.InQuad);
-            var scaleDown = transform.DOScale(startingScale * 0.5f, AnimationTime * 3f).SetEase(Ease.OutQuad);
+            var pauseScale = transform.DOScale(startingScale * 1.5f, AnimationTime * 0.5f).SetEase(Ease.InQuad);
+            var scaleDown = transform.DOScale(startingScale * 0.5f, AnimationTime * 1.5f).SetEase(Ease.OutQuad);
 
             var sequence = DOTween.Sequence();
             sequence.Append(scaleUp);
+            sequence.Append(pauseScale);
             sequence.Append(scaleDown);
             sequence.OnComplete(() => Destroy(this.gameObject));
         }
