@@ -17,6 +17,11 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private QuestFactory _questFactory;
         private readonly List<SegmentData> _receiversActivatedLast = new();
 
+        public delegate void ProducerActivated(StaticSegmentData staticSegmentData);
+        public static event ProducerActivated OnProducerActivated;
+        public delegate void SourcesLinked(HashSet<SegmentData> sources);
+        public static event SourcesLinked OnSourcesLinkedCheck;
+
         public void UpdateFlow()
         {
             _receiversActivatedLast.Clear();
@@ -50,6 +55,7 @@ namespace Runtime.Scriptable_Objects
             }
 
             ActivateSegment(receiver);
+            OnProducerActivated?.Invoke(receiver.StaticSegmentData);
         }
 
         private bool IsConnectedToSource(SegmentData segment, SegmentData receiver)
@@ -107,6 +113,7 @@ namespace Runtime.Scriptable_Objects
                 }
             }
 
+            OnSourcesLinkedCheck?.Invoke(sources);
             return sources.Count == _structure.Sources.Count();
         }
 
