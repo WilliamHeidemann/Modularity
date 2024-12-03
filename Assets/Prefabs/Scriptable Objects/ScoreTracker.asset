@@ -21,11 +21,11 @@ MonoBehaviour:
   _hybridsActivatedValue: 100
   _energySpheresCollectedValue: 50
   _pipeValue: 10
-  _inactiveReceiverValue: 0
-  _currencyValue: 1000
-  _heartsConnected: 1
-  _furnacesConnected: 0
+  _connectedReceiverValue: 0
+  _currencyValue: 100
+  _heartsConnected: 2
+  _furnacesConnected: 1
   _brainsActivated: 1
-  _enginesActivated: 0
-  _hybridsActivated: 0
-  _energySpheresCollected: 0
+  _enginesActivated: 4
+  _hybridsActivated: 4
+  _energySpheresCollected: 2
