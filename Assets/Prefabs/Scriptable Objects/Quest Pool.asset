@@ -25,7 +25,7 @@ MonoBehaviour:
     _countBlood: 1
     _countSteam: 0
   _placeFirstSteamSegment:
-    <Description>k__BackingField: Connect Pipes to the Furnace (0/2)
+    <Description>k__BackingField: Connect Metal Pipes to the Furnace (0/2)
     <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 0
@@ -43,15 +43,13 @@ MonoBehaviour:
     _countSteam: 1
     _mustBeSimultaneous: 0
   _connectSteamAndFlesh:
-    <Description>k__BackingField: Connect a Heart and Furnace together
-    <Explanation>k__BackingField: Hybrid pieces allow you transform steam into blood
-      and vice-versa, so you can connect across the systems. The hybrid brain also
-      allows you to do the same, while granting you both steam and blood when activated.
-      Note that these pieces appear more rarely, and cost both currencies to place.
+    <Description>k__BackingField: Connect a Heart and Furnace together.
+    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
   _collectX:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Absorb x energy spheres to empower your amalgamation.
+    <Description>k__BackingField: Absorb energy spheres to empower your amalgamation.
+      (0/2)
+    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
   _activateXReceiversSimultaneously:
     <Description>k__BackingField: 

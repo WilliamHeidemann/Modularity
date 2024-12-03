@@ -43,12 +43,12 @@ namespace Runtime.Components
                     _hand.DrawHand();
                     break;
                 case 2:
-                    _quest = _questFactory.ActivateXReceiversQuest(1);
-                    _hand.QueueHandFirst(_predefinedHands.Producers);
-                    break;
-                case 3:
                     _quest = _questFactory.ConnectSteamAndFleshQuest();
                     _hand.QueueHandFirst(_predefinedHands.Hybrids);
+                    break;
+                case 3:
+                    _quest = _questFactory.ActivateXReceiversQuest(1);
+                    _hand.QueueHandFirst(_predefinedHands.Producers);
                     break;
                 case 4:
                     _quest = _questFactory.CollectXQuest(2);
