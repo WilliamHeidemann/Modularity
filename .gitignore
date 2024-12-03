@@ -76,7 +76,9 @@ crashlytics-build.properties
 .idea/
 
 # Fonts
-/[Aa]ssets/[Ff]onts/*
+/Assets/Fonts.meta
+/Assets/Fonts/*
+
 
 # Muse
 /ProjectSettings/Packages/com.unity.muse*
