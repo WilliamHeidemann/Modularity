@@ -78,8 +78,7 @@ crashlytics-build.properties
 # Fonts
 /Assets/Fonts.meta
 /Assets/Fonts/*
-/Assets/Fonts/Text Blood Format.asset
-Assets/Fonts/Text Blood Format.asset
+
 
 # Muse
 /ProjectSettings/Packages/com.unity.muse*
