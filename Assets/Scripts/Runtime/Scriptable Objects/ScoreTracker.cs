@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Runtime.Components.Segments;
 using UnityEngine;
@@ -11,6 +13,7 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Currency _currency;
         [SerializeField] private Structure _structure;
+        [SerializeField] private int _highScore;
 
         [Header("Score Value")]
         [SerializeField] private int _heartsConnectedValue;
@@ -31,12 +34,15 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private int _enginesActivated;
         [SerializeField] private int _hybridsActivated;
         [SerializeField] private int _energySpheresCollected;
+        private string _highScoreSavePath;
 
         private void OnEnable()
         {
             FlowControl.OnProducerActivated += ProducerActivation;
             FlowControl.OnSourcesLinkedCheck += UpdateSourceScore;
             AutoSpawner.OnCollectedCollectables += Collected;
+            _highScoreSavePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "Saves" + Path.AltDirectorySeparatorChar;
+            Debug.Log(_highScoreSavePath);
         }
 
         private void OnDisable()
@@ -53,6 +59,7 @@ public void Clear()
             _hybridsActivated = 0;
             _enginesActivated = 0;
             _energySpheresCollected = 0;
+            LoadHighScore();
         }
         private void ProducerActivation(StaticSegmentData staticSegmentData)
         {
@@ -94,6 +101,12 @@ public void Clear()
             if (CanAffordCard(segments, rerollCostBlood, rerollCostSteam)) return;
             //IF the hand cannot be afforded put end game call here
             var score = CalculateScore();
+            if (score > _highScore)
+            {
+                Debug.Log("new HighScore! " + score);
+                SaveHighScore(score);
+                LoadHighScore();
+            }
             Debug.Log(score);
         }
         private bool CanAffordCard(List<Segment> segments, int rerollCostBlood, int rerollCostSteam)
@@ -168,6 +181,39 @@ public void Clear()
                 }
             }
             return connectedSegments;
+        }
+
+        private void SaveHighScore(int score)
+        {
+            string json = score.ToString();
+            if (!Directory.Exists(_highScoreSavePath)) Directory.CreateDirectory(_highScoreSavePath);
+            using(StreamWriter writer = new StreamWriter(_highScoreSavePath + "SavedScore.json"))
+            {
+                writer.Write(json);
+            }
+        }
+        private void LoadHighScore()
+        {
+            string json = string.Empty;
+            Debug.Log(Application.persistentDataPath);
+
+            if (!File.Exists(_highScoreSavePath + "SavedScore.json")) _highScore = 0;
+            else 
+            {
+                using(StreamReader reader = new StreamReader(_highScoreSavePath + "SavedScore.json"))
+                {
+                    json = reader.ReadToEnd();
+                }
+                _highScore = int.Parse(json);
+            }
+        }
+        private void ResetHighScore()
+        {
+            if (File.Exists(_highScoreSavePath + "SavedScore.json"))
+            {   
+                File.Delete(_highScoreSavePath + "SavedScore.json");
+            }
+            LoadHighScore();
         }
     }
 }
