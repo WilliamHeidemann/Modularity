@@ -50,6 +50,18 @@ namespace Runtime.Components
                 case 4:
                     _quest = _questFactory.CollectXQuest(2);
                     break;
+                default:
+                    break;
+            }
+
+            if (_questIndex > 4)
+            {
+                _quest = (_questIndex % 3) switch
+                {
+                    0 => _questFactory.ActivateXReceiversSimultaneouslyQuest(3),
+                    1 => _questFactory.CollectXQuest(3),
+                    _ => _questFactory.ConnectAllSteamAndFleshQuest(),
+                };
             }
 
             _quest.DescriptionText = _questDescription;
