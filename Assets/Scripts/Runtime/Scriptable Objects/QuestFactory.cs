@@ -9,7 +9,8 @@ namespace Runtime.Scriptable_Objects
     public class QuestFactory : ScriptableObject
     {
         [SerializeField] private Quest _camera;
-        [SerializeField] private SegmentQuest _placeOneSegment;
+        [SerializeField] private SegmentQuest _placeFirstHeartSegment;
+        [SerializeField] private SegmentQuest _placeFirstSteamSegment;
         [SerializeField] private Quest _rotateOneSegment;
         [SerializeField] private ReceiverQuest _activateXReceivers;
         [SerializeField] private Quest _connectSteamAndFlesh;
@@ -26,13 +27,23 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
 
-        public SegmentQuest PlaceOneSegmentQuest()
+        public SegmentQuest PlaceFirstBloodSegmentQuest()
         {
-            var quest = _placeOneSegment.Build(1) as SegmentQuest;
+            var quest = _placeFirstHeartSegment.Build(2) as SegmentQuest;
             OnSegmentPlaced += quest!.Progress;
             quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;
         }
+        
+        public SegmentQuest PlaceFirstSteamSegmentQuest()
+        {
+            var quest = _placeFirstSteamSegment.Build(2) as SegmentQuest;
+            OnSegmentPlaced += quest!.Progress;
+            quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
+            return quest;
+        }
+        
+        
 
         public Quest RotateOneSegmentQuest()
         {
