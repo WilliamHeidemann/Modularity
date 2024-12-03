@@ -1,12 +1,5 @@
-using System;
-using DG.Tweening;
-using Runtime.Components.Segments;
-using Runtime.Components.Utility;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityUtils;
-using UtilityToolkit.Runtime;
 
 namespace Runtime.Components.Systems
 {
@@ -33,7 +26,6 @@ namespace Runtime.Components.Systems
 
         private void Initialize()
         {
-            DOTween.Init();
             _hand.Clear();
             _structure.Clear();
             _autoSpawner.Clear();
