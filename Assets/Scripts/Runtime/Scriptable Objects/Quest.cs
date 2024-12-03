@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TMPro;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -18,6 +19,7 @@ namespace Runtime.Scriptable_Objects
         public string Explanation { get; protected set; }
 
         public Action OnComplete;
+        public TextMeshProUGUI DescriptionText;
 
         protected Quest(string description, string explanation)
         {
@@ -42,10 +44,21 @@ namespace Runtime.Scriptable_Objects
         protected Quest(string description, string explanation, int target) : base(description, explanation)
         {
             Target = target;
+            Description = Regex.Replace(Description, @"/\d", $"/{target}");
             Explanation = Regex.Replace(Explanation, @"\b x \b", $" {target} ");
         }
 
         public virtual Quest<T> Build(int target) => new(Description, Explanation, target);
+
+        protected void UpdateDescription()
+        {
+            Description = Regex.Replace(Description, @"\(\d+/2\)", $"({Count}/2)");
+            if (Count >= Target)
+            {
+                return;
+            }
+            DescriptionText.text = Description;
+        }
 
         public virtual void Progress(T t)
         {
@@ -62,6 +75,8 @@ namespace Runtime.Scriptable_Objects
             {
                 Complete();
             }
+
+            UpdateDescription();
         }
     }
 
@@ -97,6 +112,8 @@ namespace Runtime.Scriptable_Objects
             {
                 Complete();
             }
+
+            UpdateDescription();
         }
     }
 
@@ -145,6 +162,8 @@ namespace Runtime.Scriptable_Objects
             {
                 Count = 0;
             }
+
+            UpdateDescription();
         }
     }
 
@@ -172,6 +191,8 @@ namespace Runtime.Scriptable_Objects
             {
                 Complete();
             }
+            
+            UpdateDescription();
         }
     }
 }

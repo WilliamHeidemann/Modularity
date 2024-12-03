@@ -26,18 +26,13 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private float DistanceConstant;
         [SerializeField] private Collectable _collectablePrefab;
         private readonly List<Collectable> _collectables = new();
-        private bool _shouldSpawnCollectables;
         public delegate void CollectedCollectables(int collectedAmount);
         public static event CollectedCollectables OnCollectedCollectables;
 
         public void Clear()
         {
             _collectables.Clear();
-            _shouldSpawnCollectables = false;
         }
-
-        public void StartSpawningCollectables() => _shouldSpawnCollectables = true;
-
 
         public void CheckForCollectables()
         {
@@ -51,26 +46,6 @@ namespace Runtime.Scriptable_Objects
             collectables.ForEach(c => _currencyPopup.GainCurrency(c.Position, c.StaticSegmentData));
             collectables.ForEach(c => _collectables.Remove(c));
             collectables.ForEach(c => Destroy(c.gameObject));
-
-            CheckToSpawnCollectables();
-        }
-
-        private void CheckToSpawnCollectables()
-        {
-            if (!_shouldSpawnCollectables)
-            {
-                return;
-            }
-
-            if (_collectables.Any())
-            {
-                return;
-            }
-
-            SpawnCollectable();
-            SpawnCollectable();
-            SpawnBloodSource();
-            SpawnSteamSource();
         }
 
         public void SpawnBloodSource() => SpawnRandomSource(_bloodSource);

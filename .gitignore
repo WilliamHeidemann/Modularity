@@ -74,3 +74,11 @@ crashlytics-build.properties
 
 # JetBrains
 .idea/
+
+# Fonts
+/Assets/Fonts.meta
+/Assets/Fonts/*
+
+
+# Muse
+/ProjectSettings/Packages/com.unity.muse*

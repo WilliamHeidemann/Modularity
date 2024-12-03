@@ -12,47 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed30f24acabe4d1b8b5dc6d90db57930, type: 3}
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
-  _camera:
-    <Description>k__BackingField: Rotate, Pan, and Zoom the camera
-    <Explanation>k__BackingField: Navigate the area with WASD, left-mouse drag and
-      zoom.
-  _placeOneSegment:
-    <Description>k__BackingField: Connect a Vein to the Heart
-    <Explanation>k__BackingField: Lengthen the organism by selecting a vein and placing
-      it on the beating heart.
+  _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
+  _placeFirstHeartSegment:
+    <Description>k__BackingField: Connect Veins to the Heart (0/2)
+    <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
     _countBlood: 1
+    _countSteam: 0
+  _placeFirstSteamSegment:
+    <Description>k__BackingField: Connect Metal Pipes to the Furnace (0/2)
+    <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
+    _countBlood: 0
     _countSteam: 1
-  _rotateOneSegment:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Rotate a flesh piece by pressing (R).
   _activateXReceivers:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Fuel a brain by connecting both its veins to the
-      Heart.
+    <Description>k__BackingField: Activate a Brain or Engine. Brains and Engines
+      activate when part of a closed circuit.
+    <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0
   _connectSteamAndFlesh:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Connect the furnace via metal pipes to a flesh
-      vein.
+    <Description>k__BackingField: Connect a Heart and Furnace together.
+    <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
   _collectX:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Absorb x energy spheres to empower your amalgamation.
+    <Description>k__BackingField: Absorb energy spheres to empower your amalgamation.
+      (0/2)
+    <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
   _activateXReceiversSimultaneously:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Activate a combination of x furnaces and brains
+    <Description>k__BackingField: Activate a combination of x furnaces and brains
       simultaneously.
+    <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 1
-  _reachXBloodResources:
-    <Description>k__BackingField: Reach 50 blood
-    <Explanation>k__BackingField: 
-    _countBlood: 1
-    _countSteam: 0
-  _reachXSteamResources:
-    <Description>k__BackingField: Reach 50 steam
-    <Explanation>k__BackingField: 
-    _countBlood: 0
-    _countSteam: 0

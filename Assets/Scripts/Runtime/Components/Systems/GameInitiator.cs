@@ -1,12 +1,5 @@
-using System;
-using DG.Tweening;
-using Runtime.Components.Segments;
-using Runtime.Components.Utility;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityUtils;
-using UtilityToolkit.Runtime;
 
 namespace Runtime.Components.Systems
 {
@@ -19,6 +12,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private ScoreTracker _scoreTracker;
         [SerializeField] private int _startingCurrency;
+        [SerializeField] private QuestController _questController;
 
         private void OnEnable()
         {
@@ -32,19 +26,12 @@ namespace Runtime.Components.Systems
 
         private void Initialize()
         {
-            DOTween.Init();
             _hand.Clear();
             _structure.Clear();
             _autoSpawner.Clear();
+            _scoreTracker.Clear();
             _currency.Initialize(_startingCurrency);
+            _questController.Initialize();
         }
-
-        // private void Update()
-        // {
-        //     if (Input.GetKeyDown(KeyCode.N))
-        //     {
-        //         _autoSpawner.SpawnCollectable();
-        //     }
-        // }
     }
 }
