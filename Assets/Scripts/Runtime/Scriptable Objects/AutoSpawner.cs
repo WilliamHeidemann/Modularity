@@ -77,7 +77,7 @@ namespace Runtime.Scriptable_Objects
         public void SpawnCollectable()
         {
             var spawnPosition = SpawnUtility.Get(GetSpawnPosition, _structure.IsValidSourcePlacement);
-            var collectable = Instantiate(_collectablePrefab, spawnPosition, GetRandomRotation());
+            var collectable = Instantiate(_collectablePrefab, spawnPosition, Quaternion.identity);
             collectable.Position = spawnPosition;
             _collectables.Add(collectable);
         }
