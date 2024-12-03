@@ -32,7 +32,7 @@ namespace Runtime.Backend
             return spherePosition.AsVector3Int();
         }
 
-        public static Vector3Int GetWeightedSpawnPosition(List<Vector3Int> positions, float distanceConstant)
+        public static Vector3Int GetWeightedSpawnPosition(List<Vector3Int> positions, float distanceConstant, float distancePercentage)
         {
             var minX = positions.Min(position => position.x);
             var maxX = positions.Max(position => position.x);
@@ -50,12 +50,15 @@ namespace Runtime.Backend
             var maxDistY = Math.Max(maxY, Math.Abs(minY));
             var maxDistZ = Math.Max(maxZ, Math.Abs(minZ));
 
-            var averageDistToRelativeCenter = (
-                (maxDistX - xCenter) +
-                (maxDistY - yCenter) +
-                (maxDistZ - zCenter)) / 3;
+            var averageDistToRelativeCenter = new Vector3(maxDistX - xCenter,
+                                                            maxDistY - yCenter,
+                                                            maxDistZ - zCenter);
 
-            var radius = averageDistToRelativeCenter + distanceConstant;
+
+            Debug.Log(offset);
+            Debug.Log(averageDistToRelativeCenter);
+            var radius = Vector3.Distance(averageDistToRelativeCenter, offset) * (1 + distancePercentage/100) + distanceConstant;
+            Debug.Log(radius);
 
             var unitSpherePosition = Random.onUnitSphere;
             unitSpherePosition.y = Mathf.Abs(unitSpherePosition.y);

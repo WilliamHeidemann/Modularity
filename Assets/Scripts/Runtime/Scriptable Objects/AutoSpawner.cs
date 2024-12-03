@@ -23,7 +23,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
-        [SerializeField] private float DistanceConstant;
+        [SerializeField] private float _distanceConstant;
+        [SerializeField] private float _distancePercentage;
         [SerializeField] private Collectable _collectablePrefab;
         private readonly List<Collectable> _collectables = new();
         public delegate void CollectedCollectables(int collectedAmount);
@@ -56,7 +57,7 @@ namespace Runtime.Scriptable_Objects
             var spawnPosition = SpawnUtility.Get(GetSpawnPosition, _structure.IsValidSourcePlacement);
             _selection.Reset();
             _selection.Prefab = Option<Segment>.Some(source);
-            _builder.Build(spawnPosition, Quaternion.identity, true);
+            _builder.Build(spawnPosition, GetRandomRotation(), true);
             _selection.Reset();
         }
 
@@ -68,13 +69,15 @@ namespace Runtime.Scriptable_Objects
             }
 
             var positions = _structure.Segments.Select(segment => segment.Position).ToList();
-            return SpawnUtility.GetWeightedSpawnPosition(positions, DistanceConstant);
+            return SpawnUtility.GetWeightedSpawnPosition(positions, _distanceConstant, _distancePercentage);
         }
+
+        private Quaternion GetRandomRotation() => RotationUtility.AllRotations().RandomElement();
 
         public void SpawnCollectable()
         {
             var spawnPosition = SpawnUtility.Get(GetSpawnPosition, _structure.IsValidSourcePlacement);
-            var collectable = Instantiate(_collectablePrefab, spawnPosition, Quaternion.identity);
+            var collectable = Instantiate(_collectablePrefab, spawnPosition, GetRandomRotation());
             collectable.Position = spawnPosition;
             _collectables.Add(collectable);
         }
