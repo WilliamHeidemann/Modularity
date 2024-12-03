@@ -12,3 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a746e69871a6545b3e1b481de0e754, type: 3}
   m_Name: ScoreTracker
   m_EditorClassIdentifier: 
+  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
+  _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+  _heartsConnectedValue: 500
+  _furnacesConnectedValue: 500
+  _brainsActivatedValue: 200
+  _enginesActivatedValue: 200
+  _hybridsActivatedValue: 100
+  _energySpheresCollectedValue: 50
+  _pipeValue: 10
+  _inactiveReceiverValue: 0
+  _currencyValue: 1000
+  _heartsConnected: 1
+  _furnacesConnected: 0
+  _brainsActivated: 1
+  _enginesActivated: 0
+  _hybridsActivated: 0
+  _energySpheresCollected: 0

@@ -15,6 +15,9 @@ namespace Runtime.Components.Systems
         [SerializeField] private Hand _hand;
         [SerializeField] private Currency _currency;
         [SerializeField] private Selection _selection;
+        [SerializeField] private int _rerollCostBlood;
+        [SerializeField] private int _rerollCostSteam;
+        [SerializeField] private ScoreTracker _scoreTracker;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
@@ -48,9 +51,9 @@ namespace Runtime.Components.Systems
 
         public void ReRoll()
         {
-            if (_currency.HasAtLeast(1, 1))
+            if (_currency.HasAtLeast(_rerollCostBlood, _rerollCostSteam))
             {
-                _currency.Pay(1, 1);
+                _currency.Pay(_rerollCostBlood, _rerollCostSteam);
                 _hand.DrawHand();
                 _selection.Reset();
             }
@@ -68,7 +71,7 @@ namespace Runtime.Components.Systems
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
                 _blueprintOptions[i].GlowState(false);
             }
-            if (!CanAffordCard(segments)) Debug.Log("YOU RAN OUTTA MULAH!");
+            _scoreTracker.CheckHand(segments, _rerollCostBlood, _rerollCostSteam);
         }
 
         public void ChangeGlow(int chosenBlueprint)
@@ -85,19 +88,6 @@ namespace Runtime.Components.Systems
                 }
             }
         }
-        public bool CanAffordCard(List<Segment> segments)
-        {      
-            if (_currency.BloodAmount > 0 && _currency.SteamAmount > 0) return true;
-            foreach (var segment in segments)
-            {
-                if (segment.StaticSegmentData.BloodCost > 0 && segment.StaticSegmentData.SteamCost > 0)
-                {
-                    if(_currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1 && _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
-                }
-                else if (segment.StaticSegmentData.BloodCost > 0 && _currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1) return true;
-                else if (segment.StaticSegmentData.SteamCost > 0 && _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
-            }
-            return false;
-        }
+
     }
 }
