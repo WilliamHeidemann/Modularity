@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a746e69871a6545b3e1b481de0e754, type: 3}
   m_Name: ScoreTracker
   m_EditorClassIdentifier: 
+  _heartsConnected: 0
+  _furnacesConnected: 0
+  _brainsActivated: 0
+  _enginesActivated: 0
+  _hybridsActivated: 0
+  _energySpheresCollected: 0
