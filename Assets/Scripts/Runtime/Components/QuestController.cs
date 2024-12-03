@@ -32,15 +32,12 @@ namespace Runtime.Components
                     _quest = _questFactory.PlaceFirstBloodSegmentQuest();
                     _autoSpawner.SpawnBloodSource();
                     _hand.QueueHandsLast(_predefinedHands.BloodHands);
-                    _hand.ExcludeSteamSegments();
                     _hand.DrawHand();
                     break;
                 case 1:
                     _quest = _questFactory.PlaceFirstSteamSegmentQuest();
                     _autoSpawner.SpawnSteamSource();
-                    _hand.EnableSteamSegments();
                     _hand.QueueHandsLast(_predefinedHands.SteamHands);
-                    _hand.DrawHand();
                     break;
                 case 2:
                     _quest = _questFactory.ConnectSteamAndFleshQuest();
@@ -52,29 +49,7 @@ namespace Runtime.Components
                     break;
                 case 4:
                     _quest = _questFactory.CollectXQuest(2);
-                    _autoSpawner.StartSpawningCollectables();
-                    _autoSpawner.SpawnCollectable();
-                    _autoSpawner.SpawnCollectable();
                     break;
-                default:
-                    Debug.Log("No more quests");
-                    break;
-                // END OF TUTORIAL
-                // case 6:
-                //     _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(2);
-                //     break;
-                // case 7:
-                //     _quest = _questFactory.ReachXBloodResourcesQuest(50);
-                //     break;
-                // case 8:
-                //     _quest = _questFactory.ReachXSteamResourcesQuest(50);
-                //     break;
-                // case 9:
-                //     _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
-                //     break;
-                // default:
-                //     _quest = _questFactory.ActivateXReceiversSimultaneouslyQuest(6);
-                //     break;
             }
 
             _quest.DescriptionText = _questDescription;
