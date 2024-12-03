@@ -128,9 +128,9 @@ public void Clear()
             foreach (var segment in GetLargestConnectedAmalgamation())
             {
                 if (segment.StaticSegmentData.IsReceiver) sum += _connectedReceiverValue;
-                if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsBlood) sum += _heartsConnectedValue;
-                if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsSteam) sum += _furnacesConnectedValue;
-                if (!segment.StaticSegmentData.IsConnector) sum += _pipeValue;
+                else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsBlood) sum += _heartsConnectedValue;
+                else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsSteam) sum += _furnacesConnectedValue;
+                else sum += _pipeValue;
             }
             return sum;
         }
