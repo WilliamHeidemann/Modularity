@@ -43,9 +43,9 @@ MonoBehaviour:
     <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
   _activateXReceiversSimultaneously:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Activate a combination of x furnaces and brains
+    <Description>k__BackingField: Activate a combination of x furnaces and brains
       simultaneously.
+    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
