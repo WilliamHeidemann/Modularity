@@ -15,8 +15,9 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private int _highScore;
 
-        [Header("Score Value")]
-        [SerializeField] private int _heartsConnectedValue;
+        [Header("Score Value")] [SerializeField]
+        private int _heartsConnectedValue;
+
         [SerializeField] private int _furnacesConnectedValue;
         [SerializeField] private int _brainsActivatedValue;
         [SerializeField] private int _enginesActivatedValue;
@@ -27,8 +28,9 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private int _currencyValue;
 
 
-        [Header("Things accumulated")] 
-        [SerializeField] private int _heartsConnected;
+        [Header("Things accumulated")] [SerializeField]
+        private int _heartsConnected;
+
         [SerializeField] private int _furnacesConnected;
         [SerializeField] private int _brainsActivated;
         [SerializeField] private int _enginesActivated;
@@ -41,7 +43,8 @@ namespace Runtime.Scriptable_Objects
             FlowControl.OnProducerActivated += ProducerActivation;
             FlowControl.OnSourcesLinkedCheck += UpdateSourceScore;
             AutoSpawner.OnCollectedCollectables += Collected;
-            _highScoreSavePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "Saves" + Path.AltDirectorySeparatorChar;
+            _highScoreSavePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "Saves" +
+                                 Path.AltDirectorySeparatorChar;
             Debug.Log(_highScoreSavePath);
         }
 
@@ -51,7 +54,8 @@ namespace Runtime.Scriptable_Objects
             FlowControl.OnSourcesLinkedCheck -= UpdateSourceScore;
             AutoSpawner.OnCollectedCollectables -= Collected;
         }
-public void Clear()
+
+        public void Clear()
         {
             _heartsConnected = 0;
             _furnacesConnected = 0;
@@ -61,6 +65,7 @@ public void Clear()
             _energySpheresCollected = 0;
             LoadHighScore();
         }
+
         private void ProducerActivation(StaticSegmentData staticSegmentData)
         {
             if (staticSegmentData.IsBlood && staticSegmentData.IsSteam)
@@ -95,7 +100,7 @@ public void Clear()
         {
             _energySpheresCollected += noCollected;
         }
-        
+
         public void CheckHand(List<Segment> segments, int rerollCostBlood, int rerollCostSteam)
         {
             if (CanAffordCard(segments, rerollCostBlood, rerollCostSteam)) return;
@@ -107,22 +112,29 @@ public void Clear()
                 SaveHighScore(score);
                 LoadHighScore();
             }
+
             Debug.Log(score);
         }
+
         private bool CanAffordCard(List<Segment> segments, int rerollCostBlood, int rerollCostSteam)
-        {      
+        {
             if (_currency.BloodAmount > rerollCostBlood && _currency.SteamAmount > rerollCostSteam) return true;
             foreach (var segment in segments)
             {
                 if (segment.StaticSegmentData.BloodCost > 0 && segment.StaticSegmentData.SteamCost > 0)
                 {
-                    if(_currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1 && _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
+                    if (_currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1 &&
+                        _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
                 }
-                else if (segment.StaticSegmentData.BloodCost > 0 && _currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1) return true;
-                else if (segment.StaticSegmentData.SteamCost > 0 && _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
+                else if (segment.StaticSegmentData.BloodCost > 0 &&
+                         _currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1) return true;
+                else if (segment.StaticSegmentData.SteamCost > 0 &&
+                         _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
             }
+
             return false;
         }
+
         private int CalculateScore()
         {
             var sum = 0;
@@ -135,21 +147,26 @@ public void Clear()
             sum += _currency.SteamAmount * _currencyValue;
             return sum;
         }
+
         private int CalculateAmalgamationScore()
         {
             var sum = 0;
             foreach (var segment in GetLargestConnectedAmalgamation())
             {
                 if (segment.StaticSegmentData.IsReceiver) sum += _connectedReceiverValue;
-                else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsBlood) sum += _heartsConnectedValue;
-                else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsSteam) sum += _furnacesConnectedValue;
+                else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsBlood)
+                    sum += _heartsConnectedValue;
+                else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsSteam)
+                    sum += _furnacesConnectedValue;
                 else sum += _pipeValue;
             }
+
             return sum;
         }
+
         private List<SegmentData> GetLargestConnectedAmalgamation()
         {
-            List<SegmentData> largestAmalgamation = new ();
+            List<SegmentData> largestAmalgamation = new();
             foreach (var segment in _structure.Segments)
             {
                 if (largestAmalgamation.Contains(segment)) break;
@@ -157,11 +174,12 @@ public void Clear()
                 if (tempList.Count() < largestAmalgamation.Count()) break;
                 largestAmalgamation = tempList;
             }
+
             return largestAmalgamation;
         }
+
         private List<SegmentData> GetConnectedSegments(SegmentData segment)
         {
-            
             Queue<SegmentData> queue = new();
             queue.Enqueue(segment);
 
@@ -172,7 +190,6 @@ public void Clear()
                 var current = queue.Dequeue();
                 foreach (var link in _structure.GetValidConnections(current))
                 {
-                    
                     if (!connectedSegments.Contains(link))
                     {
                         queue.Enqueue(link);
@@ -180,6 +197,7 @@ public void Clear()
                     }
                 }
             }
+
             return connectedSegments;
         }
 
@@ -187,32 +205,34 @@ public void Clear()
         {
             string json = score.ToString();
             if (!Directory.Exists(_highScoreSavePath)) Directory.CreateDirectory(_highScoreSavePath);
-            using(StreamWriter writer = new StreamWriter(_highScoreSavePath + "SavedScore.json"))
-            {
-                writer.Write(json);
-            }
+            using StreamWriter writer = new StreamWriter(_highScoreSavePath + "SavedScore.json");
+            writer.Write(json);
         }
+
         private void LoadHighScore()
         {
             string json = string.Empty;
             Debug.Log(Application.persistentDataPath);
 
             if (!File.Exists(_highScoreSavePath + "SavedScore.json")) _highScore = 0;
-            else 
+            else
             {
-                using(StreamReader reader = new StreamReader(_highScoreSavePath + "SavedScore.json"))
+                using (StreamReader reader = new StreamReader(_highScoreSavePath + "SavedScore.json"))
                 {
                     json = reader.ReadToEnd();
                 }
+
                 _highScore = int.Parse(json);
             }
         }
+
         private void ResetHighScore()
         {
             if (File.Exists(_highScoreSavePath + "SavedScore.json"))
-            {   
+            {
                 File.Delete(_highScoreSavePath + "SavedScore.json");
             }
+
             LoadHighScore();
         }
     }
