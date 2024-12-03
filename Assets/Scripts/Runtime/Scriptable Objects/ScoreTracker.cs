@@ -235,5 +235,18 @@ namespace Runtime.Scriptable_Objects
 
             LoadHighScore();
         }
+
+        public int GetTotalScore()
+        {
+            return _heartsConnected + _furnacesConnected + _brainsActivated + _enginesActivated + _hybridsActivated +
+                   _energySpheresCollected;
+        }
+
+        public int hearthConnections => _heartsConnected;
+        public int furnaceConnections => _furnacesConnected;
+        public int brainActivations => _brainsActivated;
+        public int engineActivations => _enginesActivated;
+        public int hybridActivations => _hybridsActivated;
+        public int energySpheresCollected => _energySpheresCollected;
     }
 }

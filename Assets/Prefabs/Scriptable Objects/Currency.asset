@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Currency
   m_EditorClassIdentifier: 
   _blood: 1
-  _steam: 0
+  _steam: 1
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
