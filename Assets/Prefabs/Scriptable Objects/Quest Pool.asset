@@ -12,12 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed30f24acabe4d1b8b5dc6d90db57930, type: 3}
   m_Name: Quest Pool
   m_EditorClassIdentifier: 
-  _camera:
-    <Description>k__BackingField: Rotate, Pan, and Zoom your view
-    <Explanation>k__BackingField: Use WASD to rotate your view. Left-click-dragging
-      moves your view, and scrolling zooms in and out. You can reset your view by
-      clicking the View Reset button in the bottom right corner of the screen.
-    DescriptionText: {fileID: 0}
+  _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _placeFirstHeartSegment:
     <Description>k__BackingField: Connect Veins to the Heart (0/2)
     <Explanation>k__BackingField: 
@@ -30,10 +25,6 @@ MonoBehaviour:
     DescriptionText: {fileID: 0}
     _countBlood: 0
     _countSteam: 1
-  _rotateOneSegment:
-    <Description>k__BackingField: 
-    <Explanation>k__BackingField: Rotate a flesh piece by pressing (R).
-    DescriptionText: {fileID: 0}
   _activateXReceivers:
     <Description>k__BackingField: Activate a Brain or Engine. Brains and Engines
       activate when part of a closed circuit.
@@ -59,15 +50,3 @@ MonoBehaviour:
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 1
-  _reachXBloodResources:
-    <Description>k__BackingField: Reach 50 blood
-    <Explanation>k__BackingField: 
-    DescriptionText: {fileID: 0}
-    _countBlood: 1
-    _countSteam: 0
-  _reachXSteamResources:
-    <Description>k__BackingField: Reach 50 steam
-    <Explanation>k__BackingField: 
-    DescriptionText: {fileID: 0}
-    _countBlood: 0
-    _countSteam: 0

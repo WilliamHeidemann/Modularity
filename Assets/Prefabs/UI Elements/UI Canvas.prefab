@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6369,6 +6369,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: a389e96735d022a4ba7e0f47182911e4, type: 3}
+    - target: {fileID: 769574111796172065, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1027987700633902989, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6417,6 +6421,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1289606524015385572, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628196349449063342, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1956275151625141748, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
       propertyPath: m_EffectColor.b
       value: 0
@@ -6461,6 +6473,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: de430c838e1a4334aaf682f047672215, type: 3}
+    - target: {fileID: 5154907416118273538, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5305147118738596367, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -6508,6 +6524,10 @@ PrefabInstance:
     - target: {fileID: 6078548541355005888, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078548541355005888, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6952595680653146040, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
       propertyPath: m_CellSize.x
@@ -6603,6 +6623,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7288596432273121103, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7783177983802546984, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8593722390930514817, guid: 2fe4c3a21982fa4429cbb4e4264557f4, type: 3}
