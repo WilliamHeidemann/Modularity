@@ -14,15 +14,11 @@ namespace Runtime.Components
         [SerializeField] private Image _bloodIcon;
         [SerializeField] private Image _steamIcon;
 
-        [Header("Input UI")]
-        [SerializeField] private TextMeshProUGUI _itemInputBloodText;
-        [SerializeField] private TextMeshProUGUI _itemInputSteamText;
-        [SerializeField] private Image _bloodInputIcon;
-        [SerializeField] private Image _steamInputIcon;
-
-        [Header("Output UI")]
-        [SerializeField] private TextMeshProUGUI _itemOutputText;
-        [SerializeField] private Image _outputIcon;
+        [Header("Reward UI")]
+        [SerializeField] private TextMeshProUGUI _itemRewardBloodText;
+        [SerializeField] private TextMeshProUGUI _itemRewardSteamText;
+        [SerializeField] private Image _bloodRewardIcon;
+        [SerializeField] private Image _steamRewardIcon;
 
         [Header("Blueprint UI")]
         [SerializeField] private Image _bluePrintTexture;
@@ -30,7 +26,7 @@ namespace Runtime.Components
         [SerializeField] private Image[] _glowBlueprints;
         [SerializeField] private Image _itemPreview;
 
-        public void SetCardValues(string itemCost, int costsBlood, int costsSteam, int bloodInputs, int steamInputs, int rewardAmount)
+        public void SetCardValues(string itemCost, int costsBlood, int costsSteam, int bloodReward, int steamReward)
         {
             if(costsBlood > 0 && costsSteam > 0)
             {
@@ -57,39 +53,29 @@ namespace Runtime.Components
                 _bluePrintTexture.sprite = _blueprintTextures[1];
             }
 
-            if(bloodInputs > 0 && steamInputs > 0)
+            if(bloodReward > 0 && steamReward > 0)
             {
-                _bloodInputIcon.gameObject.SetActive(true);
-                _steamInputIcon.gameObject.SetActive(true);
-                _itemInputBloodText.text = bloodInputs.ToString();
-                _itemInputSteamText.text = steamInputs.ToString();
+                _bloodRewardIcon.gameObject.SetActive(true);
+                _steamRewardIcon.gameObject.SetActive(true);
+                _itemRewardBloodText.text = bloodReward.ToString();
+                _itemRewardSteamText.text = steamReward.ToString();
             }
-            else if (bloodInputs > 0)
+            else if (bloodReward > 0)
             {
-                _bloodInputIcon.gameObject.SetActive(true);
-                _steamInputIcon.gameObject.SetActive(false);
-                _itemInputBloodText.text = bloodInputs.ToString();
+                _bloodRewardIcon.gameObject.SetActive(true);
+                _steamRewardIcon.gameObject.SetActive(false);
+                _itemRewardBloodText.text = bloodReward.ToString();
             }
-            else if (steamInputs > 0)
+            else if (steamReward > 0)
             {
-                _steamInputIcon.gameObject.SetActive(true);
-                _bloodInputIcon.gameObject.SetActive(false);
-                _itemInputSteamText.text = steamInputs.ToString();
-            }
-            else
-            {
-                _bloodInputIcon.gameObject.SetActive(false);
-                _steamInputIcon.gameObject.SetActive(false);
-            }
-
-            if (rewardAmount > 0)
-            {
-                _outputIcon.gameObject.SetActive(true);
-                _itemOutputText.text = rewardAmount.ToString();
+                _steamRewardIcon.gameObject.SetActive(true);
+                _bloodRewardIcon.gameObject.SetActive(false);
+                _itemRewardSteamText.text = steamReward.ToString();
             }
             else
             {
-                _outputIcon.gameObject.SetActive(false);
+                _bloodRewardIcon.gameObject.SetActive(false);
+                _steamRewardIcon.gameObject.SetActive(false);
             }
         }
 

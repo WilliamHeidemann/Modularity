@@ -12,7 +12,6 @@ namespace Runtime.Components
         [SerializeField] private TextMeshProUGUI _questExplanation;
         [SerializeField] private Quest _quest;
         [SerializeField] private GameObject _cameraControlImages;
-        [SerializeField] private GameObject _cameraControlImages2;
         [SerializeField] private GameObject _explanationContainer;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private PredefinedHands _predefinedHands;
@@ -49,6 +48,10 @@ namespace Runtime.Components
                     break;
                 case 4:
                     _quest = _questFactory.CollectXQuest(2);
+                    _cameraControlImages.SetActive(false);
+                    break;
+                default:
+                    _quest = _questFactory.CollectXQuest(_questIndex - 2);
                     break;
             }
 
