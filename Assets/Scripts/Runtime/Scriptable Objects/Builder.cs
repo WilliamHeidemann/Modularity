@@ -56,12 +56,6 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            if (segmentData.StaticSegmentData.IsReceiver && 
-                _structure.GetInputs(segmentData).Count() > segmentData.StaticSegmentData.Requirements)
-            {
-                return;
-            }
-                
             // potentially remove old slot
 
             var connector = Instantiate(prefab, position, rotation);

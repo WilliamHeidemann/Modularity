@@ -23,21 +23,17 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
-        [SerializeField] private float DistanceConstant;
+        [SerializeField] private float _distanceConstant;
+        [SerializeField] private float _distancePercentage;
         [SerializeField] private Collectable _collectablePrefab;
         private readonly List<Collectable> _collectables = new();
-        private bool _shouldSpawnCollectables;
         public delegate void CollectedCollectables(int collectedAmount);
         public static event CollectedCollectables OnCollectedCollectables;
 
         public void Clear()
         {
             _collectables.Clear();
-            _shouldSpawnCollectables = false;
         }
-
-        public void StartSpawningCollectables() => _shouldSpawnCollectables = true;
-
 
         public void CheckForCollectables()
         {
@@ -51,26 +47,6 @@ namespace Runtime.Scriptable_Objects
             collectables.ForEach(c => _currencyPopup.GainCurrency(c.Position, c.StaticSegmentData));
             collectables.ForEach(c => _collectables.Remove(c));
             collectables.ForEach(c => Destroy(c.gameObject));
-
-            CheckToSpawnCollectables();
-        }
-
-        private void CheckToSpawnCollectables()
-        {
-            if (!_shouldSpawnCollectables)
-            {
-                return;
-            }
-
-            if (_collectables.Any())
-            {
-                return;
-            }
-
-            SpawnCollectable();
-            SpawnCollectable();
-            SpawnBloodSource();
-            SpawnSteamSource();
         }
 
         public void SpawnBloodSource() => SpawnRandomSource(_bloodSource);
@@ -81,7 +57,7 @@ namespace Runtime.Scriptable_Objects
             var spawnPosition = SpawnUtility.Get(GetSpawnPosition, _structure.IsValidSourcePlacement);
             _selection.Reset();
             _selection.Prefab = Option<Segment>.Some(source);
-            _builder.Build(spawnPosition, Quaternion.identity, true);
+            _builder.Build(spawnPosition, GetRandomRotation(), true);
             _selection.Reset();
         }
 
@@ -93,8 +69,10 @@ namespace Runtime.Scriptable_Objects
             }
 
             var positions = _structure.Segments.Select(segment => segment.Position).ToList();
-            return SpawnUtility.GetWeightedSpawnPosition(positions, DistanceConstant);
+            return SpawnUtility.GetWeightedSpawnPosition(positions, _distanceConstant, _distancePercentage);
         }
+
+        private Quaternion GetRandomRotation() => RotationUtility.AllRotations().RandomElement();
 
         public void SpawnCollectable()
         {

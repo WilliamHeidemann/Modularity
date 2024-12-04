@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4558306579205094532, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
+      propertyPath: _scoreTracker
+      value: 
+      objectReference: {fileID: 11400000, guid: c84efa995db490440878a317856ff8be, type: 2}
     - target: {fileID: 4738674161829167875, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -7653,11 +7657,10 @@ MonoBehaviour:
   _quest:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: 
+    DescriptionText: {fileID: 0}
   _cameraControlImages: {fileID: 433584825}
   _explanationContainer: {fileID: 934070062}
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
-  _handUI: {fileID: 0}
-  _resourcesUI: {fileID: 0}
   _predefinedHands: {fileID: 11400000, guid: 1752320e7716f7c4988fbd1d5f0a5eb8, type: 2}
 --- !u!1001 &2035793973
 PrefabInstance:
@@ -8305,8 +8308,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4404823909993285501, guid: 2f15fb252de55424fb482f29614a9506, type: 3}
     - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
+      propertyPath: _questController
+      value: 
+      objectReference: {fileID: 2020165871}
+    - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
       propertyPath: _startingCurrency
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
       propertyPath: _automaticSourceSpawning

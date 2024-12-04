@@ -32,7 +32,7 @@ namespace Runtime.Backend
             return spherePosition.AsVector3Int();
         }
 
-        public static Vector3Int GetWeightedSpawnPosition(List<Vector3Int> positions, float distanceConstant)
+        public static Vector3Int GetWeightedSpawnPosition(List<Vector3Int> positions, float distanceConstant, float distancePercentage)
         {
             var minX = positions.Min(position => position.x);
             var maxX = positions.Max(position => position.x);
@@ -41,21 +41,19 @@ namespace Runtime.Backend
             var minZ = positions.Min(position => position.z);
             var maxZ = positions.Max(position => position.z);
 
-            var xCenter = (maxX + minX) / 2;
-            var yCenter = (maxY + minY) / 2;
-            var zCenter = (maxZ + minZ) / 2;
+            var xCenter = (maxX + minX) / 2f;
+            var yCenter = (maxY + minY) / 2f;
+            var zCenter = (maxZ + minZ) / 2f;
             var offset = new Vector3(xCenter, yCenter, zCenter);
 
-            var maxDistX = Math.Max(maxX, Math.Abs(minX));
-            var maxDistY = Math.Max(maxY, Math.Abs(minY));
-            var maxDistZ = Math.Max(maxZ, Math.Abs(minZ));
+            var maxDistX = Math.Max(maxX - xCenter, Math.Abs(xCenter - minX));
+            var maxDistY = Math.Max(maxY - yCenter, Math.Abs(yCenter - minY));
+            var maxDistZ = Math.Max(maxZ - zCenter, Math.Abs(zCenter - minZ));
 
-            var averageDistToRelativeCenter = (
-                (maxDistX - xCenter) +
-                (maxDistY - yCenter) +
-                (maxDistZ - zCenter)) / 3;
+            var maxDistRelativeToCenter = new Vector3(maxDistX, maxDistY, maxDistZ);
 
-            var radius = averageDistToRelativeCenter + distanceConstant;
+            var dp = 1 + distancePercentage/100;
+            var radius = (Vector3.Distance(maxDistRelativeToCenter, offset)/3 * dp) + distanceConstant;
 
             var unitSpherePosition = Random.onUnitSphere;
             unitSpherePosition.y = Mathf.Abs(unitSpherePosition.y);
