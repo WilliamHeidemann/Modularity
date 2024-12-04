@@ -113,7 +113,6 @@ namespace Runtime.Scriptable_Objects
                 SaveHighScore(score);
                 LoadHighScore();
             }
-            Debug.Log(score);
             _gameOverMenu.gameObject.SetActive(true);
         }
         private bool HasOpenSlots()
