@@ -6,7 +6,7 @@ using Runtime.Scriptable_Objects;
 public class GameOverMenuController : MonoBehaviour
 {
     [SerializeField] private ScoreTracker _scoreTracker;
-
+    [SerializeField] private GameObject _gameUI;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _highScoreText;
     [SerializeField] private TextMeshProUGUI _heartsConnectedText;
@@ -17,11 +17,10 @@ public class GameOverMenuController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _energySpheresCollectedText;
 
     private Animator _animator;
-
     private void OnEnable()
     {
-        _scoreText.text = _scoreTracker.GetTotalScore().ToString();
-        _highScoreText.text = _scoreTracker.GetTotalScore().ToString();
+        _scoreText.text = _scoreTracker.GetScore().ToString();
+        _highScoreText.text = _scoreTracker.GetHighScore().ToString();
 
         _heartsConnectedText.text = _scoreTracker.hearthConnections.ToString();
         _furnacesConnectedText.text = _scoreTracker.furnaceConnections.ToString();
@@ -32,6 +31,8 @@ public class GameOverMenuController : MonoBehaviour
 
         _animator = GetComponent<Animator>();
         _animator.Play("Base Layer.Game Over Fade Animation");
+        _gameUI.SetActive(false);
+
     }
 
     public void MainMenu()

@@ -13,6 +13,7 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Currency _currency;
         [SerializeField] private Structure _structure;
+        private GameOverMenuController _gameOverMenu;
         [SerializeField] private int _highScore;
 
         [Header("Score Value")] [SerializeField]
@@ -38,6 +39,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private int _energySpheresCollected;
         private string _highScoreSavePath;
 
+
         private void OnEnable()
         {
             FlowControl.OnProducerActivated += ProducerActivation;
@@ -45,7 +47,6 @@ namespace Runtime.Scriptable_Objects
             AutoSpawner.OnCollectedCollectables += Collected;
             _highScoreSavePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "Saves" +
                                  Path.AltDirectorySeparatorChar;
-            Debug.Log(_highScoreSavePath);
         }
 
         private void OnDisable()
@@ -55,8 +56,9 @@ namespace Runtime.Scriptable_Objects
             AutoSpawner.OnCollectedCollectables -= Collected;
         }
 
-        public void Clear()
+        public void Clear(GameOverMenuController gameOverMenuController)
         {
+            _gameOverMenu = gameOverMenuController;
             _heartsConnected = 0;
             _furnacesConnected = 0;
             _brainsActivated = 0;
@@ -103,22 +105,32 @@ namespace Runtime.Scriptable_Objects
 
         public void CheckHand(List<Segment> segments, int rerollCostBlood, int rerollCostSteam)
         {
-            if (CanAffordCard(segments, rerollCostBlood, rerollCostSteam)) return;
+            if (CanAffordCard(segments, rerollCostBlood, rerollCostSteam) && HasOpenSlots()) return;
             //IF the hand cannot be afforded put end game call here
             var score = CalculateScore();
             if (score > _highScore)
             {
-                Debug.Log("new HighScore! " + score);
                 SaveHighScore(score);
                 LoadHighScore();
             }
-
             Debug.Log(score);
+            _gameOverMenu.gameObject.SetActive(true);
+        }
+        private bool HasOpenSlots()
+        {
+            foreach (var segment in _structure.Segments)
+            {
+                foreach (var link in segment.GetConnectionPoints())
+                {
+                    if (_structure.IsOpenPosition(link)) return true;
+                }
+            }
+            return false;
         }
 
         private bool CanAffordCard(List<Segment> segments, int rerollCostBlood, int rerollCostSteam)
         {
-            if (_currency.BloodAmount > rerollCostBlood && _currency.SteamAmount > rerollCostSteam) return true;
+            if (_currency.BloodAmount >= rerollCostBlood && _currency.SteamAmount >= rerollCostSteam) return true;
             foreach (var segment in segments)
             {
                 if (segment.StaticSegmentData.BloodCost > 0 && segment.StaticSegmentData.SteamCost > 0)
@@ -145,6 +157,7 @@ namespace Runtime.Scriptable_Objects
             sum += _energySpheresCollected * _energySpheresCollectedValue;
             sum += _currency.BloodAmount * _currencyValue;
             sum += _currency.SteamAmount * _currencyValue;
+            sum += _currency.SteamAmount * _currency.BloodAmount;
             return sum;
         }
 
@@ -212,7 +225,6 @@ namespace Runtime.Scriptable_Objects
         private void LoadHighScore()
         {
             string json = string.Empty;
-            Debug.Log(Application.persistentDataPath);
 
             if (!File.Exists(_highScoreSavePath + "SavedScore.json")) _highScore = 0;
             else
@@ -241,6 +253,8 @@ namespace Runtime.Scriptable_Objects
             return _heartsConnected + _furnacesConnected + _brainsActivated + _enginesActivated + _hybridsActivated +
                    _energySpheresCollected;
         }
+        public int GetScore() => CalculateScore(); 
+        public int GetHighScore() => _highScore;
 
         public int hearthConnections => _heartsConnected;
         public int furnaceConnections => _furnacesConnected;

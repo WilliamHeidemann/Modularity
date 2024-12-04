@@ -13,6 +13,8 @@ namespace Runtime.Components.Systems
         [SerializeField] private ScoreTracker _scoreTracker;
         [SerializeField] private int _startingCurrency;
         [SerializeField] private QuestController _questController;
+        [SerializeField] private GameOverMenuController _gameOverMenuController;
+
 
         private void OnEnable()
         {
@@ -29,7 +31,7 @@ namespace Runtime.Components.Systems
             _hand.Clear();
             _structure.Clear();
             _autoSpawner.Clear();
-            _scoreTracker.Clear();
+            _scoreTracker.Clear(_gameOverMenuController);
             _currency.Initialize(_startingCurrency);
             _questController.Initialize();
         }
