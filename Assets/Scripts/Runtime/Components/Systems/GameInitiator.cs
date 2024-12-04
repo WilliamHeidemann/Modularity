@@ -15,7 +15,6 @@ namespace Runtime.Components.Systems
         [SerializeField] private QuestController _questController;
         [SerializeField] private GameOverMenuController _gameOverMenuController;
 
-
         private void OnEnable()
         {
             MainMenuController.OnGameStart += Initialize;
