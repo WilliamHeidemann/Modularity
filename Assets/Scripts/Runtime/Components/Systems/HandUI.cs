@@ -17,7 +17,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private Selection _selection;
         [SerializeField] private int _rerollCostBlood;
         [SerializeField] private int _rerollCostSteam;
-        [SerializeField] private ScoreTracker _scoreTracker;
+        [SerializeField] private EndGame _endGame;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
@@ -71,7 +71,7 @@ namespace Runtime.Components.Systems
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
                 _blueprintOptions[i].GlowState(false);
             }
-            _scoreTracker.CheckHand(segments, _rerollCostBlood, _rerollCostSteam);
+            _endGame.CheckHand(segments, _rerollCostBlood, _rerollCostSteam);
         }
 
         public void ChangeGlow(int chosenBlueprint)

@@ -14,6 +14,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private int _startingCurrency;
         [SerializeField] private QuestController _questController;
         [SerializeField] private GameOverMenuController _gameOverMenuController;
+        [SerializeField] private EndGame _endGame;
 
 
         private void OnEnable()
@@ -31,9 +32,10 @@ namespace Runtime.Components.Systems
             _hand.Clear();
             _structure.Clear();
             _autoSpawner.Clear();
-            _scoreTracker.Clear(_gameOverMenuController);
+            _scoreTracker.Clear();
             _currency.Initialize(_startingCurrency);
             _questController.Initialize();
+            _endGame.SetGameOverMenu(_gameOverMenuController);
         }
     }
 }
