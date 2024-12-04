@@ -9,10 +9,8 @@ namespace Runtime.Components
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private Hand _hand;
         [SerializeField] private TextMeshProUGUI _questDescription;
-        [SerializeField] private TextMeshProUGUI _questExplanation;
         [SerializeField] private Quest _quest;
         [SerializeField] private GameObject _cameraControlImages;
-        [SerializeField] private GameObject _explanationContainer;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private PredefinedHands _predefinedHands;
         private int _questIndex;
@@ -57,9 +55,7 @@ namespace Runtime.Components
 
             _quest.DescriptionText = _questDescription;
             _quest.OnComplete += NextQuest;
-            _explanationContainer.SetActive(_quest.Explanation != string.Empty);
             _questDescription.text = $"{_quest.Description}";
-            _questExplanation.text = _quest.Explanation;
             _questIndex++;
         }
     }

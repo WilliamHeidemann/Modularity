@@ -470,7 +470,7 @@ PrefabInstance:
     - target: {fileID: 4558306579205094532, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
       propertyPath: _endGame
       value: 
-      objectReference: {fileID: 11400000, guid: 8215dacab1fb1de42806df7fdb67df5a, type: 2}
+      objectReference: {fileID: 11400000, guid: f426bfc36a9001048908cf941a9cff37, type: 2}
     - target: {fileID: 4558306579205094532, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
       propertyPath: _scoreTracker
       value: 
@@ -8347,7 +8347,7 @@ PrefabInstance:
     - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
       propertyPath: _endGame
       value: 
-      objectReference: {fileID: 11400000, guid: 8215dacab1fb1de42806df7fdb67df5a, type: 2}
+      objectReference: {fileID: 11400000, guid: f426bfc36a9001048908cf941a9cff37, type: 2}
     - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
       propertyPath: _autoSpawner
       value: 
