@@ -1310,11 +1310,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8988c881874f4cb4db33f58b6a8e7416, type: 3}
   m_PrefabInstance: {fileID: 1813614506}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &433584825 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1906698366566056094, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
-  m_PrefabInstance: {fileID: 44506896}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &456779613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e08d894d1a4dca746a9673007d5c706d, type: 3}
@@ -2973,11 +2968,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8988c881874f4cb4db33f58b6a8e7416, type: 3}
   m_PrefabInstance: {fileID: 1791127318}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &934070062 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4049777476789547105, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
-  m_PrefabInstance: {fileID: 44506896}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &935841377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3334,17 +3324,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e08d894d1a4dca746a9673007d5c706d, type: 3}
---- !u!114 &1040012860 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5813292936361809492, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
-  m_PrefabInstance: {fileID: 44506896}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1063885360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7466,6 +7445,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8988c881874f4cb4db33f58b6a8e7416, type: 3}
   m_PrefabInstance: {fileID: 2000565594}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1963758278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1170411074432516991, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
+  m_PrefabInstance: {fileID: 44506896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1965887130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: e08d894d1a4dca746a9673007d5c706d, type: 3}
@@ -7706,13 +7690,11 @@ MonoBehaviour:
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _hand: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
   _questDescription: {fileID: 2132855208}
-  _questExplanation: {fileID: 1040012860}
   _quest:
     <Description>k__BackingField: 
     <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
-  _cameraControlImages: {fileID: 433584825}
-  _explanationContainer: {fileID: 934070062}
+  _cameraControlImages: {fileID: 1963758278}
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _predefinedHands: {fileID: 11400000, guid: 1752320e7716f7c4988fbd1d5f0a5eb8, type: 2}
 --- !u!1001 &2035793973
@@ -8370,7 +8352,7 @@ PrefabInstance:
       objectReference: {fileID: 2020165871}
     - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
       propertyPath: _startingCurrency
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4793812265088076625, guid: 9cecf233125026746b2f856d28d65b8f, type: 3}
       propertyPath: _gameOverMenuController
