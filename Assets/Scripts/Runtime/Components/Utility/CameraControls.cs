@@ -1,6 +1,9 @@
+using System.Linq;
+using Runtime.Backend;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 namespace Runtime.Components.Utility
 {
@@ -11,6 +14,9 @@ namespace Runtime.Components.Utility
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _zoomSpeed;
         [SerializeField] private float _rotationPointOffset;
+        [SerializeField] private Structure _structure;
+        [SerializeField] private float _resetConstant;
+        [SerializeField] private float _resetPercentage;
 
         private Vector3 _dragOrigin;
         private Vector3 _startPosition;
@@ -53,6 +59,12 @@ namespace Runtime.Components.Utility
             HandleRotation();
             HandleDragTranslation();
             HandleZoom();
+            var position = transform.position;
+            position.x =  Mathf.Clamp(transform.position.x, -25.0f, 25.0f);
+            position.y =  Mathf.Clamp(transform.position.y, 0.0f, 25.0f);
+            position.z =  Mathf.Clamp(transform.position.z, -25.0f, 25.0f);
+            
+            transform.position = position;
         }
 
         private void HandleDragTranslation()
@@ -132,9 +144,13 @@ namespace Runtime.Components.Utility
 
         public void ResetCamera()
         {
-            transform.position = _startPosition;
-            transform.rotation = Quaternion.Euler(_startRotation);
-            _dragOrigin = new Vector3(0, 0, 0);
+            var positions = _structure.Segments.Select(segment => segment.Position).ToList();
+            var center = SpawnUtility.GetCenter(positions);
+            var distance = SpawnUtility.GetRadius(positions,_resetConstant,_resetPercentage);
+            var direction = transform.position - center;
+            transform.position = center + direction.normalized * distance;
+            transform.LookAt(center);
+            _dragOrigin = center;
         }
     }
 }

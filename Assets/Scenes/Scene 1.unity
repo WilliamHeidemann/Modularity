@@ -8461,6 +8461,18 @@ PrefabInstance:
       propertyPath: m_Cameras.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8443729550061900408, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: _structure
+      value: 
+      objectReference: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+    - target: {fileID: 8443729550061900408, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: _resetConstant
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443729550061900408, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
+      propertyPath: _resetPercentage
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 9209876859269089322, guid: f9cf986f108ed3f4dadd1acd515a1cac, type: 3}
       propertyPath: m_Name
       value: Main Camera
