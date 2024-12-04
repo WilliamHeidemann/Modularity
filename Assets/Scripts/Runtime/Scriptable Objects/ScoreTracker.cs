@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Runtime.Components.Segments;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,7 +12,6 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Currency _currency;
         [SerializeField] private Structure _structure;
-        private GameOverMenuController _gameOverMenu;
         [SerializeField] private int _highScore;
 
         [Header("Score Value")] [SerializeField]
@@ -39,7 +37,6 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private int _energySpheresCollected;
         private string _highScoreSavePath;
 
-
         private void OnEnable()
         {
             FlowControl.OnProducerActivated += ProducerActivation;
@@ -56,9 +53,8 @@ namespace Runtime.Scriptable_Objects
             AutoSpawner.OnCollectedCollectables -= Collected;
         }
 
-        public void Clear(GameOverMenuController gameOverMenuController)
+        public void Clear()
         {
-            _gameOverMenu = gameOverMenuController;
             _heartsConnected = 0;
             _furnacesConnected = 0;
             _brainsActivated = 0;
@@ -101,49 +97,6 @@ namespace Runtime.Scriptable_Objects
         private void Collected(int noCollected)
         {
             _energySpheresCollected += noCollected;
-        }
-
-        public void CheckHand(List<Segment> segments, int rerollCostBlood, int rerollCostSteam)
-        {
-            if (CanAffordCard(segments, rerollCostBlood, rerollCostSteam) && HasOpenSlots()) return;
-            //IF the hand cannot be afforded put end game call here
-            var score = CalculateScore();
-            if (score > _highScore)
-            {
-                SaveHighScore(score);
-                LoadHighScore();
-            }
-            _gameOverMenu.gameObject.SetActive(true);
-        }
-        private bool HasOpenSlots()
-        {
-            foreach (var segment in _structure.Segments)
-            {
-                foreach (var link in segment.GetConnectionPoints())
-                {
-                    if (_structure.IsOpenPosition(link)) return true;
-                }
-            }
-            return false;
-        }
-
-        private bool CanAffordCard(List<Segment> segments, int rerollCostBlood, int rerollCostSteam)
-        {
-            if (_currency.BloodAmount >= rerollCostBlood && _currency.SteamAmount >= rerollCostSteam) return true;
-            foreach (var segment in segments)
-            {
-                if (segment.StaticSegmentData.BloodCost > 0 && segment.StaticSegmentData.SteamCost > 0)
-                {
-                    if (_currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1 &&
-                        _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
-                }
-                else if (segment.StaticSegmentData.BloodCost > 0 &&
-                         _currency.BloodAmount - segment.StaticSegmentData.BloodCost > -1) return true;
-                else if (segment.StaticSegmentData.SteamCost > 0 &&
-                         _currency.SteamAmount - segment.StaticSegmentData.SteamCost > -1) return true;
-            }
-
-            return false;
         }
 
         private int CalculateScore()
@@ -247,13 +200,17 @@ namespace Runtime.Scriptable_Objects
             LoadHighScore();
         }
 
-        public int GetTotalScore()
-        {
-            return _heartsConnected + _furnacesConnected + _brainsActivated + _enginesActivated + _hybridsActivated +
-                   _energySpheresCollected;
-        }
         public int GetScore() => CalculateScore(); 
-        public int GetHighScore() => _highScore;
+        public int GetHighScore()
+        {
+            var score = CalculateScore();
+            if (score > _highScore) 
+            {
+                SaveHighScore(score);
+                LoadHighScore();    
+            }
+            return _highScore;
+        } 
 
         public int hearthConnections => _heartsConnected;
         public int furnaceConnections => _furnacesConnected;
