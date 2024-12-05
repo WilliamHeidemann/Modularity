@@ -40,7 +40,6 @@ namespace Runtime.Scriptable_Objects
         private void OnEnable()
         {
             FlowControl.OnProducerActivated += ProducerActivation;
-            FlowControl.OnSourcesLinkedCheck += UpdateSourceScore;
             AutoSpawner.OnCollectedCollectables += Collected;
             _highScoreSavePath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "Saves" +
                                  Path.AltDirectorySeparatorChar;
@@ -49,7 +48,6 @@ namespace Runtime.Scriptable_Objects
         private void OnDisable()
         {
             FlowControl.OnProducerActivated -= ProducerActivation;
-            FlowControl.OnSourcesLinkedCheck -= UpdateSourceScore;
             AutoSpawner.OnCollectedCollectables -= Collected;
         }
 
@@ -75,23 +73,6 @@ namespace Runtime.Scriptable_Objects
                 _brainsActivated += 1;
             }
             else _enginesActivated += 1;
-        }
-
-        private void UpdateSourceScore(HashSet<SegmentData> sources)
-        {
-            var blood = 0;
-            var steam = 0;
-            foreach (var source in sources)
-            {
-                if (source.StaticSegmentData.IsBlood)
-                {
-                    blood += 1;
-                }
-                else steam += 1;
-            }
-
-            _heartsConnected = blood;
-            _furnacesConnected = steam;
         }
 
         private void Collected(int noCollected)
@@ -127,31 +108,46 @@ namespace Runtime.Scriptable_Objects
         private int CalculateAmalgamationScore()
         {
             var sum = 0;
+            var hearts = 0;
+            var furnace = 0;
             foreach (var segment in GetLargestConnectedAmalgamation())
             {
                 if (segment.StaticSegmentData.IsReceiver) sum += _connectedReceiverValue;
                 else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsBlood)
+                {
                     sum += _heartsConnectedValue;
+                    hearts += 1;
+                }
                 else if (segment.StaticSegmentData.IsSource && segment.StaticSegmentData.IsSteam)
+                {
                     sum += _furnacesConnectedValue;
+                    furnace += 1;
+                }
                 else sum += _pipeValue;
             }
 
+            _heartsConnected = hearts;
+            _furnacesConnected = furnace;
             return sum;
         }
 
         private List<SegmentData> GetLargestConnectedAmalgamation()
         {
-            List<SegmentData> largestAmalgamation = new();
+            List<List<SegmentData>> amalgamations = new();
             foreach (var segment in _structure.Segments)
             {
-                if (largestAmalgamation.Contains(segment)) break;
+                var explored = false;
+                foreach (var amalgamation in amalgamations)
+                {
+                    if (amalgamation.Contains(segment)) explored = true;
+                }
+                if (explored) continue;
+                
                 var tempList = GetConnectedSegments(segment);
-                if (tempList.Count() < largestAmalgamation.Count()) break;
-                largestAmalgamation = tempList;
+                amalgamations.Add(tempList);
             }
 
-            return largestAmalgamation;
+            return amalgamations.OrderByDescending(list => list.Count).First();
         }
 
         private List<SegmentData> GetConnectedSegments(SegmentData segment)
