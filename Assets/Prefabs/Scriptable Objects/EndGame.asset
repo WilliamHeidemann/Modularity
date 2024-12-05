@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5241d74ec2454fed9c0d16d7f0257b73, type: 3}
-  m_Name: Currency
+  m_Script: {fileID: 11500000, guid: db84cd020f31b2943b084571606c08fe, type: 3}
+  m_Name: EndGame
   m_EditorClassIdentifier: 
-  _blood: 40
-  _steam: 40
-  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
+  _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}

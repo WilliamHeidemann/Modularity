@@ -54,7 +54,7 @@ MonoBehaviour:
   _mixConnectorPlacement: {fileID: 8300000, guid: 24dc740ee96a8e247a62ff471cab9b0e, type: 3}
   _mixReceiverPlacement: {fileID: 8300000, guid: 455b5c6f0e7abd141baef500b5dadb7e, type: 3}
   _income: {fileID: 8300000, guid: 426c7510bfd412346b0bc1632567c380, type: 3}
-  _cardMouseOver: {fileID: 8300000, guid: 5df688694d97bc54e88c4da7d2a98498, type: 3}
+  _cardMouseOver: {fileID: 8300000, guid: 327e4ae6905484b03951a6435e3ed75f, type: 3}
   _cardSelection: {fileID: 8300000, guid: 77c8848e6ddad614d9f9e7c68c7db12d, type: 3}
 --- !u!82 &126822747806938509
 AudioSource:
