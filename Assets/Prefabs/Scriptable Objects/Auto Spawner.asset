@@ -19,6 +19,6 @@ MonoBehaviour:
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _bloodSource: {fileID: 4404823909993285501, guid: 4405254c14750b94e9af651e0fa14ea9, type: 3}
   _steamSource: {fileID: 4404823909993285501, guid: 2f15fb252de55424fb482f29614a9506, type: 3}
-  _distanceConstant: 1.5
+  _distanceConstant: 2
   _distancePercentage: 50
   _collectablePrefab: {fileID: -7843324000993477682, guid: e53b7690f5bcabf4d9d3f3a947f861fb, type: 3}

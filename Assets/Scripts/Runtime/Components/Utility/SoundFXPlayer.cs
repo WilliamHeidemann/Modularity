@@ -21,6 +21,9 @@ namespace Runtime.Components.Utility
         [SerializeField] private AudioClip _income;
         [SerializeField] private AudioClip _cardMouseOver;
         [SerializeField] private AudioClip _cardSelection;
+        [SerializeField] private AudioClip _orbSpawn;
+        [SerializeField] private AudioClip _orbCollected;
+        
 
         private float _volumeModifier = 0.5f;
 
@@ -54,6 +57,8 @@ namespace Runtime.Components.Utility
                 SoundFX.Income => _income,
                 SoundFX.CardSelection => _cardSelection,
                 SoundFX.CardMouseOver => _cardMouseOver,
+                SoundFX.OrbSpawn => _orbSpawn,
+                SoundFX.OrbCollected => _orbCollected,
                 _ => throw new ArgumentOutOfRangeException(nameof(soundFX), soundFX, null)
             };
 
@@ -72,6 +77,8 @@ namespace Runtime.Components.Utility
         MixReceiverPlacement,
         Income,
         CardSelection,
-        CardMouseOver
+        CardMouseOver,
+        OrbSpawn,
+        OrbCollected
     }
 }
