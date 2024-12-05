@@ -140,15 +140,11 @@ namespace Runtime.Scriptable_Objects
                 foreach (var amalgamation in amalgamations)
                 {
                     if (amalgamation.Contains(segment)) explored = true;
-                    Debug.Log(explored);
                 }
                 if (explored) continue;
                 
                 var tempList = GetConnectedSegments(segment);
                 amalgamations.Add(tempList);
-                Debug.Log(tempList.Count());
-
-                Debug.Log(amalgamations.Count());
             }
 
             return amalgamations.OrderByDescending(list => list.Count).First();
@@ -156,7 +152,6 @@ namespace Runtime.Scriptable_Objects
 
         private List<SegmentData> GetConnectedSegments(SegmentData segment)
         {
-            Debug.Log(segment.Position);
             Queue<SegmentData> queue = new();
             queue.Enqueue(segment);
 
