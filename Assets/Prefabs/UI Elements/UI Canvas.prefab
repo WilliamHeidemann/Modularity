@@ -6211,6 +6211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: R to rotate
       objectReference: {fileID: 0}
+    - target: {fileID: 4483279650958899427, guid: e7e745f5c7ad1f04eb4440e80cf0cfd7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

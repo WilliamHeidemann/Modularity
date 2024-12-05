@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
@@ -18,6 +19,8 @@ namespace Runtime.Scriptable_Objects
         private int _index = 0;
         [SerializeField] private Material _transparentValidMat;
         [SerializeField] private Material _transparentInvalidMat;
+        public event Action OnSegmentCanRotate;
+        public event Action OnSegmentCannotRotate;
 
         public void Build(Vector3Int position)
         {
@@ -47,6 +50,11 @@ namespace Runtime.Scriptable_Objects
                 TearDown();
                 placeHolder = Instantiate(selectedSegment, position, _rotations.FirstOrDefault());
                 _placeHolder = Option<Segment>.Some(placeHolder);
+            }
+            
+            if (validRotations.Count > 1)
+            {
+                OnSegmentCanRotate?.Invoke();
             }
 
             var material = validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
@@ -94,6 +102,7 @@ namespace Runtime.Scriptable_Objects
             if (_placeHolder.IsSome(out var segment))
             {
                 Destroy(segment.gameObject);
+                OnSegmentCannotRotate?.Invoke();
             }
 
             _placeHolder = Option<Segment>.None;
@@ -104,6 +113,7 @@ namespace Runtime.Scriptable_Objects
             if (_placeHolder.IsSome(out var segment))
             {
                 segment.gameObject.SetActive(false);
+                OnSegmentCannotRotate?.Invoke();
             }
         }
 
