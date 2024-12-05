@@ -107,7 +107,7 @@ namespace Runtime.Scriptable_Objects
         {
             if (CanAffordCard(segments, rerollCostBlood, rerollCostSteam) && HasOpenSlots()) return;
             //IF the hand cannot be afforded put end game call here
-            var score = CalculateScore();
+            var score = CalculateFinalScore();
             if (score > _highScore)
             {
                 SaveHighScore(score);
@@ -154,11 +154,22 @@ namespace Runtime.Scriptable_Objects
             sum += _enginesActivated * _enginesActivatedValue;
             sum += _hybridsActivated * _hybridsActivatedValue;
             sum += _energySpheresCollected * _energySpheresCollectedValue;
+            return sum;
+        }
+
+        private int CalculateFinalScore()
+        {
+            var sum = 0;
+            sum += CalculateAmalgamationScore();
+            sum += _brainsActivated * _brainsActivatedValue;
+            sum += _enginesActivated * _enginesActivatedValue;
+            sum += _hybridsActivated * _hybridsActivatedValue;
+            sum += _energySpheresCollected * _energySpheresCollectedValue;
             sum += _currency.BloodAmount * _currencyValue;
             sum += _currency.SteamAmount * _currencyValue;
             sum += _currency.SteamAmount * _currency.BloodAmount;
             return sum;
-        }
+        }     
 
         private int CalculateAmalgamationScore()
         {
@@ -253,6 +264,7 @@ namespace Runtime.Scriptable_Objects
                    _energySpheresCollected;
         }
         public int GetScore() => CalculateScore(); 
+        public int GetFinalScore() => CalculateFinalScore(); 
         public int GetHighScore() => _highScore;
 
         public int hearthConnections => _heartsConnected;
