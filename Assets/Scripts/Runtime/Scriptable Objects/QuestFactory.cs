@@ -66,6 +66,8 @@ namespace Runtime.Scriptable_Objects
             var quest = _collectX.Build(x);
             OnCollect += quest.Progress;
             quest.OnComplete += () => OnCollect -= quest.Progress;
+            quest.OnComplete += _autoSpawner.SpawnBloodSource;
+            quest.OnComplete += _autoSpawner.SpawnSteamSource;
             for (int i = 0; i < x; i++)
             {
                 _autoSpawner.SpawnCollectable();
