@@ -42,6 +42,11 @@ namespace Runtime.Scriptable_Objects
                 .Where(collectable => segmentPositions.Contains(collectable.Position))
                 .ToList();
 
+            if (collectables.Count > 0)
+            {
+                SoundFXPlayer.Instance.Play(SoundFX.OrbCollected);
+            }
+            
             _questFactory.CollectableCollected(collectables.Count);
             OnCollectedCollectables?.Invoke(collectables.Count);
             collectables.ForEach(c => _currencyPopup.GainCurrency(c.Position, c.StaticSegmentData));
@@ -80,6 +85,7 @@ namespace Runtime.Scriptable_Objects
             var collectable = Instantiate(_collectablePrefab, spawnPosition, Quaternion.identity);
             collectable.Position = spawnPosition;
             _collectables.Add(collectable);
+            SoundFXPlayer.Instance.Play(SoundFX.OrbSpawn);
         }
     }
 }
