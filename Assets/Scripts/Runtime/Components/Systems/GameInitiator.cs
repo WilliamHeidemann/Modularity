@@ -16,7 +16,6 @@ namespace Runtime.Components.Systems
         [SerializeField] private GameOverMenuController _gameOverMenuController;
         [SerializeField] private EndGame _endGame;
 
-
         private void OnEnable()
         {
             MainMenuController.OnGameStart += Initialize;

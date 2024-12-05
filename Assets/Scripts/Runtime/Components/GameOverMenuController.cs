@@ -19,7 +19,7 @@ public class GameOverMenuController : MonoBehaviour
     private Animator _animator;
     private void OnEnable()
     {
-        _scoreText.text = _scoreTracker.GetScore().ToString();
+        _scoreText.text = _scoreTracker.GetFinalScore().ToString();
         _highScoreText.text = _scoreTracker.GetHighScore().ToString();
 
         _heartsConnectedText.text = _scoreTracker.hearthConnections.ToString();
