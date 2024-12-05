@@ -5,6 +5,7 @@ using Runtime.Components.Utility;
 using UnityEngine;
 using UnityUtils;
 using UtilityToolkit.Runtime;
+using static Runtime.Scriptable_Objects.AutoSpawner;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -20,6 +21,9 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private FlowControl _flowControl;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
+
+        public delegate void SegmentPlaced();
+        public static event SegmentPlaced OnSegmentPlaced;
 
 
         public void Build(Vector3Int position, Quaternion placeholderRotation, bool isInitial = false)
@@ -63,6 +67,7 @@ namespace Runtime.Scriptable_Objects
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             SoundFXPlayer.Instance.Play(segmentData.StaticSegmentData.SoundFX);
+            OnSegmentPlaced?.Invoke();
 
             if (isInitial)
             {

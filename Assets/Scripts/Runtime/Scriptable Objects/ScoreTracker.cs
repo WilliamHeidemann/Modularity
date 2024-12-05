@@ -107,6 +107,17 @@ namespace Runtime.Scriptable_Objects
             sum += _enginesActivated * _enginesActivatedValue;
             sum += _hybridsActivated * _hybridsActivatedValue;
             sum += _energySpheresCollected * _energySpheresCollectedValue;
+            return sum;
+        }
+
+        private int CalculateFinalScore()
+        {
+            var sum = 0;
+            sum += CalculateAmalgamationScore();
+            sum += _brainsActivated * _brainsActivatedValue;
+            sum += _enginesActivated * _enginesActivatedValue;
+            sum += _hybridsActivated * _hybridsActivatedValue;
+            sum += _energySpheresCollected * _energySpheresCollectedValue;
             sum += _currency.BloodAmount * _currencyValue;
             sum += _currency.SteamAmount * _currencyValue;
             sum += _currency.SteamAmount * _currency.BloodAmount;
@@ -201,9 +212,10 @@ namespace Runtime.Scriptable_Objects
         }
 
         public int GetScore() => CalculateScore(); 
+        public int GetFinalScore() => CalculateFinalScore(); 
         public int GetHighScore()
         {
-            var score = CalculateScore();
+            var score = CalculateFinalScore();
             if (score > _highScore) 
             {
                 SaveHighScore(score);
