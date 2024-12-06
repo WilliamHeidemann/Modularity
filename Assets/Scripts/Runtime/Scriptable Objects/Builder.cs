@@ -67,7 +67,6 @@ namespace Runtime.Scriptable_Objects
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             SoundFXPlayer.Instance.Play(segmentData.StaticSegmentData.SoundFX);
-            OnSegmentPlaced?.Invoke();
 
             if (isInitial)
             {
@@ -79,6 +78,7 @@ namespace Runtime.Scriptable_Objects
             _autoSpawner.CheckForCollectables();
             _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
             _currencyPopup.SpendCurrency(position.AsVector3Int(), segmentData.StaticSegmentData);
+            OnSegmentPlaced?.Invoke();
             _hand.DrawHand();
             _selection.Prefab = Option<Segment>.None;
         }
