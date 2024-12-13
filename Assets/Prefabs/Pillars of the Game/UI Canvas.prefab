@@ -1093,7 +1093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1217012596210080428, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100.39
+      value: 49.72
       objectReference: {fileID: 0}
     - target: {fileID: 1217012596210080428, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1339,6 +1339,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3483593972560205572, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
+      propertyPath: _moveUpAmount
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483593972560205572, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
+      propertyPath: _animationTime
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483593972560205572, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
+      propertyPath: _scoreUpdateText
+      value: 
+      objectReference: {fileID: 6586038536035164207, guid: de34fde3149807f408fda19892eada7f, type: 3}
     - target: {fileID: 4251607131438051196, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1485,7 +1497,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6268690766964355325, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       propertyPath: m_text
-      value: 69
+      value: '0
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 6360877159277646849, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       propertyPath: m_text
@@ -1837,12 +1851,18 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7286498607727971698, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7956310223676291035}
     - targetCorrespondingSourceObject: {fileID: 4903796765018482125, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       insertIndex: -1
       addedObject: {fileID: 158103181820710242}
     - targetCorrespondingSourceObject: {fileID: 1828518397140292848, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1762274326661423555}
+    - targetCorrespondingSourceObject: {fileID: 2323252707238422670, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746319653704001335}
     - targetCorrespondingSourceObject: {fileID: 4805874766598924885, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3098084886257134139}
@@ -1855,6 +1875,23 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8233561543949367933, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
   m_PrefabInstance: {fileID: 8153028655628689331}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1457960928041833153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7286498607727971698, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
+  m_PrefabInstance: {fileID: 8153028655628689331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &7956310223676291035
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457960928041833153}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &2878852937586779099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6257431878683802728, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
@@ -1913,6 +1950,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!1 &5843625415112734525 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2323252707238422670, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
+  m_PrefabInstance: {fileID: 8153028655628689331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &1746319653704001335
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5843625415112734525}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &7513503460411853635 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1828518397140292848, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
