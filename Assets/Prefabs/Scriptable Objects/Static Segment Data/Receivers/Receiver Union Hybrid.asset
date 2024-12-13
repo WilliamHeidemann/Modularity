@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
-  m_Name: Receiver Steam
+  m_Name: Receiver Union Hybrid
   m_EditorClassIdentifier: 
   ConnectionPoints:
     Up: 0
-    Down: 2
+    Down: 0
     Right: 0
     Left: 0
-    Forward: 0
-    Back: 0
-  Model: 13
-  IsBlood: 0
+    Forward: 2
+    Back: 1
+  IsBlood: 1
   IsSteam: 1
   IsSource: 0
-  BloodReward: 0
-  SteamReward: 8
-  BloodCost: 0
-  SteamCost: 1
-  BloodRequirements: 0
+  BloodReward: 5
+  SteamReward: 5
+  BloodCost: 2
+  SteamCost: 2
+  BloodRequirements: 1
   SteamRequirements: 1

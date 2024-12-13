@@ -51,3 +51,6 @@ MonoBehaviour:
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _scoreTracker: {fileID: 11400000, guid: c84efa995db490440878a317856ff8be, type: 2}
   _startingCurrency: 30
+  _questController: {fileID: 0}
+  _gameOverMenuController: {fileID: 0}
+  _endGame: {fileID: 11400000, guid: f426bfc36a9001048908cf941a9cff37, type: 2}
