@@ -26,21 +26,21 @@ namespace Runtime.Components
         [SerializeField] private Image[] _glowBlueprints;
         [SerializeField] private Image _itemPreview;
 
-        public void SetCardValues(string itemCost, int costsBlood, int costsSteam, int bloodReward, int steamReward)
+        public void SetCardValues(int costsBlood, int costsSteam, int bloodReward, int steamReward)
         {
             if(costsBlood > 0 && costsSteam > 0)
             {
                 _bloodIcon.gameObject.SetActive(true);
                 _steamIcon.gameObject.SetActive(true);
-                _itemCostBloodText.text = itemCost;
-                _itemCostSteamText.text = itemCost;
+                _itemCostBloodText.text = costsBlood.ToString();
+                _itemCostSteamText.text = costsSteam.ToString();
                 _bluePrintTexture.sprite = _blueprintTextures[2];
             }
             else if(costsBlood > 0)
             {
                 _bloodIcon.gameObject.SetActive(true);
                 _steamIcon.gameObject.SetActive(false);
-                _itemCostBloodText.text = itemCost;
+                _itemCostBloodText.text = costsBlood.ToString();
                 _itemCostSteamText.text = "0";
                 _bluePrintTexture.sprite = _blueprintTextures[0];
             }
@@ -48,7 +48,7 @@ namespace Runtime.Components
             {
                 _steamIcon.gameObject.SetActive(true);
                 _bloodIcon.gameObject.SetActive(false);
-                _itemCostSteamText.text = itemCost;
+                _itemCostSteamText.text = costsSteam.ToString();
                 _itemCostBloodText.text = "0";
                 _bluePrintTexture.sprite = _blueprintTextures[1];
             }

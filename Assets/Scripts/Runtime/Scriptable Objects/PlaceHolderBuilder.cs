@@ -97,6 +97,23 @@ namespace Runtime.Scriptable_Objects
             SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 
+        public void Clear()
+        {
+            if (_placeHolder.IsSome(out var segment))
+            {
+                if (segment == null)
+                {
+                    _placeHolder = Option<Segment>.None;
+                    return;
+                }
+                
+                Destroy(segment.gameObject);
+                OnSegmentCannotRotate?.Invoke();
+            }
+            
+            _placeHolder = Option<Segment>.None;
+        }
+
         public void TearDown()
         {
             if (_placeHolder.IsSome(out var segment))
