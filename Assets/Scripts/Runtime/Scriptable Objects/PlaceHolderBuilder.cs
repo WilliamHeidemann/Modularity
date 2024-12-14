@@ -186,7 +186,5 @@ namespace Runtime.Scriptable_Objects
                 .OrderByDescending(segmentData => _structure.GetValidConnections(segmentData).Count());
             // .Select(segmentData => segmentData.Rotation);
         }
-
-        
     }
 }
