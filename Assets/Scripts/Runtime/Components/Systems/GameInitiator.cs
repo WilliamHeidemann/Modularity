@@ -15,6 +15,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private QuestController _questController;
         [SerializeField] private GameOverMenuController _gameOverMenuController;
         [SerializeField] private EndGame _endGame;
+        [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
 
         private void OnEnable()
         {
@@ -32,6 +33,7 @@ namespace Runtime.Components.Systems
             _structure.Clear();
             _autoSpawner.Clear();
             _scoreTracker.Clear();
+            _placeHolderBuilder.Clear();
             _currency.Initialize(_startingCurrency);
             _questController.Initialize();
             _endGame.SetGameOverMenu(_gameOverMenuController);
