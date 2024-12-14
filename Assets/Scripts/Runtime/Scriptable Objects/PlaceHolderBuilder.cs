@@ -116,6 +116,23 @@ namespace Runtime.Scriptable_Objects
                 OnSegmentCannotRotate?.Invoke();
             }
         }
+        
+        public void Clear()
+        {
+            if (_placeHolder.IsSome(out var segment))
+            {
+                if (segment == null)
+                {
+                    _placeHolder = Option<Segment>.None;
+                    return;
+                }
+                
+                Destroy(segment.gameObject);
+                OnSegmentCannotRotate?.Invoke();
+            }
+
+            _placeHolder = Option<Segment>.None;
+        }
 
         public Quaternion PlaceholderRotation()
         {
@@ -169,7 +186,5 @@ namespace Runtime.Scriptable_Objects
                 .OrderByDescending(segmentData => _structure.GetValidConnections(segmentData).Count());
             // .Select(segmentData => segmentData.Rotation);
         }
-
-        
     }
 }
