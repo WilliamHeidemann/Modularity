@@ -138,9 +138,6 @@ namespace Runtime.Components.Utility
                 return;
             }
 
-            print(xAxis);
-            print(yAxis);
-
             Rotate(xAxis, yAxis);
         }
 
