@@ -19,6 +19,8 @@ namespace Runtime.Components.Utility
         [SerializeField] private float _resetPercentage;
 
         private Vector3 _dragOrigin;
+        private Vector3 _mouseDelta;
+        private Vector3 _mouseRightDelta;
         private Vector3 _startPosition;
         private Vector3 _startRotation;
 
@@ -56,14 +58,17 @@ namespace Runtime.Components.Utility
                 return;
             }
 
-            HandleRotation();
+            _mouseDelta = _dragOrigin - Input.mousePosition;
+            _dragOrigin = Input.mousePosition;
+            HandleRotationKeyboard();
+            HandleRotationMouse();
             HandleDragTranslation();
             HandleZoom();
             var position = transform.position;
-            position.x =  Mathf.Clamp(transform.position.x, -25.0f, 25.0f);
-            position.y =  Mathf.Clamp(transform.position.y, 0.0f, 25.0f);
-            position.z =  Mathf.Clamp(transform.position.z, -25.0f, 25.0f);
-            
+            position.x = Mathf.Clamp(transform.position.x, -25.0f, 25.0f);
+            position.y = Mathf.Clamp(transform.position.y, 0.0f, 25.0f);
+            position.z = Mathf.Clamp(transform.position.z, -25.0f, 25.0f);
+
             transform.position = position;
         }
 
@@ -76,6 +81,7 @@ namespace Runtime.Components.Utility
                     _wasClickedOverCard = true;
                     return;
                 }
+
                 _wasClickedOverCard = false;
                 _dragOrigin = Input.mousePosition;
                 return;
@@ -88,11 +94,9 @@ namespace Runtime.Components.Utility
                 return;
             }
 
-            var delta = Input.mousePosition - _dragOrigin;
-            var translation = new Vector3(-delta.x * _dragSpeed, -delta.y * _dragSpeed, 0);
+            var translation = new Vector3(_mouseDelta.x * _dragSpeed, _mouseDelta.y * _dragSpeed, 0);
             transform.Translate(translation, Space.Self);
             PreventGoingThroughFloor();
-            _dragOrigin = Input.mousePosition;
         }
 
         private void PreventGoingThroughFloor()
@@ -101,7 +105,7 @@ namespace Runtime.Components.Utility
             transform.position = new Vector3(position.x, Mathf.Abs(position.y), position.z);
         }
 
-        private void HandleRotation()
+        private void HandleRotationKeyboard()
         {
             var xAxis = Input.GetAxis("Horizontal");
             var yAxis = Input.GetAxis("Vertical");
@@ -111,6 +115,67 @@ namespace Runtime.Components.Utility
                 return;
             }
 
+            Rotate(xAxis, yAxis);
+        }
+
+        private void HandleRotationMouse()
+        {
+            if (!Input.GetMouseButton(1))
+            {
+                _mouseRightDelta = Vector3.zero;
+                return;
+            }
+
+            var xIncrement = GetIncrement(_mouseDelta.x);
+            var yIncrement = GetIncrement(-_mouseDelta.y);
+
+            if (!HasSameSign(xIncrement, _mouseRightDelta.x))
+            {
+                _mouseRightDelta = new Vector3(0, _mouseRightDelta.y, 0);
+            }
+            
+            if (!HasSameSign(yIncrement, _mouseRightDelta.y))
+            {
+                _mouseRightDelta = new Vector3(_mouseRightDelta.x, 0, 0);
+            }
+
+            _mouseRightDelta += new Vector3(xIncrement, yIncrement, 0);
+
+            const float limit = 2f;
+
+            var xAxis = Mathf.Clamp(_mouseRightDelta.x, -limit, limit);
+            var yAxis = Mathf.Clamp(_mouseRightDelta.y, -limit, limit);
+
+            if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0))
+            {
+                return;
+            }
+
+            print(xAxis);
+            print(yAxis);
+
+            Rotate(xAxis, yAxis);
+        }
+
+        private static float GetIncrement(float delta)
+        {
+            const float threshold = 1.0f;
+            const float increment = 0.02f;
+            return delta switch
+            {
+                > threshold => increment,
+                < -threshold => -increment,
+                _ => 0,
+            };
+        }
+
+        private static bool HasSameSign(float a, float b)
+        {
+            return (int)Mathf.Sign(a) == (int)Mathf.Sign(b);
+        }
+
+        private void Rotate(float xAxis, float yAxis)
+        {
             var xValue = transform.rotation.eulerAngles.x;
 
             var isGoingTooHigh = xValue is > 80 and < 100f && yAxis > 0f;
@@ -137,7 +202,7 @@ namespace Runtime.Components.Utility
             {
                 return;
             }
-            
+
             transform.Translate(0, 0, zoom);
             PreventGoingThroughFloor();
         }
@@ -146,7 +211,7 @@ namespace Runtime.Components.Utility
         {
             var positions = _structure.Segments.Select(segment => segment.Position).ToList();
             var center = SpawnUtility.GetCenter(positions);
-            var distance = SpawnUtility.GetRadius(positions,_resetConstant,_resetPercentage);
+            var distance = SpawnUtility.GetRadius(positions, _resetConstant, _resetPercentage);
             var direction = transform.position - center;
             transform.position = center + direction.normalized * distance;
             transform.LookAt(center);
