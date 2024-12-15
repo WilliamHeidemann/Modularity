@@ -52,11 +52,12 @@ namespace Runtime.Scriptable_Objects
 
         protected void UpdateDescription()
         {
-            Description = Regex.Replace(Description, @"\(\d+/2\)", $"({Count}/2)");
+            Description = Regex.Replace(Description, @"\d+/", $"{Count}/");
             if (Count >= Target)
             {
                 return;
             }
+
             DescriptionText.text = Description;
         }
 
@@ -191,7 +192,7 @@ namespace Runtime.Scriptable_Objects
             {
                 Complete();
             }
-            
+
             UpdateDescription();
         }
     }

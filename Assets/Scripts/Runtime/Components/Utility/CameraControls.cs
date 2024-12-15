@@ -123,7 +123,7 @@ namespace Runtime.Components.Utility
             {
                 return;
             }
-            
+
             const float limit = 3f;
             const float dampening = 0.1f;
 
@@ -139,23 +139,6 @@ namespace Runtime.Components.Utility
             }
 
             Rotate(xAxis, yAxis);
-        }
-
-        private static float GetIncrement(float delta)
-        {
-            const float threshold = 1.0f;
-            const float increment = 0.02f;
-            return delta switch
-            {
-                > threshold => increment,
-                < -threshold => -increment,
-                _ => 0,
-            };
-        }
-
-        private static bool HasSameSign(float a, float b)
-        {
-            return (int)Mathf.Sign(a) == (int)Mathf.Sign(b);
         }
 
         private void Rotate(float xAxis, float yAxis)
