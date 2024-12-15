@@ -20,7 +20,6 @@ namespace Runtime.Components.Utility
 
         private Vector3 _dragOrigin;
         private Vector3 _mouseDelta;
-        private Vector3 _mouseRightDelta;
         private Vector3 _startPosition;
         private Vector3 _startRotation;
 
@@ -122,29 +121,17 @@ namespace Runtime.Components.Utility
         {
             if (!Input.GetMouseButton(1))
             {
-                _mouseRightDelta = Vector3.zero;
                 return;
             }
-
-            var xIncrement = GetIncrement(_mouseDelta.x);
-            var yIncrement = GetIncrement(-_mouseDelta.y);
-
-            if (!HasSameSign(xIncrement, _mouseRightDelta.x))
-            {
-                _mouseRightDelta = new Vector3(0, _mouseRightDelta.y, 0);
-            }
             
-            if (!HasSameSign(yIncrement, _mouseRightDelta.y))
-            {
-                _mouseRightDelta = new Vector3(_mouseRightDelta.x, 0, 0);
-            }
+            const float limit = 3f;
+            const float dampening = 0.1f;
 
-            _mouseRightDelta += new Vector3(xIncrement, yIncrement, 0);
+            var x = _mouseDelta.x * dampening;
+            var y = _mouseDelta.y * dampening;
 
-            const float limit = 2f;
-
-            var xAxis = Mathf.Clamp(_mouseRightDelta.x, -limit, limit);
-            var yAxis = Mathf.Clamp(_mouseRightDelta.y, -limit, limit);
+            var xAxis = Mathf.Clamp(x, -limit, limit);
+            var yAxis = Mathf.Clamp(y, -limit, limit);
 
             if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0))
             {
