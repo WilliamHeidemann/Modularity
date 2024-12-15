@@ -54,3 +54,5 @@ MonoBehaviour:
   _questController: {fileID: 0}
   _gameOverMenuController: {fileID: 0}
   _endGame: {fileID: 11400000, guid: f426bfc36a9001048908cf941a9cff37, type: 2}
+  _placeHolderBuilder: {fileID: 11400000, guid: b64ebe420f6c3aa46a0cebb265fbd019,
+    type: 2}
