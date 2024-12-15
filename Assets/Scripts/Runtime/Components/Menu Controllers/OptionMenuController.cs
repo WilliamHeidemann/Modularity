@@ -11,7 +11,7 @@ namespace Runtime.Components
         [SerializeField] private Slider _SFXSlider;
         [SerializeField] private Image _musicCrossout;
         [SerializeField] private Image _SFXCrossout;
-        [SerializeField] private AudioSource _testingAudioSource;
+        private AudioSource _testingAudioSource;
 
         public delegate void SoundChange(float musicVolume, float SFXVolume);
         public static event SoundChange OnSoundChange;
