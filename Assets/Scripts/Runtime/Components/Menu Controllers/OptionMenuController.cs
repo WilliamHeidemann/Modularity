@@ -11,16 +11,38 @@ namespace Runtime.Components
         [SerializeField] private Slider _SFXSlider;
         [SerializeField] private Image _musicCrossout;
         [SerializeField] private Image _SFXCrossout;
-        [SerializeField] private AudioSource _testingAudioSource;
+        private AudioSource _testingSFXAudioSource;
 
         public delegate void SoundChange(float musicVolume, float SFXVolume);
         public static event SoundChange OnSoundChange;
 
         private void Start()
         {
-            _testingAudioSource = GetComponent<AudioSource>();
-            _testingAudioSource.volume = _SFXSlider.value;
+            _testingSFXAudioSource = GetComponent<AudioSource>();
+
+            if (PlayerPrefs.HasKey("MusicVolume"))
+            {
+                _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+            }
+            if (PlayerPrefs.HasKey("SFXVolume"))
+            {
+                _SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+            }
+            else
+            {
+                PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
+                PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
+            }
+
+            _testingSFXAudioSource.volume = _SFXSlider.value;
         }
+
+        public void Credits()
+        {
+            //play credits animation here
+            print("Credits");
+        }
+
 
         public void Return()
         {
@@ -31,6 +53,7 @@ namespace Runtime.Components
         public void OnMusicVolumeChanged()
         {
             OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
+            PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
 
             if (_musicSlider.value == 0)
             {
@@ -46,7 +69,8 @@ namespace Runtime.Components
         {
             StopAllCoroutines();
             OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
-            _testingAudioSource.volume = _SFXSlider.value;
+            PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
+            _testingSFXAudioSource.volume = _SFXSlider.value;
 
             if (_SFXSlider.value == 0)
             {
@@ -62,7 +86,7 @@ namespace Runtime.Components
         IEnumerator PlaySound()
         {
             yield return new WaitForSeconds(0.1f);
-            _testingAudioSource.Play();
+            _testingSFXAudioSource.Play();
         }
     }
 }

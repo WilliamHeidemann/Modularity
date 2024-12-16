@@ -17,7 +17,14 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Quest _connectSteamAndFlesh;
         [SerializeField] private Quest<int> _collectX;
         [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
-        
+
+        public void Clear()
+        {
+            OnSegmentPlaced = null;
+            OnCollect = null;
+            OnReceiversActivated = null;
+            OnBloodAndSteamConnected = null;
+        }
 
         public SegmentQuest PlaceFirstBloodSegmentQuest()
         {
