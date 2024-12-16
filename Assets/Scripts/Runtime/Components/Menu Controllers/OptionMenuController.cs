@@ -16,7 +16,7 @@ namespace Runtime.Components
         public delegate void SoundChange(float musicVolume, float SFXVolume);
         public static event SoundChange OnSoundChange;
 
-        private void Start()
+        public void GameStartupSettings()
         {
             _testingSFXAudioSource = GetComponent<AudioSource>();
 
@@ -34,6 +34,7 @@ namespace Runtime.Components
                 PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
             }
 
+            OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
             _testingSFXAudioSource.volume = _SFXSlider.value;
         }
 
