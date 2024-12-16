@@ -29,6 +29,7 @@ namespace Runtime.Components.Systems
 
         private void Initialize()
         {
+            _questFactory.Clear();
             _hand.Clear();
             _structure.Clear();
             _autoSpawner.Clear();

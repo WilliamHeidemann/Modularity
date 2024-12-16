@@ -30,6 +30,7 @@ namespace Runtime.Scriptable_Objects
         public void Complete()
         {
             OnComplete?.Invoke();
+            OnComplete = null;
         }
 
         public Quest Build() => new(Description, Explanation);
