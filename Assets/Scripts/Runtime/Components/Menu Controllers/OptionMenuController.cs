@@ -11,14 +11,14 @@ namespace Runtime.Components
         [SerializeField] private Slider _SFXSlider;
         [SerializeField] private Image _musicCrossout;
         [SerializeField] private Image _SFXCrossout;
-        [SerializeField] private AudioSource _testingAudioSource;
+        private AudioSource _testingSFXAudioSource;
 
         public delegate void SoundChange(float musicVolume, float SFXVolume);
         public static event SoundChange OnSoundChange;
 
         private void Start()
         {
-            _testingAudioSource = GetComponent<AudioSource>();
+            _testingSFXAudioSource = GetComponent<AudioSource>();
 
             if (PlayerPrefs.HasKey("MusicVolume"))
             {
@@ -34,7 +34,7 @@ namespace Runtime.Components
                 PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
             }
 
-            _testingAudioSource.volume = _SFXSlider.value;
+            _testingSFXAudioSource.volume = _SFXSlider.value;
         }
 
         public void Credits()
@@ -70,7 +70,7 @@ namespace Runtime.Components
             StopAllCoroutines();
             OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
             PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
-            _testingAudioSource.volume = _SFXSlider.value;
+            _testingSFXAudioSource.volume = _SFXSlider.value;
 
             if (_SFXSlider.value == 0)
             {
@@ -86,7 +86,7 @@ namespace Runtime.Components
         IEnumerator PlaySound()
         {
             yield return new WaitForSeconds(0.1f);
-            _testingAudioSource.Play();
+            _testingSFXAudioSource.Play();
         }
     }
 }
