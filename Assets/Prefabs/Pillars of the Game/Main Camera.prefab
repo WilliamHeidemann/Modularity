@@ -204,7 +204,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 319
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -282,11 +282,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _keyboardSpeed: 10
-  _dragSpeed: 0.01
-  _rotationSpeed: 100
-  _zoomSpeed: 300
+  _dragSpeed: 0.012
+  _rotationSpeed: 150
+  _zoomSpeed: 450
   _rotationPointOffset: 10
-  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
+  _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
+  _resetConstant: 5
+  _resetPercentage: 50
 --- !u!114 &5765446847287956704
 MonoBehaviour:
   m_ObjectHideFlags: 0
