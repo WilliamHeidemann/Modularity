@@ -9,8 +9,8 @@ public class ScoreDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private GameObject _scoreUpdateText;
 
-    [SerializeField] private float _animationTime = 1f;
-    [SerializeField] private float _moveUpAmount = 30f;
+    [SerializeField] private float _animationTime = 1.5f;
+    private float _moveUpAmount = Screen.height / 20;
 
     private void OnEnable()
     {
@@ -34,8 +34,8 @@ public class ScoreDisplay : MonoBehaviour
 
         GameObject scoreUpdateTextClone = Instantiate(_scoreUpdateText, transform);
         TMP_Text scoreText = scoreUpdateTextClone.GetComponent<TMP_Text>();
-        scoreText.text = scoreDifference.ToString();
-        var textFade = scoreText.DOFade(0, _animationTime);
+        scoreText.text = "+" + scoreDifference.ToString();
+        var textFade = scoreText.DOFade(0, _animationTime).SetEase(Ease.InQuad);
         var moveUp = scoreUpdateTextClone.transform.DOMoveY(scoreUpdateTextClone.transform.position.y + _moveUpAmount, _animationTime).SetEase(Ease.OutQuad);
 
         var sequence = DOTween.Sequence();

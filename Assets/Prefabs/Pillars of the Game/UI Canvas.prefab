@@ -2371,7 +2371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3483593972560205572, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       propertyPath: _animationTime
-      value: 1.6
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3483593972560205572, guid: 21bd2bfd5c92cdc42ad56bcc10979272, type: 3}
       propertyPath: _scoreUpdateText
