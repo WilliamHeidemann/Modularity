@@ -107,7 +107,7 @@ MonoBehaviour:
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _rerollCostBlood: 0
   _rerollCostSteam: 0
-  _scoreTracker: {fileID: 0}
+  _endGame: {fileID: 0}
 --- !u!114 &3735443164991434793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +310,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
@@ -567,6 +571,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
@@ -832,6 +840,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6102592250588168767, guid: f73c017269640fa4a9125e96823feb82, type: 3}

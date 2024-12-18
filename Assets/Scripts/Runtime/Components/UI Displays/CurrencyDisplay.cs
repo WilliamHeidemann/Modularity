@@ -13,7 +13,7 @@ namespace Runtime.Components
         [SerializeField] private Currency _currency;
 
         [SerializeField] private float _animationTime = 1f;
-        [SerializeField] private float _moveUpAmount = 30f;
+        private float _moveUpAmount = Screen.height / 20;
         [SerializeField] private Transform _bloodTextSpawnPos;
         [SerializeField] private Transform _steamTextSpawnPos;
         [SerializeField] private GameObject _bloodUpdateText;
@@ -63,11 +63,11 @@ namespace Runtime.Components
             }
             else
             {
-                updateText.text = updateAmount.ToString();
+                updateText.text = "+" + updateAmount.ToString();
                 moveAmount = _moveUpAmount;
             }
 
-            var textFade = updateText.DOFade(0, _animationTime);
+            var textFade = updateText.DOFade(0, _animationTime).SetEase(Ease.InQuad);
             var moveUp = updateTextClone.transform.DOMoveY(updateTextClone.transform.position.y + moveAmount, _animationTime).SetEase(Ease.OutQuad);
 
             var sequence = DOTween.Sequence();

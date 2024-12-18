@@ -1035,7 +1035,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8269732745641077700}
-        m_TargetAssemblyTypeName: OptionMenuController, Runtime
+        m_TargetAssemblyTypeName: Runtime.Components.OptionMenuController, Runtime
         m_MethodName: Return
         m_Mode: 1
         m_Arguments:
@@ -1205,7 +1205,6 @@ MonoBehaviour:
   _SFXSlider: {fileID: 2990010385992839823}
   _musicCrossout: {fileID: 4388628871904516901}
   _SFXCrossout: {fileID: 4876353792654714099}
-  _testingAudioSource: {fileID: 0}
 --- !u!82 &2732777455605465497
 AudioSource:
   m_ObjectHideFlags: 0

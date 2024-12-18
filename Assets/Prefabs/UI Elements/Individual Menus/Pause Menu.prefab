@@ -752,6 +752,7 @@ GameObject:
   - component: {fileID: 7614268366794253976}
   - component: {fileID: 9098395241800844040}
   - component: {fileID: 2944496297070769980}
+  - component: {fileID: 96223267924080038}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -832,6 +833,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.6862745}
   m_EffectDistance: {x: 5, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!225 &96223267924080038
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4268742149687790828}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5076109528275076420
 GameObject:
   m_ObjectHideFlags: 0

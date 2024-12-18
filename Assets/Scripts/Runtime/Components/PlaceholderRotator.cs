@@ -8,14 +8,15 @@ namespace Runtime.Components
     public class PlaceholderRotator : MonoBehaviour
     {
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
-        [SerializeField] private GameObject RDisplay;
+        [SerializeField] private GameObject _rDisplay;
+        [SerializeField] private Transform _rotationPoint;
         private Vector3 RStartingScale;
 
         private void OnEnable()
         {
             _placeHolderBuilder.OnSegmentCanRotate += ShowRDisplay;
             _placeHolderBuilder.OnSegmentCannotRotate += HideRDisplay;
-            RStartingScale = RDisplay.transform.localScale;
+            RStartingScale = _rDisplay.transform.localScale;
         }
 
         private void OnDisable()
@@ -28,14 +29,21 @@ namespace Runtime.Components
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                if(RDisplay.activeSelf)
+                if(_rDisplay.activeSelf)
                 {
-                    var scaleUp = RDisplay.transform.DOScale(RStartingScale * 1.4f, 0.2f).SetEase(Ease.InQuad);
-                    var scaleDown = RDisplay.transform.DOScale(RStartingScale * 1f, 0.2f).SetEase(Ease.OutQuad);
+                    var scaleUp = _rDisplay.transform.DOScale(RStartingScale * 1.4f, 0.2f).SetEase(Ease.InQuad);
+                    var scaleDown = _rDisplay.transform.DOScale(RStartingScale * 1f, 0.2f).SetEase(Ease.OutQuad);
+                    var Rotate = _rotationPoint.DORotate(_rotationPoint.rotation * new Vector3(0, 0, 180), 0.3f).SetEase(Ease.InOutQuad);
 
                     var sequence = DOTween.Sequence();
                     sequence.Append(scaleUp);
                     sequence.Append(scaleDown);
+
+                    var sequence2 = DOTween.Sequence().Append(Rotate);
+                    sequence2.OnComplete(() =>
+                    {
+                        _rotationPoint.rotation = Quaternion.Euler(0, 0, 0);
+                    });
                 }
                 
                 _placeHolderBuilder.Rotate();
@@ -44,12 +52,12 @@ namespace Runtime.Components
 
         private void ShowRDisplay()
         {
-            RDisplay.SetActive(true);
+            _rDisplay.SetActive(true);
         }
         
         private void HideRDisplay()
         {
-            RDisplay.SetActive(false);
+            _rDisplay.SetActive(false);
         }
     }
 }

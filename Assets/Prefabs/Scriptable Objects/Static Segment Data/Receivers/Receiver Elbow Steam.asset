@@ -25,6 +25,6 @@ MonoBehaviour:
   BloodReward: 0
   SteamReward: 9
   BloodCost: 0
-  SteamCost: 4
+  SteamCost: 3
   BloodRequirements: 0
   SteamRequirements: 2
