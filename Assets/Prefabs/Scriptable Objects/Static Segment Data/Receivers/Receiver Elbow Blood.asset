@@ -24,7 +24,7 @@ MonoBehaviour:
   IsSource: 0
   BloodReward: 9
   SteamReward: 0
-  BloodCost: 4
+  BloodCost: 3
   SteamCost: 0
   BloodRequirements: 2
   SteamRequirements: 0

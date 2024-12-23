@@ -7,19 +7,18 @@ namespace Runtime.Components
     public class OptionMenuController : MonoBehaviour
     {
         [HideInInspector] public GameObject _menuToReturnTo;
+        [SerializeField] private GameObject _creditsOverlay;
         [SerializeField] private Slider _musicSlider;
         [SerializeField] private Slider _SFXSlider;
         [SerializeField] private Image _musicCrossout;
         [SerializeField] private Image _SFXCrossout;
         private AudioSource _testingSFXAudioSource;
-
+        
         public delegate void SoundChange(float musicVolume, float SFXVolume);
         public static event SoundChange OnSoundChange;
 
-        private void Start()
+        private void OnEnable()
         {
-            _testingSFXAudioSource = GetComponent<AudioSource>();
-
             if (PlayerPrefs.HasKey("MusicVolume"))
             {
                 _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
@@ -28,21 +27,26 @@ namespace Runtime.Components
             {
                 _SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
             }
-            else
+        }
+
+        public void GameStartupSettings()
+        {
+            _testingSFXAudioSource = GetComponent<AudioSource>();
+
+            if (!PlayerPrefs.HasKey("MusicVolume") && !PlayerPrefs.HasKey("SFXVolume"))
             {
                 PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
                 PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
             }
 
-            _testingSFXAudioSource.volume = _SFXSlider.value;
+            OnSoundChange?.Invoke(PlayerPrefs.GetFloat("MusicVolume"), PlayerPrefs.GetFloat("SFXVolume"));
+            _testingSFXAudioSource.volume = PlayerPrefs.GetFloat("SFXVolume");
         }
 
         public void Credits()
         {
-            //play credits animation here
-            print("Credits");
+            _creditsOverlay.SetActive(true);
         }
-
 
         public void Return()
         {
