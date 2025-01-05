@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
+using Runtime.DataLayer;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityUtils;

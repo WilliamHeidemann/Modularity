@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Runtime.Components.Segments;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Runtime.Components.Segments
+namespace Runtime.DataLayer
 {
     [Serializable]
     public struct ConnectionPoints

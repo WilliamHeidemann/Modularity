@@ -1,6 +1,7 @@
 using System;
 using Runtime.Components;
 using Runtime.Components.Utility;
+using Runtime.DataLayer;
 using UnityEngine;
 
 namespace Runtime.Scriptable_Objects

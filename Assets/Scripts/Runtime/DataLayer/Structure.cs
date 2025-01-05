@@ -4,7 +4,7 @@ using Runtime.Components.Segments;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
-namespace Runtime.Scriptable_Objects
+namespace Runtime.DataLayer
 {
     [CreateAssetMenu]
     public class Structure : ScriptableObject
@@ -19,43 +19,43 @@ namespace Runtime.Scriptable_Objects
         public IEnumerable<SegmentData> Connectors => _graphData.Where(data => data.StaticSegmentData.IsConnector);
 
         private bool ConnectsToAtLeastOneNeighbor(SegmentData segmentData) =>
-            Neighbors(segmentData).Any(neighbor => CanConnect(segmentData, neighbor));
+            Neighbors(segmentData).Any(segmentData.CanConnect);
 
         public bool ConnectsEverywhere(SegmentData segmentData) =>
-            Neighbors(segmentData).All(neighbor => CanConnect(segmentData, neighbor));
+            Neighbors(segmentData).All(segmentData.CanConnect);
 
-        private bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
-        {
-            var connectsDirectionally = CanConnectDirectionally(
-                segmentData1, segmentData2,
-                out var connection1,
-                out var connection2);
-
-            if (!connectsDirectionally)
-            {
-                return false;
-            }
-
-            return connection1.Item2 == connection2.Item2;
-        }
-
-        private bool CanConnectDirectionally(SegmentData segmentData1, SegmentData segmentData2,
-            out (Vector3Int, ConnectionType) connection1, out (Vector3Int, ConnectionType) connection2)
-        {
-            var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
-                point.position == segmentData2.Position);
-            var connection2Option = segmentData2.GetConnectionPointsPlus().FirstOption(point =>
-                point.position == segmentData1.Position);
-
-            var connectsOut = connection1Option.IsSome(out var c1);
-            var connectsIn = connection2Option.IsSome(out var c2);
-            connection1 = c1;
-            connection2 = c2;
-            return connectsOut && connectsIn;
-        }
+        // private static bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
+        // {
+        //     var connectsDirectionally = CanConnectDirectionally(
+        //         segmentData1, segmentData2,
+        //         out var connection1,
+        //         out var connection2);
+        //
+        //     if (!connectsDirectionally)
+        //     {
+        //         return false;
+        //     }
+        //
+        //     return connection1.Item2 == connection2.Item2;
+        // }
+        //
+        // private static bool CanConnectDirectionally(SegmentData segmentData1, SegmentData segmentData2,
+        //     out (Vector3Int, ConnectionType) connection1, out (Vector3Int, ConnectionType) connection2)
+        // {
+        //     var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
+        //         point.position == segmentData2.Position);
+        //     var connection2Option = segmentData2.GetConnectionPointsPlus().FirstOption(point =>
+        //         point.position == segmentData1.Position);
+        //
+        //     var connectsOut = connection1Option.IsSome(out var c1);
+        //     var connectsIn = connection2Option.IsSome(out var c2);
+        //     connection1 = c1;
+        //     connection2 = c2;
+        //     return connectsOut && connectsIn;
+        // }
 
         public IEnumerable<SegmentData> GetValidConnections(SegmentData segmentData) =>
-            GetOutputSegments(segmentData).Where(data => CanConnect(data, segmentData));
+            GetOutputSegments(segmentData).Where(segmentData.CanConnect);
 
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
 
@@ -83,13 +83,13 @@ namespace Runtime.Scriptable_Objects
         public IEnumerable<SegmentData> GetNeighborsFacingThis(SegmentData segmentData)
         {
             return Neighbors(segmentData)
-                .Where(neighbor => CanConnectDirectionally(segmentData, neighbor, out _, out _));
+                .Where(neighbor => segmentData.CanConnectDirectionally(neighbor, out _, out _));
         }
 
         public bool IsValidPlacement(SegmentData segmentData)
         {
             var connectsToWrongType =
-                GetNeighborsFacingThis(segmentData).Any(neighbor => !CanConnect(segmentData, neighbor));
+                GetNeighborsFacingThis(segmentData).Any(neighbor => !segmentData.CanConnect(neighbor));
 
             if (connectsToWrongType)
             {
@@ -105,7 +105,7 @@ namespace Runtime.Scriptable_Objects
         {
             var connectsToAtLeastOneNeighborDirectionally =
                 Neighbors(segmentData).Any(neighbor =>
-                    CanConnectDirectionally(segmentData, neighbor, out var _, out var _));
+                    segmentData.CanConnectDirectionally(neighbor, out (Vector3Int, ConnectionType) _, out (Vector3Int, ConnectionType) _));
 
             return connectsToAtLeastOneNeighborDirectionally;
         }

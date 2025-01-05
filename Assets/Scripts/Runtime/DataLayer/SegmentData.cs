@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
+using Runtime.Scriptable_Objects;
 using UnityEngine;
 
-namespace Runtime.Scriptable_Objects
+namespace Runtime.DataLayer
 {
     [Serializable]
     public class SegmentData

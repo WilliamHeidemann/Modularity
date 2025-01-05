@@ -1,4 +1,4 @@
-namespace Runtime.Components.Segments
+namespace Runtime.DataLayer
 {
     public enum ConnectionType
     {

@@ -2,9 +2,8 @@ using System;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Runtime.Scriptable_Objects
+namespace Runtime.DataLayer
 {
     [CreateAssetMenu(menuName = "Connector")]
     public class StaticSegmentData : ScriptableObject
