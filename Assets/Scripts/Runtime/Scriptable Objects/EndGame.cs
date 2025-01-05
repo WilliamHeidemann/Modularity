@@ -42,9 +42,9 @@ public class EndGame : ScriptableObject
     {
         foreach (var segment in _structure.Segments)
         {
-            foreach (var link in segment.GetConnectionPointsPlus())
+            foreach (var (position, type) in segment.GetConnectionPointsPlus())
             {
-                if (_structure.IsOpenPosition(link.Item1) && predicate(link.Item2)) return true;              
+                if (_structure.IsOpenPosition(position) && predicate(type)) return true;              
             }
         }
         return false;

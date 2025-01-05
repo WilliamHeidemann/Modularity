@@ -20,7 +20,7 @@ namespace Runtime.Scriptable_Objects
                 .Select(TransformDirection)
                 .Select(direction => Position + direction);
 
-        public IEnumerable<(Vector3Int, ConnectionType)> GetConnectionPointsPlus()
+        public IEnumerable<(Vector3Int position, ConnectionType type)> GetConnectionPointsPlus()
         {
             return StaticSegmentData.ConnectionPoints.GetDirectionData()
                 .Select(pair => (TransformDirection(pair.Item1) + Position, pair.Item2));

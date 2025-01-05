@@ -43,9 +43,9 @@ namespace Runtime.Scriptable_Objects
             out (Vector3Int, ConnectionType) connection1, out (Vector3Int, ConnectionType) connection2)
         {
             var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
-                point.Item1 == segmentData2.Position);
+                point.position == segmentData2.Position);
             var connection2Option = segmentData2.GetConnectionPointsPlus().FirstOption(point =>
-                point.Item1 == segmentData1.Position);
+                point.position == segmentData1.Position);
 
             var connectsOut = connection1Option.IsSome(out var c1);
             var connectsIn = connection2Option.IsSome(out var c2);
@@ -69,8 +69,8 @@ namespace Runtime.Scriptable_Objects
 
         public IEnumerable<ConnectionType> GetInputs(Vector3Int position) =>
             _graphData.SelectMany(segment => segment.GetConnectionPointsPlus())
-                .Where(connection => connection.Item1 == position)
-                .Select(connection => connection.Item2);
+                .Where(connection => connection.position == position)
+                .Select(connection => connection.type);
 
         private IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
         {
