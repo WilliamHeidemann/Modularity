@@ -18,41 +18,11 @@ namespace Runtime.DataLayer
         public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
         public IEnumerable<SegmentData> Connectors => _graphData.Where(data => data.StaticSegmentData.IsConnector);
 
-        private bool ConnectsToAtLeastOneNeighbor(SegmentData segmentData) =>
+        public bool ConnectsToAtLeastOneNeighbor(SegmentData segmentData) =>
             Neighbors(segmentData).Any(segmentData.CanConnect);
 
         public bool ConnectsEverywhere(SegmentData segmentData) =>
             Neighbors(segmentData).All(segmentData.CanConnect);
-
-        // private static bool CanConnect(SegmentData segmentData1, SegmentData segmentData2)
-        // {
-        //     var connectsDirectionally = CanConnectDirectionally(
-        //         segmentData1, segmentData2,
-        //         out var connection1,
-        //         out var connection2);
-        //
-        //     if (!connectsDirectionally)
-        //     {
-        //         return false;
-        //     }
-        //
-        //     return connection1.Item2 == connection2.Item2;
-        // }
-        //
-        // private static bool CanConnectDirectionally(SegmentData segmentData1, SegmentData segmentData2,
-        //     out (Vector3Int, ConnectionType) connection1, out (Vector3Int, ConnectionType) connection2)
-        // {
-        //     var connection1Option = segmentData1.GetConnectionPointsPlus().FirstOption(point =>
-        //         point.position == segmentData2.Position);
-        //     var connection2Option = segmentData2.GetConnectionPointsPlus().FirstOption(point =>
-        //         point.position == segmentData1.Position);
-        //
-        //     var connectsOut = connection1Option.IsSome(out var c1);
-        //     var connectsIn = connection2Option.IsSome(out var c2);
-        //     connection1 = c1;
-        //     connection2 = c2;
-        //     return connectsOut && connectsIn;
-        // }
 
         public IEnumerable<SegmentData> GetValidConnections(SegmentData segmentData) =>
             GetOutputSegments(segmentData).Where(segmentData.CanConnect);
