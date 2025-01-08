@@ -50,7 +50,7 @@ namespace Runtime.DataLayer
                 .Select(position => _graphData.First(data => data.Position == position));
         }
 
-        public IEnumerable<SegmentData> GetNeighborsFacingThis(SegmentData segmentData)
+        public IEnumerable<SegmentData> GetNeighborsConnectingDirectionally(SegmentData segmentData)
         {
             return Neighbors(segmentData)
                 .Where(neighbor => segmentData.CanConnectDirectionally(neighbor, out _, out _));
@@ -59,9 +59,14 @@ namespace Runtime.DataLayer
         public bool IsValidPlacement(SegmentData segmentData)
         {
             var connectsToWrongType =
-                GetNeighborsFacingThis(segmentData).Any(neighbor => !segmentData.CanConnect(neighbor));
+                GetNeighborsConnectingDirectionally(segmentData).Any(neighbor => !segmentData.CanConnect(neighbor));
 
             if (connectsToWrongType)
+            {
+                return false;
+            }
+            
+            if (!IsOpenPosition(segmentData.Position))
             {
                 return false;
             }
@@ -75,7 +80,7 @@ namespace Runtime.DataLayer
         {
             var connectsToAtLeastOneNeighborDirectionally =
                 Neighbors(segmentData).Any(neighbor =>
-                    segmentData.CanConnectDirectionally(neighbor, out (Vector3Int, ConnectionType) _, out (Vector3Int, ConnectionType) _));
+                    segmentData.CanConnectDirectionally(neighbor, out _, out _));
 
             return connectsToAtLeastOneNeighborDirectionally;
         }

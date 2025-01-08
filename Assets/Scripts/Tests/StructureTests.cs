@@ -365,5 +365,115 @@ namespace Tests
             Assert.AreEqual(0, unionPointedFromConnectionTypes.Count(type => type == ConnectionType.Blood));
             Assert.AreEqual(1, unionPointedFromConnectionTypes.Count(type => type == ConnectionType.Steam));
         }
+
+        [Test]
+        public void IsValidPlacement()
+        {
+            // Arrange
+            var union10 = new SegmentData
+            {
+                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                Position = new Vector3Int(1, 0, 0),
+            };
+            
+            var unionBlood03 = new SegmentData
+            {
+                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                Position = new Vector3Int(0, 3, 0),
+            };
+            
+            var unionSteam03 = new SegmentData
+            {
+                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
+                Position = new Vector3Int(0, 3, 0),
+            };
+
+            var union00 = new SegmentData
+            {
+                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                Position = new Vector3Int(0, 0, 0),
+            };
+
+            // Act
+            bool isValidPlacement10 = _structure.IsValidPlacement(union10);
+            bool isValidPlacement03Blood = _structure.IsValidPlacement(unionBlood03);
+            bool isValidPlacement03Steam = _structure.IsValidPlacement(unionSteam03);
+            bool isValidPlacement00 = _structure.IsValidPlacement(union00);
+            
+            // Assert
+            Assert.IsFalse(isValidPlacement10);
+            Assert.IsTrue(isValidPlacement03Blood);
+            Assert.IsFalse(isValidPlacement03Steam);
+            Assert.IsFalse(isValidPlacement00);
+        }
+
+        [Test]
+        public void GetNeighborsConnectingDirectionally()
+        {
+            // Arrange
+            var union10 = new SegmentData
+            {
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                Position = new Vector3Int(1, 0, 0),
+            };
+
+            var union12 = new SegmentData
+            {
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                Position = new Vector3Int(1, 2, 0),
+            };
+
+            var union21 = new SegmentData
+            {
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                Position = new Vector3Int(2, 1, 0),
+            };
+
+            _structure.AddSegment(union10);
+            _structure.AddSegment(union12);
+            _structure.AddSegment(union21);
+
+            var cross11 = new SegmentData
+            {
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                Position = new Vector3Int(1, 1, 0),
+            };
+
+            /*
+             *  + |
+             *  + + |
+             *  + |
+             */
+
+            // Act
+            var neighborsConnectingDirectionally = _structure.GetNeighborsConnectingDirectionally(cross11)
+                .Select(segment => segment.Position).ToList();
+
+            // Assert
+            Assert.IsTrue(neighborsConnectingDirectionally.Contains(new Vector3Int(0, 1, 0)));
+            Assert.IsTrue(neighborsConnectingDirectionally.Contains(new Vector3Int(1, 0, 0)));
+            Assert.IsTrue(neighborsConnectingDirectionally.Contains(new Vector3Int(1, 2, 0)));
+            Assert.IsFalse(neighborsConnectingDirectionally.Contains(new Vector3Int(2, 1, 0)));
+            Assert.IsFalse(neighborsConnectingDirectionally.Contains(new Vector3Int(0, 0, 0)));
+            Assert.IsFalse(neighborsConnectingDirectionally.Contains(new Vector3Int(1, 1, 0)));
+        }
+
+        [Test]
+        public void IsValidSourcePlacement()
+        {
+            // Act
+            bool isValidSourcePosition1 = _structure.IsValidSourcePlacement(new Vector3Int(0, 0, 0));
+            bool isValidSourcePosition2 = _structure.IsValidSourcePlacement(new Vector3Int(1, 0, 0));
+            bool isValidSourcePosition3 = _structure.IsValidSourcePlacement(new Vector3Int(2, 0, 0));
+            
+            // Assert
+            Assert.IsFalse(isValidSourcePosition1);
+            Assert.IsFalse(isValidSourcePosition2);
+            Assert.IsTrue(isValidSourcePosition3);
+        }
     }
 }
