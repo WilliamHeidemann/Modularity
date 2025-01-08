@@ -32,13 +32,26 @@ namespace Runtime.Scriptable_Objects
             SpawnSelection(position, placeholderRotation, isInitial);
         }
 
-        private void SpawnSelection(Vector3 position, Quaternion rotation, bool isInitial)
+        public void BuildInstant(SegmentData segmentData, Segment prefab)
         {
-            if (!_structure.IsOpenPosition(position.AsVector3Int()))
+            if (!_structure.IsValidPlacement(segmentData))
             {
                 return;
             }
+            
+            if (prefab.StaticSegmentData != segmentData.StaticSegmentData)
+            {
+                return;
+            }
+            
+            Instantiate(prefab, segmentData.Position, segmentData.Rotation);
+            segmentData.GetConnectionPoints()
+                .ForEach(connectionPoint => SpawnSlot(segmentData.Position, connectionPoint));
+            _structure.AddSegment(segmentData);
+        }
 
+        private void SpawnSelection(Vector3 position, Quaternion rotation, bool isInitial)
+        {
             if (!_currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam))
             {
                 return;
