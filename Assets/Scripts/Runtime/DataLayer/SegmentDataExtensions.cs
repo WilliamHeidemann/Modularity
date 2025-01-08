@@ -38,6 +38,11 @@ namespace Runtime.DataLayer
             return connectsOut && connectsIn;
         }
 
+        public static string ToJson(this Structure structure)
+        {
+            return JsonUtility.ToJson(new SegmentDataListWrapper(structure.Segments));
+        }
+        
         public static string ToJson(this List<SegmentData> segmentDataList)
         {
             return JsonUtility.ToJson(new SegmentDataListWrapper(segmentDataList));

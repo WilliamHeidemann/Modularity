@@ -21,23 +21,23 @@ namespace Runtime.DataLayer
         public bool ConnectsToAtLeastOneNeighbor(SegmentData segmentData) =>
             Neighbors(segmentData).Any(segmentData.CanConnect);
 
-        public bool ConnectsEverywhere(SegmentData segmentData) =>
+        public bool ConnectsToAllNeighbors(SegmentData segmentData) =>
             Neighbors(segmentData).All(segmentData.CanConnect);
 
         public IEnumerable<SegmentData> GetValidConnections(SegmentData segmentData) =>
-            GetOutputSegments(segmentData).Where(segmentData.CanConnect);
+            GetPointedToSegments(segmentData).Where(segmentData.CanConnect);
 
         public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
 
-        public IEnumerable<SegmentData> GetInputSegments(SegmentData segmentData) =>
+        public IEnumerable<SegmentData> GetPointedFromSegments(SegmentData segmentData) =>
             _graphData.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
 
-        public IEnumerable<SegmentData> GetOutputSegments(SegmentData segmentData) =>
+        public IEnumerable<SegmentData> GetPointedToSegments(SegmentData segmentData) =>
             _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
 
-        public IEnumerable<ConnectionType> GetInputs(SegmentData segmentData) => GetInputs(segmentData.Position);
+        public IEnumerable<ConnectionType> GetPointedFromConnectionTypes(SegmentData segmentData) => GetPointedFromConnectionTypes(segmentData.Position);
 
-        public IEnumerable<ConnectionType> GetInputs(Vector3Int position) =>
+        public IEnumerable<ConnectionType> GetPointedFromConnectionTypes(Vector3Int position) =>
             _graphData.SelectMany(segment => segment.GetConnectionPointsPlus())
                 .Where(connection => connection.position == position)
                 .Select(connection => connection.type);
@@ -82,7 +82,7 @@ namespace Runtime.DataLayer
 
         public bool IsValidSourcePlacement(Vector3Int position)
         {
-            return !GetInputs(position).Any() && IsOpenPosition(position);
+            return !GetPointedFromConnectionTypes(position).Any() && IsOpenPosition(position);
         }
     }
 }

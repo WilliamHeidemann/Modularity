@@ -18,8 +18,9 @@ namespace Runtime.Components.Utility
 
         private void SaveStructure()
         {
-            var json = _structure.Segments.ToJson();
-            print(json.ToStructure().Segments.ToJson());
+            string json = _structure.ToJson();
+            print($"RAW JSON STRING: \n{json}");
+            print($"JSON -> structure -> JSON: \n{json.ToStructure().ToJson()}");
         }
     }
 }
