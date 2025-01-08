@@ -42,7 +42,7 @@ namespace Runtime.DataLayer
                 .Where(connection => connection.position == position)
                 .Select(connection => connection.type);
 
-        private IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
+        public IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
         {
             return ConnectionPoints.AllDirections()
                 .Select(direction => segmentData.Position + direction)

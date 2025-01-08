@@ -48,17 +48,20 @@ namespace Tests
             // Arrange
             var segmentData10 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(1, 0, 0),
             };
             var segmentData12 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(1, 2, 0),
             };
             var segmentData21 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(2, 1, 0),
             };
             _structure.AddSegment(segmentData10);
@@ -73,7 +76,8 @@ namespace Tests
 
             var centerCross = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(1, 1, 0),
             };
 
@@ -85,7 +89,8 @@ namespace Tests
 
             var cornerCross = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(2, 2, 0),
             };
 
@@ -97,7 +102,8 @@ namespace Tests
 
             var cornerUnion = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(2, 0, 0),
             };
 
@@ -124,12 +130,14 @@ namespace Tests
             // Arrange
             var segmentData03 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(0, 3, 0),
             };
             var segmentData20 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(2, 0, 0),
             };
 
@@ -147,13 +155,15 @@ namespace Tests
         {
             var union11 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(1, 1, 0),
             };
 
             var union20 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(2, 0, 0),
             };
 
@@ -162,10 +172,11 @@ namespace Tests
 
             var cross = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(1, 0, 0),
             };
-            
+
             /*
              *  + .
              *  + |
@@ -174,10 +185,11 @@ namespace Tests
 
             var union = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(2, 1, 0),
             };
-            
+
             /*
              *  + .
              *  + |(|)
@@ -191,7 +203,7 @@ namespace Tests
 
             var unionPointedToSegments =
                 _structure.GetPointedToSegments(union).Select(segment => segment.Position).ToList();
-            
+
             // Assert
             Assert.IsTrue(crossPointedToSegments.Contains(new Vector3Int(0, 0, 0)));
             Assert.IsTrue(crossPointedToSegments.Contains(new Vector3Int(1, 1, 0)));
@@ -199,7 +211,7 @@ namespace Tests
             Assert.IsFalse(crossPointedToSegments.Contains(new Vector3Int(1, 0, 0)));
             Assert.IsFalse(crossPointedToSegments.Contains(new Vector3Int(1, 2, 0)));
             Assert.IsFalse(crossPointedToSegments.Contains(new Vector3Int(1, -1, 0)));
-            
+
             Assert.IsTrue(unionPointedToSegments.Contains(new Vector3Int(2, 0, 0)));
             Assert.IsFalse(unionPointedToSegments.Contains(new Vector3Int(1, 1, 0)));
         }
@@ -209,13 +221,15 @@ namespace Tests
         {
             var union11 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(1, 1, 0),
             };
 
             var union20 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(2, 0, 0),
             };
 
@@ -224,7 +238,8 @@ namespace Tests
 
             var cross = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(1, 0, 0),
             };
 
@@ -253,13 +268,15 @@ namespace Tests
         {
             var union11 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(1, 1, 0),
             };
 
             var union20 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(2, 0, 0),
             };
 
@@ -268,22 +285,24 @@ namespace Tests
 
             var cross = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(1, 0, 0),
             };
-            
+
             /*
              *  + .
              *  + |
              *  +(+)|
              */
-            
+
             var union = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(2, 1, 0),
             };
-            
+
             /*
              *  + .
              *  + |(|)
@@ -293,10 +312,10 @@ namespace Tests
             // Act
             var pointedFromSegments =
                 _structure.GetValidConnections(cross).Select(segment => segment.Position).ToList();
-            
+
             var unionPointedFromSegments =
                 _structure.GetValidConnections(union).Select(segment => segment.Position).ToList();
-            
+
             // Assert
             Assert.IsTrue(pointedFromSegments.Contains(new Vector3Int(0, 0, 0)));
             Assert.IsTrue(pointedFromSegments.Contains(new Vector3Int(1, 1, 0)));
@@ -304,7 +323,7 @@ namespace Tests
             Assert.IsFalse(pointedFromSegments.Contains(new Vector3Int(1, 0, 0)));
             Assert.IsFalse(pointedFromSegments.Contains(new Vector3Int(0, 2, 0)));
             Assert.IsFalse(pointedFromSegments.Contains(new Vector3Int(1, -1, 0)));
-            
+
             Assert.IsTrue(unionPointedFromSegments.Contains(new Vector3Int(2, 0, 0)));
             Assert.IsFalse(unionPointedFromSegments.Contains(new Vector3Int(1, 1, 0)));
         }
@@ -314,13 +333,15 @@ namespace Tests
         {
             var union11 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
                 Position = new Vector3Int(1, 1, 0),
             };
 
             var union20 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
                 Position = new Vector3Int(2, 0, 0),
             };
 
@@ -329,39 +350,41 @@ namespace Tests
 
             var cross = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
                 Position = new Vector3Int(1, 0, 0),
             };
-            
+
             /*
              *  + .
              *  + |
              *  +(+)|
              */
-            
+
             var union = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
                 Position = new Vector3Int(2, 1, 0),
             };
-            
+
             /*
              *  + .
              *  + |(|)
              *  + . |
              */
-            
+
             // Act
             var pointedFromConnectionTypes =
                 _structure.GetPointedFromConnectionTypes(cross).ToList();
 
             var unionPointedFromConnectionTypes =
                 _structure.GetPointedFromConnectionTypes(union).ToList();
-            
+
             // Assert
             Assert.AreEqual(1, pointedFromConnectionTypes.Count(type => type == ConnectionType.Blood));
             Assert.AreEqual(1, pointedFromConnectionTypes.Count(type => type == ConnectionType.Steam));
-            
+
             Assert.AreEqual(0, unionPointedFromConnectionTypes.Count(type => type == ConnectionType.Blood));
             Assert.AreEqual(1, unionPointedFromConnectionTypes.Count(type => type == ConnectionType.Steam));
         }
@@ -372,25 +395,29 @@ namespace Tests
             // Arrange
             var union10 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(1, 0, 0),
             };
-            
+
             var unionBlood03 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(0, 3, 0),
             };
-            
+
             var unionSteam03 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Steam),
                 Position = new Vector3Int(0, 3, 0),
             };
 
             var union00 = new SegmentData
             {
-                StaticSegmentData = TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
                 Position = new Vector3Int(0, 0, 0),
             };
 
@@ -399,7 +426,7 @@ namespace Tests
             bool isValidPlacement03Blood = _structure.IsValidPlacement(unionBlood03);
             bool isValidPlacement03Steam = _structure.IsValidPlacement(unionSteam03);
             bool isValidPlacement00 = _structure.IsValidPlacement(union00);
-            
+
             // Assert
             Assert.IsFalse(isValidPlacement10);
             Assert.IsTrue(isValidPlacement03Blood);
@@ -469,11 +496,63 @@ namespace Tests
             bool isValidSourcePosition1 = _structure.IsValidSourcePlacement(new Vector3Int(0, 0, 0));
             bool isValidSourcePosition2 = _structure.IsValidSourcePlacement(new Vector3Int(1, 0, 0));
             bool isValidSourcePosition3 = _structure.IsValidSourcePlacement(new Vector3Int(2, 0, 0));
-            
+
             // Assert
             Assert.IsFalse(isValidSourcePosition1);
             Assert.IsFalse(isValidSourcePosition2);
             Assert.IsTrue(isValidSourcePosition3);
+        }
+
+        [Test]
+        public void IsDirectionallyValidPlacement()
+        {
+            // Arrange
+            var union = new SegmentData
+            {
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Union, ConnectionType.Blood),
+                Position = new Vector3Int(1, 0, 0),
+            };
+
+            var cross = new SegmentData
+            {
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                Position = new Vector3Int(1, 1, 0),
+            };
+
+            // Act
+            bool isValidPlacement1 = _structure.IsDirectionallyValidPlacement(union);
+            bool isValidPlacement2 = _structure.IsDirectionallyValidPlacement(cross);
+
+            // Assert
+            Assert.IsFalse(isValidPlacement1);
+            Assert.IsTrue(isValidPlacement2);
+
+            _structure.AddSegment(cross);
+            isValidPlacement1 = _structure.IsDirectionallyValidPlacement(union);
+            Assert.IsTrue(isValidPlacement1);
+        }
+
+        [Test]
+        public void Neighbors()
+        {
+            // Arrange
+            var segmentData = new SegmentData
+            {
+                StaticSegmentData =
+                    TestStructureFactory.GetStaticSegment(TestStructureFactory.Pipe.Cross, ConnectionType.Blood),
+                Position = new Vector3Int(0, 1, 0),
+            };
+
+            // Act
+            var neighbors = _structure.Neighbors(segmentData).Select(segment => segment.Position).ToList();
+
+            // Assert
+            Assert.IsTrue(neighbors.Contains(new Vector3Int(0, 0, 0)));
+            Assert.IsFalse(neighbors.Contains(new Vector3Int(1, 1, 0)));
+            Assert.IsTrue(neighbors.Contains(new Vector3Int(0, 2, 0)));
+            Assert.IsFalse(neighbors.Contains(new Vector3Int(0, 1, 0)));
         }
     }
 }
