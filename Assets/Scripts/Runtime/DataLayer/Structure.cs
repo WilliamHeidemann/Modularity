@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
@@ -9,14 +10,18 @@ namespace Runtime.DataLayer
     [CreateAssetMenu]
     public class Structure : ScriptableObject
     {
-        [SerializeField] private List<SegmentData> _graphData = new();
-        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData);
+        // [SerializeField] private List<SegmentData> _graphData = new();
+        private readonly Dictionary<Vector3Int, SegmentData> _graphData = new();
+
+        public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData.Position, segmentData);
         public void Clear() => _graphData.Clear();
 
-        public IEnumerable<SegmentData> Segments => _graphData;
-        public IEnumerable<SegmentData> Sources => _graphData.Where(data => data.StaticSegmentData.IsSource);
-        public IEnumerable<SegmentData> Receivers => _graphData.Where(data => data.StaticSegmentData.IsReceiver);
-        public IEnumerable<SegmentData> Connectors => _graphData.Where(data => data.StaticSegmentData.IsConnector);
+        public IEnumerable<SegmentData> Segments => _graphData.Values;
+        public IEnumerable<SegmentData> Sources => _graphData.Values.Where(data => data.StaticSegmentData.IsSource);
+        public IEnumerable<SegmentData> Receivers => _graphData.Values.Where(data => data.StaticSegmentData.IsReceiver);
+
+        public IEnumerable<SegmentData> Connectors =>
+            _graphData.Values.Where(data => data.StaticSegmentData.IsConnector);
 
         public bool ConnectsToAtLeastOneNeighbor(SegmentData segmentData) =>
             Neighbors(segmentData).Any(segmentData.CanConnect);
@@ -27,28 +32,51 @@ namespace Runtime.DataLayer
         public IEnumerable<SegmentData> GetValidConnections(SegmentData segmentData) =>
             GetPointedToSegments(segmentData).Where(segmentData.CanConnect);
 
-        public bool IsOpenPosition(Vector3Int position) => _graphData.All(data => data.Position != position);
+        public bool IsOpenPosition(Vector3Int position) => !_graphData.ContainsKey(position);
 
-        public IEnumerable<SegmentData> GetPointedFromSegments(SegmentData segmentData) =>
-            _graphData.Where(data => data.GetConnectionPoints().Contains(segmentData.Position));
-
-        public IEnumerable<SegmentData> GetPointedToSegments(SegmentData segmentData) =>
-            _graphData.Where(data => segmentData.GetConnectionPoints().Contains(data.Position));
-
-        public IEnumerable<ConnectionType> GetPointedFromConnectionTypes(SegmentData segmentData) => GetPointedFromConnectionTypes(segmentData.Position);
-
-        public IEnumerable<ConnectionType> GetPointedFromConnectionTypes(Vector3Int position) =>
-            _graphData.SelectMany(segment => segment.GetConnectionPointsPlus())
-                .Where(connection => connection.position == position)
-                .Select(connection => connection.type);
-
-        public IEnumerable<SegmentData> Neighbors(SegmentData segmentData)
+        public IEnumerable<SegmentData> GetPointedFromSegments(SegmentData segmentData)
         {
-            return ConnectionPoints.AllDirections()
-                .Select(direction => segmentData.Position + direction)
-                .Where(position => !IsOpenPosition(position))
-                .Select(position => _graphData.First(data => data.Position == position));
+            return Neighbors(segmentData)
+                .Where(neighbor => neighbor.GetConnectionPoints().Contains(segmentData.Position));
         }
+
+        public IEnumerable<SegmentData> GetPointedToSegments(SegmentData segmentData)
+        {
+            var pointedToPositions = segmentData.GetConnectionPoints();
+            var neighborPositions = Neighbors(segmentData).Select(neighbor => neighbor.Position);
+            var intersection = pointedToPositions.Intersect(neighborPositions);
+            foreach (Vector3Int position in intersection)
+            {
+                yield return _graphData[position];
+            }
+        }
+
+        public IEnumerable<ConnectionType> GetPointedFromConnectionTypes(SegmentData segmentData)
+        {
+            return GetPointedFromConnectionTypes(segmentData.Position);
+        }
+
+        public IEnumerable<ConnectionType> GetPointedFromConnectionTypes(Vector3Int position)
+        {
+            return Neighbors(position)
+                .SelectMany(neighbor => neighbor.GetConnectionPointsPlus())
+                .Where(tuple => tuple.position == position)
+                .Select(tuple => tuple.type);
+        }
+
+        public IEnumerable<SegmentData> Neighbors(Vector3Int position)
+        {
+            foreach (Vector3Int direction in ConnectionPoints.AllDirections)
+            {
+                Vector3Int neighborPosition = position + direction;
+                if (_graphData.TryGetValue(neighborPosition, out SegmentData neighbor))
+                {
+                    yield return neighbor;
+                }
+            }
+        }
+        
+        public IEnumerable<SegmentData> Neighbors(SegmentData segmentData) => Neighbors(segmentData.Position);
 
         public IEnumerable<SegmentData> GetNeighborsConnectingDirectionally(SegmentData segmentData)
         {
@@ -65,7 +93,7 @@ namespace Runtime.DataLayer
             {
                 return false;
             }
-            
+
             if (!IsOpenPosition(segmentData.Position))
             {
                 return false;

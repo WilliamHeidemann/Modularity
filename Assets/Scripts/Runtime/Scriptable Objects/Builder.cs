@@ -34,10 +34,10 @@ namespace Runtime.Scriptable_Objects
 
         public void BuildInstant(SegmentData segmentData, Segment prefab)
         {
-            if (!_structure.IsValidPlacement(segmentData))
-            {
-                return;
-            }
+            // if (!_structure.IsValidPlacement(segmentData))
+            // {
+            //     return;
+            // }
             
             if (prefab.StaticSegmentData != segmentData.StaticSegmentData)
             {

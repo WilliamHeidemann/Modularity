@@ -47,14 +47,14 @@ namespace Runtime.DataLayer
             return count;
         }
 
-        public static IEnumerable<Vector3Int> AllDirections()
+        public static readonly Vector3Int[] AllDirections =
         {
-            yield return Vector3Int.up;
-            yield return Vector3Int.down;
-            yield return Vector3Int.forward;
-            yield return Vector3Int.back;
-            yield return Vector3Int.right;
-            yield return Vector3Int.left;
-        }
+            Vector3Int.up,
+            Vector3Int.down,
+            Vector3Int.forward,
+            Vector3Int.back,
+            Vector3Int.right,
+            Vector3Int.left,
+        };
     }
 }
