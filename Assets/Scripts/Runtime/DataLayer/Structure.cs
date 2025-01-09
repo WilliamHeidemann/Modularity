@@ -10,7 +10,6 @@ namespace Runtime.DataLayer
     [CreateAssetMenu]
     public class Structure : ScriptableObject
     {
-        // [SerializeField] private List<SegmentData> _graphData = new();
         private readonly Dictionary<Vector3Int, SegmentData> _graphData = new();
 
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData.Position, segmentData);
