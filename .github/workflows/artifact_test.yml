@@ -1,9 +1,7 @@
 name: Upload File as Artifact Without Storing
 
 on:
-  push:
-    branches:
-      - main  # Trigger on push to the main branch
+  workflow_dispatch:
 
 jobs:
   upload-artifact:
