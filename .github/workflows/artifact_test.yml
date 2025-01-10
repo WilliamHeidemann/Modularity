@@ -1,0 +1,33 @@
+name: Upload File as Artifact Without Storing
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner for this job
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2  # Check out the repository's code
+      
+    - name: Create GitHubOutputFiles directory (if it doesn't exist)
+      run: |
+        mkdir -p GitHubOutputFiles  # Create the GitHubOutputFiles directory if it doesn't already exist
+
+    - name: Create a test file (no need to store it in the repo)
+      run: |
+        echo "This is a temporary file to be uploaded as an artifact" > GitHubOutputFiles/your-temporary-file.txt  # Create a temporary file
+
+    - name: List files in directory (for debugging)
+      run: |
+        ls GitHubOutputFiles # List all files in the target directory (optional for debugging)
+
+    - name: Upload the file as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: temporary-artifact
+        path: GitHubOutputFiles/your-temporary-file.txt  # Path to the temporary file
+
+    - name: Display a success message
+      run: echo "Artifact uploaded successfully!"

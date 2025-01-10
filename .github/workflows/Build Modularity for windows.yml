@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -23,4 +23,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: Build
-          path: Build/Windows
+          path: build
