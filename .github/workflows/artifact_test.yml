@@ -10,6 +10,10 @@ jobs:
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v2  # Check out the repository's code
+      
+    - name: Create GitHubOutputFiles directory (if it doesn't exist)
+      run: |
+        mkdir -p GitHubOutputFiles  # Create the GitHubOutputFiles directory if it doesn't already exist
 
     - name: Create a test file (no need to store it in the repo)
       run: |
