@@ -29,9 +29,5 @@ jobs:
         name: temporary-artifact
         path: GitHubOutputFiles/your-temporary-file.txt  # Path to the temporary file
 
-    - name: Clean up (delete temporary file)
-      run: |
-        rm GitHubOutputFiles/your-temporary-file.txt  # Clean up by removing the temporary file (if desired)
-        
     - name: Display a success message
       run: echo "Artifact uploaded successfully!"
