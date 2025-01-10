@@ -1,0 +1,35 @@
+name: Upload File as Artifact Without Storing
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner for this job
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2  # Check out the repository's code
+
+    - name: Create a test file (no need to store it in the repo)
+      run: |
+        echo "This is a temporary file to be uploaded as an artifact" > Builds/your-temporary-file.txt  # Create a temporary file
+
+    - name: List files in directory (for debugging)
+      run: |
+        ls Builds # List all files in the target directory (optional for debugging)
+
+    - name: Upload the file as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: temporary-artifact
+        path: Builds/your-temporary-file.txt  # Path to the temporary file
+
+    - name: Clean up (delete temporary file)
+      run: |
+        rm Builds/your-temporary-file.txt  # Clean up by removing the temporary file (if desired)
+        
+    - name: Display a success message
+      run: echo "Artifact uploaded successfully!"
