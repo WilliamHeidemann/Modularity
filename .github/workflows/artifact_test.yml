@@ -13,21 +13,21 @@ jobs:
 
     - name: Create a test file (no need to store it in the repo)
       run: |
-        echo "This is a temporary file to be uploaded as an artifact" > Builds/your-temporary-file.txt  # Create a temporary file
+        echo "This is a temporary file to be uploaded as an artifact" > GitHubOutputFiles/your-temporary-file.txt  # Create a temporary file
 
     - name: List files in directory (for debugging)
       run: |
-        ls Builds # List all files in the target directory (optional for debugging)
+        ls GitHubOutputFiles # List all files in the target directory (optional for debugging)
 
     - name: Upload the file as artifact
       uses: actions/upload-artifact@v4
       with:
         name: temporary-artifact
-        path: Builds/your-temporary-file.txt  # Path to the temporary file
+        path: GitHubOutputFiles/your-temporary-file.txt  # Path to the temporary file
 
     - name: Clean up (delete temporary file)
       run: |
-        rm Builds/your-temporary-file.txt  # Clean up by removing the temporary file (if desired)
+        rm GitHubOutputFiles/your-temporary-file.txt  # Clean up by removing the temporary file (if desired)
         
     - name: Display a success message
       run: echo "Artifact uploaded successfully!"
