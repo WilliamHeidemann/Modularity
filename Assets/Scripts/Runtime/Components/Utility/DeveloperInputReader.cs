@@ -15,12 +15,40 @@ namespace Runtime.Components.Utility
         [SerializeField] private Builder _builder;
         [SerializeField] private Segment _treePrefab;
         [SerializeField] private Structure _structure;
+        [SerializeField] private GameObject _ui;
+        [SerializeField] private Transform _startTransitionPoint;
+        [SerializeField] private Transform _endTransitionPoint;
+        [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private float _animationTime;
+        [SerializeField] private AnimationCurve _animationCurve;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.J)) SaveStructureToJson();
             if (Input.GetKeyDown(KeyCode.L)) LoadStructureFromJson();
             if (Input.GetKeyDown(KeyCode.M)) CreateMegaStructure();
+            if (Input.GetKeyDown(KeyCode.T)) ToggleUI();
+            if (Input.GetKeyDown(KeyCode.P)) PlayTransition();
+        }
+
+        private async void PlayTransition()
+        {
+            float time = 0;
+            while (time < _animationTime)
+            {
+                time += Time.deltaTime;
+                float t = time / _animationTime;
+                _cameraTransform.position = Vector3.Lerp(_startTransitionPoint.position, _endTransitionPoint.position,
+                    _animationCurve.Evaluate(t));
+                _cameraTransform.rotation = Quaternion.Lerp(_startTransitionPoint.rotation,
+                    _endTransitionPoint.rotation, _animationCurve.Evaluate(t));
+                await Awaitable.EndOfFrameAsync();
+            }
+        }
+
+        private void ToggleUI()
+        {
+            _ui.SetActive(!_ui.activeSelf);
         }
 
         private void CreateMegaStructure()
@@ -39,6 +67,7 @@ namespace Runtime.Components.Utility
             {
                 Destroy(segments[i].gameObject);
             }
+
             _structure.Clear();
         }
 
@@ -65,7 +94,7 @@ namespace Runtime.Components.Utility
         {
             string json = _structure.ToJson();
             var filePath = $"{Application.persistentDataPath}/structure.txt";
-        
+
             try
             {
                 using var writer = new StreamWriter(filePath);
@@ -84,7 +113,7 @@ namespace Runtime.Components.Utility
             TearDownStructure();
 
             var segments = Resources.FindObjectsOfTypeAll<Segment>();
-            
+
             var filePath = $"{Application.persistentDataPath}/structure.txt";
             if (!File.Exists(filePath))
             {
@@ -110,6 +139,7 @@ namespace Runtime.Components.Utility
                         Debug.LogError($"Prefab not found for static segment data {segmentData.StaticSegmentData}");
                     }
                 }
+
                 Debug.Log("Structure loaded from file");
                 Debug.Log(json);
             }
