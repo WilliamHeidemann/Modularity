@@ -9,11 +9,11 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class ParticleManager : ScriptableObject
     {
-        [SerializeField] private GameObject bloodFlowFX;
-        [SerializeField] private GameObject steamFlowFX;
-        [SerializeField] private GameObject fleshBurstFX;
-        [SerializeField] private GameObject gearBurstFX;
-        [SerializeField] private GameObject hybridBurstFX;
+        [SerializeField] private GameObject _bloodFlowFX;
+        [SerializeField] private GameObject _steamFlowFX;
+        [SerializeField] private GameObject _fleshBurstFX;
+        [SerializeField] private GameObject _gearBurstFX;
+        [SerializeField] private GameObject _hybridBurstFX;
 
         private List<GameObject> activeBloodFlowFX = new List<GameObject>();
         private List<GameObject> activeSteamFlowFX = new List<GameObject>();
@@ -33,23 +33,23 @@ namespace Runtime.Scriptable_Objects
             switch (particleType)
             {
                 case ParticleType.BloodFlow:
-                    spawnedFX = Instantiate(bloodFlowFX, spawnPosition, spawnRotation);
+                    spawnedFX = Instantiate(_bloodFlowFX, spawnPosition, spawnRotation);
                     break;
 
                 case ParticleType.SteamFlow:
-                    spawnedFX = Instantiate(steamFlowFX, spawnPosition, spawnRotation);
+                    spawnedFX = Instantiate(_steamFlowFX, spawnPosition, spawnRotation);
                     break;
 
                 case ParticleType.FleshBurst:
-                    spawnedFX = Instantiate(fleshBurstFX, spawnPosition, spawnRotation);
+                    spawnedFX = Instantiate(_fleshBurstFX, spawnPosition, spawnRotation);
                     break;
 
                 case ParticleType.GearBurst:
-                    spawnedFX = Instantiate(gearBurstFX, spawnPosition, spawnRotation);
+                    spawnedFX = Instantiate(_gearBurstFX, spawnPosition, spawnRotation);
                     break;
 
                 case ParticleType.HybridBurst:
-                    spawnedFX = Instantiate(hybridBurstFX, spawnPosition, spawnRotation);
+                    spawnedFX = Instantiate(_hybridBurstFX, spawnPosition, spawnRotation);
                     break;
             }
 
