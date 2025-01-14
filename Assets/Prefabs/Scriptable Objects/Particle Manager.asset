@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6a6c4cd81f5b1438012f9e788bc24e, type: 3}
+  m_Name: Particle Manager
+  m_EditorClassIdentifier: 
+  bloodFlowFX: {fileID: 8929955311005976869, guid: a350a2e87db610c409603c3d8a71c3d2, type: 3}
+  steamFlowFX: {fileID: 9143559839067117144, guid: 4b6cfa76fbb905647bed2204f0aa8978, type: 3}
+  fleshBurstFX: {fileID: 8160081262166030885, guid: 133e2de3745682e47ae5de40b7825adf, type: 3}
+  gearBurstFX: {fileID: 4328158694650472414, guid: fbe14fd0dbeaf11459ad919a4d09e02e, type: 3}
+  hybridBurstFX: {fileID: 7242289408156258146, guid: 030167a0ffbef4344aa77fca2b7851d9, type: 3}

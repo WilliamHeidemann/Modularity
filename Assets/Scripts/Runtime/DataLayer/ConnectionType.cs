@@ -6,4 +6,12 @@ namespace Runtime.DataLayer
         Blood,
         Steam
     }
+    public enum ParticleType
+    {
+        BloodFlow,
+        SteamFlow,
+        FleshBurst,
+        GearBurst,
+        HybridBurst
+    }
 }
