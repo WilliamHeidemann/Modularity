@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Runtime.Scriptable_Objects;
 using UnityEditor;
 using UnityEngine;
@@ -10,8 +11,11 @@ namespace Runtime.Components.Utility
     public class SoundFXPlayer : MonoSingleton<SoundFXPlayer>
     {
         [SerializeField] private AudioSource _SFXAudioSource;
-        [SerializeField] private AudioSource _musicAudioSource;
+        [SerializeField] private AudioSource _musicAudioSource1, _musicAudioSource2;
+        private AudioSource activeMusicSource;
+        public float transitionTime = 5f;
 
+        [Header("SoundFX")]
         [SerializeField] private AudioClip _fleshConnectorPlacement;
         [SerializeField] private AudioClip _fleshReceiverPlacement;
         [SerializeField] private AudioClip _steamConnectorPlacement;
@@ -23,25 +27,27 @@ namespace Runtime.Components.Utility
         [SerializeField] private AudioClip _cardSelection;
         [SerializeField] private AudioClip _orbSpawn;
         [SerializeField] private AudioClip _orbCollected;
-        
 
         private float _volumeModifier = 0.5f;
 
         private void OnEnable()
         {
             OptionMenuController.OnSoundChange += SetVolume;
+            MainMenuController.OnGameStart += ChangeBackgroundMusic;
+            activeMusicSource = _musicAudioSource1;
         }
 
         private void OnDisable()
         {
             OptionMenuController.OnSoundChange -= SetVolume;
+            MainMenuController.OnGameStart -= ChangeBackgroundMusic;
         }
 
         public void SetVolume(float musicVolume, float SFXVolume)
         {
             _volumeModifier = SFXVolume;
             _SFXAudioSource.volume = SFXVolume;
-            _musicAudioSource.volume = musicVolume;
+            activeMusicSource.volume = musicVolume;
         }
 
         public void Play(SoundFX soundFX, float volume = 1f)
@@ -64,8 +70,29 @@ namespace Runtime.Components.Utility
 
             _SFXAudioSource.PlayOneShot(audioClip, volume * _volumeModifier);
         }
-    }
 
+        private void ChangeBackgroundMusic()
+        {
+            activeMusicSource = _musicAudioSource2;
+            _musicAudioSource2.volume = 0;
+            _musicAudioSource2.Play();
+            StartCoroutine(MixAudioSources());
+        }
+
+        IEnumerator MixAudioSources()
+        {
+            float t = 0;
+            while (t < transitionTime)
+            {
+                t += Time.deltaTime / transitionTime;
+                _musicAudioSource1.volume = Mathf.Lerp(_musicAudioSource1.volume, 0, t / transitionTime);
+                _musicAudioSource2.volume = Mathf.Lerp(_musicAudioSource2.volume, PlayerPrefs.GetFloat("MusicVolume"), t / transitionTime);
+                yield return null;
+            }
+            _musicAudioSource1.volume = 0;
+            _musicAudioSource1.Stop();
+        }
+    }
 
     public enum SoundFX
     {

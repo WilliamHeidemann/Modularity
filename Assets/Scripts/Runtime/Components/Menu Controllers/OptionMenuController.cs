@@ -33,6 +33,7 @@ namespace Runtime.Components
         {
             _testingSFXAudioSource = GetComponent<AudioSource>();
 
+            //makes sure there always is a value for the playerpref of music and sfx volume
             if (!PlayerPrefs.HasKey("MusicVolume") && !PlayerPrefs.HasKey("SFXVolume"))
             {
                 PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
