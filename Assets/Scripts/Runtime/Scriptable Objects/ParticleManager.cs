@@ -26,32 +26,20 @@ namespace Runtime.Scriptable_Objects
         }
 
         // This method is used to spawn a particle effect at a given position and rotation, for any of the burst FX the rotation will have no effect on the particles spawned.
-        public void SpawnParticleFX(ParticleType particleType, Vector3 spawnPosition, Quaternion spawnRotation, bool isPermanent)
+        public void SpawnParticleFX(ParticleType particleType, Vector3 spawnPosition, Quaternion spawnRotation,
+            bool isPermanent)
         {
-            GameObject spawnedFX = null;
-
-            switch (particleType)
+            GameObject prefab = particleType switch
             {
-                case ParticleType.BloodFlow:
-                    spawnedFX = Instantiate(_bloodFlowFX, spawnPosition, spawnRotation);
-                    break;
+                ParticleType.BloodFlow => _bloodFlowFX,
+                ParticleType.SteamFlow => _steamFlowFX,
+                ParticleType.FleshBurst => _fleshBurstFX,
+                ParticleType.GearBurst => _gearBurstFX,
+                ParticleType.HybridBurst => _hybridBurstFX,
+                _ => null
+            };
 
-                case ParticleType.SteamFlow:
-                    spawnedFX = Instantiate(_steamFlowFX, spawnPosition, spawnRotation);
-                    break;
-
-                case ParticleType.FleshBurst:
-                    spawnedFX = Instantiate(_fleshBurstFX, spawnPosition, spawnRotation);
-                    break;
-
-                case ParticleType.GearBurst:
-                    spawnedFX = Instantiate(_gearBurstFX, spawnPosition, spawnRotation);
-                    break;
-
-                case ParticleType.HybridBurst:
-                    spawnedFX = Instantiate(_hybridBurstFX, spawnPosition, spawnRotation);
-                    break;
-            }
+            GameObject spawnedFX = Instantiate(prefab, spawnPosition, spawnRotation);
 
             if (!isPermanent)
             {
