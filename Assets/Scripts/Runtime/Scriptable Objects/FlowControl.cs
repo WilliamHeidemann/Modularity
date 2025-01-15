@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
@@ -16,6 +17,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Structure _structure;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private QuestFactory _questFactory;
+        [SerializeField] private ParticleManager _particleManager;
         private readonly List<SegmentData> _receiversActivatedLast = new();
 
         public delegate void ProducerActivated(StaticSegmentData staticSegmentData);
@@ -128,6 +130,16 @@ namespace Runtime.Scriptable_Objects
             _receiversActivatedLast.Add(segmentToActivate);
             segmentToActivate.IsActivated = true;
             _currencyPopup.GainCurrency(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
+
+            ParticleType particleType = segmentToActivate.StaticSegmentData switch
+            {
+                _ when segmentToActivate.StaticSegmentData.IsBlood && segmentToActivate.StaticSegmentData.IsSteam => ParticleType.HybridBurst,
+                _ when segmentToActivate.StaticSegmentData.IsBlood => ParticleType.FleshBurst,
+                _ when segmentToActivate.StaticSegmentData.IsSteam => ParticleType.GearBurst,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
+            _particleManager.SpawnParticleFX(particleType, segmentToActivate.Position, Quaternion.identity, false);
         }
     }
 }
