@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using Runtime.Backend;
 using Runtime.DataLayer;
@@ -14,6 +15,9 @@ namespace Runtime.Components.Utility
         [SerializeField] private float _dragSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private float _zoomSpeed;
+        [SerializeField] private float _shakeDuration;
+        [SerializeField] private float _shakeStrength;
+        [SerializeField] private AnimationCurve _shakeCurve;
         [SerializeField] private float _rotationPointOffset;
         [SerializeField] private Structure _structure;
         [SerializeField] private float _resetConstant;
@@ -42,8 +46,8 @@ namespace Runtime.Components.Utility
 
         private void Start()
         {
-            _startPosition = transform.position;
-            _startRotation = transform.eulerAngles;
+            _startPosition = transform.parent.position;
+            _startRotation = transform.parent.eulerAngles;
         }
 
         public void TogglePause()
@@ -64,17 +68,17 @@ namespace Runtime.Components.Utility
             HandleRotationMouse();
             HandleDragTranslation();
             HandleZoom();
-            var position = transform.position;
-            position.x = Mathf.Clamp(transform.position.x, -25.0f, 25.0f);
-            position.y = Mathf.Clamp(transform.position.y, 0.0f, 25.0f);
-            position.z = Mathf.Clamp(transform.position.z, -25.0f, 25.0f);
+            var position = transform.parent.position;
+            position.x = Mathf.Clamp(transform.parent.position.x, -25.0f, 25.0f);
+            position.y = Mathf.Clamp(transform.parent.position.y, 0.0f, 25.0f);
+            position.z = Mathf.Clamp(transform.parent.position.z, -25.0f, 25.0f);
 
-            transform.position = position;
+            transform.parent.position = position;
         }
 
         private void HandleDragTranslation()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(2))
             {
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
@@ -89,20 +93,20 @@ namespace Runtime.Components.Utility
 
             if (_wasClickedOverCard) return;
 
-            if (!Input.GetMouseButton(0))
+            if (!Input.GetMouseButton(0) && !Input.GetMouseButton(2))
             {
                 return;
             }
 
             var translation = new Vector3(_mouseDelta.x * _dragSpeed, _mouseDelta.y * _dragSpeed, 0);
-            transform.Translate(translation, Space.Self);
+            transform.parent.Translate(translation, Space.Self);
             PreventGoingThroughFloor();
         }
 
         private void PreventGoingThroughFloor()
         {
-            var position = transform.position;
-            transform.position = new Vector3(position.x, Mathf.Abs(position.y), position.z);
+            var position = transform.parent.position;
+            transform.parent.position = new Vector3(position.x, Mathf.Abs(position.y), position.z);
         }
 
         private void HandleRotationKeyboard()
@@ -110,7 +114,7 @@ namespace Runtime.Components.Utility
             var xAxis = Input.GetAxis("Horizontal");
             var yAxis = Input.GetAxis("Vertical");
 
-            if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0))
+            if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0) || Input.GetMouseButton(2))
             {
                 return;
             }
@@ -134,7 +138,7 @@ namespace Runtime.Components.Utility
             var xAxis = Mathf.Clamp(x, -limit, limit);
             var yAxis = Mathf.Clamp(y, -limit, limit);
 
-            if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0))
+            if ((xAxis == 0 && yAxis == 0) || Input.GetMouseButton(0) || Input.GetMouseButton(2))
             {
                 return;
             }
@@ -144,10 +148,10 @@ namespace Runtime.Components.Utility
 
         private void Rotate(float xAxis, float yAxis)
         {
-            var xValue = transform.rotation.eulerAngles.x;
+            var xValue = transform.parent.rotation.eulerAngles.x;
 
             var isGoingTooHigh = xValue is > 80 and < 100f && yAxis > 0f;
-            var isGoingTooLow = transform.position.y < 0f && yAxis < 0f;
+            var isGoingTooLow = transform.parent.position.y < 0f && yAxis < 0f;
 
             if (isGoingTooHigh || isGoingTooLow)
             {
@@ -156,11 +160,11 @@ namespace Runtime.Components.Utility
 
             var xRotation = -xAxis * _rotationSpeed * Time.deltaTime;
             var yRotation = yAxis * _rotationSpeed * Time.deltaTime;
-            var rotationPoint = transform.position + transform.forward * _rotationPointOffset;
+            var rotationPoint = transform.parent.position + transform.parent.forward * _rotationPointOffset;
 
-            transform.RotateAround(rotationPoint, Vector3.up, xRotation);
-            transform.RotateAround(rotationPoint, transform.right, yRotation);
-            transform.LookAt(rotationPoint);
+            transform.parent.RotateAround(rotationPoint, Vector3.up, xRotation);
+            transform.parent.RotateAround(rotationPoint, transform.parent.right, yRotation);
+            transform.parent.LookAt(rotationPoint);
         }
 
         private void HandleZoom()
@@ -171,8 +175,23 @@ namespace Runtime.Components.Utility
                 return;
             }
 
-            transform.Translate(0, 0, zoom);
+            transform.parent.Translate(0, 0, zoom);
             PreventGoingThroughFloor();
+        }
+
+        IEnumerator HandleCameraShake()
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < _shakeDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float strength = _shakeCurve.Evaluate(elapsedTime / _shakeDuration) * _shakeStrength;
+                transform.localPosition = new Vector3(0, 0, 0) + Random.insideUnitSphere * strength;
+                yield return null;
+            }
+
+            transform.localPosition = new Vector3(0, 0, 0);
         }
 
         public void ResetCamera()
@@ -180,9 +199,9 @@ namespace Runtime.Components.Utility
             var positions = _structure.Segments.Select(segment => segment.Position).ToList();
             var center = SpawnUtility.GetCenter(positions);
             var distance = SpawnUtility.GetRadius(positions, _resetConstant, _resetPercentage);
-            var direction = transform.position - center;
-            transform.position = center + direction.normalized * distance;
-            transform.LookAt(center);
+            var direction = transform.parent.position - center;
+            transform.parent.position = center + direction.normalized * distance;
+            transform.parent.LookAt(center);
             _dragOrigin = center;
         }
     }

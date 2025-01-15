@@ -47,7 +47,10 @@ namespace Runtime.Components.Utility
         {
             _volumeModifier = SFXVolume;
             _SFXAudioSource.volume = SFXVolume;
-            activeMusicSource.volume = musicVolume;
+            if(activeMusicSource == _musicAudioSource1)
+                _musicAudioSource1.volume = musicVolume * 0.7f;
+            else
+                _musicAudioSource2.volume = musicVolume;
         }
 
         public void Play(SoundFX soundFX, float volume = 1f)
