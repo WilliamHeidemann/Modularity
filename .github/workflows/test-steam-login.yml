@@ -16,4 +16,5 @@ jobs:
         STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
       run: |
         # Login to SteamCMD using your credentials
-        steamcmd +login $STEAM_USERNAME $STEAM_PASSWORD +quit
+        /home/steam/steamcmd/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +quit
+
