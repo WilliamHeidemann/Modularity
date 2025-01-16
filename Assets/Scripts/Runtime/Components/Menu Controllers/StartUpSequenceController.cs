@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StartUpSequenceController : MonoBehaviour
 {
-    public static bool startUpHasPlayed = false;
+    public static bool startUpHasPlayed = true; //set this to true if you don't want the start up sequence to play (for debugging)
     private Animator _startUpAnimator;
     public OptionMenuController _optionMenuController;
 
