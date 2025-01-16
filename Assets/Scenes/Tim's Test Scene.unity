@@ -1088,6 +1088,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Directional Light
       objectReference: {fileID: 0}
+    - target: {fileID: 3446955923985675048, guid: affe5a7d32f6f0749b1c74b626951563, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 8796016315552146018, guid: affe5a7d32f6f0749b1c74b626951563, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
