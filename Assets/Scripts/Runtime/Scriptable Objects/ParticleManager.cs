@@ -89,5 +89,34 @@ namespace Runtime.Scriptable_Objects
                 Debug.LogError("No active particle effects to move.");
             }
         }
+
+        //checks the current built location if there is any permenant particle effects and moves them to the new position according to input.
+        public void CheckForParticlesAtPosition(ParticleType particleType, Vector3 position, Vector3 newPosition)
+        {
+            if(particleType == ParticleType.BloodFlow)
+            {
+                foreach(var bloodFX in activeBloodFlowFX)
+                {
+                    if (bloodFX.transform.position == position)
+                    {
+                        bloodFX.transform.position = newPosition;
+                    }
+                }
+            }
+            else if (particleType == ParticleType.SteamFlow)
+            {
+                foreach (var steamFX in activeSteamFlowFX)
+                {
+                    if (steamFX.transform.position == position)
+                    {
+                        steamFX.transform.position = newPosition;
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("Particle type is meant to persist!");
+            }
+        }
     }
 }
