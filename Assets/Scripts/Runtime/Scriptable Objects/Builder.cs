@@ -86,7 +86,8 @@ namespace Runtime.Scriptable_Objects
             {
                 return;
             }
-            
+
+            CameraControls.Instance.StartCameraShake();
             _questFactory.SegmentPlaced(segmentData);
             _flowControl.UpdateFlow();
             _autoSpawner.CheckForCollectables();

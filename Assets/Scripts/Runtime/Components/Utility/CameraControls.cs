@@ -6,10 +6,11 @@ using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Components.Utility
 {
-    public class CameraControls : MonoBehaviour
+    public class CameraControls : MonoSingleton<CameraControls>
     {
         [SerializeField] private float _keyboardSpeed;
         [SerializeField] private float _dragSpeed;
@@ -179,7 +180,12 @@ namespace Runtime.Components.Utility
             PreventGoingThroughFloor();
         }
 
-        IEnumerator HandleCameraShake()
+        public void StartCameraShake()
+        {
+            StartCoroutine(HandleCameraShake());
+        }
+        
+        private IEnumerator HandleCameraShake()
         {
             float elapsedTime = 0f;
 
