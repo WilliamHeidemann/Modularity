@@ -1,0 +1,19 @@
+name: Test SteamCMD Login
+
+on:
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  test-login:
+    runs-on: ubuntu-latest
+    container:
+      image: cm2network/steamcmd:latest
+
+    steps:
+    - name: Login to SteamCMD
+      env:
+        STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+        STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+      run: |
+        # Login to SteamCMD using your credentials
+        steamcmd +login $STEAM_USERNAME $STEAM_PASSWORD +quit
