@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Runtime.DataLayer;
 using Codice.CM.Client.Differences.Merge;
 using Random = UnityEngine.Random;
+using System.Collections;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -64,25 +65,56 @@ namespace Runtime.Scriptable_Objects
             }
         }
 
-        public void MoveParticleFX(Vector3 newPosition, Quaternion newRotation)
+        //this method needs to be called at random interavals to move the particle effects around the map, this should be done in another script through update.
+        public void MoveRandomParticleFX()
         {
             List<GameObject> targetFXList = null;
+            Vector3[] connectionTransform = new Vector3[2];
             float randomNumber = Random.Range(0f, 1f);
 
             if (randomNumber < 0.5f)
             {
                 targetFXList = activeBloodFlowFX;
+                connectionTransform = GetOpenConnectionTransform(ParticleType.BloodFlow);
             }
             else
             {
                 targetFXList = activeSteamFlowFX;
+                connectionTransform = GetOpenConnectionTransform(ParticleType.SteamFlow);
             }
 
             if (targetFXList != null && targetFXList.Count > 0)
             {
                 int randomFXIndex = Random.Range(0, targetFXList.Count);
-                targetFXList[randomFXIndex].transform.position = newPosition;
-                targetFXList[randomFXIndex].transform.rotation = newRotation;
+                targetFXList[randomFXIndex].transform.position = connectionTransform[0];
+                targetFXList[randomFXIndex].transform.rotation = Quaternion.Euler(connectionTransform[1]);
+            }
+            else
+            {
+                Debug.LogError("No active particle effects to move.");
+            }
+        }
+
+        public void MoveSpecificParticleFX(GameObject particleToMove, ParticleType particleType)
+        {
+            List<GameObject> targetFXList = null;
+            Vector3[] connectionTransform = new Vector3[2];
+
+            if (particleType == ParticleType.BloodFlow)
+            {
+                targetFXList = activeBloodFlowFX;
+                connectionTransform = GetOpenConnectionTransform(ParticleType.BloodFlow);
+            }
+            else
+            {
+                targetFXList = activeSteamFlowFX;
+                connectionTransform = GetOpenConnectionTransform(ParticleType.SteamFlow);
+            }
+
+            if (targetFXList != null && targetFXList.Count > 0)
+            {
+                particleToMove.transform.position = connectionTransform[0];
+                particleToMove.transform.rotation = Quaternion.Euler(connectionTransform[1]);
             }
             else
             {
@@ -99,7 +131,7 @@ namespace Runtime.Scriptable_Objects
                 {
                     if (bloodFX.transform.position == position)
                     {
-                        bloodFX.transform.position = newPosition;
+                        MoveSpecificParticleFX(bloodFX, ParticleType.BloodFlow);
                     }
                 }
             }
@@ -109,7 +141,7 @@ namespace Runtime.Scriptable_Objects
                 {
                     if (steamFX.transform.position == position)
                     {
-                        steamFX.transform.position = newPosition;
+                        MoveSpecificParticleFX(steamFX, ParticleType.SteamFlow);
                     }
                 }
             }
@@ -118,5 +150,29 @@ namespace Runtime.Scriptable_Objects
                 Debug.LogError("Particle type is meant to persist!");
             }
         }
+
+        //this is meant solely as an exsample, this method should be made elsewhere and linked up, then delete what is inbetween these lines.
+        //=======================================================================================================
+        public Vector3[] GetOpenConnectionTransform(ParticleType particleType)
+        {
+            Vector3[] connectionTransform = new Vector3[2];
+            if (particleType == ParticleType.BloodFlow)
+            {
+                connectionTransform[0] = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+                connectionTransform[1] = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)).eulerAngles;
+            }
+            else if (particleType == ParticleType.SteamFlow)
+            {
+                connectionTransform[0] = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+                connectionTransform[1] = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)).eulerAngles;
+            }
+            else
+            {
+                Debug.LogError("Particle type is not meant to be a permanent type!");
+            }
+            return connectionTransform;
+        }
+
+        //=======================================================================================================
     }
 }

@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace Runtime.DataLayer
 {
     public enum ConnectionType
@@ -6,6 +8,7 @@ namespace Runtime.DataLayer
         Blood,
         Steam
     }
+
     public enum ParticleType
     {
         BloodFlow,

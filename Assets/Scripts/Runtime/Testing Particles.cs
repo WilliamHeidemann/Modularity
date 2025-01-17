@@ -27,29 +27,29 @@ public class TestingParticles : MonoBehaviour
         else
         {
             _flowTimer = 1.5f;
-            particleManager.MoveParticleFX(transform.position + new Vector3(Random.Range(0, 3), Random.Range(0, 3), Random.Range(0, 3)), Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
-        }
+            particleManager.MoveRandomParticleFX();
 
-        if (_burstTimer > 0)
-        {
-            _burstTimer -= Time.deltaTime;
-        }
-        else
-        {
-            _burstTimer = Random.Range(3, 8);
-
-            int randomBurst = Random.Range(0, 3);
-            if (randomBurst == 0)
+            if (_burstTimer > 0)
             {
-                particleManager.SpawnParticleFX(ParticleType.FleshBurst, transform.position + new Vector3(Random.Range(0, 3), Random.Range(0, 3), Random.Range(0, 3)), transform.rotation, false);
-            }
-            else if (randomBurst == 1)
-            {
-                particleManager.SpawnParticleFX(ParticleType.GearBurst, transform.position + new Vector3(Random.Range(0, 3), Random.Range(0, 3), Random.Range(0, 3)), transform.rotation, false);
+                _burstTimer -= Time.deltaTime;
             }
             else
             {
-                particleManager.SpawnParticleFX(ParticleType.HybridBurst, transform.position + new Vector3(Random.Range(0, 3), Random.Range(0, 3), Random.Range(0, 3)), transform.rotation, false);
+                _burstTimer = Random.Range(3, 8);
+
+                int randomBurst = Random.Range(0, 3);
+                if (randomBurst == 0)
+                {
+                    particleManager.SpawnParticleFX(ParticleType.FleshBurst, transform.position + new Vector3(Random.Range(0, 3), Random.Range(0, 3), Random.Range(0, 3)), transform.rotation, false);
+                }
+                else if (randomBurst == 1)
+                {
+                    particleManager.SpawnParticleFX(ParticleType.GearBurst, transform.position + new Vector3(Random.Range(0, 3), Random.Range(0, 3), Random.Range(0, 3)), transform.rotation, false);
+                }
+                else
+                {
+                    particleManager.SpawnParticleFX(ParticleType.HybridBurst, transform.position + new Vector3(Random.Range(0, 3), Random.Range(0, 3), Random.Range(0, 3)), transform.rotation, false);
+                }
             }
         }
     }
