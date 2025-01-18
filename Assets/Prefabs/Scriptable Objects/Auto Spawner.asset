@@ -22,3 +22,6 @@ MonoBehaviour:
   _distanceConstant: 2
   _distancePercentage: 10
   _collectablePrefab: {fileID: -7843324000993477682, guid: e53b7690f5bcabf4d9d3f3a947f861fb, type: 3}
+  ShouldSpawnInPredefinedPosition: 1
+  HeartSpawnPosition: {x: 2, y: 2, z: 0}
+  FurnaceSpawnPosition: {x: -2, y: 2, z: 0}
