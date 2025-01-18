@@ -524,6 +524,7 @@ MonoBehaviour:
   _treePrefab: {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
   _ui: {fileID: 1319828394}
+  _popupDisplay: {fileID: 4577449526745561560, guid: 6b318a6f4494fc44e8cbcfcd5135c4af, type: 3}
   _startTransitionPoint: {fileID: 1763437481}
   _endTransitionPoint: {fileID: 1637034069}
   _cameraTransform: {fileID: 0}
