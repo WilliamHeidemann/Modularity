@@ -29,6 +29,12 @@ namespace Runtime.Components.Utility
             if (Input.GetKeyDown(KeyCode.M)) CreateMegaStructure();
             if (Input.GetKeyDown(KeyCode.T)) ToggleUI();
             if (Input.GetKeyDown(KeyCode.P)) PlayTransition();
+            if (Input.GetKeyDown(KeyCode.C)) ToggleCursor();
+        }
+
+        private static void ToggleCursor()
+        {
+            Cursor.visible = !Cursor.visible;
         }
 
         private async void PlayTransition()
