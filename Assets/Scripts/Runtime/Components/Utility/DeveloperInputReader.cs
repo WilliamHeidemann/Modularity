@@ -75,6 +75,11 @@ namespace Runtime.Components.Utility
             {
                 Destroy(segments[i].gameObject);
             }
+            var slots = FindObjectsByType<Slot>(FindObjectsSortMode.None);
+            for (int i = 0; i < slots.Length; i++)
+            {
+                Destroy(slots[i].gameObject);
+            }
 
             _structure.Clear();
         }
