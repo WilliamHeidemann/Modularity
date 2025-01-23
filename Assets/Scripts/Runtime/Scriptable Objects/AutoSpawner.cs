@@ -102,7 +102,7 @@ namespace Runtime.Scriptable_Objects
         {
             _selection.Reset();
             _selection.Prefab = Option<Segment>.Some(source);
-            _builder.Build(spawnPosition, GetRandomRotation(), true);
+            _builder.Build(spawnPosition, rotation, true);
             _selection.Reset();
         }
 
