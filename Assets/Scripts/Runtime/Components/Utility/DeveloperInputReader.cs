@@ -155,6 +155,19 @@ namespace Runtime.Components.Utility
                     var prefabOption = segments.FirstOption(s => s.StaticSegmentData == segmentData.StaticSegmentData);
                     if (prefabOption.IsSome(out Segment prefab))
                     {
+                        prefab.enabled = true;
+                        if (prefab.TryGetComponent(out Animator animator))
+                        {
+                            animator.enabled = true;
+                        }
+                        if (prefab.TryGetComponent(out AudioSource audioSource))
+                        {
+                            audioSource.enabled = true;
+                        }
+                        if (prefab.TryGetComponent(out LocalSoundSystem localSoundSystem))
+                        {
+                            localSoundSystem.enabled = true;
+                        }
                         _builder.BuildInstant(segmentData, prefab);
                     }
                     else
