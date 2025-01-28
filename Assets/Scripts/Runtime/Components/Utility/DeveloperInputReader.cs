@@ -33,6 +33,16 @@ namespace Runtime.Components.Utility
             if (Input.GetKeyDown(KeyCode.C)) ToggleCursor();
         }
 
+        private void OnEnable()
+        {
+            _popupDisplay.enabled = true;
+        }
+
+        private void OnDisable()
+        {
+            _popupDisplay.enabled = true;
+        }
+
         private static void ToggleCursor()
         {
             Cursor.visible = !Cursor.visible;
