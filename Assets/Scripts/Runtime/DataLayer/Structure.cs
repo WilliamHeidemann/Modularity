@@ -116,5 +116,13 @@ namespace Runtime.DataLayer
         {
             return !GetPointedFromConnectionTypes(position).Any() && IsOpenPosition(position);
         }
+        
+        public int OpenConnectionCount()
+        {
+            return _graphData.Values
+                .SelectMany(segmentData => segmentData.GetConnectionPoints())
+                .ToHashSet()
+                .Count(position => IsOpenPosition(position));
+        }
     }
 }
