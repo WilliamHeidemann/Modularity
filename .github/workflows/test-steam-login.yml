@@ -1,0 +1,39 @@
+name: Test SteamCMD Login
+
+on:
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  deployToSteam:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: CyberAndrii/steam-totp@v1
+        name: Generate TOTP
+        id: steam-totp
+        with:
+          shared_secret: ${{ secrets.STEAM_SHARED_SECRET }}
+      - uses: game-ci/steam-deploy@v3
+        with:
+          username: ${{ secrets.STEAM_USERNAME }}          
+          totp: ${{ steps.steam-totp.outputs.code }}
+          appId: 1234560
+          buildDescription: v0.0.2
+          rootPath: Build
+          depot1Path: StandaloneWindows64
+          releaseBranch: prerelease
+
+#jobs:
+#  test-login:
+#    runs-on: ubuntu-latest
+#    container:
+#      image: cm2network/steamcmd:latest
+#
+#    steps:
+#    - name: Login to SteamCMD
+#      env:
+#        STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+#        STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+#      run: |
+#        # Login to SteamCMD using your credentials
+#        /home/steam/steamcmd/steamcmd.sh +login $STEAM_USERNAME $STEAM_PASSWORD +quit
+

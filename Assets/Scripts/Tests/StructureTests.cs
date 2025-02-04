@@ -554,5 +554,15 @@ namespace Tests
             Assert.IsTrue(neighbors.Contains(new Vector3Int(0, 2, 0)));
             Assert.IsFalse(neighbors.Contains(new Vector3Int(0, 1, 0)));
         }
+        
+        [Test]
+        public void OpenConnectionPoints()
+        {
+            // Act
+            int openConnectionPoints = _structure.OpenConnectionCount();
+            
+            // Assert
+            Assert.AreEqual(8, openConnectionPoints);
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace Runtime.Components.Utility
         [SerializeField] private Segment _treePrefab;
         [SerializeField] private Structure _structure;
         [SerializeField] private GameObject _ui;
+        [SerializeField] private PopupDisplay _popupDisplay;
         [SerializeField] private Transform _startTransitionPoint;
         [SerializeField] private Transform _endTransitionPoint;
         [SerializeField] private Transform _cameraTransform;
@@ -29,6 +30,12 @@ namespace Runtime.Components.Utility
             if (Input.GetKeyDown(KeyCode.M)) CreateMegaStructure();
             if (Input.GetKeyDown(KeyCode.T)) ToggleUI();
             if (Input.GetKeyDown(KeyCode.P)) PlayTransition();
+            if (Input.GetKeyDown(KeyCode.C)) ToggleCursor();
+        }
+
+        private static void ToggleCursor()
+        {
+            Cursor.visible = !Cursor.visible;
         }
 
         private async void PlayTransition()
@@ -49,6 +56,7 @@ namespace Runtime.Components.Utility
         private void ToggleUI()
         {
             _ui.SetActive(!_ui.activeSelf);
+            _popupDisplay.enabled = !_popupDisplay.enabled;
         }
 
         private void CreateMegaStructure()

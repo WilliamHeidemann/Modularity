@@ -14,6 +14,7 @@ namespace Runtime.DataLayer
 
         public void AddSegment(SegmentData segmentData) => _graphData.Add(segmentData.Position, segmentData);
         public void Clear() => _graphData.Clear();
+        public int Count => _graphData.Count;
 
         public IEnumerable<SegmentData> Segments => _graphData.Values;
         public IEnumerable<SegmentData> Sources => _graphData.Values.Where(data => data.StaticSegmentData.IsSource);
@@ -74,7 +75,7 @@ namespace Runtime.DataLayer
                 }
             }
         }
-        
+
         public IEnumerable<SegmentData> Neighbors(SegmentData segmentData) => Neighbors(segmentData.Position);
 
         public IEnumerable<SegmentData> GetNeighborsConnectingDirectionally(SegmentData segmentData)
@@ -115,6 +116,23 @@ namespace Runtime.DataLayer
         public bool IsValidSourcePlacement(Vector3Int position)
         {
             return !GetPointedFromConnectionTypes(position).Any() && IsOpenPosition(position);
+        }
+
+        public int OpenConnectionCount(bool excludeSources = false)
+        {
+            if (excludeSources)
+            {
+                return _graphData.Values
+                    .Where(segmentData => !segmentData.StaticSegmentData.IsSource)
+                    .SelectMany(segmentData => segmentData.GetConnectionPoints())
+                    .ToHashSet()
+                    .Count(position => IsOpenPosition(position));
+            }
+
+            return _graphData.Values
+                .SelectMany(segmentData => segmentData.GetConnectionPoints())
+                .ToHashSet()
+                .Count(position => IsOpenPosition(position));
         }
     }
 }

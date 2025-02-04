@@ -14,7 +14,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private GameObject _WorldSpaceCanvas;
         private GameObject _ActiveWorldSpaceCanvas;
 
-        public void CheckForActiveCanvas()
+        private void CheckForActiveCanvas()
         {
             if (_ActiveWorldSpaceCanvas == null)
             {
