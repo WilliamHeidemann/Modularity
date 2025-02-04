@@ -77,7 +77,14 @@ public class TheWatcherSystem : MonoBehaviour
 
         for (int i = 0; i < flickerAmount; i++)
         {
-            _lookPosition = _cameraTransform.position + Random.insideUnitSphere * _flickeringStrength;
+            if(flickerAmount - 1 == i)
+            {
+                _lookPosition = _cameraTransform.position + Random.insideUnitSphere * _flickeringStrength * 3;
+            }
+            else
+            {
+                _lookPosition = _cameraTransform.position + Random.insideUnitSphere * _flickeringStrength;
+            }
             yield return new WaitForSeconds(Random.Range(0.05f, 0.15f));
         }
 

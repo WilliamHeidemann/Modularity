@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class LocalSoundSystem : MonoBehaviour
 {
-    [SerializeField] float _volumeMinimum;
-    [SerializeField] float _volumeMaximum;
+    [Range(0.0f, 1.0f)]
+    [SerializeField] float _volumeMaximum = 1;
     private AudioSource _audioSource;
 
     private void OnEnable()
@@ -20,12 +20,12 @@ public class LocalSoundSystem : MonoBehaviour
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        _audioSource.volume = Mathf.Clamp(PlayerPrefs.GetFloat("SFXVolume"), _volumeMinimum, _volumeMaximum);
+        _audioSource.volume = PlayerPrefs.GetFloat("SFXVolume") * _volumeMaximum;
     }
 
     public void SetVolume(float musicVolume, float SFXVolume)
     {
-        _audioSource.volume = Mathf.Clamp(SFXVolume, _volumeMinimum, _volumeMaximum);
+        _audioSource.volume = SFXVolume * _volumeMaximum;
     }
 
     public void PlaySound()

@@ -348,7 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755fd1b4b5eddd94a8678f19562457d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _volumeMinimum: 0
   _volumeMaximum: 0.55
 --- !u!82 &638421131326465925
 AudioSource:
@@ -372,9 +371,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 2
-  MaxDistance: 500
+  MaxDistance: 7
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

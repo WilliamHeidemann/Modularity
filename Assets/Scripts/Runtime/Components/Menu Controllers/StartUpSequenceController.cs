@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StartUpSequenceController : MonoBehaviour
 {
-    public static bool startUpHasPlayed = true; //set this to true if you don't want the start up sequence to play (for debugging)
+    public static bool startUpHasPlayed = false; //set this to true if you don't want the start up sequence to play (for debugging)
     private Animator _startUpAnimator;
     public OptionMenuController _optionMenuController;
 
@@ -17,7 +17,7 @@ public class StartUpSequenceController : MonoBehaviour
             // Play the start up sequence
             _startUpAnimator = GetComponent<Animator>();
             _startUpAnimator.Play("Base Layer.Start-up Animation");
-            startUpHasPlayed = true;
+            startUpHasPlayed = false;
         }
     }
 }
