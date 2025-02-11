@@ -683,13 +683,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc7855045261424893ea66e83b7d714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverHeight: 14
-  _hoverSpeedUp: 8
+  _minHoverHeight: 12
+  _maxHoverHeight: 30
+  _detectionTreshold: 0.76
   _hoverSpeedDown: 0.75
+  _hoverSpeedUp: 0.15
   _lockOnSpeed: 3
   _eyeFlicker: 1
   _lockOnSpeedFlickering: 7
-  _flickeringStrength: 11
+  _flickeringStrength: 7
   _randomIntervalLOW: 5
   _randomIntervalHIGH: 10
   _flickeringAmountLOW: 8

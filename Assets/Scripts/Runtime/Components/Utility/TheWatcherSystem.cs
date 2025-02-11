@@ -6,9 +6,14 @@ public class TheWatcherSystem : MonoBehaviour
 {
     private Transform _cameraTransform;
     private Vector3 _lookPosition;
-    [SerializeField] private float _hoverHeight;
-    [SerializeField] private float _hoverSpeedUp;
+    [SerializeField] private float _minHoverHeight;
+    [SerializeField] private float _maxHoverHeight;
+    private float _currentHoverHeight;
+    [SerializeField] private bool _sensitiveToCameraFOV = true;
+    [Range(0, 1)] //the higher the more precise the player needs to look at the watcher for it to fly out of view
+    [SerializeField] private float _detectionTreshold;
     [SerializeField] private float _hoverSpeedDown;
+    [SerializeField] private float _hoverSpeedUp;
     private float _currentLockOnSpeed;
     [SerializeField] private float _lockOnSpeed;
 
@@ -28,23 +33,34 @@ public class TheWatcherSystem : MonoBehaviour
         _currentLockOnSpeed = _lockOnSpeed;
         _cameraTransform = transform.parent;
         transform.parent = null;
-        transform.position = new Vector3(0, _hoverHeight + _cameraTransform.position.y, 0);
+        _currentHoverHeight = 14;
     }
 
     void Update()
     {
-        float hoverSpeed = 0;
+        if(_sensitiveToCameraFOV)
+        {
+            if (Vector3.Dot(_cameraTransform.forward, (transform.position - _cameraTransform.position).normalized) < _detectionTreshold)
+            {
+                _currentHoverHeight = _minHoverHeight;
+            }
+            else
+            {
+                _currentHoverHeight = _maxHoverHeight;
+            }
+        }
 
-        if(_cameraTransform.position.y + _hoverHeight < transform.position.y)
+        float hoverSpeed = 0;
+        if (_cameraTransform.position.y + _currentHoverHeight < transform.position.y)
         {
             hoverSpeed = _hoverSpeedDown;
         }
-        else if (_cameraTransform.position.y + _hoverHeight > transform.position.y)
+        else if (_cameraTransform.position.y + _currentHoverHeight > transform.position.y)
         {
             hoverSpeed = _hoverSpeedUp;
         }
 
-        transform.position = Vector3.Slerp(transform.position, new Vector3(0, _hoverHeight + _cameraTransform.position.y, 0), Time.deltaTime * hoverSpeed);
+        transform.position = Vector3.Slerp(transform.position, new Vector3(0, _currentHoverHeight + _cameraTransform.position.y, 0), Time.deltaTime * hoverSpeed);
         
         if(!isEyeFlickering)
         {

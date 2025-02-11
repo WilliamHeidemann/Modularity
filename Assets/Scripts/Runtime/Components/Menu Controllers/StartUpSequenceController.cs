@@ -17,7 +17,7 @@ public class StartUpSequenceController : MonoBehaviour
             // Play the start up sequence
             _startUpAnimator = GetComponent<Animator>();
             _startUpAnimator.Play("Base Layer.Start-up Animation");
-            startUpHasPlayed = false;
+            startUpHasPlayed = true; //do not change this one
         }
     }
 }

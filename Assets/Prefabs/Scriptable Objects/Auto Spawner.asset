@@ -22,3 +22,4 @@ MonoBehaviour:
   _distanceConstant: 2
   _distancePercentage: 10
   _collectablePrefab: {fileID: -7843324000993477682, guid: e53b7690f5bcabf4d9d3f3a947f861fb, type: 3}
+  _collectablePickupFX: {fileID: 1213813406924312901, guid: 3da3b137e10dc2a4a987e9d4946ceb16, type: 3}

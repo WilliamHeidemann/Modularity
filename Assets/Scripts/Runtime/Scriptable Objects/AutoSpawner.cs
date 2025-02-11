@@ -27,6 +27,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private float _distanceConstant;
         [SerializeField] private float _distancePercentage;
         [SerializeField] private Collectable _collectablePrefab;
+        [SerializeField] private GameObject _collectablePickupFX;
         private readonly List<Collectable> _collectables = new();
         public delegate void CollectedCollectables(int collectedAmount);
         public static event CollectedCollectables OnCollectedCollectables;
@@ -52,6 +53,7 @@ namespace Runtime.Scriptable_Objects
             OnCollectedCollectables?.Invoke(collectables.Count);
             collectables.ForEach(c => _currencyPopup.GainCurrency(c.Position, c.StaticSegmentData));
             collectables.ForEach(c => _collectables.Remove(c));
+            collectables.ForEach(c => Instantiate(_collectablePickupFX, c.Position, Quaternion.identity));
             collectables.ForEach(c => Destroy(c.gameObject));
         }
 
