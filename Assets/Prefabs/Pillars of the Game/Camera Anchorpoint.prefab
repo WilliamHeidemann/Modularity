@@ -436,9 +436,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _keyboardSpeed: 10
-  _dragSpeed: 0.012
-  _rotationSpeed: 150
-  _zoomSpeed: 450
+  _dragSpeed: 0.005
+  _rotationSpeed: 200
+  _zoomSpeed: 1200
   _shakeDuration: 0.3
   _shakeStrength: 0.5
   _shakeCurve:
@@ -685,6 +685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minHoverHeight: 12
   _maxHoverHeight: 30
+  _sensitiveToCameraFOV: 1
   _detectionTreshold: 0.76
   _hoverSpeedDown: 0.75
   _hoverSpeedUp: 0.15
