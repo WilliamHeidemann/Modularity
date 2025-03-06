@@ -99,9 +99,9 @@ namespace Runtime.DataLayer
                 return false;
             }
 
-            var atLeastOneConnect = ConnectsToAtLeastOneNeighbor(segmentData);
+            var atLeastOneConnects = ConnectsToAtLeastOneNeighbor(segmentData);
 
-            return atLeastOneConnect;
+            return atLeastOneConnects;
         }
 
         public bool IsDirectionallyValidPlacement(SegmentData segmentData)
