@@ -1,5 +1,6 @@
 using System;
 using Runtime.Components.Segments;
+using Runtime.Components.Utility;
 using Runtime.Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -33,7 +34,14 @@ namespace Runtime.Components
         {
             if (!_mousePressed || EventSystem.current.IsPointerOverGameObject()) return;
             _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
-            _placeHolderBuilder.TearDown();
+            if (_builder.IsValidBuildAttempt(Position, _placeHolderBuilder.PlaceholderRotation(), out var _, out var _))
+            {
+                _placeHolderBuilder.TearDown();
+            }
+            else
+            {
+                SoundFXPlayer.Instance.Play(SoundFX.InvalidPlacement);
+            }
             _mousePressed = false;
         }
         private void OnMouseDown()

@@ -27,6 +27,7 @@ namespace Runtime.Components.Utility
         [SerializeField] private AudioClip _cardSelection;
         [SerializeField] private AudioClip _orbSpawn;
         [SerializeField] private AudioClip _orbCollected;
+        [SerializeField] private AudioClip _invalidPlacement;
 
         private float _volumeModifier = 0.5f;
 
@@ -68,6 +69,7 @@ namespace Runtime.Components.Utility
                 SoundFX.CardMouseOver => _cardMouseOver,
                 SoundFX.OrbSpawn => _orbSpawn,
                 SoundFX.OrbCollected => _orbCollected,
+                SoundFX.InvalidPlacement => _invalidPlacement,
                 _ => throw new ArgumentOutOfRangeException(nameof(soundFX), soundFX, null)
             };
 
@@ -109,6 +111,7 @@ namespace Runtime.Components.Utility
         CardSelection,
         CardMouseOver,
         OrbSpawn,
-        OrbCollected
+        OrbCollected,
+        InvalidPlacement
     }
 }

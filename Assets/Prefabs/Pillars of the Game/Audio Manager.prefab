@@ -60,6 +60,7 @@ MonoBehaviour:
   _cardSelection: {fileID: 8300000, guid: 77c8848e6ddad614d9f9e7c68c7db12d, type: 3}
   _orbSpawn: {fileID: 8300000, guid: 488abe81f27029f4283c0fd415f2810b, type: 3}
   _orbCollected: {fileID: 8300000, guid: ec4e7e61a5d31b14c81a903479d495ec, type: 3}
+  _invalidPlacement: {fileID: 8300000, guid: 3b659cbe2dcabaa4a8d71a610665d918, type: 3}
 --- !u!82 &126822747806938509
 AudioSource:
   m_ObjectHideFlags: 0

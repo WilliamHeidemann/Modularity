@@ -31,6 +31,36 @@ namespace Runtime.Scriptable_Objects
         {
             SpawnSelection(position, placeholderRotation, isInitial);
         }
+        
+        public bool IsValidBuildAttempt(Vector3Int position, Quaternion rotation, out SegmentData segmentData, out Segment prefab) 
+        {
+            if (!_currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam))
+            {
+                segmentData = null;
+                prefab = null;
+                return false;
+            }
+
+            if (!_selection.Prefab.IsSome(out prefab))
+            {
+                segmentData = null;
+                return false;
+            }
+
+            segmentData = new SegmentData
+            {
+                Position = position,
+                Rotation = rotation,
+                StaticSegmentData = prefab.StaticSegmentData,
+            };
+            
+            if (!_structure.IsValidPlacement(segmentData))
+            {
+                return false;
+            }
+            
+            return true;
+        }
 
         public void BuildInstant(SegmentData segmentData, Segment prefab)
         {
@@ -52,24 +82,30 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnSelection(Vector3 position, Quaternion rotation, bool isInitial)
         {
-            if (!_currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam))
-            {
-                return;
-            }
-
-            if (!_selection.Prefab.IsSome(out var prefab))
-            {
-                return;
-            }
-
-            var segmentData = new SegmentData
-            {
-                Position = position.AsVector3Int(),
-                Rotation = rotation,
-                StaticSegmentData = prefab.StaticSegmentData,
-            };
+            // if (!_currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam))
+            // {
+            //     return;
+            // }
+            //
+            // if (!_selection.Prefab.IsSome(out var prefab))
+            // {
+            //     return;
+            // }
+            //
+            // var segmentData = new SegmentData
+            // {
+            //     Position = position.AsVector3Int(),
+            //     Rotation = rotation,
+            //     StaticSegmentData = prefab.StaticSegmentData,
+            // };
+            //
+            // if (!_structure.IsValidPlacement(segmentData) && !isInitial)
+            // {
+            //     return;
+            // }
             
-            if (!_structure.IsValidPlacement(segmentData) && !isInitial)
+            if (!IsValidBuildAttempt(position.AsVector3Int(), rotation, out SegmentData segmentData, out Segment prefab)
+                && !isInitial)
             {
                 return;
             }
@@ -97,6 +133,7 @@ namespace Runtime.Scriptable_Objects
             _hand.DrawHand();
             _selection.Prefab = Option<Segment>.None;
         }
+        
 
         private void SpawnSlot(Vector3 segmentPosition, Vector3 slotPosition)
         {
