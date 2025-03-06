@@ -14,6 +14,7 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private Selection _selection;
         [SerializeField] private Structure _structure;
+        [SerializeField] private Currency _currency;
         [SerializeField] private QuestFactory _questFactory;
         private Option<Segment> _placeHolder;
         private List<Quaternion> _rotations;
@@ -58,7 +59,11 @@ namespace Runtime.Scriptable_Objects
                 OnSegmentCanRotate?.Invoke();
             }
 
-            var material = validRotations.Any() ? _transparentValidMat : _transparentInvalidMat;
+            var hasEnoughCurrency = _currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam);
+                
+            var material = validRotations.Any() && hasEnoughCurrency
+                ? _transparentValidMat 
+                : _transparentInvalidMat;
             foreach (var meshRenderer in placeHolder.GetComponentsInChildren<MeshRenderer>())
             {
                 var newMaterials = meshRenderer.sharedMaterials.Select(mat => material).ToArray();
