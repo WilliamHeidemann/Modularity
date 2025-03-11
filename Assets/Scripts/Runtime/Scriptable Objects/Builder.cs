@@ -64,11 +64,6 @@ namespace Runtime.Scriptable_Objects
 
         public void BuildInstant(SegmentData segmentData, Segment prefab)
         {
-            // if (!_structure.IsValidPlacement(segmentData))
-            // {
-            //     return;
-            // }
-            
             if (prefab.StaticSegmentData != segmentData.StaticSegmentData)
             {
                 return;
@@ -82,28 +77,6 @@ namespace Runtime.Scriptable_Objects
 
         private void SpawnSelection(Vector3 position, Quaternion rotation, bool isInitial)
         {
-            // if (!_currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam))
-            // {
-            //     return;
-            // }
-            //
-            // if (!_selection.Prefab.IsSome(out var prefab))
-            // {
-            //     return;
-            // }
-            //
-            // var segmentData = new SegmentData
-            // {
-            //     Position = position.AsVector3Int(),
-            //     Rotation = rotation,
-            //     StaticSegmentData = prefab.StaticSegmentData,
-            // };
-            //
-            // if (!_structure.IsValidPlacement(segmentData) && !isInitial)
-            // {
-            //     return;
-            // }
-            
             if (!IsValidBuildAttempt(position.AsVector3Int(), rotation, out SegmentData segmentData, out Segment prefab)
                 && !isInitial)
             {
