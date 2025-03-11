@@ -152,7 +152,7 @@ namespace Runtime.Components.Utility
             var xValue = transform.parent.rotation.eulerAngles.x;
 
             var isGoingTooHigh = xValue is > 80 and < 100f && yAxis > 0f;
-            var isGoingTooLow = transform.parent.position.y < 0f && yAxis < 0f;
+            var isGoingTooLow = transform.parent.position.y <= 0f && yAxis < 0f;
 
             if (isGoingTooHigh || isGoingTooLow)
             {
