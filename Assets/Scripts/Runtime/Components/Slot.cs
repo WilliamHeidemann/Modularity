@@ -34,6 +34,7 @@ namespace Runtime.Components
         {
             if (!_mousePressed || EventSystem.current.IsPointerOverGameObject()) return;
             _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
+            CameraControls.Instance.StartCameraShake();
             if (_builder.IsValidBuildAttempt(Position, _placeHolderBuilder.PlaceholderRotation(), out var _, out var _))
             {
                 _placeHolderBuilder.TearDown();
