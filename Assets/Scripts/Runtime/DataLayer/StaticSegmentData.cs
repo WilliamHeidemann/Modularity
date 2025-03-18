@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using UnityEngine;
@@ -9,6 +10,16 @@ namespace Runtime.DataLayer
     public class StaticSegmentData : ScriptableObject
     {
         public ConnectionPoints ConnectionPoints;
+        public virtual IEnumerable<Vector3Int> GetConnectionPointPositions()
+        {
+            return ConnectionPoints.AsVector3Ints();
+        }
+        
+        public virtual IEnumerable<(Vector3Int, ConnectionType)> GetConnectionPointData()
+        {
+            return ConnectionPoints.GetDirectionData();
+        }
+
         public bool IsBlood;
         public bool IsSteam;
         public bool IsSource;

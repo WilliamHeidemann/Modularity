@@ -16,14 +16,14 @@ namespace Runtime.DataLayer
         public bool IsActivated;
 
         public IEnumerable<Vector3Int> GetConnectionPoints() =>
-            StaticSegmentData.ConnectionPoints
-                .AsVector3Ints()
+            StaticSegmentData
+                .GetConnectionPointPositions()
                 .Select(TransformDirection)
                 .Select(direction => Position + direction);
 
         public IEnumerable<(Vector3Int position, ConnectionType type)> GetConnectionPointsPlus()
         {
-            return StaticSegmentData.ConnectionPoints.GetDirectionData()
+            return StaticSegmentData.GetConnectionPointData()
                 .Select(pair => (TransformDirection(pair.Item1) + Position, pair.Item2));
         }
 
