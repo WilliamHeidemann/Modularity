@@ -22,7 +22,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private FlowControl _flowControl;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
-
+        [SerializeField] private SlotVisualizer _slotVisualizer;
         public delegate void SegmentPlaced();
         public static event SegmentPlaced OnSegmentPlaced;
 
@@ -90,6 +90,7 @@ namespace Runtime.Scriptable_Objects
                 .ForEach(connectionPoint => SpawnSlot(position.AsVector3Int(), connectionPoint));
             _structure.AddSegment(segmentData);
             SoundFXPlayer.Instance.Play(segmentData.StaticSegmentData.SoundFX);
+            _slotVisualizer.HideSlots();
 
             if (isInitial)
             {

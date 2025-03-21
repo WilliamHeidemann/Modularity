@@ -56,5 +56,15 @@ namespace Runtime.DataLayer
             Vector3Int.right,
             Vector3Int.left,
         };
+        
+        public IEnumerable<Quaternion> AsQuaternions()
+        {
+            if (Up > 0) yield return Quaternion.Euler(0, 0, 0);
+            if (Down > 0) yield return Quaternion.Euler(180, 0, 0);
+            if (Forward > 0) yield return Quaternion.Euler(90, 0, 0);
+            if (Back > 0) yield return Quaternion.Euler(-90, 0, 0);
+            if (Right > 0) yield return Quaternion.Euler(0, 0, 90);
+            if (Left > 0) yield return Quaternion.Euler(0, 0, -90);
+        }
     }
 }

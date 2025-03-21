@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.Components.Segments;
+using Runtime.Components.Utility;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
@@ -133,6 +134,30 @@ namespace Runtime.DataLayer
                 .SelectMany(segmentData => segmentData.GetConnectionPoints())
                 .ToHashSet()
                 .Count(position => IsOpenPosition(position));
+        }
+        
+        public IEnumerable<(Vector3, Quaternion)> GetOpenSlots(ConnectionType connectionType)
+        {
+            bool IsBlood(SegmentData segmentData) => segmentData.StaticSegmentData.IsBlood;
+            bool IsSteam(SegmentData segmentData) => segmentData.StaticSegmentData.IsSteam;
+            
+            Predicate<SegmentData> filter = connectionType == ConnectionType.Blood ? IsBlood : IsSteam;
+
+            var segments = _graphData.Values.Where(data => filter(data));
+
+            foreach (var segment in segments)
+            {
+                var position = segment.Position;
+                var connectionPoints = segment.StaticSegmentData.ConnectionPoints;
+                var positionAndRotation = connectionPoints.AsVector3Ints().Zip(connectionPoints.AsQuaternions() , (p, q) => (p, q));
+                foreach ((Vector3Int connectionPosition, Quaternion rotation) in positionAndRotation)
+                {
+                    var rotatedPosition = segment.Rotation * connectionPosition;
+                    var isOpenPosition = IsOpenPosition(position + rotatedPosition.AsVector3Int());
+                    if (!isOpenPosition) continue;
+                    yield return ((position.AsVector3() + position.AsVector3() + rotatedPosition) / 2f, segment.Rotation * rotation);
+                }
+            }
         }
     }
 }

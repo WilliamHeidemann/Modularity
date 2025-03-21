@@ -17,6 +17,8 @@ namespace Runtime.Components.Systems
         [SerializeField] private GameOverMenuController _gameOverMenuController;
         [SerializeField] private EndGame _endGame;
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
+        [SerializeField] private SlotVisualizer _slotVisualizer;
+        
 
         private void OnEnable()
         {
@@ -38,6 +40,7 @@ namespace Runtime.Components.Systems
             _placeHolderBuilder.Clear();
             _currency.Initialize(_startingCurrency);
             _questController.Initialize();
+            _slotVisualizer.Initialize();
             _endGame.SetGameOverMenu(_gameOverMenuController);
         }
     }

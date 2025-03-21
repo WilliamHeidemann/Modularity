@@ -7,6 +7,7 @@ using System.Linq;
 using Runtime.Backend;
 using Runtime.Components.Systems;
 using Runtime.Components.Utility;
+using Runtime.DataLayer;
 using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
@@ -18,6 +19,7 @@ namespace Runtime.Scriptable_Objects
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
+        [SerializeField] private SlotVisualizer _slotVisualizer;
         private readonly LinkedList<List<Segment>> _queuedHands = new();
         private bool _onlyGenerateBloodSegments;
 
@@ -41,6 +43,13 @@ namespace Runtime.Scriptable_Objects
             _selection.Prefab = Option<Segment>.Some(SegmentsOptions[chosenSegment]);
             _selection.PriceBlood = SegmentsOptions[chosenSegment].StaticSegmentData.BloodCost;
             _selection.PriceSteam = SegmentsOptions[chosenSegment].StaticSegmentData.SteamCost;
+            
+            _slotVisualizer.HideSlots();
+            var isBlood = SegmentsOptions[chosenSegment].StaticSegmentData.IsBlood;
+            var isSteam = SegmentsOptions[chosenSegment].StaticSegmentData.IsSteam;
+            if (isBlood) _slotVisualizer.VisualizeSlots(ConnectionType.Blood);
+            if (isSteam) _slotVisualizer.VisualizeSlots(ConnectionType.Steam);
+            
             SoundFXPlayer.Instance.Play(SoundFX.CardSelection);
         }
 

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _pool: {fileID: 11400000, guid: 8491676f10891e440994c3895a379feb, type: 2}
+  _slotVisualizer: {fileID: 11400000, guid: e6191ce66779dd14abea5816d7d7bd91, type: 2}
   SegmentsOptions:
-  - {fileID: 4404823909993285501, guid: 3e0d51d406dbfae41a88464356bb6795, type: 3}
-  - {fileID: 4404823909993285501, guid: 15d1e1fc811c56a498fb7fd31b858e3d, type: 3}
-  - {fileID: 3223422381655429275, guid: c84a0f1aa0c354947956d1112809e108, type: 3}
+  - {fileID: 4404823909993285501, guid: 9b0b025830b94184d9dc8d1744b0b9d9, type: 3}
+  - {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
+  - {fileID: 4404823909993285501, guid: 0123d1ea0f5b96c4e8fd789c103b5fc1, type: 3}

@@ -12,6 +12,9 @@ namespace Runtime.Components.Utility
                 Mathf.RoundToInt(vector3.y),
                 Mathf.RoundToInt(vector3.z));
         
+        public static Vector3 AsVector3(this Vector3Int vector3Int) =>
+            new Vector3(vector3Int.x, vector3Int.y, vector3Int.z);
+        
         public static bool ContainsRotation(this IEnumerable<Quaternion> quaternions, Quaternion rotation)
         {
             return quaternions.Any(quaternion => Quaternion.Angle(quaternion, rotation) < 1);
