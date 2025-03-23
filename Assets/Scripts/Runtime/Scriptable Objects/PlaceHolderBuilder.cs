@@ -160,6 +160,7 @@ namespace Runtime.Scriptable_Objects
             _index += 1;
             _index %= _rotations.Count;
             segment.transform.rotation = _rotations[_index];
+            _questFactory.RotateSegment();
         }
 
         private IEnumerable<SegmentData> ValidRotations(Vector3Int position, StaticSegmentData staticSegmentData,

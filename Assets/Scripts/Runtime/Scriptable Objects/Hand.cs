@@ -72,7 +72,7 @@ namespace Runtime.Scriptable_Objects
             SegmentsOptions = new List<Segment>();
             for (int i = 0; i < OptionsCount; i++)
             {
-                var segment = SpawnUtility.Get(_pool.GetRandomSegment, IsValid);
+                var segment = SpawnUtility.Get(_pool.GetRandomSegment, s => IsValid(s) && s.StaticSegmentData.IsBlood);
                 SegmentsOptions.Add(segment);
             }
 
@@ -81,7 +81,7 @@ namespace Runtime.Scriptable_Objects
 
         public void DrawQueuedHand(List<Segment> segments)
         {
-            if (segments.Count != 3)
+            if (segments.Count != 3 || segments.Any(segment => segment == null))
             {
                 Debug.LogError("Hand must have 3 segments");
                 return;

@@ -1,3 +1,4 @@
+using System;
 using Runtime.Scriptable_Objects;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Runtime.Components
         [SerializeField] private TextMeshProUGUI _questDescription;
         [SerializeField] private Quest _quest;
         [SerializeField] private GameObject _cameraControlImages;
+        [SerializeField] private GameObject _handUI;
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private PredefinedHands _predefinedHands;
         private int _questIndex;
@@ -18,7 +20,13 @@ namespace Runtime.Components
         public void Initialize()
         {
             _questIndex = 0;
+            _autoSpawner.SpawnBloodSource();
             NextQuest();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.N)) _quest.Complete();
         }
 
         private void NextQuest()
@@ -36,24 +44,30 @@ namespace Runtime.Components
                     break;
                 case 3:
                     _quest = _questFactory.PlaceFirstBloodSegmentQuest();
-                    _autoSpawner.SpawnBloodSource();
-                    _hand.QueueHandsLast(_predefinedHands.BloodHands);
-                    _hand.DrawHand();
+                    _handUI.SetActive(true);
+                    _hand.DrawQueuedHand(_predefinedHands.BloodHand1);
                     break;
                 case 4:
+                    _quest = _questFactory.RotateSegmentQuest();
+                    _hand.DrawQueuedHand(_predefinedHands.BloodHand2);
+                    break;
+                case 5:
+                    _quest = _questFactory.PlaceManyBloodSegmentsQuest(5);
+                    break;
+                case 6:
                     _quest = _questFactory.PlaceFirstSteamSegmentQuest();
                     _autoSpawner.SpawnSteamSource();
                     _hand.QueueHandsLast(_predefinedHands.SteamHands);
                     break;
-                case 5:
+                case 7:
                     _quest = _questFactory.ConnectSteamAndFleshQuest();
                     _hand.QueueHandFirst(_predefinedHands.Hybrids);
                     break;
-                case 6:
+                case 8:
                     _quest = _questFactory.ActivateXReceiversQuest(1);
                     _hand.QueueHandFirst(_predefinedHands.Producers);
                     break;
-                case 7:
+                case 9:
                     _quest = _questFactory.CollectXQuest(2);
                     _cameraControlImages.SetActive(false);
                     break;

@@ -21,6 +21,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private MeasureQuest _panQuest;
         [SerializeField] private MeasureQuest _rotateQuest;
         [SerializeField] private MeasureQuest _zoomQuest;
+        [SerializeField] private Quest<int> _rotateSegmentQuest;
+        [SerializeField] private SegmentQuest _placeManyBloodSegments;
 
         public void Clear()
         {
@@ -32,7 +34,7 @@ namespace Runtime.Scriptable_Objects
 
         public SegmentQuest PlaceFirstBloodSegmentQuest()
         {
-            var quest = _placeFirstHeartSegment.Build(2) as SegmentQuest;
+            var quest = _placeFirstHeartSegment.Build(1) as SegmentQuest;
             OnSegmentPlaced += quest!.Progress;
             quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;
@@ -117,6 +119,22 @@ namespace Runtime.Scriptable_Objects
             quest.OnComplete += () => OnZoom -= quest.Progress;
             return quest;
         }
+        
+        public Quest<int> RotateSegmentQuest()
+        {
+            var quest = _rotateSegmentQuest.Build() as Quest<int>;
+            OnRotateSegment += quest!.Progress;
+            quest.OnComplete += () => OnRotateSegment -= quest.Progress;
+            return quest;
+        }
+        
+        public SegmentQuest PlaceManyBloodSegmentsQuest(int x)
+        {
+            var quest = _placeManyBloodSegments.Build(x) as SegmentQuest;
+            OnSegmentPlaced += quest!.Progress;
+            quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
+            return quest;
+        }
 
         public void SegmentPlaced(SegmentData segmentData) => OnSegmentPlaced?.Invoke(segmentData);
         public void CollectableCollected(int x) => OnCollect?.Invoke(x);
@@ -125,6 +143,7 @@ namespace Runtime.Scriptable_Objects
         public void Pan(float value) => OnPan?.Invoke(value);
         public void Rotate(float value) => OnRotate?.Invoke(value);
         public void Zoom(float value) => OnZoom?.Invoke(value);
+        public void RotateSegment() => OnRotateSegment?.Invoke(1);
 
         private event Action<SegmentData> OnSegmentPlaced;
         private event Action<int> OnCollect;
@@ -133,5 +152,6 @@ namespace Runtime.Scriptable_Objects
         private event Action<float> OnPan;
         private event Action<float> OnRotate;
         private event Action<float> OnZoom;
+        private event Action<int> OnRotateSegment;
     }
 }

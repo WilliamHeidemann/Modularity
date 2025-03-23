@@ -103,8 +103,8 @@ namespace Runtime.Scriptable_Objects
             _currency.Pay(_selection.PriceBlood, _selection.PriceSteam);
             _currencyPopup.SpendCurrency(position.AsVector3Int(), segmentData.StaticSegmentData);
             OnSegmentPlaced?.Invoke();
-            _hand.DrawHand();
             _selection.Prefab = Option<Segment>.None;
+            _hand.DrawHand();
         }
         
 

@@ -16,7 +16,7 @@ namespace Runtime.Scriptable_Objects
         public string Description { get; protected set; }
         
         public Action OnComplete;
-        public TextMeshProUGUI DescriptionText;
+        [HideInInspector] public TextMeshProUGUI DescriptionText;
 
         protected Quest(string description)
         {
@@ -36,7 +36,7 @@ namespace Runtime.Scriptable_Objects
     public class Quest<T> : Quest
     {
         protected int Count;
-        protected int Target;
+        [SerializeField] protected int Target;
 
         protected Quest(string description, int target) : base(description)
         {
@@ -45,6 +45,7 @@ namespace Runtime.Scriptable_Objects
         }
 
         public virtual Quest<T> Build(int target) => new(Description, target);
+        public override Quest Build() => new Quest<int>(Description, Target);
 
         protected void UpdateDescription()
         {
@@ -100,7 +101,7 @@ namespace Runtime.Scriptable_Objects
                 Count++;
             }
 
-            if (_countSteam && segments.StaticSegmentData.IsSteam)
+            else if (_countSteam && segments.StaticSegmentData.IsSteam)
             {
                 Count++;
             }

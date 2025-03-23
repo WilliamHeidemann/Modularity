@@ -14,19 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _placeFirstHeartSegment:
-    <Description>k__BackingField: Connect Veins to the Heart (0/2)
+    <Description>k__BackingField: Modularity is all about building a living factory
+      with pieces of metal and flesh. Click on the vein to selected it. When selected,
+      valid connection points are highlighted. Mouse over a position to preview,
+      and then click to place the vein.
     DescriptionText: {fileID: 0}
+    Target: 0
     _countBlood: 1
     _countSteam: 0
   _placeFirstSteamSegment:
     <Description>k__BackingField: Connect Metal Pipes to the Furnace (0/2)
     DescriptionText: {fileID: 0}
+    Target: 0
     _countBlood: 0
     _countSteam: 1
   _activateXReceivers:
     <Description>k__BackingField: Activate a Brain or Engine. Brains and Engines
       activate when part of a closed circuit.
     DescriptionText: {fileID: 0}
+    Target: 0
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0
@@ -37,22 +43,38 @@ MonoBehaviour:
     <Description>k__BackingField: Absorb energy spheres to empower your amalgamation.
       (0/2)
     DescriptionText: {fileID: 0}
+    Target: 0
   _activateXReceiversSimultaneously:
     <Description>k__BackingField: Activate a combination of x furnaces and brains
       simultaneously.
     DescriptionText: {fileID: 0}
+    Target: 0
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 1
   _panQuest:
-    <Description>k__BackingField: Pan
+    <Description>k__BackingField: Left click and drag anywhere to move your view.
     DescriptionText: {fileID: 0}
     Target: 1.5
   _rotateQuest:
-    <Description>k__BackingField: Rotate
+    <Description>k__BackingField: Use WASD to rotate your view.
     DescriptionText: {fileID: 0}
     Target: 250
   _zoomQuest:
-    <Description>k__BackingField: Zoom
+    <Description>k__BackingField: Scroll to zoom your view in and out.
     DescriptionText: {fileID: 0}
     Target: 10
+  _rotateSegmentQuest:
+    <Description>k__BackingField: Pieces can also be rotated. Mouse over a valid
+      position to preview the piece, and use R to rotate it. Once it's positioned
+      how you'd like, click to place it.
+    DescriptionText: {fileID: 0}
+    Target: 3
+  _placeManyBloodSegments:
+    <Description>k__BackingField: In Modularity, you'll always be presented with
+      3 options to chose from. Placing one will present you with 3 new options, so
+      choose carefully which you'd like to use. Place 5 more pieces.
+    DescriptionText: {fileID: 0}
+    Target: 5
+    _countBlood: 1
+    _countSteam: 0
