@@ -138,20 +138,13 @@ namespace Runtime.DataLayer
         
         public IEnumerable<(Vector3, Quaternion)> GetOpenSlots(ConnectionType connectionType)
         {
-            bool IsBlood(SegmentData segmentData) => segmentData.StaticSegmentData.IsBlood;
-            bool IsSteam(SegmentData segmentData) => segmentData.StaticSegmentData.IsSteam;
-            
-            Predicate<SegmentData> filter = connectionType == ConnectionType.Blood ? IsBlood : IsSteam;
-
-            var segments = _graphData.Values.Where(data => filter(data));
-
-            foreach (var segment in segments)
+            foreach (var segment in _graphData.Values)
             {
                 var position = segment.Position;
-                var connectionPoints = segment.StaticSegmentData.ConnectionPoints;
-                var positionAndRotation = connectionPoints.AsVector3Ints().Zip(connectionPoints.AsQuaternions() , (p, q) => (p, q));
-                foreach ((Vector3Int connectionPosition, Quaternion rotation) in positionAndRotation)
+                var connectionPoints = segment.StaticSegmentData.ConnectionPoints.GetConnectionPointsData();
+                foreach ((Vector3Int connectionPosition, Quaternion rotation, ConnectionType type) in connectionPoints)
                 {
+                    if (type != connectionType) continue;
                     var rotatedPosition = segment.Rotation * connectionPosition;
                     var isOpenPosition = IsOpenPosition(position + rotatedPosition.AsVector3Int());
                     if (!isOpenPosition) continue;

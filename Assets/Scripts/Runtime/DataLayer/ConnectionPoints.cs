@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Runtime.Backend;
 using Runtime.Components.Segments;
 using UnityEngine;
 
@@ -65,6 +67,21 @@ namespace Runtime.DataLayer
             if (Back > 0) yield return Quaternion.Euler(-90, 0, 0);
             if (Right > 0) yield return Quaternion.Euler(0, 0, 90);
             if (Left > 0) yield return Quaternion.Euler(0, 0, -90);
+        }
+        
+        public IEnumerable<(Vector3Int position, Quaternion quaternion, ConnectionType type)> GetConnectionPointsData()
+        {
+            return LinqExtensions.ZipThree(AsVector3Ints(), AsQuaternions(), GetConnectionTypes());
+        }
+        
+        private IEnumerable<ConnectionType> GetConnectionTypes()
+        {
+            if (Up > 0) yield return Up;
+            if (Down > 0) yield return Down;
+            if (Forward > 0) yield return Forward;
+            if (Back > 0) yield return Back;
+            if (Right > 0) yield return Right;
+            if (Left > 0) yield return Left;
         }
     }
 }
