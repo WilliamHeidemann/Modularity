@@ -15,38 +15,44 @@ MonoBehaviour:
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _placeFirstHeartSegment:
     <Description>k__BackingField: Connect Veins to the Heart (0/2)
-    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 0
   _placeFirstSteamSegment:
     <Description>k__BackingField: Connect Metal Pipes to the Furnace (0/2)
-    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 0
     _countSteam: 1
   _activateXReceivers:
     <Description>k__BackingField: Activate a Brain or Engine. Brains and Engines
       activate when part of a closed circuit.
-    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 0
   _connectSteamAndFlesh:
     <Description>k__BackingField: Connect a Heart and Furnace together.
-    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
   _collectX:
     <Description>k__BackingField: Absorb energy spheres to empower your amalgamation.
       (0/2)
-    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
   _activateXReceiversSimultaneously:
     <Description>k__BackingField: Activate a combination of x furnaces and brains
       simultaneously.
-    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
     _countBlood: 1
     _countSteam: 1
     _mustBeSimultaneous: 1
+  _panQuest:
+    <Description>k__BackingField: Pan
+    DescriptionText: {fileID: 0}
+    Target: 1.5
+  _rotateQuest:
+    <Description>k__BackingField: Rotate
+    DescriptionText: {fileID: 0}
+    Target: 250
+  _zoomQuest:
+    <Description>k__BackingField: Zoom
+    DescriptionText: {fileID: 0}
+    Target: 10

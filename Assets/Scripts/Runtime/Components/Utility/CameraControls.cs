@@ -12,6 +12,8 @@ namespace Runtime.Components.Utility
 {
     public class CameraControls : MonoSingleton<CameraControls>
     {
+        [SerializeField] private QuestFactory _questFactory;
+        
         [SerializeField] private float _keyboardSpeed;
         [SerializeField] private float _dragSpeed;
         [SerializeField] private float _rotationSpeed;
@@ -100,6 +102,7 @@ namespace Runtime.Components.Utility
             }
 
             var translation = new Vector3(_mouseDelta.x * _dragSpeed, _mouseDelta.y * _dragSpeed, 0);
+            _questFactory.Pan(translation.sqrMagnitude);
             transform.parent.Translate(translation, Space.Self);
             PreventGoingThroughFloor();
         }
@@ -163,6 +166,8 @@ namespace Runtime.Components.Utility
             var yRotation = yAxis * _rotationSpeed * Time.deltaTime;
             var rotationPoint = transform.parent.position + transform.parent.forward * _rotationPointOffset;
 
+            _questFactory.Rotate(Mathf.Abs(xRotation) + Mathf.Abs(yRotation));
+            
             transform.parent.RotateAround(rotationPoint, Vector3.up, xRotation);
             transform.parent.RotateAround(rotationPoint, transform.parent.right, yRotation);
             transform.parent.LookAt(rotationPoint);
@@ -176,6 +181,7 @@ namespace Runtime.Components.Utility
                 return;
             }
 
+            _questFactory.Zoom(Mathf.Abs(zoom));
             transform.parent.Translate(0, 0, zoom);
             PreventGoingThroughFloor();
         }

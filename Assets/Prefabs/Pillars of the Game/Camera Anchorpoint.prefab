@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e051a740e48067145b163d553b16bc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _keyboardSpeed: 10
   _dragSpeed: 0.012
   _rotationSpeed: 150
@@ -685,6 +686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minHoverHeight: 12
   _maxHoverHeight: 30
+  _sensitiveToCameraFOV: 1
   _detectionTreshold: 0.76
   _hoverSpeedDown: 0.75
   _hoverSpeedUp: 0.15

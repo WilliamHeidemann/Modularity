@@ -18,6 +18,9 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Quest _connectSteamAndFlesh;
         [SerializeField] private Quest<int> _collectX;
         [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
+        [SerializeField] private MeasureQuest _panQuest;
+        [SerializeField] private MeasureQuest _rotateQuest;
+        [SerializeField] private MeasureQuest _zoomQuest;
 
         public void Clear()
         {
@@ -90,14 +93,45 @@ namespace Runtime.Scriptable_Objects
             quest.OnComplete += () => OnReceiversActivated -= quest.Progress;
             return quest;
         }
+        
+        public MeasureQuest PanQuest()
+        {
+            var quest = _panQuest.Build() as MeasureQuest;
+            OnPan += quest!.Progress;
+            quest.OnComplete += () => OnPan -= quest.Progress;
+            return quest;
+        }
+        
+        public MeasureQuest RotateQuest()
+        {
+            var quest = _rotateQuest.Build() as MeasureQuest;
+            OnRotate += quest!.Progress;
+            quest.OnComplete += () => OnRotate -= quest.Progress;
+            return quest;
+        }
+        
+        public MeasureQuest ZoomQuest()
+        {
+            var quest = _zoomQuest.Build() as MeasureQuest;
+            OnZoom += quest!.Progress;
+            quest.OnComplete += () => OnZoom -= quest.Progress;
+            return quest;
+        }
 
         public void SegmentPlaced(SegmentData segmentData) => OnSegmentPlaced?.Invoke(segmentData);
         public void CollectableCollected(int x) => OnCollect?.Invoke(x);
         public void ReceiversActivated(IEnumerable<SegmentData> receivers) => OnReceiversActivated?.Invoke(receivers);
         public void BloodAndSteamConnected() => OnBloodAndSteamConnected?.Invoke();
+        public void Pan(float value) => OnPan?.Invoke(value);
+        public void Rotate(float value) => OnRotate?.Invoke(value);
+        public void Zoom(float value) => OnZoom?.Invoke(value);
+
         private event Action<SegmentData> OnSegmentPlaced;
         private event Action<int> OnCollect;
         private event Action<IEnumerable<SegmentData>> OnReceiversActivated;
         private event Action OnBloodAndSteamConnected;
+        private event Action<float> OnPan;
+        private event Action<float> OnRotate;
+        private event Action<float> OnZoom;
     }
 }

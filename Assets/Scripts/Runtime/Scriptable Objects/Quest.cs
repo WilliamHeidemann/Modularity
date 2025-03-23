@@ -29,7 +29,7 @@ namespace Runtime.Scriptable_Objects
             OnComplete = null;
         }
 
-        public Quest Build() => new(Description);
+        public virtual Quest Build() => new(Description);
     }
 
     [Serializable]
@@ -190,6 +190,30 @@ namespace Runtime.Scriptable_Objects
             }
 
             UpdateDescription();
+        }
+    }
+
+    [Serializable]
+    public class MeasureQuest : Quest
+    {
+        protected float Count;
+        [SerializeField] protected float Target;
+        
+        protected MeasureQuest(string description, float target) : base(description)
+        {
+            Target = target;
+        }
+        
+        public override Quest Build() => new MeasureQuest(Description, Target);
+
+        public void Progress(float amount)
+        {
+            Count += amount;
+
+            if (Count >= Target)
+            {
+                Complete();
+            }
         }
     }
 }

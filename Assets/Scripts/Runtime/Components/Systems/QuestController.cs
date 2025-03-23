@@ -26,25 +26,37 @@ namespace Runtime.Components
             switch (_questIndex)
             {
                 case 0:
+                    _quest = _questFactory.PanQuest();
+                    break;
+                case 1:
+                    _quest = _questFactory.RotateQuest();
+                    break;
+                case 2:
+                    _quest = _questFactory.ZoomQuest();
+                    break;
+                    
+                
+                
+                case 3:
                     _quest = _questFactory.PlaceFirstBloodSegmentQuest();
                     _autoSpawner.SpawnBloodSource();
                     _hand.QueueHandsLast(_predefinedHands.BloodHands);
                     _hand.DrawHand();
                     break;
-                case 1:
+                case 10:
                     _quest = _questFactory.PlaceFirstSteamSegmentQuest();
                     _autoSpawner.SpawnSteamSource();
                     _hand.QueueHandsLast(_predefinedHands.SteamHands);
                     break;
-                case 2:
+                case 20:
                     _quest = _questFactory.ConnectSteamAndFleshQuest();
                     _hand.QueueHandFirst(_predefinedHands.Hybrids);
                     break;
-                case 3:
+                case 30:
                     _quest = _questFactory.ActivateXReceiversQuest(1);
                     _hand.QueueHandFirst(_predefinedHands.Producers);
                     break;
-                case 4:
+                case 40:
                     _quest = _questFactory.CollectXQuest(2);
                     _cameraControlImages.SetActive(false);
                     break;
