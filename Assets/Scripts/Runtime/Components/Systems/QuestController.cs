@@ -34,29 +34,26 @@ namespace Runtime.Components
                 case 2:
                     _quest = _questFactory.ZoomQuest();
                     break;
-                    
-                
-                
                 case 3:
                     _quest = _questFactory.PlaceFirstBloodSegmentQuest();
                     _autoSpawner.SpawnBloodSource();
                     _hand.QueueHandsLast(_predefinedHands.BloodHands);
                     _hand.DrawHand();
                     break;
-                case 10:
+                case 4:
                     _quest = _questFactory.PlaceFirstSteamSegmentQuest();
                     _autoSpawner.SpawnSteamSource();
                     _hand.QueueHandsLast(_predefinedHands.SteamHands);
                     break;
-                case 20:
+                case 5:
                     _quest = _questFactory.ConnectSteamAndFleshQuest();
                     _hand.QueueHandFirst(_predefinedHands.Hybrids);
                     break;
-                case 30:
+                case 6:
                     _quest = _questFactory.ActivateXReceiversQuest(1);
                     _hand.QueueHandFirst(_predefinedHands.Producers);
                     break;
-                case 40:
+                case 7:
                     _quest = _questFactory.CollectXQuest(2);
                     _cameraControlImages.SetActive(false);
                     break;
