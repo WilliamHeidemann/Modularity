@@ -55,7 +55,7 @@ MonoBehaviour:
   _panQuest:
     <Description>k__BackingField: Left click and drag anywhere to move your view.
     DescriptionText: {fileID: 0}
-    Target: 1.5
+    Target: 1
   _rotateQuest:
     <Description>k__BackingField: Use WASD to rotate your view.
     DescriptionText: {fileID: 0}
@@ -67,13 +67,13 @@ MonoBehaviour:
   _rotateSegmentQuest:
     <Description>k__BackingField: Pieces can also be rotated. Mouse over a valid
       position to preview the piece, and use R to rotate it. Once it's positioned
-      how you'd like, click to place it.
+      how you'd like, click to place it. (0/3)
     DescriptionText: {fileID: 0}
     Target: 3
   _placeManyBloodSegments:
     <Description>k__BackingField: In Modularity, you'll always be presented with
       3 options to chose from. Placing one will present you with 3 new options, so
-      choose carefully which you'd like to use. Place 5 more pieces.
+      choose carefully which you'd like to use. Place 5 more pieces. (0/5)
     DescriptionText: {fileID: 0}
     Target: 5
     _countBlood: 1

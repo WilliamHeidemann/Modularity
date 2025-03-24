@@ -1,4 +1,5 @@
 using System;
+using Runtime.Backend;
 using Runtime.Scriptable_Objects;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Runtime.Components
     {
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private Hand _hand;
+        [SerializeField] private CanvasGroup _questCanvasGroup;
         [SerializeField] private TextMeshProUGUI _questDescription;
         [SerializeField] private Quest _quest;
         [SerializeField] private GameObject _cameraControlImages;
@@ -54,31 +56,32 @@ namespace Runtime.Components
                 case 5:
                     _quest = _questFactory.PlaceManyBloodSegmentsQuest(5);
                     break;
-                case 6:
-                    _quest = _questFactory.PlaceFirstSteamSegmentQuest();
-                    _autoSpawner.SpawnSteamSource();
-                    _hand.QueueHandsLast(_predefinedHands.SteamHands);
-                    break;
-                case 7:
-                    _quest = _questFactory.ConnectSteamAndFleshQuest();
-                    _hand.QueueHandFirst(_predefinedHands.Hybrids);
-                    break;
-                case 8:
-                    _quest = _questFactory.ActivateXReceiversQuest(1);
-                    _hand.QueueHandFirst(_predefinedHands.Producers);
-                    break;
-                case 9:
-                    _quest = _questFactory.CollectXQuest(2);
-                    _cameraControlImages.SetActive(false);
-                    break;
+                // case 6:
+                //     _quest = _questFactory.PlaceFirstSteamSegmentQuest();
+                //     _autoSpawner.SpawnSteamSource();
+                //     _hand.QueueHandsLast(_predefinedHands.SteamHands);
+                //     break;
+                // case 7:
+                //     _quest = _questFactory.ConnectSteamAndFleshQuest();
+                //     _hand.QueueHandFirst(_predefinedHands.Hybrids);
+                //     break;
+                // case 8:
+                //     _quest = _questFactory.ActivateXReceiversQuest(1);
+                //     _hand.QueueHandFirst(_predefinedHands.Producers);
+                //     break;
+                // case 9:
+                //     _quest = _questFactory.CollectXQuest(2);
+                //     _cameraControlImages.SetActive(false);
+                //     break;
                 default:
                     _quest = _questFactory.CollectXQuest(_questIndex - 2);
                     break;
             }
 
             _quest.DescriptionText = _questDescription;
+            TweenAnimations.FadeText(_questCanvasGroup, _questDescription, _quest.Description, _questIndex == 0);
             _quest.OnComplete += NextQuest;
-            _questDescription.text = $"{_quest.Description}";
+            // _questDescription.text = $"{_quest.Description}";
             _questIndex++;
         }
     }
