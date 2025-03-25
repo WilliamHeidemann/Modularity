@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Runtime.Components.Segments;
 using Runtime.Scriptable_Objects;
-using UnityEditor;
 using UnityEngine;
 using Selection = Runtime.Scriptable_Objects.Selection;
 
@@ -19,7 +14,6 @@ namespace Runtime.Components.Systems
         [SerializeField] private int _rerollCostSteam;
         [SerializeField] private EndGame _endGame;
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Awake()
         {
             _hand.OnDrawHand += DisplayHand;

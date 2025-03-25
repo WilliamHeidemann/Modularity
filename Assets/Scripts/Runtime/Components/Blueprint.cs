@@ -28,55 +28,22 @@ namespace Runtime.Components
 
         public void SetCardValues(int costsBlood, int costsSteam, int bloodReward, int steamReward)
         {
-            if(costsBlood > 0 && costsSteam > 0)
+            _bloodIcon.gameObject.SetActive(costsBlood > 0);
+            _steamIcon.gameObject.SetActive(costsSteam > 0);
+            _itemCostBloodText.text = costsBlood.ToString();
+            _itemCostSteamText.text = costsSteam.ToString();
+            _bluePrintTexture.sprite = (costsBlood > 0, costsSteam > 0) switch
             {
-                _bloodIcon.gameObject.SetActive(true);
-                _steamIcon.gameObject.SetActive(true);
-                _itemCostBloodText.text = costsBlood.ToString();
-                _itemCostSteamText.text = costsSteam.ToString();
-                _bluePrintTexture.sprite = _blueprintTextures[2];
-            }
-            else if(costsBlood > 0)
-            {
-                _bloodIcon.gameObject.SetActive(true);
-                _steamIcon.gameObject.SetActive(false);
-                _itemCostBloodText.text = costsBlood.ToString();
-                _itemCostSteamText.text = "0";
-                _bluePrintTexture.sprite = _blueprintTextures[0];
-            }
-            else
-            {
-                _steamIcon.gameObject.SetActive(true);
-                _bloodIcon.gameObject.SetActive(false);
-                _itemCostSteamText.text = costsSteam.ToString();
-                _itemCostBloodText.text = "0";
-                _bluePrintTexture.sprite = _blueprintTextures[1];
-            }
+                (true, true) => _blueprintTextures[2],
+                (true, false) => _blueprintTextures[0],
+                (false, true) => _blueprintTextures[1],
+                _ => _blueprintTextures[0]
+            };
 
-            if(bloodReward > 0 && steamReward > 0)
-            {
-                _bloodRewardIcon.gameObject.SetActive(true);
-                _steamRewardIcon.gameObject.SetActive(true);
-                _itemRewardBloodText.text = bloodReward.ToString();
-                _itemRewardSteamText.text = steamReward.ToString();
-            }
-            else if (bloodReward > 0)
-            {
-                _bloodRewardIcon.gameObject.SetActive(true);
-                _steamRewardIcon.gameObject.SetActive(false);
-                _itemRewardBloodText.text = bloodReward.ToString();
-            }
-            else if (steamReward > 0)
-            {
-                _steamRewardIcon.gameObject.SetActive(true);
-                _bloodRewardIcon.gameObject.SetActive(false);
-                _itemRewardSteamText.text = steamReward.ToString();
-            }
-            else
-            {
-                _bloodRewardIcon.gameObject.SetActive(false);
-                _steamRewardIcon.gameObject.SetActive(false);
-            }
+            _bloodRewardIcon.gameObject.SetActive(bloodReward > 0);
+            _steamRewardIcon.gameObject.SetActive(steamReward > 0);
+            _itemRewardBloodText.text = bloodReward.ToString();
+            _itemRewardSteamText.text = steamReward.ToString();
         }
 
         public void SetPreview(Sprite itemPreview)
@@ -95,18 +62,15 @@ namespace Runtime.Components
                 return;
             }
 
-            if (_itemCostBloodText.text != "0" && _itemCostSteamText.text != "0")
+            var glowObject = (_itemCostBloodText.text != "0", _itemCostSteamText.text != "0") switch
             {
-                _glowBlueprints[2].gameObject.SetActive(isGlowing);
-            }
-            else if (_itemCostBloodText.text != "0")
-            {
-                _glowBlueprints[0].gameObject.SetActive(isGlowing);
-            }
-            else
-            {
-                _glowBlueprints[1].gameObject.SetActive(isGlowing);
-            }
+                (true, true) => _glowBlueprints[2].gameObject,
+                (true, false) => _glowBlueprints[0].gameObject,
+                (false, true) => _glowBlueprints[1].gameObject,
+                _ => _glowBlueprints[0].gameObject
+            };
+            
+            glowObject.SetActive(isGlowing);
         }
     }
 }
