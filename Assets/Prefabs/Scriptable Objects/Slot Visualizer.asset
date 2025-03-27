@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a41fb04fb9424893a483df6530c801, type: 3}
   m_Name: Slot Visualizer
   m_EditorClassIdentifier: 
-  _slotPrefab: {fileID: 1058869549945075136, guid: 2b44b468c7ec21046afb50657b478786, type: 3}
+  _slotPrefab: {fileID: 7531534232651269234, guid: 1eec2163afbb60943994a35c6d265e62, type: 3}
   _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
