@@ -54,8 +54,11 @@ namespace Runtime.Components
                     _hand.DrawQueuedHand(_predefinedHands.BloodHand2);
                     break;
                 case 5:
-                    _quest = _questFactory.PlaceManyBloodSegmentsQuest(5);
+                    _quest = _questFactory.ActivateXReceiversQuest(1);
                     break;
+                // case 5:
+                //     _quest = _questFactory.PlaceManyBloodSegmentsQuest(5);
+                //     break;
                 // case 6:
                 //     _quest = _questFactory.PlaceFirstSteamSegmentQuest();
                 //     _autoSpawner.SpawnSteamSource();

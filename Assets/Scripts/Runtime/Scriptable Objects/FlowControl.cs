@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Runtime.Components.Segments;
-using Runtime.Components.Utility;
 using Runtime.DataLayer;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityUtils;
-using UtilityToolkit.Runtime;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -38,6 +33,7 @@ namespace Runtime.Scriptable_Objects
                 _questFactory.ReceiversActivated(_receiversActivatedLast);
             }
 
+            if (!_structure.Sources.Any()) return;
             if (AllSourcesLinked(_structure.Sources.First()))
             {
                 _questFactory.BloodAndSteamConnected();
@@ -73,7 +69,11 @@ namespace Runtime.Scriptable_Objects
                 var current = queue.Dequeue();
                 foreach (var link in _structure.GetValidConnections(current))
                 {
-                    if (link.StaticSegmentData.IsSource)
+                    // if (link.StaticSegmentData.IsSource)
+                    // {
+                    //     return true;
+                    // }
+                    if (link == receiver && current != segment)
                     {
                         return true;
                     }
