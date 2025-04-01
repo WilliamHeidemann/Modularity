@@ -22,7 +22,7 @@ namespace Runtime.Scriptable_Objects
                 createFunc: () => Instantiate(_slotPrefab),
                 actionOnGet: obj => obj.SetActive(true),
                 actionOnRelease: obj => obj.SetActive(false),
-                actionOnDestroy: Destroy
+                actionOnDestroy: obj => obj.SetActive(false)
             );
         }
 

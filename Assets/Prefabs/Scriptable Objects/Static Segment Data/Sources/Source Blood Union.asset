@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 576010f29acd429c8961aea78cacd252, type: 3}
-  m_Name: Source Blood Quard-Tee
+  m_Name: Source Blood Union
   m_EditorClassIdentifier: 
   ConnectionPoints:
-    Up: 1
-    Down: 1
+    Up: 0
+    Down: 0
     Right: 0
-    Left: 1
-    Forward: 0
+    Left: 0
+    Forward: 1
     Back: 1
   IsBlood: 1
   IsSteam: 0
   IsSource: 1
-  BloodReward: 15
+  BloodReward: 9
   SteamReward: 0
-  BloodCost: 6
+  BloodCost: 3
   SteamCost: 0
   BloodRequirements: 2
   SteamRequirements: 0

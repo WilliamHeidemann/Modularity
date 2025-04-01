@@ -42,13 +42,8 @@ namespace Runtime.Scriptable_Objects
 
         private void CheckForActivation(SegmentData receiver)
         {
-            if (_structure.GetValidConnections(receiver).Count() != receiver.GetConnectionPoints().Count())
-            {
-                return;
-            }
-
-            if (_structure.GetValidConnections(receiver).Any(connector =>
-                    !(connector.StaticSegmentData.IsSource || IsConnectedToSource(connector, receiver))))
+            if (_structure.GetValidConnections(receiver).Count(connector => 
+                    IsConnectedToSource(connector, receiver)) < receiver.StaticSegmentData.Requirements)
             {
                 return;
             }
@@ -69,11 +64,7 @@ namespace Runtime.Scriptable_Objects
                 var current = queue.Dequeue();
                 foreach (var link in _structure.GetValidConnections(current))
                 {
-                    // if (link.StaticSegmentData.IsSource)
-                    // {
-                    //     return true;
-                    // }
-                    if (link == receiver && current != segment)
+                    if (link.StaticSegmentData.IsReceiver && current != segment)
                     {
                         return true;
                     }

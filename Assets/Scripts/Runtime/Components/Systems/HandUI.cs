@@ -64,8 +64,8 @@ namespace Runtime.Components.Systems
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
                 _blueprintOptions[i].GlowState(false);
             }
-            _hand.SelectBlueprint(1);
-            ChangeGlow(1);
+            // _hand.SelectBlueprint(1);
+            // ChangeGlow(1);
             _endGame.CheckHand(segments, _rerollCostBlood, _rerollCostSteam);
         }
 

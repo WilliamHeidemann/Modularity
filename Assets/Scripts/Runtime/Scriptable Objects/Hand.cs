@@ -21,7 +21,9 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private SegmentPool _pool;
         [SerializeField] private SlotVisualizer _slotVisualizer;
         private readonly LinkedList<List<Segment>> _queuedHands = new();
-        private bool _onlyGenerateBloodSegments;
+        private bool _excludeBlood;
+        private bool _excludeSteam;
+        private bool _excludeReceivers;
 
         //the segments that the player can choose from
         public List<Segment> SegmentsOptions;
@@ -32,11 +34,13 @@ namespace Runtime.Scriptable_Objects
         {
             _queuedHands.Clear();
         }
-
-        public void ExcludeSteamSegments()
-        {
-            _onlyGenerateBloodSegments = true;
-        }
+        
+        public void ExcludeBlood() => _excludeBlood = true;
+        public void IncludeBlood() => _excludeBlood = false;
+        public void ExcludeSteam() => _excludeSteam = true;
+        public void IncludeSteam() => _excludeSteam = false;
+        public void ExcludeReceivers() => _excludeReceivers = true;
+        public void IncludeReceivers() => _excludeReceivers = false;
 
         public void SelectBlueprint(int chosenSegment)
         {
@@ -72,7 +76,7 @@ namespace Runtime.Scriptable_Objects
             SegmentsOptions = new List<Segment>();
             for (int i = 0; i < OptionsCount; i++)
             {
-                var segment = SpawnUtility.Get(_pool.GetRandomSegment, s => IsValid(s) && s.StaticSegmentData.IsBlood);
+                var segment = SpawnUtility.Get(_pool.GetRandomSegment, IsValid);
                 SegmentsOptions.Add(segment);
             }
 
@@ -110,19 +114,26 @@ namespace Runtime.Scriptable_Objects
             _queuedHands.AddFirst(hand);
         }
 
-        public void EnableSteamSegments()
-        {
-            _onlyGenerateBloodSegments = false;
-        }
-
         private bool IsValid(Segment segment)
         {
+            Debug.Log($"Excluded pieces: Blood: {_excludeBlood}, Steam: {_excludeSteam}, Receivers: {_excludeReceivers}");
+            
             if (SegmentsOptions.Contains(segment))
             {
                 return false;
             }
 
-            if (_onlyGenerateBloodSegments && segment.StaticSegmentData.IsSteam)
+            if (_excludeBlood && segment.StaticSegmentData.IsBlood)
+            {
+                return false;
+            }
+            
+            if (_excludeSteam && segment.StaticSegmentData.IsSteam)
+            {
+                return false;
+            }
+            
+            if (_excludeReceivers && segment.StaticSegmentData.IsReceiver)
             {
                 return false;
             }

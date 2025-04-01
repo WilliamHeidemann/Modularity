@@ -115,6 +115,31 @@ namespace Runtime.Scriptable_Objects
         }
     }
 
+    [Serializable]
+    public class HybridQuest : Quest<SegmentData>
+    {
+        protected HybridQuest(string description, int target) : base(description, target)
+        {
+        }
+        
+        public override Quest<SegmentData> Build(int target) => new HybridQuest(Description, target);
+        
+        public override void Progress(SegmentData segments)
+        {
+            if (segments.StaticSegmentData.IsBlood && segments.StaticSegmentData.IsSteam)
+            {
+                Count++;
+            }
+
+            if (Count >= Target)
+            {
+                Complete();
+            }
+
+            UpdateDescription();
+        }
+    }
+
 
     [Serializable]
     public class ReceiverQuest : Quest<IEnumerable<SegmentData>>
@@ -162,6 +187,34 @@ namespace Runtime.Scriptable_Objects
             }
 
             UpdateDescription();
+        }
+    }
+
+    [Serializable]
+    public class PlaceReceiverQuest : Quest<SegmentData>
+    {
+        [SerializeField] private bool _needsBlood;
+        [SerializeField] private bool _needsSteam;
+        protected PlaceReceiverQuest(string description, bool needsBlood, bool needsSteam) : base(description, target: 1)
+        {
+            _needsBlood = needsBlood;
+            _needsSteam = needsSteam;
+        }
+        public override Quest<SegmentData> Build(int target) => new PlaceReceiverQuest(Description, _needsBlood, _needsSteam);
+        
+        public override void Progress(SegmentData segment)
+        {
+            Debug.Log("progress on place receiver quest!0");
+            if (_needsBlood && segment.StaticSegmentData.IsBlood && segment.StaticSegmentData.IsReceiver)
+            {
+                Debug.Log("progress on place receiver quest!1");
+                Complete();
+            }
+            else if (_needsSteam && segment.StaticSegmentData.IsSteam && segment.StaticSegmentData.IsReceiver)
+            {
+                Debug.Log("progress on place receiver quest!2");
+                Complete();
+            }
         }
     }
 

@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _placeFirstHeartSegment:
-    <Description>k__BackingField: Modularity is all about building a living factory
-      with pieces of metal and flesh. Click on the vein to selected it. When selected,
-      valid connection points are highlighted. Mouse over a position to preview,
-      and then click to place the vein.
+    <Description>k__BackingField: To expand your living factory, click on a card
+      to select it. Mouse over a highlighted position to preview the piece, and then
+      click to place it.
     DescriptionText: {fileID: 0}
     Target: 0
     _countBlood: 1
@@ -28,13 +27,13 @@ MonoBehaviour:
     Target: 0
     _countBlood: 0
     _countSteam: 1
-  _activateXReceivers:
-    <Description>k__BackingField: Activate a Brain or Engine. Brains and Engines
-      activate when part of a closed circuit.
+  _activateHeartReceiver:
+    <Description>k__BackingField: Create a circuit around the heart so blood can
+      circulate it. This will reward you with extra blood to continue building!
     DescriptionText: {fileID: 0}
-    Target: 0
+    Target: 1
     _countBlood: 1
-    _countSteam: 1
+    _countSteam: 0
     _mustBeSimultaneous: 0
   _connectSteamAndFlesh:
     <Description>k__BackingField: Connect a Heart and Furnace together.
@@ -78,3 +77,24 @@ MonoBehaviour:
     Target: 5
     _countBlood: 1
     _countSteam: 0
+  _hybridQuest:
+    <Description>k__BackingField: Pump up your creature with STEAM! Select a hybrid
+      piece of flesh and metal and latch it onto your living factory.
+    DescriptionText: {fileID: 0}
+    Target: 1
+  _placeSteamReceiverQuest:
+    <Description>k__BackingField: Next, attach a metal Furnace to produce Steam.
+      Be strategic - metal pieces can only connect to other metal pieces.
+    DescriptionText: {fileID: 0}
+    Target: 1
+    _needsBlood: 0
+    _needsSteam: 1
+  _activateFurnaceReceiver:
+    <Description>k__BackingField: Create a circuit around the furnace so steam can
+      circulate it. This will reward you with extra steam! Remember that metal and
+      flesh do not connect.
+    DescriptionText: {fileID: 0}
+    Target: 1
+    _countBlood: 0
+    _countSteam: 1
+    _mustBeSimultaneous: 0

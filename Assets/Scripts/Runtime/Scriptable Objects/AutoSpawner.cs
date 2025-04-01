@@ -73,14 +73,19 @@ namespace Runtime.Scriptable_Objects
         {
             if (!_structure.Segments.Any())
             {
-                return SpawnUtility.GetRandomSpawnPosition();
+                return Vector3Int.up * 2;
             }
 
             var positions = _structure.Segments.Select(segment => segment.Position).ToList();
             return SpawnUtility.GetWeightedSpawnPosition(positions, _distanceConstant, _distancePercentage);
         }
 
-        private Quaternion GetRandomRotation() => RotationUtility.AllRotations().RandomElement();
+        private Quaternion GetRandomRotation()
+        {
+            return !_structure.Segments.Any() 
+                ? Quaternion.identity 
+                : RotationUtility.AllRotations().RandomElement();
+        }
 
         public void SpawnCollectable()
         {

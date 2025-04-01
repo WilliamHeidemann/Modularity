@@ -25,8 +25,9 @@ namespace Runtime.Scriptable_Objects
             SteamHand1,
             SteamHand2
         };
-
+        
         public List<Segment> Producers;
         public List<Segment> Hybrids;
+        public List<Segment> Furnaces;
     }
 }

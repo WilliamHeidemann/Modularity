@@ -19,13 +19,12 @@ MonoBehaviour:
     Left: 2
     Forward: 0
     Back: 2
-  Model: 2
   IsBlood: 0
   IsSteam: 1
   IsSource: 1
   BloodReward: 0
-  SteamReward: 0
+  SteamReward: 15
   BloodCost: 0
-  SteamCost: 4
+  SteamCost: 6
   BloodRequirements: 0
-  SteamRequirements: 0
+  SteamRequirements: 2

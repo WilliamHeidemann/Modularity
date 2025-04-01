@@ -14,7 +14,7 @@ namespace Runtime.Scriptable_Objects
         [Header("Quests")]
         [SerializeField] private SegmentQuest _placeFirstHeartSegment;
         [SerializeField] private SegmentQuest _placeFirstSteamSegment;
-        [SerializeField] private ReceiverQuest _activateXReceivers;
+        [SerializeField] private ReceiverQuest _activateHeartReceiver;
         [SerializeField] private Quest _connectSteamAndFlesh;
         [SerializeField] private Quest<int> _collectX;
         [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
@@ -23,6 +23,10 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private MeasureQuest _zoomQuest;
         [SerializeField] private Quest<int> _rotateSegmentQuest;
         [SerializeField] private SegmentQuest _placeManyBloodSegments;
+        [SerializeField] private HybridQuest _hybridQuest;
+        [SerializeField] private PlaceReceiverQuest _placeSteamReceiverQuest;
+        [SerializeField] private ReceiverQuest _activateFurnaceReceiver;
+        
 
         public void Clear()
         {
@@ -48,9 +52,17 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
 
-        public ReceiverQuest ActivateXReceiversQuest(int x)
+        public ReceiverQuest ActivateHeartReceiverQuest(int x)
         {
-            var quest = _activateXReceivers.Build(x) as ReceiverQuest;
+            var quest = _activateHeartReceiver.Build(x) as ReceiverQuest;
+            OnReceiversActivated += quest!.Progress;
+            quest.OnComplete += () => OnReceiversActivated -= quest.Progress;
+            return quest;
+        }
+        
+        public ReceiverQuest ActivateFurnaceReceiverQuest(int x)
+        {
+            var quest = _activateFurnaceReceiver.Build(x) as ReceiverQuest;
             OnReceiversActivated += quest!.Progress;
             quest.OnComplete += () => OnReceiversActivated -= quest.Progress;
             return quest;
@@ -131,6 +143,22 @@ namespace Runtime.Scriptable_Objects
         public SegmentQuest PlaceManyBloodSegmentsQuest(int x)
         {
             var quest = _placeManyBloodSegments.Build(x) as SegmentQuest;
+            OnSegmentPlaced += quest!.Progress;
+            quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
+            return quest;
+        }
+        
+        public HybridQuest HybridQuest()
+        {
+            var quest = _hybridQuest.Build(1) as HybridQuest;
+            OnSegmentPlaced += quest!.Progress;
+            quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
+            return quest;
+        }
+        
+        public PlaceReceiverQuest PlaceSteamReceiverQuest()
+        {
+            var quest = _placeSteamReceiverQuest.Build(1) as PlaceReceiverQuest;
             OnSegmentPlaced += quest!.Progress;
             quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;

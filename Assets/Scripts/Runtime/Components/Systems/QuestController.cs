@@ -23,6 +23,9 @@ namespace Runtime.Components
         {
             _questIndex = 0;
             _autoSpawner.SpawnBloodSource();
+            _hand.IncludeBlood();
+            _hand.ExcludeSteam();
+            _hand.ExcludeReceivers();
             NextQuest();
         }
 
@@ -54,7 +57,22 @@ namespace Runtime.Components
                     _hand.DrawQueuedHand(_predefinedHands.BloodHand2);
                     break;
                 case 5:
-                    _quest = _questFactory.ActivateXReceiversQuest(1);
+                    _quest = _questFactory.ActivateHeartReceiverQuest(1);
+                    break;
+                case 6:
+                    _quest = _questFactory.HybridQuest();
+                    _hand.IncludeSteam();
+                    _hand.QueueHandFirst(_predefinedHands.Hybrids);
+                    break;
+                case 7:
+                    _quest = _questFactory.PlaceSteamReceiverQuest();
+                    _hand.QueueHandFirst(_predefinedHands.Furnaces);
+                    break;
+                case 8:
+                    _quest = _questFactory.ActivateFurnaceReceiverQuest(1);
+                    _quest.OnComplete += _hand.IncludeBlood;
+                    _quest.OnComplete += _hand.IncludeReceivers;
+                    _hand.ExcludeBlood();
                     break;
                 // case 5:
                 //     _quest = _questFactory.PlaceManyBloodSegmentsQuest(5);
@@ -77,14 +95,13 @@ namespace Runtime.Components
                 //     _cameraControlImages.SetActive(false);
                 //     break;
                 default:
-                    _quest = _questFactory.CollectXQuest(_questIndex - 2);
+                    _quest = _questFactory.CollectXQuest(_questIndex - 5);
                     break;
             }
 
             _quest.DescriptionText = _questDescription;
             TweenAnimations.FadeText(_questCanvasGroup, _questDescription, _quest.Description, _questIndex == 0);
             _quest.OnComplete += NextQuest;
-            // _questDescription.text = $"{_quest.Description}";
             _questIndex++;
         }
     }
