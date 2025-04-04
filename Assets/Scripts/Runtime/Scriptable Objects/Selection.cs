@@ -10,11 +10,7 @@ namespace Runtime.Scriptable_Objects
         public Option<Segment> Prefab
         {
             get => _prefab;
-            set
-            {
-                Debug.Log($"Setting Prefab to {value}");
-                _prefab = value;
-            }
+            set => _prefab = value;
         }
 
         public int PriceBlood;

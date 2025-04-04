@@ -204,15 +204,12 @@ namespace Runtime.Scriptable_Objects
         
         public override void Progress(SegmentData segment)
         {
-            Debug.Log("progress on place receiver quest!0");
             if (_needsBlood && segment.StaticSegmentData.IsBlood && segment.StaticSegmentData.IsReceiver)
             {
-                Debug.Log("progress on place receiver quest!1");
                 Complete();
             }
             else if (_needsSteam && segment.StaticSegmentData.IsSteam && segment.StaticSegmentData.IsReceiver)
             {
-                Debug.Log("progress on place receiver quest!2");
                 Complete();
             }
         }
