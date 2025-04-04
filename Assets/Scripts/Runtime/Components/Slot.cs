@@ -13,6 +13,8 @@ namespace Runtime.Components
     {
         [SerializeField] private Builder _builder;
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
+        [SerializeField] private Selection _selection;
+        
         public Vector3Int Position;
         private bool _mousePressed;
         private bool _mouseIn;
@@ -33,6 +35,7 @@ namespace Runtime.Components
         private void OnMouseUp()
         {
             if (!_mousePressed || EventSystem.current.IsPointerOverGameObject()) return;
+            if (!_selection.Prefab.IsSome(out _)) return;
             _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
             CameraControls.Instance.StartCameraShake();
             if (_builder.IsValidBuildAttempt(Position, _placeHolderBuilder.PlaceholderRotation(), out var _, out var _))
