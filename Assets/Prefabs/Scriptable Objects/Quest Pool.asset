@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _placeFirstHeartSegment:
-    <Description>k__BackingField: To expand your living factory, click on a card
-      to select it. Mouse over a highlighted position to preview the piece, and then
+    <Description>k__BackingField: To expand your amalgamation, click on a card to
+      select it. Mouse over a highlighted position to preview the piece, and then
       click to place it.
     DescriptionText: {fileID: 0}
     Target: 0
@@ -28,8 +28,8 @@ MonoBehaviour:
     _countBlood: 0
     _countSteam: 1
   _activateHeartReceiver:
-    <Description>k__BackingField: Create a circuit around the heart so blood can
-      circulate it. This will reward you with extra blood to continue building!
+    <Description>k__BackingField: Create a cicuit around the Heart so Blood can circulate
+      through it. This will reward you with more Blood to continue building!
     DescriptionText: {fileID: 0}
     Target: 1
     _countBlood: 1
@@ -78,8 +78,8 @@ MonoBehaviour:
     _countBlood: 1
     _countSteam: 0
   _hybridQuest:
-    <Description>k__BackingField: Pump up your creature with STEAM! Select a hybrid
-      piece of flesh and metal and latch it onto your living factory.
+    <Description>k__BackingField: Pump up your amalgamation with Steam! Select a
+      Hybrid piece of Flesh and Metal and latch it onto your living factory.
     DescriptionText: {fileID: 0}
     Target: 1
   _placeSteamReceiverQuest:
@@ -90,9 +90,9 @@ MonoBehaviour:
     _needsBlood: 0
     _needsSteam: 1
   _activateFurnaceReceiver:
-    <Description>k__BackingField: Create a circuit around the furnace so steam can
-      circulate it. This will reward you with extra steam! Remember that metal and
-      flesh do not connect.
+    <Description>k__BackingField: Create a circuit around the Furnace so Steam can
+      flow. This will reward you with more Steam! Remember that Metal and Flesh do
+      not connect.
     DescriptionText: {fileID: 0}
     Target: 1
     _countBlood: 0
