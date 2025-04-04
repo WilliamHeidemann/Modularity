@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5562399896413317229, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5854277238812938998, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -912,6 +916,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e395e0b6c4e92214894953380738f979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &333187262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5562399896413317229, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
+  m_PrefabInstance: {fileID: 44506896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!108 &410087040 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 3446955923985675048, guid: affe5a7d32f6f0749b1c74b626951563, type: 3}
@@ -1112,7 +1121,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853660315}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bd70037a038396438cdc897463cb9ec, type: 3}
   m_Name: 
@@ -1579,6 +1588,10 @@ PrefabInstance:
       propertyPath: _handUI
       value: 
       objectReference: {fileID: 1964805912}
+    - target: {fileID: 1758008408033062985, guid: 3df3a64a06e8b154fa87c081e29db831, type: 3}
+      propertyPath: _reRollButton
+      value: 
+      objectReference: {fileID: 333187262}
     - target: {fileID: 1758008408033062985, guid: 3df3a64a06e8b154fa87c081e29db831, type: 3}
       propertyPath: _questCanvasGroup
       value: 
