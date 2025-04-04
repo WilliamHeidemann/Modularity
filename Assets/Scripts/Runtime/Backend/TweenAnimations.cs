@@ -24,5 +24,13 @@ namespace Runtime.Backend
                 canvasGroup.DOFade(1f, fadeDuration);
             });
         }
+
+        public static void RotateTransform(Transform transform, Quaternion targetQuaternion)
+        {
+            const float rotationDuration = 0.1f;
+
+            transform.DORotateQuaternion(targetQuaternion, rotationDuration)
+                .SetEase(Ease.InOutQuad);
+        }
     }
 }

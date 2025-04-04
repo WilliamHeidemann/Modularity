@@ -116,8 +116,6 @@ namespace Runtime.Scriptable_Objects
 
         private bool IsValid(Segment segment)
         {
-            Debug.Log($"Excluded pieces: Blood: {_excludeBlood}, Steam: {_excludeSteam}, Receivers: {_excludeReceivers}");
-            
             if (SegmentsOptions.Contains(segment))
             {
                 return false;
