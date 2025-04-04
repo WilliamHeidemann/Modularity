@@ -23,7 +23,7 @@ MonoBehaviour:
   IsSteam: 1
   IsSource: 1
   BloodReward: 0
-  SteamReward: 15
+  SteamReward: 9
   BloodCost: 0
   SteamCost: 6
   BloodRequirements: 0

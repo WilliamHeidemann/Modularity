@@ -58,6 +58,8 @@ namespace Runtime.Components
                     break;
                 case 5:
                     _quest = _questFactory.ActivateHeartReceiverQuest(1);
+                    _hand.IncludeReceivers();
+                    _quest.OnComplete += _hand.ExcludeReceivers;
                     break;
                 case 6:
                     _quest = _questFactory.HybridQuest();
