@@ -12,7 +12,7 @@ namespace Runtime.Components
         [SerializeField] private Slider _SFXSlider;
         [SerializeField] private Image _musicCrossout;
         [SerializeField] private Image _SFXCrossout;
-        private AudioSource _testingSFXAudioSource;
+        [SerializeField] AudioSource _testingSFXAudioSource;
         
         public delegate void SoundChange(float musicVolume, float SFXVolume);
         public static event SoundChange OnSoundChange;
@@ -29,10 +29,13 @@ namespace Runtime.Components
             }
         }
 
+        private void Start()
+        {
+            GameStartupSettings();
+        }
+
         public void GameStartupSettings()
         {
-            _testingSFXAudioSource = GetComponent<AudioSource>();
-
             //makes sure there always is a value for the playerpref of music and sfx volume
             if (!PlayerPrefs.HasKey("MusicVolume") && !PlayerPrefs.HasKey("SFXVolume"))
             {

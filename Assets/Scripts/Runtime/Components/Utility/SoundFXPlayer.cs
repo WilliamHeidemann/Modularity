@@ -36,6 +36,11 @@ namespace Runtime.Components.Utility
             OptionMenuController.OnSoundChange += SetVolume;
             MainMenuController.OnGameStart += ChangeBackgroundMusic;
             activeMusicSource = _musicAudioSource1;
+
+            if (PlayerPrefs.HasKey("MusicVolume"))
+            {
+                SetVolume(PlayerPrefs.GetFloat("MusicVolume"), PlayerPrefs.GetFloat("SFXVolume"));
+            }
         }
 
         private void OnDisable()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Runtime.Backend;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using Runtime.DataLayer;
@@ -159,7 +160,7 @@ namespace Runtime.Scriptable_Objects
 
             _index += 1;
             _index %= _rotations.Count;
-            segment.transform.rotation = _rotations[_index];
+            TweenAnimations.RotateTransform(segment.transform, _rotations[_index]);
             _questFactory.RotateSegment();
         }
 
