@@ -33,6 +33,14 @@ namespace Runtime.DataLayer
         public IEnumerable<SegmentData> GetValidConnections(SegmentData segmentData) =>
             GetPointedToSegments(segmentData).Where(segmentData.CanConnect);
 
+        public IEnumerable<(SegmentData segment, ConnectionType connectionType)> GetValidConnectionsWithType(
+            SegmentData segmentData) =>
+                GetPointedToSegments(segmentData)
+                    .Where(segmentData.CanConnect)
+                    .SelectMany(segment => segment.GetConnectionPointsPlus()
+                        .Where(tuple => tuple.position == segmentData.Position)
+                        .Select(tuple => (segment, tuple.type)));
+
         public bool IsOpenPosition(Vector3Int position) => !_graphData.ContainsKey(position);
 
         public IEnumerable<SegmentData> GetPointedFromSegments(SegmentData segmentData)
@@ -135,7 +143,7 @@ namespace Runtime.DataLayer
                 .ToHashSet()
                 .Count(position => IsOpenPosition(position));
         }
-        
+
         public IEnumerable<(Vector3, Quaternion)> GetOpenSlots(ConnectionType connectionType)
         {
             foreach (var segment in _graphData.Values)
@@ -148,7 +156,8 @@ namespace Runtime.DataLayer
                     var rotatedPosition = segment.Rotation * connectionPosition;
                     var isOpenPosition = IsOpenPosition(position + rotatedPosition.AsVector3Int());
                     if (!isOpenPosition) continue;
-                    yield return ((position.AsVector3() + position.AsVector3() + rotatedPosition) / 2f, segment.Rotation * rotation);
+                    yield return ((position.AsVector3() + position.AsVector3() + rotatedPosition) / 2f,
+                        segment.Rotation * rotation);
                 }
             }
         }

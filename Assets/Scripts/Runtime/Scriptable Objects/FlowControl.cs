@@ -16,59 +16,98 @@ namespace Runtime.Scriptable_Objects
         private readonly List<SegmentData> _receiversActivatedLast = new();
 
         public delegate void ProducerActivated(StaticSegmentData staticSegmentData);
+
         public static event ProducerActivated OnProducerActivated;
-        public delegate void SourcesLinked(HashSet<SegmentData> sources);
-        public static event SourcesLinked OnSourcesLinkedCheck;
 
         public void UpdateFlow()
         {
             _receiversActivatedLast.Clear();
+            foreach (var source in _structure.Sources.Where(source => !source.IsActivated))
+            {
+                if (HasPathToSelf(source))
+                {
+                    ActivateSegment(source);
+                    OnProducerActivated?.Invoke(source.StaticSegmentData);
+                }
+            }
+
             foreach (var receiver in _structure.Receivers.Where(receiver => !receiver.IsActivated))
             {
-                CheckForActivation(receiver);
+                if (ShouldActivateReceiver(receiver))
+                {
+                    ActivateSegment(receiver);
+                }
             }
 
             if (_receiversActivatedLast.Any())
             {
                 _questFactory.ReceiversActivated(_receiversActivatedLast);
             }
-
-            if (!_structure.Sources.Any()) return;
-            if (AllSourcesLinked(_structure.Sources.First()))
-            {
-                _questFactory.BloodAndSteamConnected();
-            }
         }
 
-        private void CheckForActivation(SegmentData receiver)
+        private bool HasPathToSelf(SegmentData self)
         {
-            if (_structure.GetValidConnections(receiver).Count(connector => 
-                    IsConnectedToSource(connector, receiver)) < receiver.StaticSegmentData.Requirements)
-            {
-                return;
-            }
-
-            ActivateSegment(receiver);
-            OnProducerActivated?.Invoke(receiver.StaticSegmentData);
-        }
-
-        private bool IsConnectedToSource(SegmentData segment, SegmentData receiver)
-        {
-            Queue<SegmentData> queue = new();
-            queue.Enqueue(segment);
-
-            HashSet<SegmentData> explored = new() { segment, receiver };
+            Queue<(SegmentData current, HashSet<SegmentData> path)> queue = new();
+            queue.Enqueue((self, new HashSet<SegmentData> { self }));
 
             while (queue.Any())
             {
-                var current = queue.Dequeue();
+                var (current, path) = queue.Dequeue();
                 foreach (var link in _structure.GetValidConnections(current))
                 {
-                    if (link.StaticSegmentData.IsReceiver && current != segment)
+                    if (link == self && path.Count > 2)
                     {
                         return true;
                     }
 
+                    if (!path.Contains(link))
+                    {
+                        var path2 = new HashSet<SegmentData>(path)
+                        {
+                            link
+                        };
+                        queue.Enqueue((link, path2));
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool ShouldActivateReceiver(SegmentData receiver)
+        {
+            return _structure.GetValidConnectionsWithType(receiver).Count(tuple =>
+                       IsReceiverConnectedToSource(tuple.segment, receiver, tuple.connectionType)) >=
+                   receiver.StaticSegmentData.Requirements;
+        }
+
+        private bool IsReceiverConnectedToSource(SegmentData startNode, SegmentData receiver,
+            ConnectionType connectionType)
+        {
+            Queue<SegmentData> queue = new();
+            queue.Enqueue(startNode);
+
+            HashSet<SegmentData> explored = new() { startNode, receiver };
+
+            while (queue.Any())
+            {
+                var current = queue.Dequeue();
+                
+                if (current.StaticSegmentData.IsSource)
+                {
+                    if (current.StaticSegmentData.IsBlood && connectionType == ConnectionType.Blood)
+                    {
+                        return true;
+                    }
+
+                    if (current.StaticSegmentData.IsSteam && connectionType == ConnectionType.Steam)
+                    {
+                        return true;
+                    }
+                }
+
+                foreach (var link in _structure.GetValidConnections(current))
+                {
                     if (!explored.Contains(link))
                     {
                         queue.Enqueue(link);
@@ -78,37 +117,6 @@ namespace Runtime.Scriptable_Objects
             }
 
             return false;
-        }
-
-
-        private bool AllSourcesLinked(SegmentData segment)
-        {
-            Queue<SegmentData> queue = new();
-            queue.Enqueue(segment);
-
-            HashSet<SegmentData> explored = new() { segment };
-            HashSet<SegmentData> sources = new() { segment };
-
-            while (queue.Any())
-            {
-                var current = queue.Dequeue();
-                foreach (var link in _structure.GetValidConnections(current))
-                {
-                    if (link.StaticSegmentData.IsSource)
-                    {
-                        sources.Add(link);
-                    }
-
-                    if (!explored.Contains(link))
-                    {
-                        queue.Enqueue(link);
-                        explored.Add(link);
-                    }
-                }
-            }
-
-            OnSourcesLinkedCheck?.Invoke(sources);
-            return sources.Count == _structure.Sources.Count();
         }
 
         private void ActivateSegment(SegmentData segmentToActivate)
@@ -124,12 +132,13 @@ namespace Runtime.Scriptable_Objects
 
             ParticleType particleType = segmentToActivate.StaticSegmentData switch
             {
-                _ when segmentToActivate.StaticSegmentData.IsBlood && segmentToActivate.StaticSegmentData.IsSteam => ParticleType.HybridBurst,
+                _ when segmentToActivate.StaticSegmentData.IsBlood && segmentToActivate.StaticSegmentData.IsSteam =>
+                    ParticleType.HybridBurst,
                 _ when segmentToActivate.StaticSegmentData.IsBlood => ParticleType.FleshBurst,
                 _ when segmentToActivate.StaticSegmentData.IsSteam => ParticleType.GearBurst,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            
+
             _particleManager.SpawnParticleFX(particleType, segmentToActivate.Position, Quaternion.identity, false);
         }
     }
