@@ -4,22 +4,45 @@ using DG.Tweening;
 
 public class FireLightAnimator : MonoBehaviour
 {
+    public bool isActive = false;
+
     [SerializeField] private Light[] _fireLights;
     [SerializeField] private float _centralLightIntensity = 1;
-    private bool _isAnimating = false;
+    private LocalSoundSystem _localSoundSystem;
+    private bool _isPlaying = false;
+
+    private void Start()
+    {
+        _localSoundSystem = transform.GetComponent<LocalSoundSystem>();
+
+        if (_localSoundSystem == null)
+        {
+            Debug.LogError("No LocalSoundSystem found on the object.");
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(!_isAnimating)
+        if(isActive)
         {
-            _isAnimating = true;
             PlayFireAnimation();
+            _localSoundSystem.PlaySound();
+        }
+        else
+        {
+            foreach (var light in _fireLights)
+            {
+                light.DOIntensity(0, 0.5f).SetEase(Ease.OutQuad);
+            }
+            _localSoundSystem.StopSound();
         }
     }
 
     private void PlayFireAnimation()
     {
+        if (_isPlaying) return;
+        _isPlaying = true;
         var sequence = DOTween.Sequence();
 
         foreach (var light in _fireLights)
@@ -31,6 +54,6 @@ public class FireLightAnimator : MonoBehaviour
             sequence.Join(changeIntensity);
         }
 
-        sequence.OnComplete(() => _isAnimating = false);
+        sequence.OnComplete(() => _isPlaying = false);
     }
 }
