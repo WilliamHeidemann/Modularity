@@ -12,6 +12,7 @@ namespace Runtime.DataLayer
         public bool IsBlood;
         public bool IsSteam;
         public bool IsSource;
+        public bool IsReceiver;
         public int BloodReward;
         public int SteamReward;
         public int BloodCost;
@@ -19,9 +20,9 @@ namespace Runtime.DataLayer
         public int BloodRequirements;
         public int SteamRequirements;
 
-        public bool IsReceiver => BloodRequirements > 0 || SteamRequirements > 0;
         public int Requirements => BloodRequirements + SteamRequirements;
         public bool IsConnector => !IsReceiver && !IsSource;
+        public bool IsHybrid => IsBlood && IsSteam;
 
         public SoundFX SoundFX => IsReceiver switch
         {
