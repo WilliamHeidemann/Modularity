@@ -17,7 +17,7 @@ public class LocalSoundSystem : MonoBehaviour
         OptionMenuController.OnSoundChange -= SetVolume;
     }
 
-    void Start()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
 
