@@ -24,7 +24,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Quest<int> _rotateSegmentQuest;
         [SerializeField] private SegmentQuest _placeManyBloodSegments;
         [SerializeField] private HybridQuest _hybridQuest;
-        [SerializeField] private PlaceReceiverQuest _placeSteamReceiverQuest;
+        [FormerlySerializedAs("_placeSteamReceiverQuest")] [SerializeField] private PlaceSourceQuest _placeSteamSourceQuest;
         [SerializeField] private ReceiverQuest _activateFurnaceReceiver;
         
 
@@ -156,9 +156,9 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
         
-        public PlaceReceiverQuest PlaceSteamReceiverQuest()
+        public PlaceSourceQuest PlaceSteamSourceQuest()
         {
-            var quest = _placeSteamReceiverQuest.Build(1) as PlaceReceiverQuest;
+            var quest = _placeSteamSourceQuest.Build(1) as PlaceSourceQuest;
             OnSegmentPlaced += quest!.Progress;
             quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;
