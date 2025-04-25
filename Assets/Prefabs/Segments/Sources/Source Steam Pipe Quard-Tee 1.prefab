@@ -800,9 +800,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7272911518199237601, guid: 2d5bb03b6e1a6824892762f0a42782c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5591294350578547211, guid: 2d5bb03b6e1a6824892762f0a42782c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1306584287480792347, guid: 2d5bb03b6e1a6824892762f0a42782c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2d5bb03b6e1a6824892762f0a42782c1, type: 3}
       propertyPath: m_Name
       value: Steam Source
+      objectReference: {fileID: 0}
+    - target: {fileID: 3907645943105844466, guid: 2d5bb03b6e1a6824892762f0a42782c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
