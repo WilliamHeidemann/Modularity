@@ -68,7 +68,7 @@ namespace Runtime.Components.Systems
                     _reRollButton.SetActive(false);
                     break;
                 case 7:
-                    _quest = _questFactory.PlaceSteamReceiverQuest();
+                    _quest = _questFactory.PlaceSteamSourceQuest();
                     _hand.QueueHandFirst(_predefinedHands.Furnaces);
                     break;
                 case 8:
