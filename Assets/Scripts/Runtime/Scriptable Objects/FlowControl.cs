@@ -94,7 +94,7 @@ namespace Runtime.Scriptable_Objects
             {
                 var current = queue.Dequeue();
                 
-                if (current.StaticSegmentData.IsSource)
+                if (current.StaticSegmentData.IsSource && current.IsActivated)
                 {
                     if (current.StaticSegmentData.IsBlood && connectionType == ConnectionType.Blood)
                     {
