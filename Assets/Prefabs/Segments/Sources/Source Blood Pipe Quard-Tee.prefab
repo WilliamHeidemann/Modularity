@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 927145117438815657}
   - component: {fileID: 4404823909993285501}
   - component: {fileID: 4092756122483640719}
+  - component: {fileID: 2376022823333205294}
   - component: {fileID: 7733899906044382191}
   - component: {fileID: 4248594271742380738}
   - component: {fileID: 638421131326465925}
@@ -314,6 +315,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2376022823333205294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232087903907245791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6386d563a06fd384594700a86d9f68d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 1
 --- !u!95 &7733899906044382191
 Animator:
   serializedVersion: 7
@@ -349,6 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _volumeMaximum: 0.55
+  audioSource: {fileID: 0}
 --- !u!82 &638421131326465925
 AudioSource:
   m_ObjectHideFlags: 0
@@ -765,6 +780,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d9f2760dddbd78f4fb394ddcae01ea81, type: 2}
+    - target: {fileID: 2762480358317326848, guid: 0cbe610b4eb075e4a94814845810cf2f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3029032681823567482, guid: 0cbe610b4eb075e4a94814845810cf2f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -777,6 +796,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 764e0d1b7f8cb0b40bf341856ac661d8, type: 2}
+    - target: {fileID: 5525042340086707944, guid: 0cbe610b4eb075e4a94814845810cf2f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5565004485730283713, guid: 0cbe610b4eb075e4a94814845810cf2f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

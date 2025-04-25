@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 3981668968139159149}
   - component: {fileID: 4577449526745561560}
   - component: {fileID: 2368725490118553376}
+  - component: {fileID: 2994447513598740352}
   m_Layer: 6
   m_Name: Popup Currency Status
   m_TagString: Untagged
@@ -551,3 +552,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5284416d514861984108e5af2c462c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &2994447513598740352
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8950566457076031223}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

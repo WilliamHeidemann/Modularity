@@ -5,7 +5,7 @@ public class LocalSoundSystem : MonoBehaviour
 {
     [Range(0.0f, 1.0f)]
     [SerializeField] float _volumeMaximum = 1;
-    private AudioSource _audioSource;
+    [HideInInspector] public AudioSource audioSource;
 
     private void OnEnable()
     {
@@ -17,24 +17,37 @@ public class LocalSoundSystem : MonoBehaviour
         OptionMenuController.OnSoundChange -= SetVolume;
     }
 
-    void Start()
+    void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.volume = PlayerPrefs.GetFloat("SFXVolume") * _volumeMaximum;
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            Debug.LogError("No AudioSource found on the object.");
+            return;
+        }
+
+        audioSource.volume = PlayerPrefs.GetFloat("SFXVolume") * _volumeMaximum;
     }
 
     public void SetVolume(float musicVolume, float SFXVolume)
     {
-        _audioSource.volume = SFXVolume * _volumeMaximum;
+        audioSource.volume = SFXVolume * _volumeMaximum;
     }
 
     public void PlaySound()
     {
-        if (_audioSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
-            _audioSource.Stop();
+            audioSource.Play();
         }
+    }
 
-        _audioSource.Play();
+    public void StopSound()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 }
