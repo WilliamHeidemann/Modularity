@@ -162,17 +162,17 @@ namespace Runtime.Scriptable_Objects
 
         public override void Progress(IEnumerable<SegmentData> segments)
         {
-            var receivers = segments.Where(segment => segment.StaticSegmentData.IsReceiver).ToList();
+            var sources = segments.Where(segment => segment.StaticSegmentData.IsSource).ToList();
 
             if (_countBlood)
             {
-                var blood = receivers.Count(receiver => receiver.StaticSegmentData.IsBlood);
+                var blood = sources.Count(source => source.StaticSegmentData.IsBlood);
                 Count += blood;
             }
 
             if (_countSteam)
             {
-                var steam = receivers.Count(receiver => receiver.StaticSegmentData.IsSteam);
+                var steam = sources.Count(source => source.StaticSegmentData.IsSteam);
                 Count += steam;
             }
 
@@ -191,24 +191,24 @@ namespace Runtime.Scriptable_Objects
     }
 
     [Serializable]
-    public class PlaceReceiverQuest : Quest<SegmentData>
+    public class PlaceSourceQuest : Quest<SegmentData>
     {
         [SerializeField] private bool _needsBlood;
         [SerializeField] private bool _needsSteam;
-        protected PlaceReceiverQuest(string description, bool needsBlood, bool needsSteam) : base(description, target: 1)
+        protected PlaceSourceQuest(string description, bool needsBlood, bool needsSteam) : base(description, target: 1)
         {
             _needsBlood = needsBlood;
             _needsSteam = needsSteam;
         }
-        public override Quest<SegmentData> Build(int target) => new PlaceReceiverQuest(Description, _needsBlood, _needsSteam);
+        public override Quest<SegmentData> Build(int target) => new PlaceSourceQuest(Description, _needsBlood, _needsSteam);
         
         public override void Progress(SegmentData segment)
         {
-            if (_needsBlood && segment.StaticSegmentData.IsBlood && segment.StaticSegmentData.IsReceiver)
+            if (_needsBlood && segment.StaticSegmentData.IsBlood && segment.StaticSegmentData.IsSource)
             {
                 Complete();
             }
-            else if (_needsSteam && segment.StaticSegmentData.IsSteam && segment.StaticSegmentData.IsReceiver)
+            else if (_needsSteam && segment.StaticSegmentData.IsSteam && segment.StaticSegmentData.IsSource)
             {
                 Complete();
             }

@@ -13,7 +13,6 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private ParticleManager _particleManager;
-        private readonly List<SegmentData> _receiversActivatedLast = new();
 
         public delegate void ProducerActivated(StaticSegmentData staticSegmentData);
 
@@ -21,13 +20,15 @@ namespace Runtime.Scriptable_Objects
 
         public void UpdateFlow()
         {
-            _receiversActivatedLast.Clear();
+            var receiversActivatedLast = new List<SegmentData>();
+            receiversActivatedLast.Clear();
             foreach (var source in _structure.Sources.Where(source => !source.IsActivated))
             {
                 if (HasPathToSelf(source))
                 {
                     ActivateSegment(source);
                     OnProducerActivated?.Invoke(source.StaticSegmentData);
+                    receiversActivatedLast.Add(source);
                 }
             }
 
@@ -39,9 +40,9 @@ namespace Runtime.Scriptable_Objects
                 }
             }
 
-            if (_receiversActivatedLast.Any())
+            if (receiversActivatedLast.Any())
             {
-                _questFactory.ReceiversActivated(_receiversActivatedLast);
+                _questFactory.ReceiversActivated(receiversActivatedLast);
             }
         }
 
@@ -126,7 +127,6 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
-            _receiversActivatedLast.Add(segmentToActivate);
             segmentToActivate.IsActivated = true;
             _currencyPopup.GainCurrency(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
 
