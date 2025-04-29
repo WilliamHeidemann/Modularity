@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 927145117438815657}
   - component: {fileID: 4404823909993285501}
   - component: {fileID: 4092756122483640719}
-  - component: {fileID: 2376022823333205294}
+  - component: {fileID: -1185564729749049493}
   - component: {fileID: 7733899906044382191}
   - component: {fileID: 4248594271742380738}
   - component: {fileID: 638421131326465925}
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: a5d6f4c3f6f3a8444af878a47c37e27f, type: 2}
-  Preview: {fileID: 21300000, guid: 3cae1591b54c6534085e7ff3fc2ffe93, type: 3}
+  Preview: {fileID: 21300000, guid: 5507feba3ddb7fe4ebaf64d0014e64ac, type: 3}
 --- !u!65 &4092756122483640719
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -315,7 +315,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2376022823333205294
+--- !u!114 &-1185564729749049493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

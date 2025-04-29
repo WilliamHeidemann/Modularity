@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaticSegmentData: {fileID: 11400000, guid: 7337a315265521a42b41f8a6fb9ef83e, type: 2}
-  Preview: {fileID: 21300000, guid: b17bdc46727bf594fb873ebfcff04512, type: 3}
+  Preview: {fileID: 21300000, guid: dd50b72ac4ca5c344a0ab2bf9997acb4, type: 3}
 --- !u!65 &4092756122483640719
 BoxCollider:
   m_ObjectHideFlags: 0
