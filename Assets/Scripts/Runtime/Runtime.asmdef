@@ -6,7 +6,9 @@
         "UnityUtils",
         "Unity.TextMeshPro",
         "WilliamHeidemann.UtilityToolkit.Editor",
-        "DOTween.Modules"
+        "DOTween.Modules",
+        "Unity.Services.Authentication",
+        "Unity.Services.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

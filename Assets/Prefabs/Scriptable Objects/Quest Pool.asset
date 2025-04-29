@@ -68,7 +68,7 @@ MonoBehaviour:
       position to preview the piece, and use R to rotate it. Once it's positioned
       how you'd like, click to place it. (0/3)
     DescriptionText: {fileID: 0}
-    Target: 3
+    Target: 1
   _placeManyBloodSegments:
     <Description>k__BackingField: In Modularity, you'll always be presented with
       3 options to chose from. Placing one will present you with 3 new options, so
@@ -82,7 +82,7 @@ MonoBehaviour:
       Hybrid piece of Flesh and Metal and latch it onto your living factory.
     DescriptionText: {fileID: 0}
     Target: 1
-  _placeSteamReceiverQuest:
+  _placeSteamSourceQuest:
     <Description>k__BackingField: Next, attach a metal Furnace to produce Steam.
       Be strategic - metal pieces can only connect to other metal pieces.
     DescriptionText: {fileID: 0}

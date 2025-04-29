@@ -97,6 +97,7 @@ namespace Runtime.Scriptable_Objects
                 return;
             }
 
+            _hand.DrawHand();
             _questFactory.SegmentPlaced(segmentData);
             _flowControl.UpdateFlow();
             _autoSpawner.CheckForCollectables();
@@ -104,7 +105,6 @@ namespace Runtime.Scriptable_Objects
             _currencyPopup.SpendCurrency(position.AsVector3Int(), segmentData.StaticSegmentData);
             OnSegmentPlaced?.Invoke();
             _selection.Prefab = Option<Segment>.None;
-            _hand.DrawHand();
         }
         
 
