@@ -53,7 +53,7 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
 
-        public ReceiverQuest ActivateHeartReceiverQuest(int x)
+        public ReceiverQuest ActivateBloodSourceQuest(int x)
         {
             var quest = _activateHeartReceiver.Build(x) as ReceiverQuest;
             OnReceiversActivated += quest!.Progress;
@@ -61,7 +61,7 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
         
-        public ReceiverQuest ActivateFurnaceReceiverQuest(int x)
+        public ReceiverQuest ActivateSteamSourceQuest(int x)
         {
             var quest = _activateFurnaceReceiver.Build(x) as ReceiverQuest;
             OnReceiversActivated += quest!.Progress;

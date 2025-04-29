@@ -41,10 +41,10 @@ namespace Runtime.Components.Systems
 
         private void SetUpTutorialSteps()
         {
-            _steps.Add(new TutorialStep { Quest = _questFactory.PanQuest });
-            _steps.Add(new TutorialStep { Quest = _questFactory.RotateQuest });
-            _steps.Add(new TutorialStep { Quest = _questFactory.ZoomQuest });
-            _steps.Add(new TutorialStep
+            var panQuest = new TutorialStep { Quest = _questFactory.PanQuest };
+            var rotateQuest = new TutorialStep { Quest = _questFactory.RotateQuest };
+            var zoomQuest = new TutorialStep { Quest = _questFactory.ZoomQuest };
+            var placeFirstBloodSegmentQuest = new TutorialStep
             {
                 Quest = _questFactory.PlaceFirstBloodSegmentQuest,
                 OnStart = () =>
@@ -53,8 +53,8 @@ namespace Runtime.Components.Systems
                     _handUI.SetCardsVisible(1);
                     _hand.DrawQueuedHand(_predefinedHands.BloodHand1);
                 }
-            });
-            _steps.Add(new TutorialStep
+            };
+            var rotateSegmentQuest = new TutorialStep
             {
                 Quest = _questFactory.RotateSegmentQuest,
                 OnStart = () =>
@@ -62,18 +62,18 @@ namespace Runtime.Components.Systems
                     _hand.DrawQueuedHand(_predefinedHands.BloodHand2);
                     _handUI.SetCardsVisible(3);
                 }
-            });
-            _steps.Add(new TutorialStep
+            };
+            var activateHeartReceiverQuest = new TutorialStep
             {
-                Quest = () => _questFactory.ActivateHeartReceiverQuest(1),
+                Quest = () => _questFactory.ActivateBloodSourceQuest(1),
                 OnStart = () =>
                 {
                     ToggleResourceUI(isVisible: true);
                     _hand.IncludeSources();
                     _hand.ExcludeSources();
                 }
-            });
-            _steps.Add(new TutorialStep
+            };
+            var hybridQuest = new TutorialStep
             {
                 Quest = _questFactory.HybridQuest,
                 OnStart = () =>
@@ -83,8 +83,8 @@ namespace Runtime.Components.Systems
                     _reRollButton.SetActive(false);
                     _handUI.SetCardsVisible(1);
                 }
-            });
-            _steps.Add(new TutorialStep
+            };
+            var placeSteamSourceQuest = new TutorialStep
             {
                 Quest = _questFactory.PlaceSteamSourceQuest,
                 OnStart = () =>
@@ -92,10 +92,10 @@ namespace Runtime.Components.Systems
                     _hand.DrawQueuedHand(_predefinedHands.Furnaces);
                     _hand.ExcludeBlood();
                 }
-            });
-            _steps.Add(new TutorialStep
+            };
+            var activateSteamSourceQuest = new TutorialStep
             {
-                Quest = () => _questFactory.ActivateFurnaceReceiverQuest(1),
+                Quest = () => _questFactory.ActivateSteamSourceQuest(1),
                 OnStart = () =>
                 {
                     _reRollButton.SetActive(true);
@@ -106,15 +106,23 @@ namespace Runtime.Components.Systems
                     _hand.IncludeSources();
                     _hand.IncludeBlood();
                 }
-            });
-            _steps.Add(new TutorialStep
+            };
+            var sphereQuest = new TutorialStep
             {
                 Quest = () => _questFactory.CollectXQuest(3),
-                OnStart = () =>
-                {
-                    ToggleScoreUI(isVisible: true);
-                }
-            });
+                OnStart = () => { ToggleScoreUI(isVisible: true); }
+            };
+            
+            _steps.Add(panQuest);
+            _steps.Add(rotateQuest);
+            _steps.Add(zoomQuest);
+            _steps.Add(placeFirstBloodSegmentQuest);
+            _steps.Add(rotateSegmentQuest);
+            _steps.Add(activateHeartReceiverQuest);
+            _steps.Add(hybridQuest);
+            _steps.Add(placeSteamSourceQuest);
+            _steps.Add(activateSteamSourceQuest);
+            _steps.Add(sphereQuest);
         }
 
         private void Update()
