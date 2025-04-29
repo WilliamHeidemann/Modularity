@@ -27,6 +27,14 @@ MonoBehaviour:
     Target: 0
     _countBlood: 0
     _countSteam: 1
+  _introduceResourcesAndPlaceSegment:
+    <Description>k__BackingField: Every piece you place costs resources. Flesh pieces
+      cost blood, shown in the upper right of their card. Manage your resources carefully.
+      If you run out, it's game over! Place another piece.
+    DescriptionText: {fileID: 0}
+    Target: 0
+    _countBlood: 1
+    _countSteam: 0
   _activateHeartReceiver:
     <Description>k__BackingField: Create a cicuit around the Heart so Blood can circulate
       through it. This will reward you with more Blood to continue building!

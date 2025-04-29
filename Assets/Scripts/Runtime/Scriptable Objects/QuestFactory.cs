@@ -14,6 +14,7 @@ namespace Runtime.Scriptable_Objects
         [Header("Quests")]
         [SerializeField] private SegmentQuest _placeFirstHeartSegment;
         [SerializeField] private SegmentQuest _placeFirstSteamSegment;
+        [SerializeField] private SegmentQuest _introduceResourcesAndPlaceSegment;
         [SerializeField] private ReceiverQuest _activateHeartReceiver;
         [SerializeField] private Quest _connectSteamAndFlesh;
         [SerializeField] private Quest<int> _collectX;
@@ -24,7 +25,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Quest<int> _rotateSegmentQuest;
         [SerializeField] private SegmentQuest _placeManyBloodSegments;
         [SerializeField] private HybridQuest _hybridQuest;
-        [FormerlySerializedAs("_placeSteamReceiverQuest")] [SerializeField] private PlaceSourceQuest _placeSteamSourceQuest;
+        [SerializeField] private PlaceSourceQuest _placeSteamSourceQuest;
         [SerializeField] private ReceiverQuest _activateFurnaceReceiver;
         
 
@@ -159,6 +160,14 @@ namespace Runtime.Scriptable_Objects
         public PlaceSourceQuest PlaceSteamSourceQuest()
         {
             var quest = _placeSteamSourceQuest.Build(1) as PlaceSourceQuest;
+            OnSegmentPlaced += quest!.Progress;
+            quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
+            return quest;
+        }
+        
+        public SegmentQuest IntroduceResourcesAndPlaceSegmentQuest()
+        {
+            var quest = _introduceResourcesAndPlaceSegment.Build(1) as SegmentQuest;
             OnSegmentPlaced += quest!.Progress;
             quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;

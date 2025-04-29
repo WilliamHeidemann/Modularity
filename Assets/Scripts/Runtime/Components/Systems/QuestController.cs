@@ -1,7 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Runtime.Backend;
 using Runtime.Scriptable_Objects;
 using TMPro;
 using UnityEngine;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Components.Systems
 {
@@ -20,19 +24,21 @@ namespace Runtime.Components.Systems
         [SerializeField] private GameObject _resourceUI;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private GameObject _scoreTracker;
-        
+
         private int _questIndex;
+        private Tutorial _tutorial;
 
         public void Initialize()
         {
             _questIndex = 0;
+            _tutorial = new Tutorial(_questFactory);
             _autoSpawner.SpawnBloodSource();
             _hand.IncludeBlood();
             _hand.ExcludeSteam();
             _hand.ExcludeReceivers();
             ToggleResourceUI(isVisible: false);
             ToggleScoreUI(isVisible: false);
-            NextQuest();
+            NextQuest2();
         }
 
         private void Update()
@@ -111,6 +117,73 @@ namespace Runtime.Components.Systems
         private void ToggleScoreUI(bool isVisible)
         {
             _scoreTracker.SetActive(isVisible);
+        }
+
+        private void NextQuest2()
+        {
+            var tutorialStep = _tutorial.GetNextStep();
+
+            _quest = tutorialStep.Quest();
+            _quest.DescriptionText = _questDescription;
+            TweenAnimations.FadeText(_questCanvasGroup, _questDescription, _quest.Description, false);
+            tutorialStep.OnStart();
+
+            _quest.OnComplete += () =>
+            {
+                tutorialStep.IsCompleted = true;
+                tutorialStep.OnComplete();
+                NextQuest2();
+            };
+        }
+
+        public class TutorialStep
+        {
+            public TutorialStep()
+            {
+                Debug.Log($"Creating tutorial step");
+            }
+
+            public Func<Quest> Quest;
+            public Action OnStart = () => { };
+            public Action OnComplete = () => { };
+            public bool IsCompleted = false;
+        }
+
+        public class Tutorial
+        {
+            private readonly List<TutorialStep> _steps = new();
+
+            public Tutorial(QuestFactory questFactory)
+            {
+                _steps.Add(new TutorialStep { Quest = questFactory.PanQuest });
+                _steps.Add(new TutorialStep { Quest = questFactory.RotateQuest });
+                _steps.Add(new TutorialStep { Quest = questFactory.ZoomQuest });
+                _steps.Add(new TutorialStep
+                {
+                    Quest = questFactory.PlaceFirstBloodSegmentQuest,
+                    OnStart = () =>
+                    {
+                        
+                    }
+                });
+                _steps.Add(new TutorialStep { Quest = questFactory.RotateSegmentQuest });
+                _steps.Add(new TutorialStep { Quest = () => questFactory.ActivateHeartReceiverQuest(1) });
+                _steps.Add(new TutorialStep { Quest = questFactory.HybridQuest });
+                _steps.Add(new TutorialStep { Quest = questFactory.PlaceSteamSourceQuest });
+                _steps.Add(new TutorialStep { Quest = () => questFactory.ActivateFurnaceReceiverQuest(1) });
+                _steps.Add(new TutorialStep { Quest = () => questFactory.CollectXQuest(3) });
+            }
+
+            public TutorialStep GetNextStep()
+            {
+                var step = _steps.FirstOrDefault(x => !x.IsCompleted);
+                if (step == null)
+                {
+                    return _steps.Last();
+                }
+
+                return step;
+            }
         }
     }
 }
