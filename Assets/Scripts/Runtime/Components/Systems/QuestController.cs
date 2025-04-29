@@ -25,6 +25,14 @@ namespace Runtime.Components.Systems
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private GameObject _scoreTracker;
 
+        public class TutorialStep
+        {
+            public Func<Quest> Quest;
+            public Action OnStart = () => { };
+            public Action OnComplete = () => { };
+            public bool IsCompleted = false;
+        }
+        
         private readonly List<TutorialStep> _steps = new();
 
         public void Initialize()
@@ -63,12 +71,21 @@ namespace Runtime.Components.Systems
                     _handUI.SetCardsVisible(3);
                 }
             };
+            var introduceResourcesQuest = new TutorialStep
+            {
+                Quest = _questFactory.IntroduceResourcesAndPlaceSegmentQuest,
+                OnStart = () =>
+                {
+                    _hand.DrawQueuedHand(_predefinedHands.BloodHand1);
+                    ToggleResourceUI(isVisible: true);
+                }
+            };
+            
             var activateHeartReceiverQuest = new TutorialStep
             {
                 Quest = () => _questFactory.ActivateBloodSourceQuest(1),
                 OnStart = () =>
                 {
-                    ToggleResourceUI(isVisible: true);
                     _hand.IncludeSources();
                     _hand.ExcludeSources();
                 }
@@ -80,7 +97,6 @@ namespace Runtime.Components.Systems
                 {
                     _hand.IncludeSteam();
                     _hand.DrawQueuedHand(_predefinedHands.Hybrids);
-                    _reRollButton.SetActive(false);
                     _handUI.SetCardsVisible(1);
                 }
             };
@@ -98,7 +114,6 @@ namespace Runtime.Components.Systems
                 Quest = () => _questFactory.ActivateSteamSourceQuest(1),
                 OnStart = () =>
                 {
-                    _reRollButton.SetActive(true);
                     _handUI.SetCardsVisible(3);
                 },
                 OnComplete = () =>
@@ -118,6 +133,7 @@ namespace Runtime.Components.Systems
             _steps.Add(zoomQuest);
             _steps.Add(placeFirstBloodSegmentQuest);
             _steps.Add(rotateSegmentQuest);
+            _steps.Add(introduceResourcesQuest);
             _steps.Add(activateHeartReceiverQuest);
             _steps.Add(hybridQuest);
             _steps.Add(placeSteamSourceQuest);
@@ -168,14 +184,6 @@ namespace Runtime.Components.Systems
             }
 
             return step;
-        }
-
-        public class TutorialStep
-        {
-            public Func<Quest> Quest;
-            public Action OnStart = () => { };
-            public Action OnComplete = () => { };
-            public bool IsCompleted = false;
         }
     }
 }
