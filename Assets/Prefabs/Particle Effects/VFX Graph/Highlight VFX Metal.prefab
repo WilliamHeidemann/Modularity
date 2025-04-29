@@ -179,10 +179,10 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 32, w: 0.078431375}
+      - m_Value: {x: 0, y: 9.170623, z: 31.999996, w: 0.078431375}
         m_Name: Particle Fragment Colour
         m_Overridden: 1
-      - m_Value: {x: 0, y: 0, z: 32, w: 0.02745098}
+      - m_Value: {x: 0, y: 8.9513235, z: 31.999996, w: 0.02745098}
         m_Name: Magic Circle Colour
         m_Overridden: 1
     m_Uint:
@@ -197,7 +197,7 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0, g: 0, b: 32, a: 0}
+          key0: {r: 0, g: 7.8904715, b: 31.999996, a: 0}
           key1: {r: 0, g: 0, b: 0.41509432, a: 0.078431375}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
