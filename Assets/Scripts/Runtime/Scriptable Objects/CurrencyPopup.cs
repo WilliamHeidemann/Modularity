@@ -3,6 +3,7 @@ using Runtime.Components;
 using Runtime.Components.Utility;
 using Runtime.DataLayer;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -13,6 +14,12 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private PopupDisplay _displayPopupPrefab;
         [SerializeField] private GameObject _WorldSpaceCanvas;
         private GameObject _ActiveWorldSpaceCanvas;
+        private bool _isPopupVisible;
+
+        public void SetPopupsVisible(bool isVisible)
+        {
+            _isPopupVisible = isVisible;
+        }
 
         private void CheckForActiveCanvas()
         {
@@ -30,6 +37,7 @@ namespace Runtime.Scriptable_Objects
 
         public void SpendCurrency(Vector3 popupPosition, StaticSegmentData staticSegmentData)
         {
+            if (!_isPopupVisible) return;
             CheckForActiveCanvas();
 
             var popup = Instantiate(_displayPopupPrefab, popupPosition, Quaternion.identity);
@@ -40,6 +48,7 @@ namespace Runtime.Scriptable_Objects
 
         public void GainCurrency(Vector3 popupPosition, StaticSegmentData staticSegmentData)
         {
+            if (!_isPopupVisible) return;
             CheckForActiveCanvas();
 
             var popup = Instantiate(_displayPopupPrefab, popupPosition + new Vector3(0, 0.5f, 0), Quaternion.identity);

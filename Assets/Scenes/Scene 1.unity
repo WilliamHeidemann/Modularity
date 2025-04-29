@@ -931,6 +931,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3716742921214522854, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
   m_PrefabInstance: {fileID: 44506896}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &830362171 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1457960928041833153, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
+  m_PrefabInstance: {fileID: 44506896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &990138868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1181,6 +1186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21729bd5e0543379ff2532595bce02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2045467717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5843625415112734525, guid: 07976b3a5fad18542906bfba811b5afc, type: 3}
+  m_PrefabInstance: {fileID: 44506896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2128409487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1595,9 +1605,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1964805913}
     - target: {fileID: 1758008408033062985, guid: 3df3a64a06e8b154fa87c081e29db831, type: 3}
+      propertyPath: _resourceUI
+      value: 
+      objectReference: {fileID: 830362171}
+    - target: {fileID: 1758008408033062985, guid: 3df3a64a06e8b154fa87c081e29db831, type: 3}
       propertyPath: _reRollButton
       value: 
       objectReference: {fileID: 333187262}
+    - target: {fileID: 1758008408033062985, guid: 3df3a64a06e8b154fa87c081e29db831, type: 3}
+      propertyPath: _scoreTracker
+      value: 
+      objectReference: {fileID: 2045467717}
+    - target: {fileID: 1758008408033062985, guid: 3df3a64a06e8b154fa87c081e29db831, type: 3}
+      propertyPath: _currencyPopup
+      value: 
+      objectReference: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
     - target: {fileID: 1758008408033062985, guid: 3df3a64a06e8b154fa87c081e29db831, type: 3}
       propertyPath: _questCanvasGroup
       value: 

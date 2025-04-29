@@ -17,6 +17,9 @@ namespace Runtime.Components.Systems
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private PredefinedHands _predefinedHands;
         [SerializeField] private GameObject _reRollButton;
+        [SerializeField] private GameObject _resourceUI;
+        [SerializeField] private CurrencyPopup _currencyPopup;
+        [SerializeField] private GameObject _scoreTracker;
         
         private int _questIndex;
 
@@ -27,6 +30,8 @@ namespace Runtime.Components.Systems
             _hand.IncludeBlood();
             _hand.ExcludeSteam();
             _hand.ExcludeReceivers();
+            ToggleResourceUI(isVisible: false);
+            ToggleScoreUI(isVisible: false);
             NextQuest();
         }
 
@@ -60,6 +65,7 @@ namespace Runtime.Components.Systems
                     _handUI.SetCardsVisible(3);
                     break;
                 case 5:
+                    ToggleResourceUI(isVisible: true);
                     _quest = _questFactory.ActivateHeartReceiverQuest(1);
                     _hand.IncludeReceivers();
                     _quest.OnComplete += _hand.ExcludeReceivers;
@@ -85,6 +91,7 @@ namespace Runtime.Components.Systems
                     break;
                 default:
                     _quest = _questFactory.CollectXQuest(_questIndex - 7);
+                    ToggleScoreUI(isVisible: true);
                     break;
             }
 
@@ -92,6 +99,18 @@ namespace Runtime.Components.Systems
             TweenAnimations.FadeText(_questCanvasGroup, _questDescription, _quest.Description, _questIndex == 0);
             _quest.OnComplete += NextQuest;
             _questIndex++;
+        }
+
+        private void ToggleResourceUI(bool isVisible)
+        {
+            _handUI.SetCostVisible(isVisible);
+            _resourceUI.SetActive(isVisible);
+            _currencyPopup.SetPopupsVisible(isVisible);
+        }
+
+        private void ToggleScoreUI(bool isVisible)
+        {
+            _scoreTracker.SetActive(isVisible);
         }
     }
 }

@@ -56,7 +56,7 @@ MonoBehaviour:
     DescriptionText: {fileID: 0}
     Target: 1
   _rotateQuest:
-    <Description>k__BackingField: Use WASD to rotate your view.
+    <Description>k__BackingField: Right click and drag anywhere to rotate your view.
     DescriptionText: {fileID: 0}
     Target: 250
   _zoomQuest:
@@ -66,7 +66,7 @@ MonoBehaviour:
   _rotateSegmentQuest:
     <Description>k__BackingField: Pieces can also be rotated. Mouse over a valid
       position to preview the piece, and use R to rotate it. Once it's positioned
-      how you'd like, click to place it. (0/3)
+      how you'd like, click to place it.
     DescriptionText: {fileID: 0}
     Target: 1
   _placeManyBloodSegments:

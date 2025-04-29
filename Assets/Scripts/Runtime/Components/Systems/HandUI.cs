@@ -92,5 +92,13 @@ namespace Runtime.Components.Systems
                 _blueprintOptions[i].gameObject.SetActive(i < count);
             }
         }
+
+        public void SetCostVisible(bool isVisible)
+        {
+            foreach (var blueprint in _blueprintOptions)
+            {
+                blueprint.SetCostVisible(isVisible);
+            }
+        }
     }
 }

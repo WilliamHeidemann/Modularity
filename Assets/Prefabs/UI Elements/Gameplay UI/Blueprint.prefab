@@ -1353,6 +1353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d95984128d34aa69e441366309688d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _costContainer: {fileID: 3027400208721781069}
   _itemCostBloodText: {fileID: 551687146565608898}
   _itemCostSteamText: {fileID: 1271094704489735329}
   _bloodIcon: {fileID: 176333902621938262}
