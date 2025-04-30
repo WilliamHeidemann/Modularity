@@ -46,7 +46,7 @@ namespace Runtime.Components.Systems
             _hand.IncludeBlood();
             _hand.ExcludeSteam();
             _hand.ExcludeSources();
-            ToggleResourceUI(isVisible: false);
+            ToggleResourceUI(isVisible: _accumulatedDataPoints.AreResourcesPresentInTheBeginning);
             ToggleScoreUI(isVisible: false);
             SetUpTutorialSteps();
             NextQuest();
@@ -85,8 +85,7 @@ namespace Runtime.Components.Systems
                     ToggleResourceUI(isVisible: true);
                 }
             };
-            
-            var activateHeartReceiverQuest = new TutorialStep
+            var activateBloodSourceQuest = new TutorialStep
             {
                 Quest = () => _questFactory.ActivateBloodSourceQuest(1),
                 OnStart = () =>
@@ -138,8 +137,11 @@ namespace Runtime.Components.Systems
             _steps.Add(zoomQuest);
             _steps.Add(placeFirstBloodSegmentQuest);
             _steps.Add(rotateSegmentQuest);
-            _steps.Add(introduceResourcesQuest);
-            _steps.Add(activateHeartReceiverQuest);
+            if (!_accumulatedDataPoints.AreResourcesPresentInTheBeginning)
+            {
+                _steps.Add(introduceResourcesQuest);
+            }
+            _steps.Add(activateBloodSourceQuest);
             _steps.Add(hybridQuest);
             _steps.Add(placeSteamSourceQuest);
             _steps.Add(activateSteamSourceQuest);

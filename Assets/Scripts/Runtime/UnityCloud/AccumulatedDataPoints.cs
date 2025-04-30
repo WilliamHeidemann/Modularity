@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace Runtime.UnityCloud
 {
@@ -12,6 +13,8 @@ namespace Runtime.UnityCloud
         public int SegmentsPlaced;
         public float TimeAtTutorialStart;
         public float TimeAtQuestStart;
+        public bool AreResourcesPresentInTheBeginning;
+        [SerializeField] private bool _overrideVersionToPlay;
 
         public void Clear()
         {
@@ -22,6 +25,16 @@ namespace Runtime.UnityCloud
             SegmentsPlaced = 0;
             TimeAtTutorialStart = Time.time;
             TimeAtQuestStart = Time.time;
+            if (!_overrideVersionToPlay)
+            {
+                AreResourcesPresentInTheBeginning = GetUserSpecificRandomBool();
+            }
+        }
+        
+        public static bool GetUserSpecificRandomBool()
+        {
+            int hash = Mathf.Abs(AnalyticsSessionInfo.userId.GetHashCode());
+            return hash % 2 == 0;
         }
     }
 }
