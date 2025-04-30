@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Predefined Hands
   m_EditorClassIdentifier: 
   BloodHand1:
-  - {fileID: 4404823909993285501, guid: 9b0b025830b94184d9dc8d1744b0b9d9, type: 3}
   - {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
+  - {fileID: 4404823909993285501, guid: 9b0b025830b94184d9dc8d1744b0b9d9, type: 3}
   - {fileID: 4404823909993285501, guid: 0123d1ea0f5b96c4e8fd789c103b5fc1, type: 3}
   BloodHand2:
   - {fileID: 4404823909993285501, guid: 956611ae534ff944bb3610df91bb1500, type: 3}

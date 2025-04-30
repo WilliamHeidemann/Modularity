@@ -8,7 +8,8 @@ namespace Runtime.Components
 {
     public class Blueprint : MonoBehaviour
     {
-        [Header("Cost UI")]
+        [Header("Cost UI")] 
+        [SerializeField] private GameObject _costContainer;
         [SerializeField] private TextMeshProUGUI _itemCostBloodText;
         [SerializeField] private TextMeshProUGUI _itemCostSteamText;
         [SerializeField] private Image _bloodIcon;
@@ -71,6 +72,11 @@ namespace Runtime.Components
             };
             
             glowObject.SetActive(isGlowing);
+        }
+        
+        public void SetCostVisible(bool isVisible)
+        {
+            _costContainer.SetActive(isVisible);
         }
     }
 }

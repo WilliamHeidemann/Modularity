@@ -1,5 +1,6 @@
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using UnityUtils;
 using Selection = Runtime.Scriptable_Objects.Selection;
 
 namespace Runtime.Components.Systems
@@ -84,5 +85,20 @@ namespace Runtime.Components.Systems
             }
         }
 
+        public void SetCardsVisible(int count)
+        {
+            for (int i = 0; i < _blueprintOptions.Length; i++)
+            {
+                _blueprintOptions[i].gameObject.SetActive(i < count);
+            }
+        }
+
+        public void SetCostVisible(bool isVisible)
+        {
+            foreach (var blueprint in _blueprintOptions)
+            {
+                blueprint.SetCostVisible(isVisible);
+            }
+        }
     }
 }

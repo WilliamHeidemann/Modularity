@@ -46,11 +46,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _hand: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
+  _questCanvasGroup: {fileID: 0}
   _questDescription: {fileID: 0}
   _quest:
     <Description>k__BackingField: 
-    <Explanation>k__BackingField: 
     DescriptionText: {fileID: 0}
   _cameraControlImages: {fileID: 0}
+  _handUI: {fileID: 0}
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _predefinedHands: {fileID: 11400000, guid: 1752320e7716f7c4988fbd1d5f0a5eb8, type: 2}
+  _reRollButton: {fileID: 0}
+  _resourceUI: {fileID: 0}
+  _currencyPopup: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
