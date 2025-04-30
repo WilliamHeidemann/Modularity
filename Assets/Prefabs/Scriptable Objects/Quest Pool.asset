@@ -87,12 +87,13 @@ MonoBehaviour:
     _countSteam: 0
   _hybridQuest:
     <Description>k__BackingField: Pump up your amalgamation with Steam! Select a
-      Hybrid piece of Flesh and Metal and latch it onto your living factory.
+      Hybrid piece of Flesh and Metal and latch it onto your living factory. This
+      costs both blood, and the metal resource, Steam!
     DescriptionText: {fileID: 0}
     Target: 1
   _placeSteamSourceQuest:
-    <Description>k__BackingField: Next, attach a metal Furnace to produce Steam.
-      Be strategic - metal pieces can only connect to other metal pieces.
+    <Description>k__BackingField: Next, attach a metal Furnace which can produce
+      Steam. Be strategic - metal pieces can only connect to other metal pieces.
     DescriptionText: {fileID: 0}
     Target: 1
     _needsBlood: 0
