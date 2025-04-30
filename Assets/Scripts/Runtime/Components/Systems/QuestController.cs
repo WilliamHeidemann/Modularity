@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Runtime.Backend;
 using Runtime.Scriptable_Objects;
+using Runtime.UnityCloud;
 using TMPro;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UtilityToolkit.Runtime;
 
@@ -12,6 +14,8 @@ namespace Runtime.Components.Systems
     public class QuestController : MonoBehaviour
     {
         [SerializeField] private QuestFactory _questFactory;
+        [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
+        [SerializeField] private QuestCompletedEventFactory _questCompletedEventFactory;
         [SerializeField] private Hand _hand;
         [SerializeField] private CanvasGroup _questCanvasGroup;
         [SerializeField] private TextMeshProUGUI _questDescription;
@@ -37,6 +41,7 @@ namespace Runtime.Components.Systems
 
         public void Initialize()
         {
+            _accumulatedDataPoints.TimeAtTutorialStart = Time.time;
             _autoSpawner.SpawnBloodSource();
             _hand.IncludeBlood();
             _hand.ExcludeSteam();
@@ -166,11 +171,13 @@ namespace Runtime.Components.Systems
             _quest.DescriptionText = _questDescription;
             TweenAnimations.FadeText(_questCanvasGroup, _questDescription, _quest.Description, false);
             tutorialStep.OnStart();
+            _accumulatedDataPoints.TimeAtQuestStart = Time.time;
 
             _quest.OnComplete += () =>
             {
                 tutorialStep.IsCompleted = true;
                 tutorialStep.OnComplete();
+                AnalyticsService.Instance.RecordEvent(_questCompletedEventFactory.Create(_quest.Name));
                 NextQuest();
             };
         }

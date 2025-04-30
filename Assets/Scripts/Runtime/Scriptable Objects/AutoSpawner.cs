@@ -7,6 +7,7 @@ using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using Runtime.DataLayer;
+using Runtime.UnityCloud;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UtilityToolkit.Runtime;
@@ -22,6 +23,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private Selection _selection;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private QuestFactory _questFactory;
+        [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
         [SerializeField] private Segment _bloodSource;
         [SerializeField] private Segment _steamSource;
         [SerializeField] private float _distanceConstant;
@@ -52,6 +54,8 @@ namespace Runtime.Scriptable_Objects
             _questFactory.CollectableCollected(collectables.Count);
             OnCollectedCollectables?.Invoke(collectables.Count);
             collectables.ForEach(c => _currencyPopup.GainCurrency(c.Position, c.StaticSegmentData));
+            collectables.ForEach(c => _accumulatedDataPoints.ResourcesCollectedFromOrbs += 
+                c.StaticSegmentData.BloodReward + c.StaticSegmentData.SteamReward);
             collectables.ForEach(c => _collectables.Remove(c));
             collectables.ForEach(c => Instantiate(_collectablePickupFX, c.Position, Quaternion.identity));
             collectables.ForEach(c => Destroy(c.gameObject));

@@ -1,5 +1,6 @@
 using Runtime.DataLayer;
 using Runtime.Scriptable_Objects;
+using Runtime.UnityCloud;
 using UnityEngine;
 
 namespace Runtime.Components.Systems
@@ -18,7 +19,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private EndGame _endGame;
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
         [SerializeField] private SlotVisualizer _slotVisualizer;
-        
+        [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
 
         private void OnEnable()
         {
@@ -32,6 +33,7 @@ namespace Runtime.Components.Systems
 
         private void Initialize()
         {
+            _accumulatedDataPoints.Clear();
             _questFactory.Clear();
             _hand.Clear();
             _structure.Clear();

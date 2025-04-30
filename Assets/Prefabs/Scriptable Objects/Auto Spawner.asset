@@ -17,6 +17,7 @@ MonoBehaviour:
   _selection: {fileID: 11400000, guid: b3978e609dec9af4d8aa52c187f5d6a8, type: 2}
   _currencyPopup: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
+  _accumulatedDataPoints: {fileID: 11400000, guid: 99b82ee2a8421c84cb42feba32de3c46, type: 2}
   _bloodSource: {fileID: 4404823909993285501, guid: a333405db0b50fa4c974c4b63eff66b8, type: 3}
   _steamSource: {fileID: 4404823909993285501, guid: 2f15fb252de55424fb482f29614a9506, type: 3}
   _distanceConstant: 2

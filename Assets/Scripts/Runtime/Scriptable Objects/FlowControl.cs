@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Runtime.DataLayer;
+using Runtime.UnityCloud;
 using UnityEngine;
 
 namespace Runtime.Scriptable_Objects
@@ -13,6 +14,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private ParticleManager _particleManager;
+        [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
 
         public delegate void ProducerActivated(StaticSegmentData staticSegmentData);
 
@@ -129,6 +131,9 @@ namespace Runtime.Scriptable_Objects
 
             segmentToActivate.IsActivated = true;
             _currencyPopup.GainCurrency(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
+            _accumulatedDataPoints.ResourcesCollectedFromSources += segmentToActivate.StaticSegmentData.BloodReward +
+                segmentToActivate.StaticSegmentData.SteamReward;
+            _accumulatedDataPoints.SegmentsActivated++;
 
             ParticleType particleType = segmentToActivate.StaticSegmentData switch
             {
