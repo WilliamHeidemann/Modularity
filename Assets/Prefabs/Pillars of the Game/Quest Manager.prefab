@@ -45,10 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
+  _accumulatedDataPoints: {fileID: 11400000, guid: 99b82ee2a8421c84cb42feba32de3c46, type: 2}
+  _questCompletedEventFactory: {fileID: 11400000, guid: 60e535b156193ca4cb50e371b336d999, type: 2}
   _hand: {fileID: 11400000, guid: 419b7363e35d3c844a0a146e45ab53df, type: 2}
   _questCanvasGroup: {fileID: 0}
   _questDescription: {fileID: 0}
   _quest:
+    <Name>k__BackingField: 
     <Description>k__BackingField: 
     DescriptionText: {fileID: 0}
   _cameraControlImages: {fileID: 0}
@@ -58,3 +61,4 @@ MonoBehaviour:
   _reRollButton: {fileID: 0}
   _resourceUI: {fileID: 0}
   _currencyPopup: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
+  _scoreTracker: {fileID: 0}

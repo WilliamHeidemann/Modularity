@@ -1,13 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Runtime.Backend;
 using Runtime.Scriptable_Objects;
+using Runtime.UnityCloud;
 using TMPro;
+using Unity.Services.Analytics;
 using UnityEngine;
+using UtilityToolkit.Runtime;
 
 namespace Runtime.Components.Systems
 {
     public class QuestController : MonoBehaviour
     {
         [SerializeField] private QuestFactory _questFactory;
+        [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
+        [SerializeField] private QuestCompletedEventFactory _questCompletedEventFactory;
         [SerializeField] private Hand _hand;
         [SerializeField] private CanvasGroup _questCanvasGroup;
         [SerializeField] private TextMeshProUGUI _questDescription;
@@ -20,85 +28,127 @@ namespace Runtime.Components.Systems
         [SerializeField] private GameObject _resourceUI;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private GameObject _scoreTracker;
+
+        public class TutorialStep
+        {
+            public Func<Quest> Quest;
+            public Action OnStart = () => { };
+            public Action OnComplete = () => { };
+            public bool IsCompleted = false;
+        }
         
-        private int _questIndex;
+        private readonly List<TutorialStep> _steps = new();
 
         public void Initialize()
         {
-            _questIndex = 0;
+            _accumulatedDataPoints.TimeAtTutorialStart = Time.time;
             _autoSpawner.SpawnBloodSource();
             _hand.IncludeBlood();
             _hand.ExcludeSteam();
-            _hand.ExcludeReceivers();
+            _hand.ExcludeSources();
             ToggleResourceUI(isVisible: false);
             ToggleScoreUI(isVisible: false);
+            SetUpTutorialSteps();
             NextQuest();
+        }
+
+        private void SetUpTutorialSteps()
+        {
+            var panQuest = new TutorialStep { Quest = _questFactory.PanQuest };
+            var rotateQuest = new TutorialStep { Quest = _questFactory.RotateQuest };
+            var zoomQuest = new TutorialStep { Quest = _questFactory.ZoomQuest };
+            var placeFirstBloodSegmentQuest = new TutorialStep
+            {
+                Quest = _questFactory.PlaceFirstBloodSegmentQuest,
+                OnStart = () =>
+                {
+                    _handUI.gameObject.SetActive(true);
+                    _handUI.SetCardsVisible(1);
+                    _hand.DrawQueuedHand(_predefinedHands.BloodHand1);
+                }
+            };
+            var rotateSegmentQuest = new TutorialStep
+            {
+                Quest = _questFactory.RotateSegmentQuest,
+                OnStart = () =>
+                {
+                    _hand.DrawQueuedHand(_predefinedHands.BloodHand2);
+                    _handUI.SetCardsVisible(3);
+                }
+            };
+            var introduceResourcesQuest = new TutorialStep
+            {
+                Quest = _questFactory.IntroduceResourcesAndPlaceSegmentQuest,
+                OnStart = () =>
+                {
+                    _hand.DrawQueuedHand(_predefinedHands.BloodHand1);
+                    ToggleResourceUI(isVisible: true);
+                }
+            };
+            
+            var activateHeartReceiverQuest = new TutorialStep
+            {
+                Quest = () => _questFactory.ActivateBloodSourceQuest(1),
+                OnStart = () =>
+                {
+                    _hand.IncludeSources();
+                    _hand.ExcludeSources();
+                }
+            };
+            var hybridQuest = new TutorialStep
+            {
+                Quest = _questFactory.HybridQuest,
+                OnStart = () =>
+                {
+                    _hand.IncludeSteam();
+                    _hand.DrawQueuedHand(_predefinedHands.Hybrids);
+                    _handUI.SetCardsVisible(1);
+                }
+            };
+            var placeSteamSourceQuest = new TutorialStep
+            {
+                Quest = _questFactory.PlaceSteamSourceQuest,
+                OnStart = () =>
+                {
+                    _hand.DrawQueuedHand(_predefinedHands.Furnaces);
+                    _hand.ExcludeBlood();
+                }
+            };
+            var activateSteamSourceQuest = new TutorialStep
+            {
+                Quest = () => _questFactory.ActivateSteamSourceQuest(1),
+                OnStart = () =>
+                {
+                    _handUI.SetCardsVisible(3);
+                },
+                OnComplete = () =>
+                {
+                    _hand.IncludeSources();
+                    _hand.IncludeBlood();
+                }
+            };
+            var sphereQuest = new TutorialStep
+            {
+                Quest = () => _questFactory.CollectXQuest(3),
+                OnStart = () => { ToggleScoreUI(isVisible: true); }
+            };
+            
+            _steps.Add(panQuest);
+            _steps.Add(rotateQuest);
+            _steps.Add(zoomQuest);
+            _steps.Add(placeFirstBloodSegmentQuest);
+            _steps.Add(rotateSegmentQuest);
+            _steps.Add(introduceResourcesQuest);
+            _steps.Add(activateHeartReceiverQuest);
+            _steps.Add(hybridQuest);
+            _steps.Add(placeSteamSourceQuest);
+            _steps.Add(activateSteamSourceQuest);
+            _steps.Add(sphereQuest);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.N)) _quest.Complete();
-        }
-
-        private void NextQuest()
-        {
-            switch (_questIndex)
-            {
-                case 0:
-                    _quest = _questFactory.PanQuest();
-                    break;
-                case 1:
-                    _quest = _questFactory.RotateQuest();
-                    break;
-                case 2:
-                    _quest = _questFactory.ZoomQuest();
-                    break;
-                case 3:
-                    _quest = _questFactory.PlaceFirstBloodSegmentQuest();
-                    _handUI.gameObject.SetActive(true);
-                    _handUI.SetCardsVisible(1);
-                    _hand.DrawQueuedHand(_predefinedHands.BloodHand1);
-                    break;
-                case 4:
-                    _quest = _questFactory.RotateSegmentQuest();
-                    _hand.DrawQueuedHand(_predefinedHands.BloodHand2);
-                    _handUI.SetCardsVisible(3);
-                    break;
-                case 5:
-                    ToggleResourceUI(isVisible: true);
-                    _quest = _questFactory.ActivateHeartReceiverQuest(1);
-                    _hand.IncludeReceivers();
-                    _quest.OnComplete += _hand.ExcludeReceivers;
-                    break;
-                case 6:
-                    _quest = _questFactory.HybridQuest();
-                    _hand.IncludeSteam();
-                    _hand.DrawQueuedHand(_predefinedHands.Hybrids);
-                    _reRollButton.SetActive(false);
-                    _handUI.SetCardsVisible(1);
-                    break;
-                case 7:
-                    _quest = _questFactory.PlaceSteamSourceQuest();
-                    _hand.DrawQueuedHand(_predefinedHands.Furnaces);
-                    break;
-                case 8:
-                    _quest = _questFactory.ActivateFurnaceReceiverQuest(1);
-                    _reRollButton.SetActive(true);
-                    _hand.IncludeReceivers();
-                    _hand.ExcludeBlood();
-                    _handUI.SetCardsVisible(3);
-                    _quest.OnComplete += _hand.IncludeBlood;
-                    break;
-                default:
-                    _quest = _questFactory.CollectXQuest(_questIndex - 7);
-                    ToggleScoreUI(isVisible: true);
-                    break;
-            }
-
-            _quest.DescriptionText = _questDescription;
-            TweenAnimations.FadeText(_questCanvasGroup, _questDescription, _quest.Description, _questIndex == 0);
-            _quest.OnComplete += NextQuest;
-            _questIndex++;
         }
 
         private void ToggleResourceUI(bool isVisible)
@@ -111,6 +161,36 @@ namespace Runtime.Components.Systems
         private void ToggleScoreUI(bool isVisible)
         {
             _scoreTracker.SetActive(isVisible);
+        }
+
+        private void NextQuest()
+        {
+            var tutorialStep = GetNextStep();
+
+            _quest = tutorialStep.Quest();
+            _quest.DescriptionText = _questDescription;
+            TweenAnimations.FadeText(_questCanvasGroup, _questDescription, _quest.Description, false);
+            tutorialStep.OnStart();
+            _accumulatedDataPoints.TimeAtQuestStart = Time.time;
+
+            _quest.OnComplete += () =>
+            {
+                tutorialStep.IsCompleted = true;
+                tutorialStep.OnComplete();
+                AnalyticsService.Instance.RecordEvent(_questCompletedEventFactory.Create(_quest.Name));
+                NextQuest();
+            };
+        }
+
+        private TutorialStep GetNextStep()
+        {
+            var step = _steps.FirstOrDefault(x => !x.IsCompleted);
+            if (step == null)
+            {
+                return _steps.Last();
+            }
+
+            return step;
         }
     }
 }

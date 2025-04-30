@@ -23,7 +23,7 @@ namespace Runtime.Scriptable_Objects
         private readonly LinkedList<List<Segment>> _queuedHands = new();
         private bool _excludeBlood;
         private bool _excludeSteam;
-        private bool _excludeReceivers;
+        private bool _excludeSources;
 
         //the segments that the player can choose from
         public List<Segment> SegmentsOptions;
@@ -39,8 +39,8 @@ namespace Runtime.Scriptable_Objects
         public void IncludeBlood() => _excludeBlood = false;
         public void ExcludeSteam() => _excludeSteam = true;
         public void IncludeSteam() => _excludeSteam = false;
-        public void ExcludeReceivers() => _excludeReceivers = true;
-        public void IncludeReceivers() => _excludeReceivers = false;
+        public void ExcludeSources() => _excludeSources = true;
+        public void IncludeSources() => _excludeSources = false;
 
         public void SelectBlueprint(int chosenSegment)
         {
@@ -131,7 +131,7 @@ namespace Runtime.Scriptable_Objects
                 return false;
             }
             
-            if (_excludeReceivers && segment.StaticSegmentData.IsReceiver)
+            if (_excludeSources && segment.StaticSegmentData.IsSource)
             {
                 return false;
             }

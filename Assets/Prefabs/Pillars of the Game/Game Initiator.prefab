@@ -56,3 +56,4 @@ MonoBehaviour:
   _endGame: {fileID: 11400000, guid: f426bfc36a9001048908cf941a9cff37, type: 2}
   _placeHolderBuilder: {fileID: 11400000, guid: b64ebe420f6c3aa46a0cebb265fbd019, type: 2}
   _slotVisualizer: {fileID: 11400000, guid: e6191ce66779dd14abea5816d7d7bd91, type: 2}
+  _accumulatedDataPoints: {fileID: 11400000, guid: 99b82ee2a8421c84cb42feba32de3c46, type: 2}

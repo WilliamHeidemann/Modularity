@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5241d74ec2454fed9c0d16d7f0257b73, type: 3}
-  m_Name: Currency
+  m_Script: {fileID: 11500000, guid: c4654d95b3be45e880777233434107fc, type: 3}
+  m_Name: Quest Completed Event Factory
   m_EditorClassIdentifier: 
-  _blood: 40
-  _steam: 40
-  _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _accumulatedDataPoints: {fileID: 11400000, guid: 99b82ee2a8421c84cb42feba32de3c46, type: 2}
+  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
