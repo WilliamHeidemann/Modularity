@@ -24,6 +24,7 @@ namespace Runtime.Components
         [Header("Blueprint UI")]
         [SerializeField] private Image _bluePrintTexture;
         [SerializeField] private Sprite[] _blueprintTextures;
+        [SerializeField] private Image[] _blueprintGradiantBackdrops;
         [SerializeField] private Image[] _glowBlueprints;
         [SerializeField] private Image _itemPreview;
 
@@ -40,6 +41,8 @@ namespace Runtime.Components
                 (false, true) => _blueprintTextures[1],
                 _ => _blueprintTextures[0]
             };
+
+            SetGradiantBackdrop(costsBlood, costsSteam);
 
             _bloodRewardIcon.gameObject.SetActive(bloodReward > 0);
             _steamRewardIcon.gameObject.SetActive(steamReward > 0);
@@ -72,6 +75,22 @@ namespace Runtime.Components
             };
             
             glowObject.SetActive(isGlowing);
+        }
+
+        public void SetGradiantBackdrop(int costBlood, int costSteam)
+        {
+            var gradiantObject = (costBlood != 0, costSteam != 0) switch
+            {
+                (true, true) => _blueprintGradiantBackdrops[2],
+                (true, false) => _blueprintGradiantBackdrops[0],
+                (false, true) => _blueprintGradiantBackdrops[1],
+                _ => _blueprintGradiantBackdrops[0]
+            };
+
+            foreach (var gradiant in _blueprintGradiantBackdrops)
+            {
+                gradiant.gameObject.SetActive(gradiant == gradiantObject);
+            }
         }
         
         public void SetCostVisible(bool isVisible)
