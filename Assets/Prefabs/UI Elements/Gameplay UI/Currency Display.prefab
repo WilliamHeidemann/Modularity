@@ -238,7 +238,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5305147118738596367}
   - component: {fileID: 556556845831386086}
-  - component: {fileID: 1289606524015385572}
   - component: {fileID: 5066028770253137215}
   m_Layer: 5
   m_Name: Blood Display
@@ -275,36 +274,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993172069226716727}
   m_CullTransparentMesh: 1
---- !u!114 &1289606524015385572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993172069226716727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.54901963, g: 0.011764714, b: 0.28705087, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &5066028770253137215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +299,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1027987700633902989}
   - component: {fileID: 2052320407580238681}
-  - component: {fileID: 6078548541355005888}
   - component: {fileID: 1956275151625141748}
   m_Layer: 5
   m_Name: Steam Display
@@ -367,36 +335,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3752947967234211943}
   m_CullTransparentMesh: 1
---- !u!114 &6078548541355005888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3752947967234211943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.40271267, g: 0.47917005, b: 0.6150943, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &1956275151625141748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,6 +641,11 @@ MonoBehaviour:
   _BloodCurrencyText: {fileID: 7783177983802546984}
   _SteamCurrencyText: {fileID: 1628196349449063342}
   _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}
+  _animationTime: 1
+  _bloodTextSpawnPos: {fileID: 0}
+  _steamTextSpawnPos: {fileID: 0}
+  _bloodUpdateText: {fileID: 0}
+  _steamUpdateText: {fileID: 0}
 --- !u!114 &6952595680653146040
 MonoBehaviour:
   m_ObjectHideFlags: 0
