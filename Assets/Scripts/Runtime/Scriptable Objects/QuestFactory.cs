@@ -12,21 +12,22 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private AutoSpawner _autoSpawner;
         
         [Header("Quests")]
-        [SerializeField] private SegmentQuest _placeFirstHeartSegment;
-        [SerializeField] private SegmentQuest _placeFirstSteamSegment;
-        [SerializeField] private SegmentQuest _introduceResourcesAndPlaceSegment;
-        [SerializeField] private ReceiverQuest _activateHeartReceiver;
-        [SerializeField] private Quest _connectSteamAndFlesh;
-        [SerializeField] private Quest<int> _collectX;
-        [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
         [SerializeField] private MeasureQuest _panQuest;
         [SerializeField] private MeasureQuest _rotateQuest;
         [SerializeField] private MeasureQuest _zoomQuest;
+        [SerializeField] private SegmentQuest _placeFirstHeartSegment;
         [SerializeField] private Quest<int> _rotateSegmentQuest;
-        [SerializeField] private SegmentQuest _placeManyBloodSegments;
+        [SerializeField] private ReceiverQuest _activateHeartReceiver;
+        [SerializeField] private SegmentQuest _introduceResourcesAndPlaceSegment;
         [SerializeField] private HybridQuest _hybridQuest;
         [SerializeField] private PlaceSourceQuest _placeSteamSourceQuest;
         [SerializeField] private ReceiverQuest _activateFurnaceReceiver;
+        [SerializeField] private Quest<int> _collectX;
+        [Header("Currently Unused Quests")]
+        [SerializeField] private SegmentQuest _placeFirstSteamSegment;
+        [SerializeField] private Quest _connectSteamAndFlesh;
+        [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
+        [SerializeField] private SegmentQuest _placeManyBloodSegments;
         
 
         public void Clear()
