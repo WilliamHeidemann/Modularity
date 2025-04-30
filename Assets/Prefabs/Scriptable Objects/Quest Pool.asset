@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoSpawner: {fileID: 11400000, guid: 2bf645767b9b9374d9a662a4e593e98b, type: 2}
   _placeFirstHeartSegment:
+    <Name>k__BackingField: Place First Blood Segment Quest
     <Description>k__BackingField: To expand your amalgamation, click on a card to
       select it. Mouse over a highlighted position to preview the piece, and then
       click to place it.
@@ -22,12 +23,23 @@ MonoBehaviour:
     _countBlood: 1
     _countSteam: 0
   _placeFirstSteamSegment:
+    <Name>k__BackingField: 
     <Description>k__BackingField: Connect Metal Pipes to the Furnace (0/2)
     DescriptionText: {fileID: 0}
     Target: 0
     _countBlood: 0
     _countSteam: 1
+  _introduceResourcesAndPlaceSegment:
+    <Name>k__BackingField: Introduce Resources And Place Segment Quest
+    <Description>k__BackingField: Every piece you place costs resources. Flesh pieces
+      cost blood, shown in the upper right of their card. Manage your resources carefully.
+      If you run out, it's game over! Place another piece.
+    DescriptionText: {fileID: 0}
+    Target: 0
+    _countBlood: 1
+    _countSteam: 0
   _activateHeartReceiver:
+    <Name>k__BackingField: Activate Blood Source Quest
     <Description>k__BackingField: Create a cicuit around the Heart so Blood can circulate
       through it. This will reward you with more Blood to continue building!
     DescriptionText: {fileID: 0}
@@ -36,14 +48,17 @@ MonoBehaviour:
     _countSteam: 0
     _mustBeSimultaneous: 0
   _connectSteamAndFlesh:
+    <Name>k__BackingField: 
     <Description>k__BackingField: Connect a Heart and Furnace together.
     DescriptionText: {fileID: 0}
   _collectX:
+    <Name>k__BackingField: Collect Orbs Quest
     <Description>k__BackingField: Absorb energy spheres to empower your amalgamation.
       (0/2)
     DescriptionText: {fileID: 0}
     Target: 0
   _activateXReceiversSimultaneously:
+    <Name>k__BackingField: 
     <Description>k__BackingField: Activate a combination of x furnaces and brains
       simultaneously.
     DescriptionText: {fileID: 0}
@@ -52,24 +67,29 @@ MonoBehaviour:
     _countSteam: 1
     _mustBeSimultaneous: 1
   _panQuest:
+    <Name>k__BackingField: Pan Camera Quest
     <Description>k__BackingField: Left click and drag anywhere to move your view.
     DescriptionText: {fileID: 0}
     Target: 1
   _rotateQuest:
+    <Name>k__BackingField: Rotate Camera Quest
     <Description>k__BackingField: Right click and drag anywhere to rotate your view.
     DescriptionText: {fileID: 0}
     Target: 250
   _zoomQuest:
+    <Name>k__BackingField: Zoom Camera Quest
     <Description>k__BackingField: Scroll to zoom your view in and out.
     DescriptionText: {fileID: 0}
     Target: 10
   _rotateSegmentQuest:
+    <Name>k__BackingField: Rotate Segment Quest
     <Description>k__BackingField: Pieces can also be rotated. Mouse over a valid
       position to preview the piece, and use R to rotate it. Once it's positioned
       how you'd like, click to place it.
     DescriptionText: {fileID: 0}
     Target: 1
   _placeManyBloodSegments:
+    <Name>k__BackingField: 
     <Description>k__BackingField: In Modularity, you'll always be presented with
       3 options to chose from. Placing one will present you with 3 new options, so
       choose carefully which you'd like to use. Place 5 more pieces. (0/5)
@@ -78,18 +98,22 @@ MonoBehaviour:
     _countBlood: 1
     _countSteam: 0
   _hybridQuest:
+    <Name>k__BackingField: Hybrid Quest
     <Description>k__BackingField: Pump up your amalgamation with Steam! Select a
-      Hybrid piece of Flesh and Metal and latch it onto your living factory.
+      Hybrid piece of Flesh and Metal and latch it onto your living factory. This
+      costs both blood, and the metal resource, Steam!
     DescriptionText: {fileID: 0}
     Target: 1
   _placeSteamSourceQuest:
-    <Description>k__BackingField: Next, attach a metal Furnace to produce Steam.
-      Be strategic - metal pieces can only connect to other metal pieces.
+    <Name>k__BackingField: Place Steam Source Quest
+    <Description>k__BackingField: Next, attach a metal Furnace which can produce
+      Steam. Be strategic - metal pieces can only connect to other metal pieces.
     DescriptionText: {fileID: 0}
     Target: 1
     _needsBlood: 0
     _needsSteam: 1
   _activateFurnaceReceiver:
+    <Name>k__BackingField: Activate Steam Source Quest
     <Description>k__BackingField: Create a circuit around the Furnace so Steam can
       flow. This will reward you with more Steam! Remember that Metal and Flesh do
       not connect.

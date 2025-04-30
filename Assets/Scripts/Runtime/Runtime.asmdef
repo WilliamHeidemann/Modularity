@@ -8,7 +8,8 @@
         "WilliamHeidemann.UtilityToolkit.Editor",
         "DOTween.Modules",
         "Unity.Services.Authentication",
-        "Unity.Services.Core"
+        "Unity.Services.Core",
+        "Unity.Services.Analytics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

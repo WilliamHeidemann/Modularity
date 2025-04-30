@@ -16,3 +16,4 @@ MonoBehaviour:
   _currencyPopup: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _particleManager: {fileID: 11400000, guid: 202a9ea91a1243f4f8e462d41144fcf4, type: 2}
+  _accumulatedDataPoints: {fileID: 11400000, guid: 99b82ee2a8421c84cb42feba32de3c46, type: 2}

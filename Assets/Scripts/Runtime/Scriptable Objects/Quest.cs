@@ -11,6 +11,7 @@ namespace Runtime.Scriptable_Objects
     [Serializable]
     public class Quest
     {
+        [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField]
         [TextArea(3, 10)]
         public string Description { get; protected set; }
@@ -18,8 +19,9 @@ namespace Runtime.Scriptable_Objects
         public Action OnComplete;
         [HideInInspector] public TextMeshProUGUI DescriptionText;
 
-        protected Quest(string description)
+        protected Quest(string name, string description)
         {
+            Name = name;
             Description = description;
         }
 
@@ -29,7 +31,7 @@ namespace Runtime.Scriptable_Objects
             OnComplete = null;
         }
 
-        public virtual Quest Build() => new(Description);
+        public virtual Quest Build() => new(Name, Description);
     }
 
     [Serializable]
@@ -38,14 +40,14 @@ namespace Runtime.Scriptable_Objects
         protected int Count;
         [SerializeField] protected int Target;
 
-        protected Quest(string description, int target) : base(description)
+        protected Quest(string name, string description, int target) : base(name, description)
         {
             Target = target;
             Description = Regex.Replace(Description, @"/\d", $"/{target}");
         }
 
-        public virtual Quest<T> Build(int target) => new(Description, target);
-        public override Quest Build() => new Quest<int>(Description, Target);
+        public virtual Quest<T> Build(int target) => new(Name, Description, target);
+        public override Quest Build() => new Quest<int>(Name, Description, Target);
 
         protected void UpdateDescription()
         {
@@ -84,15 +86,15 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        protected SegmentQuest(string description, int target, bool countBlood, bool countSteam)
-            : base(description, target)
+        protected SegmentQuest(string name, string description, int target, bool countBlood, bool countSteam)
+            : base(name, description, target)
         {
             _countBlood = countBlood;
             _countSteam = countSteam;
         }
 
         public override Quest<SegmentData> Build(int target) =>
-            new SegmentQuest(Description, target, _countBlood, _countSteam);
+            new SegmentQuest(Name, Description, target, _countBlood, _countSteam);
 
         public override void Progress(SegmentData segments)
         {
@@ -118,11 +120,11 @@ namespace Runtime.Scriptable_Objects
     [Serializable]
     public class HybridQuest : Quest<SegmentData>
     {
-        protected HybridQuest(string description, int target) : base(description, target)
+        protected HybridQuest(string name, string description, int target) : base(name, description, target)
         {
         }
         
-        public override Quest<SegmentData> Build(int target) => new HybridQuest(Description, target);
+        public override Quest<SegmentData> Build(int target) => new HybridQuest(Name, Description, target);
         
         public override void Progress(SegmentData segments)
         {
@@ -148,9 +150,9 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countSteam;
         [SerializeField] private bool _mustBeSimultaneous;
 
-        protected ReceiverQuest(string description, int target, bool countBlood, bool countSteam,
+        protected ReceiverQuest(string name, string description, int target, bool countBlood, bool countSteam,
             bool mustBeSimultaneous)
-            : base(description, target)
+            : base(name, description, target)
         {
             _countBlood = countBlood;
             _countSteam = countSteam;
@@ -158,7 +160,7 @@ namespace Runtime.Scriptable_Objects
         }
 
         public override Quest<IEnumerable<SegmentData>> Build(int target) =>
-            new ReceiverQuest(Description, target, _countBlood, _countSteam, _mustBeSimultaneous);
+            new ReceiverQuest(Name, Description, target, _countBlood, _countSteam, _mustBeSimultaneous);
 
         public override void Progress(IEnumerable<SegmentData> segments)
         {
@@ -195,12 +197,12 @@ namespace Runtime.Scriptable_Objects
     {
         [SerializeField] private bool _needsBlood;
         [SerializeField] private bool _needsSteam;
-        protected PlaceSourceQuest(string description, bool needsBlood, bool needsSteam) : base(description, target: 1)
+        protected PlaceSourceQuest(string name, string description, bool needsBlood, bool needsSteam) : base(name, description, target: 1)
         {
             _needsBlood = needsBlood;
             _needsSteam = needsSteam;
         }
-        public override Quest<SegmentData> Build(int target) => new PlaceSourceQuest(Description, _needsBlood, _needsSteam);
+        public override Quest<SegmentData> Build(int target) => new PlaceSourceQuest(Name, Description, _needsBlood, _needsSteam);
         
         public override void Progress(SegmentData segment)
         {
@@ -221,15 +223,15 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private bool _countBlood;
         [SerializeField] private bool _countSteam;
 
-        protected ResourcesQuest(string description, int target, bool countBlood, bool countSteam)
-            : base(description, target)
+        protected ResourcesQuest(string name, string description, int target, bool countBlood, bool countSteam)
+            : base(name, description, target)
         {
             _countBlood = countBlood;
             _countSteam = countSteam;
         }
 
         public override Quest<(int, int)> Build(int target) =>
-            new ResourcesQuest(Description, target, _countBlood, _countSteam);
+            new ResourcesQuest(Name, Description, target, _countBlood, _countSteam);
 
         public override void Progress((int, int) resources)
         {
@@ -250,12 +252,12 @@ namespace Runtime.Scriptable_Objects
         protected float Count;
         [SerializeField] protected float Target;
         
-        protected MeasureQuest(string description, float target) : base(description)
+        protected MeasureQuest(string name, string description, float target) : base(name, description)
         {
             Target = target;
         }
         
-        public override Quest Build() => new MeasureQuest(Description, Target);
+        public override Quest Build() => new MeasureQuest(Name, Description, Target);
 
         public void Progress(float amount)
         {

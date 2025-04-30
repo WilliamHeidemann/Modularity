@@ -1,4 +1,5 @@
 using System;
+using Runtime.UnityCloud;
 using UnityEngine;
 
 namespace Runtime.Scriptable_Objects
@@ -9,6 +10,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private int _blood;
         [SerializeField] private int _steam;
         [SerializeField] private QuestFactory _questFactory;
+        [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
+        
         public event Action<int, int> OnCurrencyChanged;
 
         public void Add(int bloodAmount, int steamAmount)
@@ -23,6 +26,7 @@ namespace Runtime.Scriptable_Objects
             _blood -= bloodAmount;
             _steam -= steamAmount;
             OnCurrencyChanged?.Invoke(_blood, _steam);
+            _accumulatedDataPoints.ResourcesSpent += bloodAmount + steamAmount;
         }
 
         public bool HasAtLeast(int bloodAmount, int steamAmount)

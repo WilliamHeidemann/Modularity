@@ -12,20 +12,22 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private AutoSpawner _autoSpawner;
         
         [Header("Quests")]
-        [SerializeField] private SegmentQuest _placeFirstHeartSegment;
-        [SerializeField] private SegmentQuest _placeFirstSteamSegment;
-        [SerializeField] private ReceiverQuest _activateHeartReceiver;
-        [SerializeField] private Quest _connectSteamAndFlesh;
-        [SerializeField] private Quest<int> _collectX;
-        [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
         [SerializeField] private MeasureQuest _panQuest;
         [SerializeField] private MeasureQuest _rotateQuest;
         [SerializeField] private MeasureQuest _zoomQuest;
+        [SerializeField] private SegmentQuest _placeFirstHeartSegment;
         [SerializeField] private Quest<int> _rotateSegmentQuest;
-        [SerializeField] private SegmentQuest _placeManyBloodSegments;
+        [SerializeField] private ReceiverQuest _activateHeartReceiver;
+        [SerializeField] private SegmentQuest _introduceResourcesAndPlaceSegment;
         [SerializeField] private HybridQuest _hybridQuest;
-        [FormerlySerializedAs("_placeSteamReceiverQuest")] [SerializeField] private PlaceSourceQuest _placeSteamSourceQuest;
+        [SerializeField] private PlaceSourceQuest _placeSteamSourceQuest;
         [SerializeField] private ReceiverQuest _activateFurnaceReceiver;
+        [SerializeField] private Quest<int> _collectX;
+        [Header("Currently Unused Quests")]
+        [SerializeField] private SegmentQuest _placeFirstSteamSegment;
+        [SerializeField] private Quest _connectSteamAndFlesh;
+        [SerializeField] private ReceiverQuest _activateXReceiversSimultaneously;
+        [SerializeField] private SegmentQuest _placeManyBloodSegments;
         
 
         public void Clear()
@@ -52,7 +54,7 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
 
-        public ReceiverQuest ActivateHeartReceiverQuest(int x)
+        public ReceiverQuest ActivateBloodSourceQuest(int x)
         {
             var quest = _activateHeartReceiver.Build(x) as ReceiverQuest;
             OnReceiversActivated += quest!.Progress;
@@ -60,7 +62,7 @@ namespace Runtime.Scriptable_Objects
             return quest;
         }
         
-        public ReceiverQuest ActivateFurnaceReceiverQuest(int x)
+        public ReceiverQuest ActivateSteamSourceQuest(int x)
         {
             var quest = _activateFurnaceReceiver.Build(x) as ReceiverQuest;
             OnReceiversActivated += quest!.Progress;
@@ -91,8 +93,6 @@ namespace Runtime.Scriptable_Objects
             var quest = _collectX.Build(x);
             OnCollect += quest.Progress;
             quest.OnComplete += () => OnCollect -= quest.Progress;
-            quest.OnComplete += _autoSpawner.SpawnBloodSource;
-            quest.OnComplete += _autoSpawner.SpawnSteamSource;
             for (int i = 0; i < x; i++)
             {
                 _autoSpawner.SpawnCollectable();
@@ -159,6 +159,14 @@ namespace Runtime.Scriptable_Objects
         public PlaceSourceQuest PlaceSteamSourceQuest()
         {
             var quest = _placeSteamSourceQuest.Build(1) as PlaceSourceQuest;
+            OnSegmentPlaced += quest!.Progress;
+            quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
+            return quest;
+        }
+        
+        public SegmentQuest IntroduceResourcesAndPlaceSegmentQuest()
+        {
+            var quest = _introduceResourcesAndPlaceSegment.Build(1) as SegmentQuest;
             OnSegmentPlaced += quest!.Progress;
             quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;

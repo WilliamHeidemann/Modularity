@@ -3,6 +3,7 @@ using Runtime.Components;
 using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using Runtime.DataLayer;
+using Runtime.UnityCloud;
 using UnityEngine;
 using UnityUtils;
 using UtilityToolkit.Runtime;
@@ -23,6 +24,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private AutoSpawner _autoSpawner;
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private SlotVisualizer _slotVisualizer;
+        [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
+        
         public delegate void SegmentPlaced();
         public static event SegmentPlaced OnSegmentPlaced;
 
@@ -105,6 +108,7 @@ namespace Runtime.Scriptable_Objects
             _currencyPopup.SpendCurrency(position.AsVector3Int(), segmentData.StaticSegmentData);
             OnSegmentPlaced?.Invoke();
             _selection.Prefab = Option<Segment>.None;
+            _accumulatedDataPoints.SegmentsPlaced++;
         }
         
 
