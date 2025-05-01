@@ -161,6 +161,7 @@ namespace Runtime.Scriptable_Objects
             _index += 1;
             _index %= _rotations.Count;
             TweenAnimations.RotateTransform(segment.transform, _rotations[_index]);
+            SoundFXPlayer.Instance.Play(SoundFX.RotationWhoosh);
             _questFactory.RotateSegment();
         }
 

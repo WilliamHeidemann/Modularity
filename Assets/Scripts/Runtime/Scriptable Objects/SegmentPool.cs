@@ -38,7 +38,7 @@ namespace Runtime.Scriptable_Objects
             } 
             if (value <= _uncommonDropChance + _rareDropChance && _uncommonSegments.Count > 0)
             {
-                return _rareSegments.RandomElement();
+                return _uncommonSegments.RandomElement();
             }
             if (value <= _basicSourceDropChance + _uncommonDropChance + _rareDropChance && _basicSourceSegments.Count > 0)
             {
