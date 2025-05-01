@@ -10,13 +10,15 @@ namespace Runtime.Scriptable_Objects
     [CreateAssetMenu]
     public class SegmentPool : ScriptableObject
     {
-        [SerializeField] [Range(0f, 10f)] private float _ultraRareDropChance;
         [SerializeField] [Range(0f, 10f)] private float _rareDropChance;
+        [SerializeField] [Range(0f, 10f)] private float _uncommonDropChance;
         [SerializeField] [Range(0f, 10f)] private float _commonDropChance;
+        [SerializeField] [Range(0f, 10f)] private float _basicSourceDropChance;
         
-        [SerializeField] private List<Segment> _ultraRareSegments;
         [SerializeField] private List<Segment> _rareSegments;
+        [SerializeField] private List<Segment> _uncommonSegments;
         [SerializeField] private List<Segment> _commonSegments;
+        [SerializeField] private List<Segment> _basicSourceSegments;
 
         [Header("Tutorial Segment Lists")]
         [SerializeField] private List<Segment> _bloodConnectors;
@@ -27,16 +29,20 @@ namespace Runtime.Scriptable_Objects
 
         public Segment GetRandomSegment()
         {
-            var maxValue = _ultraRareDropChance + _rareDropChance + _commonDropChance;
+            var maxValue = _rareDropChance + _commonDropChance + _uncommonDropChance;
             var value = Random.Range(0f, maxValue);
             
-            if (value <= _ultraRareDropChance && _ultraRareSegments.Count > 0)
-            {
-                return _ultraRareSegments.RandomElement();
-            } 
-            if (value <= _ultraRareDropChance + _rareDropChance && _rareSegments.Count > 0)
+            if (value <= _rareDropChance && _rareSegments.Count > 0)
             {
                 return _rareSegments.RandomElement();
+            } 
+            if (value <= _uncommonDropChance + _rareDropChance && _uncommonSegments.Count > 0)
+            {
+                return _rareSegments.RandomElement();
+            }
+            if (value <= _basicSourceDropChance + _uncommonDropChance + _rareDropChance && _basicSourceSegments.Count > 0)
+            {
+                return _basicSourceSegments.RandomElement();
             }
 
             return _commonSegments.RandomElement();
