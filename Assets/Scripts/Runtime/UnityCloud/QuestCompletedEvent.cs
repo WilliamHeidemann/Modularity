@@ -1,4 +1,6 @@
-using Unity.Services.Analytics;
+using System;
+using UnityEngine;
+using Event = Unity.Services.Analytics.Event;
 
 namespace Runtime.UnityCloud
 {
@@ -6,7 +8,7 @@ namespace Runtime.UnityCloud
     {
         public QuestCompletedEvent(string questName, int resourceCount, int resourcesCollectedFromOrbs, int resourcesCollectedFromSources,
             int resourcesSpent, int segmentsActivated, int segmentsPlaced, int secondsSpentPlaying,
-            int secondsSpentToCompleteQuest) : base("questCompleted")
+            int secondsSpentToCompleteQuest, string tutorialVersion) : base("questCompleted")
         {
             QuestName = questName;
             ResourceCount = resourceCount;
@@ -17,6 +19,7 @@ namespace Runtime.UnityCloud
             SegmentsActivated = segmentsActivated;
             SecondsSpentPlaying = secondsSpentPlaying;
             SecondsSpentToCompleteQuest = secondsSpentToCompleteQuest;
+            TutorialVersion = tutorialVersion;
         }
 
         public string QuestName
@@ -62,6 +65,11 @@ namespace Runtime.UnityCloud
         public int ResourceCount
         {
             set => SetParameter("resourceCount", value);
+        }
+        
+        public string TutorialVersion
+        {
+            set => SetParameter("tutorialVersion", value);
         }
     }
 }

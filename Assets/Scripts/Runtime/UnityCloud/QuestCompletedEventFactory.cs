@@ -1,5 +1,6 @@
 using Runtime.Scriptable_Objects;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace Runtime.UnityCloud
 {
@@ -20,8 +21,16 @@ namespace Runtime.UnityCloud
                 segmentsActivated: _accumulatedDataPoints.SegmentsActivated,
                 segmentsPlaced: _accumulatedDataPoints.SegmentsPlaced,
                 secondsSpentPlaying: Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
-                secondsSpentToCompleteQuest: Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtQuestStart)
+                secondsSpentToCompleteQuest: Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtQuestStart),
+                tutorialVersion: GetTutorialVersion()
             );
+        }
+        
+        private string GetTutorialVersion()
+        {
+            const string versionA = "(A) Resources are present in the beginning";
+            const string versionB = "(B) Resources are absent in the beginning";
+            return _accumulatedDataPoints.AreResourcesPresentInTheBeginning ? versionA : versionB;
         }
     }
 }

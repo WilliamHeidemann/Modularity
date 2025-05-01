@@ -2,6 +2,7 @@ using Unity.Services.Analytics;
 using UnityEngine;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using UnityEngine.Analytics;
 
 namespace Runtime.UnityCloud
 {

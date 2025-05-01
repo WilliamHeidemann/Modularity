@@ -19,3 +19,5 @@ MonoBehaviour:
   SegmentsPlaced: 0
   TimeAtTutorialStart: 0
   TimeAtQuestStart: 0
+  AreResourcesPresentInTheBeginning: 0
+  _overrideVersionToPlay: 0
