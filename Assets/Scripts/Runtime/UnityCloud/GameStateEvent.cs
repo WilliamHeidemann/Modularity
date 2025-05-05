@@ -43,6 +43,21 @@ namespace Runtime.UnityCloud
         {
             set => SetParameter("resourceCount", value);
         }
+        
+        public int InsufficientResourcesBuildAttempts
+        {
+            set => SetParameter("insufficientResourcesBuildAttempts", value);
+        }
+        
+        public int InvalidPlacementBuildAttempts
+        {
+            set => SetParameter("invalidPlacementBuildAttempts", value);
+        }
+        
+        public string QuestName
+        {
+            set => SetParameter("questName", value);
+        }
 
         public string TutorialVersion
         {

@@ -10,11 +10,6 @@ namespace Runtime.UnityCloud
         {
         }
 
-        public string QuestName
-        {
-            set => SetParameter("questName", value);
-        }
-
         public int SecondsSpentToCompleteQuest
         {
             set => SetParameter("secondsSpentToCompleteQuest", value);

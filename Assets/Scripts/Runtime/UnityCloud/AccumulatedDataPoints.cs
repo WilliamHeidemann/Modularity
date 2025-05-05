@@ -11,6 +11,8 @@ namespace Runtime.UnityCloud
         public int ResourcesSpent;
         public int SegmentsActivated;
         public int SegmentsPlaced;
+        public int InsufficientResourcesBuildAttempts;
+        public int InvalidPlacementBuildAttempts;
         public float TimeAtTutorialStart;
         public float TimeAtQuestStart;
         public bool AreResourcesPresentInTheBeginning;
@@ -23,6 +25,8 @@ namespace Runtime.UnityCloud
             ResourcesSpent = 0;
             SegmentsActivated = 0;
             SegmentsPlaced = 0;
+            InsufficientResourcesBuildAttempts = 0;
+            InvalidPlacementBuildAttempts = 0;
             TimeAtTutorialStart = Time.time;
             TimeAtQuestStart = Time.time;
             if (!_overrideVersionToPlay)

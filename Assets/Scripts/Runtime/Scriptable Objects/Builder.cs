@@ -42,6 +42,7 @@ namespace Runtime.Scriptable_Objects
         {
             if (!_currency.HasAtLeast(_selection.PriceBlood, _selection.PriceSteam))
             {
+                _accumulatedDataPoints.InsufficientResourcesBuildAttempts++;
                 segmentData = null;
                 prefab = null;
                 return false;
@@ -62,6 +63,7 @@ namespace Runtime.Scriptable_Objects
             
             if (!_structure.IsValidPlacement(segmentData))
             {
+                _accumulatedDataPoints.InvalidPlacementBuildAttempts++;
                 return false;
             }
             

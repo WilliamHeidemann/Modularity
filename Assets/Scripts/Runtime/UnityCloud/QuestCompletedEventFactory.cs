@@ -20,6 +20,8 @@ namespace Runtime.UnityCloud
                 ResourcesSpent = _accumulatedDataPoints.ResourcesSpent,
                 SegmentsActivated = _accumulatedDataPoints.SegmentsActivated,
                 SegmentsPlaced = _accumulatedDataPoints.SegmentsPlaced,
+                InsufficientResourcesBuildAttempts = _accumulatedDataPoints.InsufficientResourcesBuildAttempts,
+                InvalidPlacementBuildAttempts = _accumulatedDataPoints.InvalidPlacementBuildAttempts,
                 SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
                 SecondsSpentToCompleteQuest = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtQuestStart),
                 TutorialVersion = GetTutorialVersion()
@@ -36,6 +38,8 @@ namespace Runtime.UnityCloud
                 ResourcesSpent = _accumulatedDataPoints.ResourcesSpent,
                 SegmentsActivated = _accumulatedDataPoints.SegmentsActivated,
                 SegmentsPlaced = _accumulatedDataPoints.SegmentsPlaced,
+                InsufficientResourcesBuildAttempts = _accumulatedDataPoints.InsufficientResourcesBuildAttempts,
+                InvalidPlacementBuildAttempts = _accumulatedDataPoints.InvalidPlacementBuildAttempts,
                 SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
                 TutorialVersion = GetTutorialVersion()
             };
