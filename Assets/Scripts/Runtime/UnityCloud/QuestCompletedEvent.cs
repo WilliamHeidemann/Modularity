@@ -6,20 +6,24 @@ namespace Runtime.UnityCloud
 {
     public class QuestCompletedEvent : Event
     {
-        public QuestCompletedEvent(string questName, int resourceCount, int resourcesCollectedFromOrbs, int resourcesCollectedFromSources,
-            int resourcesSpent, int segmentsActivated, int segmentsPlaced, int secondsSpentPlaying,
-            int secondsSpentToCompleteQuest, string tutorialVersion) : base("questCompleted")
+        // public QuestCompletedEvent(string questName, int resourceCount, int resourcesCollectedFromOrbs, int resourcesCollectedFromSources,
+        //     int resourcesSpent, int segmentsActivated, int segmentsPlaced, int secondsSpentPlaying,
+        //     int secondsSpentToCompleteQuest, string tutorialVersion) : base("questCompleted")
+        // {
+        //     QuestName = questName;
+        //     ResourceCount = resourceCount;
+        //     ResourcesCollectedFromOrbs = resourcesCollectedFromOrbs;
+        //     ResourcesCollectedFromSources = resourcesCollectedFromSources;
+        //     ResourcesSpent = resourcesSpent;
+        //     SegmentsPlaced = segmentsPlaced;
+        //     SegmentsActivated = segmentsActivated;
+        //     SecondsSpentPlaying = secondsSpentPlaying;
+        //     SecondsSpentToCompleteQuest = secondsSpentToCompleteQuest;
+        //     TutorialVersion = tutorialVersion;
+        // }
+
+        public QuestCompletedEvent() : base("questCompleted")
         {
-            QuestName = questName;
-            ResourceCount = resourceCount;
-            ResourcesCollectedFromOrbs = resourcesCollectedFromOrbs;
-            ResourcesCollectedFromSources = resourcesCollectedFromSources;
-            ResourcesSpent = resourcesSpent;
-            SegmentsPlaced = segmentsPlaced;
-            SegmentsActivated = segmentsActivated;
-            SecondsSpentPlaying = secondsSpentPlaying;
-            SecondsSpentToCompleteQuest = secondsSpentToCompleteQuest;
-            TutorialVersion = tutorialVersion;
         }
 
         public string QuestName

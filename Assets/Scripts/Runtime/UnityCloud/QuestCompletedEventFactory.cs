@@ -10,20 +10,20 @@ namespace Runtime.UnityCloud
         [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
         [SerializeField] private Currency _currency;
 
-        public QuestCompletedEvent Create(string questName)
+        public QuestCompletedEvent CreateQuestCompletedEvent(string questName)
         {
-            return new QuestCompletedEvent(
-                questName: questName,
-                resourceCount: _currency.BloodAmount + _currency.SteamAmount,
-                resourcesCollectedFromOrbs: _accumulatedDataPoints.ResourcesCollectedFromOrbs,
-                resourcesCollectedFromSources: _accumulatedDataPoints.ResourcesCollectedFromSources,
-                resourcesSpent: _accumulatedDataPoints.ResourcesSpent,
-                segmentsActivated: _accumulatedDataPoints.SegmentsActivated,
-                segmentsPlaced: _accumulatedDataPoints.SegmentsPlaced,
-                secondsSpentPlaying: Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
-                secondsSpentToCompleteQuest: Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtQuestStart),
-                tutorialVersion: GetTutorialVersion()
-            );
+            return new QuestCompletedEvent{
+                QuestName = questName,
+                ResourceCount = _currency.BloodAmount + _currency.SteamAmount,
+                ResourcesCollectedFromOrbs = _accumulatedDataPoints.ResourcesCollectedFromOrbs,
+                ResourcesCollectedFromSources = _accumulatedDataPoints.ResourcesCollectedFromSources,
+                ResourcesSpent = _accumulatedDataPoints.ResourcesSpent,
+                SegmentsActivated = _accumulatedDataPoints.SegmentsActivated,
+                SegmentsPlaced = _accumulatedDataPoints.SegmentsPlaced,
+                SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
+                SecondsSpentToCompleteQuest = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtQuestStart),
+                TutorialVersion = GetTutorialVersion()
+            };
         }
         
         private string GetTutorialVersion()
