@@ -26,6 +26,21 @@ namespace Runtime.UnityCloud
             };
         }
         
+        public GameStateEvent CreateGameStateEvent()
+        {
+            return new GameStateEvent("GameState")
+            {
+                ResourceCount = _currency.BloodAmount + _currency.SteamAmount,
+                ResourcesCollectedFromOrbs = _accumulatedDataPoints.ResourcesCollectedFromOrbs,
+                ResourcesCollectedFromSources = _accumulatedDataPoints.ResourcesCollectedFromSources,
+                ResourcesSpent = _accumulatedDataPoints.ResourcesSpent,
+                SegmentsActivated = _accumulatedDataPoints.SegmentsActivated,
+                SegmentsPlaced = _accumulatedDataPoints.SegmentsPlaced,
+                SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
+                TutorialVersion = GetTutorialVersion()
+            };
+        }
+        
         private string GetTutorialVersion()
         {
             const string versionA = "(A) Resources are present in the beginning";

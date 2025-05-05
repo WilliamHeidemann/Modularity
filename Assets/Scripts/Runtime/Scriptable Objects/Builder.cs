@@ -4,10 +4,12 @@ using Runtime.Components.Segments;
 using Runtime.Components.Utility;
 using Runtime.DataLayer;
 using Runtime.UnityCloud;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityUtils;
 using UtilityToolkit.Runtime;
 using static Runtime.Scriptable_Objects.AutoSpawner;
+using Event = Unity.Services.Analytics.Event;
 
 namespace Runtime.Scriptable_Objects
 {
@@ -25,7 +27,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private SlotVisualizer _slotVisualizer;
         [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
-        
+        [SerializeField] private QuestCompletedEventFactory _questEventFactory;
+
         public delegate void SegmentPlaced();
         public static event SegmentPlaced OnSegmentPlaced;
 
@@ -109,6 +112,7 @@ namespace Runtime.Scriptable_Objects
             OnSegmentPlaced?.Invoke();
             _selection.Prefab = Option<Segment>.None;
             _accumulatedDataPoints.SegmentsPlaced++;
+            AnalyticsService.Instance.RecordEvent(_questEventFactory.CreateGameStateEvent());
         }
         
 
