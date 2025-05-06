@@ -166,7 +166,7 @@ namespace Runtime.Scriptable_Objects
         
         public SegmentQuest IntroduceResourcesAndPlaceSegmentQuest()
         {
-            var quest = _introduceResourcesAndPlaceSegment.Build(1) as SegmentQuest;
+            var quest = _introduceResourcesAndPlaceSegment.Build(3) as SegmentQuest;
             OnSegmentPlaced += quest!.Progress;
             quest.OnComplete += () => OnSegmentPlaced -= quest.Progress;
             return quest;

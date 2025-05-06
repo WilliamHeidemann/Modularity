@@ -32,16 +32,16 @@ MonoBehaviour:
     <Name>k__BackingField: Place First Blood Segment Quest
     <Description>k__BackingField: To grow your amalgamation, click a card to pick
       it. Then move your mouse over a glowing spot to see where it fits, and click
-      to place it.
+      to place it. (0/1)
     DescriptionText: {fileID: 0}
-    Target: 0
+    Target: 1
     _countBlood: 1
     _countSteam: 0
   _rotateSegmentQuest:
     <Name>k__BackingField: Rotate Segment Quest
     <Description>k__BackingField: Pieces can also be rotated. Mouse over a valid
       position to preview the piece, and use R to rotate it. Once it's positioned
-      how you'd like, click to place it.
+      how you'd like, click to place it. (0/1)
     DescriptionText: {fileID: 0}
     Target: 1
   _activateHeartReceiver:
@@ -57,9 +57,9 @@ MonoBehaviour:
     <Name>k__BackingField: Introduce Resources And Place Segment Quest
     <Description>k__BackingField: Every piece you place costs resources. Flesh pieces
       cost blood, shown in the upper right of their card. Manage your resources carefully.
-      If you run out, it's game over! Place another piece.
+      If you run out, it's game over! Place more pieces. (0/3)
     DescriptionText: {fileID: 0}
-    Target: 0
+    Target: 3
     _countBlood: 1
     _countSteam: 0
   _hybridQuest:
