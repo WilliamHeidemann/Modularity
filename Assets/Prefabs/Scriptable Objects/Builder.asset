@@ -23,3 +23,4 @@ MonoBehaviour:
   _questFactory: {fileID: 11400000, guid: 3a46ad379877c3440b084c8cfa1d9829, type: 2}
   _slotVisualizer: {fileID: 11400000, guid: e6191ce66779dd14abea5816d7d7bd91, type: 2}
   _accumulatedDataPoints: {fileID: 11400000, guid: 99b82ee2a8421c84cb42feba32de3c46, type: 2}
+  _questEventFactory: {fileID: 11400000, guid: 60e535b156193ca4cb50e371b336d999, type: 2}

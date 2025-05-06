@@ -11,11 +11,13 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private int _steam;
         [SerializeField] private QuestFactory _questFactory;
         [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
+        public bool HasInfiniteResources { get; set; }
         
         public event Action<int, int> OnCurrencyChanged;
 
         public void Add(int bloodAmount, int steamAmount)
         {
+            if (HasInfiniteResources) return;
             _blood += bloodAmount;
             _steam += steamAmount;
             OnCurrencyChanged?.Invoke(_blood, _steam);
@@ -23,6 +25,7 @@ namespace Runtime.Scriptable_Objects
 
         public void Pay(int bloodAmount, int steamAmount)
         {
+            if (HasInfiniteResources) return;
             _blood -= bloodAmount;
             _steam -= steamAmount;
             OnCurrencyChanged?.Invoke(_blood, _steam);

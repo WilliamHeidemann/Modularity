@@ -34,6 +34,7 @@ namespace Runtime.Components.Systems
         private void Initialize()
         {
             _accumulatedDataPoints.Clear();
+            _currency.HasInfiniteResources = !_accumulatedDataPoints.AreResourcesPresentInTheBeginning;
             _questFactory.Clear();
             _hand.Clear();
             _structure.Clear();

@@ -36,10 +36,10 @@ namespace Runtime.Components
         {
             if (!_mousePressed || EventSystem.current.IsPointerOverGameObject()) return;
             if (!_selection.Prefab.IsSome(out _)) return;
-            _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
             CameraControls.Instance.StartCameraShake();
             if (_builder.IsValidBuildAttempt(Position, _placeHolderBuilder.PlaceholderRotation(), out var _, out var _))
             {
+                _builder.Build(Position, _placeHolderBuilder.PlaceholderRotation());
                 _placeHolderBuilder.TearDown();
             }
             else

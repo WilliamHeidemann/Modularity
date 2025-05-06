@@ -62,3 +62,4 @@ MonoBehaviour:
   _resourceUI: {fileID: 0}
   _currencyPopup: {fileID: 11400000, guid: 9de5cad9a2adca742a6ec37faf0ee125, type: 2}
   _scoreTracker: {fileID: 0}
+  _currency: {fileID: 11400000, guid: 84f120cdb12c2d34dbea90c1dbb595dd, type: 2}

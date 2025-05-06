@@ -20,8 +20,27 @@ namespace Runtime.UnityCloud
                 ResourcesSpent = _accumulatedDataPoints.ResourcesSpent,
                 SegmentsActivated = _accumulatedDataPoints.SegmentsActivated,
                 SegmentsPlaced = _accumulatedDataPoints.SegmentsPlaced,
+                InsufficientResourcesBuildAttempts = _accumulatedDataPoints.InsufficientResourcesBuildAttempts,
+                InvalidPlacementBuildAttempts = _accumulatedDataPoints.InvalidPlacementBuildAttempts,
                 SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
                 SecondsSpentToCompleteQuest = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtQuestStart),
+                TutorialVersion = GetTutorialVersion()
+            };
+        }
+        
+        public GameStateEvent CreateGameStateEvent()
+        {
+            return new GameStateEvent("GameState")
+            {
+                ResourceCount = _currency.BloodAmount + _currency.SteamAmount,
+                ResourcesCollectedFromOrbs = _accumulatedDataPoints.ResourcesCollectedFromOrbs,
+                ResourcesCollectedFromSources = _accumulatedDataPoints.ResourcesCollectedFromSources,
+                ResourcesSpent = _accumulatedDataPoints.ResourcesSpent,
+                SegmentsActivated = _accumulatedDataPoints.SegmentsActivated,
+                SegmentsPlaced = _accumulatedDataPoints.SegmentsPlaced,
+                InsufficientResourcesBuildAttempts = _accumulatedDataPoints.InsufficientResourcesBuildAttempts,
+                InvalidPlacementBuildAttempts = _accumulatedDataPoints.InvalidPlacementBuildAttempts,
+                SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
                 TutorialVersion = GetTutorialVersion()
             };
         }

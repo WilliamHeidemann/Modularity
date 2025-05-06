@@ -28,6 +28,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private GameObject _resourceUI;
         [SerializeField] private CurrencyPopup _currencyPopup;
         [SerializeField] private GameObject _scoreTracker;
+        [SerializeField] private Currency _currency;
 
         public class TutorialStep
         {
@@ -83,6 +84,7 @@ namespace Runtime.Components.Systems
                 {
                     _hand.DrawQueuedHand(_predefinedHands.BloodHand1);
                     ToggleResourceUI(isVisible: true);
+                    _currency.HasInfiniteResources = false;
                 }
             };
             var activateBloodSourceQuest = new TutorialStep
