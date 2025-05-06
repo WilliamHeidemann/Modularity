@@ -28,6 +28,7 @@ namespace Runtime.Components.Utility
         [SerializeField] private AudioClip _orbSpawn;
         [SerializeField] private AudioClip _orbCollected;
         [SerializeField] private AudioClip _invalidPlacement;
+        [SerializeField] private AudioClip _roationWhoosh;
 
         private float _volumeModifier = 0.5f;
 
@@ -75,6 +76,7 @@ namespace Runtime.Components.Utility
                 SoundFX.OrbSpawn => _orbSpawn,
                 SoundFX.OrbCollected => _orbCollected,
                 SoundFX.InvalidPlacement => _invalidPlacement,
+                SoundFX.RotationWhoosh => _roationWhoosh,
                 _ => throw new ArgumentOutOfRangeException(nameof(soundFX), soundFX, null)
             };
 
@@ -117,6 +119,7 @@ namespace Runtime.Components.Utility
         CardMouseOver,
         OrbSpawn,
         OrbCollected,
-        InvalidPlacement
+        InvalidPlacement,
+        RotationWhoosh
     }
 }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResourcesCollectedFromOrbs: 0
   ResourcesCollectedFromSources: 0
-  ResourcesSpent: 0
+  ResourcesSpent: 100
   SegmentsActivated: 0
-  SegmentsPlaced: 0
-  TimeAtTutorialStart: 0
-  TimeAtQuestStart: 0
+  SegmentsPlaced: 25
+  TimeAtTutorialStart: 0.6978576
+  TimeAtQuestStart: 70.47982
   AreResourcesPresentInTheBeginning: 0
-  _overrideVersionToPlay: 0
+  _overrideVersionToPlay: 1
