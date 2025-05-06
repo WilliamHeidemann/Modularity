@@ -26,6 +26,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private List<Segment> _steamConnectors;
         [SerializeField] private List<Segment> _steamReceivers;
         [SerializeField] private List<Segment> _hybridSegments;
+        [SerializeField] private List<Segment> _rotatableFleshSegments;
+        
 
         public Segment GetRandomSegment()
         {
@@ -47,5 +49,7 @@ namespace Runtime.Scriptable_Objects
 
             return _commonSegments.RandomElement();
         }
+
+        public Segment GetRotatableFleshSegment() => _rotatableFleshSegments.RandomElement();
     }
 }

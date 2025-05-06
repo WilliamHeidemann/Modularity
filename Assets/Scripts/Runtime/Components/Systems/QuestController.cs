@@ -47,6 +47,7 @@ namespace Runtime.Components.Systems
             _hand.IncludeBlood();
             _hand.ExcludeSteam();
             _hand.ExcludeSources();
+            _hand.RemoveRestrictionToRotatableFlesh();
             ToggleResourceUI(isVisible: _accumulatedDataPoints.AreResourcesPresentInTheBeginning);
             ToggleScoreUI(isVisible: false);
             SetUpTutorialSteps();
@@ -74,8 +75,10 @@ namespace Runtime.Components.Systems
                 OnStart = () =>
                 {
                     _hand.DrawQueuedHand(_predefinedHands.BloodHand2);
+                    _hand.RestrictToRotatableFlesh();
                     _handUI.SetCardsVisible(3);
-                }
+                },
+                OnComplete = _hand.RemoveRestrictionToRotatableFlesh
             };
             var introduceResourcesQuest = new TutorialStep
             {

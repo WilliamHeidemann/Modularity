@@ -24,6 +24,7 @@ namespace Runtime.Scriptable_Objects
         private bool _excludeBlood;
         private bool _excludeSteam;
         private bool _excludeSources;
+        private bool _mustBeRotatableFlesh;
 
         //the segments that the player can choose from
         public List<Segment> SegmentsOptions;
@@ -41,6 +42,8 @@ namespace Runtime.Scriptable_Objects
         public void IncludeSteam() => _excludeSteam = false;
         public void ExcludeSources() => _excludeSources = true;
         public void IncludeSources() => _excludeSources = false;
+        public void RestrictToRotatableFlesh() => _mustBeRotatableFlesh = true;
+        public void RemoveRestrictionToRotatableFlesh() => _mustBeRotatableFlesh = false;
 
         public void SelectBlueprint(int chosenSegment)
         {
@@ -74,9 +77,10 @@ namespace Runtime.Scriptable_Objects
         private void GenerateHand()
         {
             SegmentsOptions = new List<Segment>();
+            Func<Segment> generatorFunction = _mustBeRotatableFlesh ? _pool.GetRotatableFleshSegment : _pool.GetRandomSegment;
             for (int i = 0; i < OptionsCount; i++)
             {
-                var segment = SpawnUtility.Get(_pool.GetRandomSegment, IsValid);
+                var segment = SpawnUtility.Get(generatorFunction, IsValid);
                 SegmentsOptions.Add(segment);
             }
 
