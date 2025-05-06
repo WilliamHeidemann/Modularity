@@ -30,9 +30,9 @@ MonoBehaviour:
     Target: 10
   _placeFirstHeartSegment:
     <Name>k__BackingField: Place First Blood Segment Quest
-    <Description>k__BackingField: To expand your amalgamation, click on a card to
-      select it. Mouse over a highlighted position to preview the piece, and then
-      click to place it.
+    <Description>k__BackingField: To grow your amalgamation, click a card to pick
+      it. Then move your mouse over a glowing spot to see where it fits, and click
+      to place it.
     DescriptionText: {fileID: 0}
     Target: 0
     _countBlood: 1
@@ -46,8 +46,8 @@ MonoBehaviour:
     Target: 1
   _activateHeartReceiver:
     <Name>k__BackingField: Activate Blood Source Quest
-    <Description>k__BackingField: Create a cicuit around the Heart so Blood can circulate
-      through it. This will reward you with more Blood to continue building!
+    <Description>k__BackingField: Create a circuit around the Heart so Blood can
+      circulate through it. This will reward you with more Blood to continue building!
     DescriptionText: {fileID: 0}
     Target: 1
     _countBlood: 1
