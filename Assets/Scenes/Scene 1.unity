@@ -1686,6 +1686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a8d47e5295598e4ebcabf9e47948cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _accumulatedDataPoints: {fileID: 11400000, guid: 99b82ee2a8421c84cb42feba32de3c46, type: 2}
 --- !u!108 &410087040 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 3446955923985675048, guid: affe5a7d32f6f0749b1c74b626951563, type: 3}

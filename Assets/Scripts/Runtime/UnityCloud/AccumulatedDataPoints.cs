@@ -40,5 +40,12 @@ namespace Runtime.UnityCloud
             int hash = Mathf.Abs(AnalyticsSessionInfo.userId.GetHashCode());
             return hash % 2 == 0;
         }
+        
+        public string GetTutorialVersion()
+        {
+            const string versionA = "(A) Resources are present in the beginning";
+            const string versionB = "(B) Resources are absent in the beginning";
+            return AreResourcesPresentInTheBeginning ? versionA : versionB;
+        }
     }
 }
