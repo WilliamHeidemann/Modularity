@@ -15,14 +15,12 @@ MonoBehaviour:
   _rareDropChance: 1
   _uncommonDropChance: 3
   _commonDropChance: 8
-  _basicSourceDropChance: 1.75
+  _basicSourceDropChance: 4
   _rareSegments:
   - {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
   - {fileID: 4404823909993285501, guid: 0123d1ea0f5b96c4e8fd789c103b5fc1, type: 3}
   - {fileID: 4404823909993285501, guid: 607b62cc5ae370c4e9ef60c3bc6e456c, type: 3}
   - {fileID: 4404823909993285501, guid: e76c91d0e1d2aed4ca50e40bc476d48a, type: 3}
-  - {fileID: 4404823909993285501, guid: 4405254c14750b94e9af651e0fa14ea9, type: 3}
-  - {fileID: 4404823909993285501, guid: 2f15fb252de55424fb482f29614a9506, type: 3}
   _uncommonSegments:
   - {fileID: 4404823909993285501, guid: 9b0b025830b94184d9dc8d1744b0b9d9, type: 3}
   - {fileID: 4404823909993285501, guid: e09ccdf2d381425448e6d4c45d1754d0, type: 3}
