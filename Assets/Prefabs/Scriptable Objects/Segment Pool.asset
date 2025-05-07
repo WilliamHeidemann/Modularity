@@ -15,7 +15,7 @@ MonoBehaviour:
   _rareDropChance: 1
   _uncommonDropChance: 3
   _commonDropChance: 8
-  _basicSourceDropChance: 4
+  _basicSourceDropChance: 2.25
   _rareSegments:
   - {fileID: 4404823909993285501, guid: e6ecd55094a15ea43ac2c35411fec008, type: 3}
   - {fileID: 4404823909993285501, guid: 0123d1ea0f5b96c4e8fd789c103b5fc1, type: 3}
