@@ -24,7 +24,7 @@ namespace Runtime.UnityCloud
                 InvalidPlacementBuildAttempts = _accumulatedDataPoints.InvalidPlacementBuildAttempts,
                 SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
                 SecondsSpentToCompleteQuest = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtQuestStart),
-                TutorialVersion = GetTutorialVersion()
+                TutorialVersion = _accumulatedDataPoints.GetTutorialVersion()
             };
         }
         
@@ -41,15 +41,8 @@ namespace Runtime.UnityCloud
                 InsufficientResourcesBuildAttempts = _accumulatedDataPoints.InsufficientResourcesBuildAttempts,
                 InvalidPlacementBuildAttempts = _accumulatedDataPoints.InvalidPlacementBuildAttempts,
                 SecondsSpentPlaying = Mathf.FloorToInt(Time.time - _accumulatedDataPoints.TimeAtTutorialStart),
-                TutorialVersion = GetTutorialVersion()
+                TutorialVersion = _accumulatedDataPoints.GetTutorialVersion()
             };
-        }
-        
-        private string GetTutorialVersion()
-        {
-            const string versionA = "(A) Resources are present in the beginning";
-            const string versionB = "(B) Resources are absent in the beginning";
-            return _accumulatedDataPoints.AreResourcesPresentInTheBeginning ? versionA : versionB;
         }
     }
 }
