@@ -958,10 +958,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 597f9601-3d07-4ed9-8262-8a32a2426a67
+  cloudProjectId: c4923b13-4bfb-4253-816e-9aa316bb74b5
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Modularity
+  projectName: Modularity Prototype
   organizationId: william_heidemann
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
