@@ -20,6 +20,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
         [SerializeField] private SlotVisualizer _slotVisualizer;
         [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
+        [SerializeField] private GameObject segmentBackdrop;
 
         private void OnEnable()
         {
@@ -45,6 +46,7 @@ namespace Runtime.Components.Systems
             _questController.Initialize();
             _slotVisualizer.Initialize();
             _endGame.SetGameOverMenu(_gameOverMenuController);
+            segmentBackdrop.SetActive(false);
         }
     }
 }
