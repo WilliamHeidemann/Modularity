@@ -48,33 +48,31 @@ namespace Runtime.Scriptable_Objects
             }
         }
 
-        private bool HasPathToSelf(SegmentData self)
+        private bool HasPathToSelf(SegmentData target)
         {
-            Queue<(SegmentData current, HashSet<SegmentData> path)> queue = new();
-            queue.Enqueue((self, new HashSet<SegmentData> { self }));
+            return HasPathToSelfAux(target, null, new HashSet<SegmentData>(), 0);
 
-            while (queue.Any())
+            bool HasPathToSelfAux(SegmentData current, SegmentData parent, HashSet<SegmentData> visited, int depth)
             {
-                var (current, path) = queue.Dequeue();
                 foreach (var link in _structure.GetValidConnections(current))
                 {
-                    if (link == self && path.Count > 2)
+                    if (link == parent) continue;
+                    
+                    if (link == target && depth > 2)
                     {
                         return true;
                     }
 
-                    if (!path.Contains(link))
+                    if (!visited.Add(link)) continue;
+
+                    if (HasPathToSelfAux(link, current, visited, ++depth))
                     {
-                        var path2 = new HashSet<SegmentData>(path)
-                        {
-                            link
-                        };
-                        queue.Enqueue((link, path2));
+                        return true;
                     }
                 }
-            }
 
-            return false;
+                return false;
+            }
         }
 
         private bool ShouldActivateReceiver(SegmentData receiver)
@@ -95,7 +93,7 @@ namespace Runtime.Scriptable_Objects
             while (queue.Any())
             {
                 var current = queue.Dequeue();
-                
+
                 if (current.StaticSegmentData.IsSource && current.IsActivated)
                 {
                     if (current.StaticSegmentData.IsBlood && connectionType == ConnectionType.Blood)
@@ -132,7 +130,7 @@ namespace Runtime.Scriptable_Objects
             segmentToActivate.IsActivated = true;
             _currencyPopup.GainCurrency(segmentToActivate.Position, segmentToActivate.StaticSegmentData);
             _accumulatedDataPoints.ResourcesCollectedFromSources += segmentToActivate.StaticSegmentData.BloodReward +
-                segmentToActivate.StaticSegmentData.SteamReward;
+                                                                    segmentToActivate.StaticSegmentData.SteamReward;
             _accumulatedDataPoints.SegmentsActivated++;
 
             ParticleType particleType = segmentToActivate.StaticSegmentData switch
