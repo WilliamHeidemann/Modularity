@@ -13,6 +13,7 @@ namespace Runtime.Components
 
         public void StartGame()
         {
+            _optionsPanel.GetComponent<OptionMenuController>().GameStartupSettings();
             _gameUI.SetActive(true);
             OnGameStart?.Invoke();
             this.gameObject.SetActive(false);

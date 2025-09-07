@@ -10,24 +10,15 @@ namespace Runtime.Components
         [SerializeField] private GameObject _creditsOverlay;
         [SerializeField] private Slider _musicSlider;
         [SerializeField] private Slider _SFXSlider;
+        [SerializeField] private Slider _dragSlider;
+        [SerializeField] private Slider _lookSlider;
+        [SerializeField] private Slider _zoomSlider;
         [SerializeField] private Image _musicCrossout;
         [SerializeField] private Image _SFXCrossout;
         [SerializeField] AudioSource _testingSFXAudioSource;
         
         public delegate void SoundChange(float musicVolume, float SFXVolume);
         public static event SoundChange OnSoundChange;
-
-        private void OnEnable()
-        {
-            if (PlayerPrefs.HasKey("MusicVolume"))
-            {
-                _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
-            }
-            if (PlayerPrefs.HasKey("SFXVolume"))
-            {
-                _SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
-            }
-        }
 
         private void Start()
         {
@@ -41,9 +32,20 @@ namespace Runtime.Components
             {
                 PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
                 PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
+                PlayerPrefs.SetFloat("DragIntensity", _dragSlider.value);
+                PlayerPrefs.SetFloat("LookIntensity", _lookSlider.value);
+                PlayerPrefs.SetFloat("ZoomIntensity", _zoomSlider.value);
+            }
+            else
+            {
+                _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+                _SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+                _dragSlider.value = PlayerPrefs.GetFloat("DragIntensity");
+                _lookSlider.value = PlayerPrefs.GetFloat("LookIntensity");
+                _zoomSlider.value = PlayerPrefs.GetFloat("ZoomIntensity");
             }
 
-            OnSoundChange?.Invoke(PlayerPrefs.GetFloat("MusicVolume"), PlayerPrefs.GetFloat("SFXVolume"));
+                OnSoundChange?.Invoke(PlayerPrefs.GetFloat("MusicVolume"), PlayerPrefs.GetFloat("SFXVolume"));
             _testingSFXAudioSource.volume = PlayerPrefs.GetFloat("SFXVolume");
         }
 
@@ -75,7 +77,11 @@ namespace Runtime.Components
 
         public void OnSFXVolumeChanged()
         {
-            StopAllCoroutines();
+            if (this.gameObject.activeInHierarchy)
+            {
+                StopAllCoroutines();
+            }
+
             OnSoundChange?.Invoke(_musicSlider.value, _SFXSlider.value);
             PlayerPrefs.SetFloat("SFXVolume", _SFXSlider.value);
             _testingSFXAudioSource.volume = _SFXSlider.value;
@@ -86,8 +92,44 @@ namespace Runtime.Components
             }
             else
             {
-                StartCoroutine(PlaySound());
+                if (this.gameObject.activeInHierarchy)
+                {
+                    StartCoroutine(PlaySound());
+                }
                 _SFXCrossout.gameObject.SetActive(false);
+            }
+        }
+
+        public void OnDragIntensityChaged()
+        {
+            PlayerPrefs.SetFloat("DragIntensity", _dragSlider.value);
+
+            if (this.gameObject.activeInHierarchy)
+            {
+                StopAllCoroutines();
+                StartCoroutine(PlaySound());
+            }
+        }
+
+        public void OnLookIntensityChanged()
+        {
+            PlayerPrefs.SetFloat("LookIntensity", _lookSlider.value);
+
+            if (this.gameObject.activeInHierarchy)
+            {
+                StopAllCoroutines();
+                StartCoroutine(PlaySound());
+            }
+        }
+
+        public void OnZoomIntensityChanged()
+        {
+            PlayerPrefs.SetFloat("ZoomIntensity", _zoomSlider.value);
+
+            if(this.gameObject.activeInHierarchy)
+            {
+                StopAllCoroutines();
+                StartCoroutine(PlaySound());
             }
         }
 

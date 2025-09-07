@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 1
+  addDelay: 0
 --- !u!95 &7733899906044382191
 Animator:
   serializedVersion: 7
