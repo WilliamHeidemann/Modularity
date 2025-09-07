@@ -23,6 +23,8 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private GameObject _gearBurstFX;
         [SerializeField] private GameObject _hybridBurstFX;
 
+        private bool disableVFXs = false;
+
         private List<GameObject> activeBloodFlowFX = new List<GameObject>();
         private List<GameObject> activeSteamFlowFX = new List<GameObject>();
 
@@ -56,25 +58,24 @@ namespace Runtime.Scriptable_Objects
             CheckForParticleSlotClosed();
             UpdateParticleAmount();
         }
-
-        private void DestroyAllPermenantParticles()
+        public void ToggleParticleEffects()
         {
-            foreach (var bloodFX in activeBloodFlowFX)
+            disableVFXs = !disableVFXs;
+
+            foreach (GameObject VFX in activeBloodFlowFX)
             {
-                if (bloodFX != null)
+                if (VFX != null)
                 {
-                    Destroy(bloodFX);
+                    VFX.SetActive(disableVFXs);
                 }
             }
-            foreach (var steamFX in activeSteamFlowFX)
+            foreach (GameObject VFX in activeSteamFlowFX)
             {
-                if (steamFX != null)
+                if (VFX != null)
                 {
-                    Destroy(steamFX);
+                    VFX.SetActive(disableVFXs);
                 }
             }
-            activeBloodFlowFX.Clear();
-            activeSteamFlowFX.Clear();
         }
 
         private void UpdateParticleAmount()
@@ -100,6 +101,11 @@ namespace Runtime.Scriptable_Objects
         public void SpawnParticleFX(ParticleType particleType, Vector3 spawnPosition, Quaternion spawnRotation,
             bool isPermanent)
         {
+            if(disableVFXs)
+            {
+                return;
+            }
+
             GameObject prefab = particleType switch
             {
                 ParticleType.BloodFlow => _bloodFlowFX,
