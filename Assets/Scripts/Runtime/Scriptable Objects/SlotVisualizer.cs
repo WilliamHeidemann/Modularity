@@ -51,7 +51,7 @@ namespace Runtime.Scriptable_Objects
                 
                 slot.transform.position = position;
                 slot.transform.rotation = rotation;
-                
+
                 var slots = connectionType switch
                 {
                     ConnectionType.None => throw new ArgumentOutOfRangeException(nameof(connectionType), connectionType, null),

@@ -19,6 +19,7 @@ namespace Runtime.Components.Systems
         [SerializeField] private EndGame _endGame;
         [SerializeField] private PlaceHolderBuilder _placeHolderBuilder;
         [SerializeField] private SlotVisualizer _slotVisualizer;
+        [SerializeField] private ParticleManager _particleManager;
         [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
         [SerializeField] private GameObject segmentBackdrop;
 
@@ -45,6 +46,7 @@ namespace Runtime.Components.Systems
             _currency.Initialize(_startingCurrency);
             _questController.Initialize();
             _slotVisualizer.Initialize();
+            _particleManager.Initialize();
             _endGame.SetGameOverMenu(_gameOverMenuController);
             segmentBackdrop.SetActive(false);
         }
