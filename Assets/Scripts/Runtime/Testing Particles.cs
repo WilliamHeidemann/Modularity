@@ -27,7 +27,7 @@ public class TestingParticles : MonoBehaviour
         else
         {
             _flowTimer = 1.5f;
-            particleManager.MoveRandomParticleFX();
+            //particleManager.MoveRandomParticleFX();
 
             if (_burstTimer > 0)
             {

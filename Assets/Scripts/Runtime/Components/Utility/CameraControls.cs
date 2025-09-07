@@ -101,7 +101,7 @@ namespace Runtime.Components.Utility
                 return;
             }
 
-            var translation = new Vector3(_mouseDelta.x * _dragSpeed, _mouseDelta.y * _dragSpeed, 0);
+            var translation = new Vector3(_mouseDelta.x * _dragSpeed * PlayerPrefs.GetFloat("DragIntensity"), _mouseDelta.y * _dragSpeed * PlayerPrefs.GetFloat("DragIntensity"), 0);
             _questFactory.Pan(translation.sqrMagnitude);
             transform.parent.Translate(translation, Space.Self);
             PreventGoingThroughFloor();
@@ -162,8 +162,8 @@ namespace Runtime.Components.Utility
                 yAxis = 0;
             }
 
-            var xRotation = -xAxis * _rotationSpeed * Time.deltaTime;
-            var yRotation = yAxis * _rotationSpeed * Time.deltaTime;
+            var xRotation = -xAxis * _rotationSpeed * PlayerPrefs.GetFloat("LookIntensity") * Time.deltaTime;
+            var yRotation = yAxis * _rotationSpeed * PlayerPrefs.GetFloat("LookIntensity") * Time.deltaTime;
             var rotationPoint = transform.parent.position + transform.parent.forward * _rotationPointOffset;
 
             _questFactory.Rotate(Mathf.Abs(xRotation) + Mathf.Abs(yRotation));
@@ -175,7 +175,7 @@ namespace Runtime.Components.Utility
 
         private void HandleZoom()
         {
-            var zoom = Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * Time.deltaTime;
+            var zoom = Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * PlayerPrefs.GetFloat("ZoomIntensity") * Time.deltaTime;
             if (zoom == 0f)
             {
                 return;
