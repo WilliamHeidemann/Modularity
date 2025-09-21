@@ -28,6 +28,7 @@ namespace Runtime.Scriptable_Objects
         [SerializeField] private SlotVisualizer _slotVisualizer;
         [SerializeField] private AccumulatedDataPoints _accumulatedDataPoints;
         [SerializeField] private QuestCompletedEventFactory _questEventFactory;
+        [SerializeField] private ParticleManager particleManager;
 
         public delegate void SegmentPlaced();
         public static event SegmentPlaced OnSegmentPlaced;
@@ -36,6 +37,7 @@ namespace Runtime.Scriptable_Objects
         public void Build(Vector3Int position, Quaternion placeholderRotation, bool isInitial = false)
         {
             SpawnSelection(position, placeholderRotation, isInitial);
+            particleManager.UpdateParticleSlots();
         }
         
         public bool IsValidBuildAttempt(Vector3Int position, Quaternion rotation, out SegmentData segmentData, out Segment prefab) 

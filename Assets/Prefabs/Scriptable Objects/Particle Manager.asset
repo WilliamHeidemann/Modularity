@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6a6c4cd81f5b1438012f9e788bc24e, type: 3}
   m_Name: Particle Manager
   m_EditorClassIdentifier: 
+  permanentParticles: 1
+  _particleGrowthRate: 6
+  _particleLimit: 20
+  _structure: {fileID: 11400000, guid: 7e27be69212a1fd4cb9927aa52de5ef1, type: 2}
   _bloodFlowFX: {fileID: 8929955311005976869, guid: a350a2e87db610c409603c3d8a71c3d2, type: 3}
   _steamFlowFX: {fileID: 9143559839067117144, guid: 4b6cfa76fbb905647bed2204f0aa8978, type: 3}
   _fleshBurstFX: {fileID: 8160081262166030885, guid: 133e2de3745682e47ae5de40b7825adf, type: 3}
