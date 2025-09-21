@@ -1,4 +1,6 @@
+using Runtime.Scriptable_Objects;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +8,7 @@ namespace Runtime.Components
 {
     public class OptionMenuController : MonoBehaviour
     {
+        [SerializeField] private ParticleManager _particleManager;
         [HideInInspector] public GameObject _menuToReturnTo;
         [SerializeField] private GameObject _creditsOverlay;
         [SerializeField] private Slider _musicSlider;
@@ -15,6 +18,7 @@ namespace Runtime.Components
         [SerializeField] private Slider _zoomSlider;
         [SerializeField] private Image _musicCrossout;
         [SerializeField] private Image _SFXCrossout;
+        [SerializeField] private TMP_Text _particleEnabledText;
         [SerializeField] AudioSource _testingSFXAudioSource;
         
         public delegate void SoundChange(float musicVolume, float SFXVolume);
@@ -130,6 +134,22 @@ namespace Runtime.Components
             {
                 StopAllCoroutines();
                 StartCoroutine(PlaySound());
+            }
+        }
+
+        public void OnParticleEffectsToggled()
+        {
+            if (_particleManager.ToggleParticleEffects())
+            {
+                _particleEnabledText.text = "VFX: On";
+            }
+            else
+            {
+                _particleEnabledText.text = "VFX: Off";
+            }
+            if (this.gameObject.activeInHierarchy)
+            {
+                _testingSFXAudioSource.Play();
             }
         }
 

@@ -58,10 +58,8 @@ namespace Runtime.Scriptable_Objects
             CheckForParticleSlotClosed();
             UpdateParticleAmount();
         }
-        public void ToggleParticleEffects()
+        public bool ToggleParticleEffects()
         {
-            disableVFXs = !disableVFXs;
-
             foreach (GameObject VFX in activeBloodFlowFX)
             {
                 if (VFX != null)
@@ -76,6 +74,9 @@ namespace Runtime.Scriptable_Objects
                     VFX.SetActive(disableVFXs);
                 }
             }
+            disableVFXs = !disableVFXs;
+
+            return disableVFXs;
         }
 
         private void UpdateParticleAmount()
