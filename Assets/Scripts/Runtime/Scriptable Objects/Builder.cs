@@ -38,6 +38,7 @@ namespace Runtime.Scriptable_Objects
         {
             SpawnSelection(position, placeholderRotation, isInitial);
             particleManager.UpdateParticleSlots();
+            _hand.DiscardHand();
         }
         
         public bool IsValidBuildAttempt(Vector3Int position, Quaternion rotation, out SegmentData segmentData, out Segment prefab) 

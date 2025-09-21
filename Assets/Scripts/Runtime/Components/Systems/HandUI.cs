@@ -1,4 +1,5 @@
 using Runtime.Scriptable_Objects;
+using System.Collections;
 using UnityEngine;
 using UnityUtils;
 using Selection = Runtime.Scriptable_Objects.Selection;
@@ -18,11 +19,13 @@ namespace Runtime.Components.Systems
         private void Awake()
         {
             _hand.OnDrawHand += DisplayHand;
+            _hand.OnDiscardHand += DiscardHand;
         }
 
         private void OnDestroy()
         {
             _hand.OnDrawHand -= DisplayHand;
+            _hand.OnDiscardHand -= DiscardHand;
         }
 
         private void Update()
@@ -56,6 +59,12 @@ namespace Runtime.Components.Systems
 
         private void DisplayHand()
         {
+            StartCoroutine(DisplayHandCycle());
+        }
+
+        private IEnumerator DisplayHandCycle()
+        {
+            yield return new WaitForSeconds(0.6f);
             var segments = _hand.SegmentsOptions;
 
             for (int i = 0; i < _blueprintOptions.Length; i++)
@@ -64,10 +73,28 @@ namespace Runtime.Components.Systems
                     segments[i].StaticSegmentData.BloodReward, segments[i].StaticSegmentData.SteamReward);
                 _blueprintOptions[i].SetPreview(segments[i].Preview);
                 _blueprintOptions[i].GlowState(false);
+                _blueprintOptions[i].PlayCardIntroAnimation();
+
+                yield return new WaitForSeconds(0.2f);
             }
             // _hand.SelectBlueprint(1);
             // ChangeGlow(1);
             _endGame.CheckHand(segments, _rerollCostBlood, _rerollCostSteam);
+        }
+
+        private void DiscardHand(int selectedIndex)
+        {
+            for (int i = 0; i < _blueprintOptions.Length; i++)
+            {
+                if( i == selectedIndex)
+                {
+                    _blueprintOptions[i].PlayPickCardAnimation();
+                }
+                else
+                {
+                    _blueprintOptions[i].PlayCardOutroAnimation();
+                }
+            }
         }
 
         public void ChangeGlow(int chosenBlueprint)

@@ -16,6 +16,7 @@ namespace Runtime.Scriptable_Objects
     public class Hand : ScriptableObject
     {
         public event Action OnDrawHand;
+        public event Action<int> OnDiscardHand;
 
         [SerializeField] private Selection _selection;
         [SerializeField] private SegmentPool _pool;
@@ -29,6 +30,7 @@ namespace Runtime.Scriptable_Objects
         //the segments that the player can choose from
         public List<Segment> SegmentsOptions;
 
+        public int blueprintSelectedIndex = 0;
         private const int OptionsCount = 3;
 
         public void Clear()
@@ -47,6 +49,7 @@ namespace Runtime.Scriptable_Objects
 
         public void SelectBlueprint(int chosenSegment)
         {
+            blueprintSelectedIndex = chosenSegment;
             _selection.Prefab = Option<Segment>.Some(SegmentsOptions[chosenSegment]);
             _selection.PriceBlood = SegmentsOptions[chosenSegment].StaticSegmentData.BloodCost;
             _selection.PriceSteam = SegmentsOptions[chosenSegment].StaticSegmentData.SteamCost;
@@ -72,6 +75,11 @@ namespace Runtime.Scriptable_Objects
             {
                 GenerateHand();
             }
+        }
+
+        public void DiscardHand()
+        {
+            OnDiscardHand?.Invoke(blueprintSelectedIndex);
         }
 
         private void GenerateHand()

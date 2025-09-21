@@ -3,6 +3,7 @@ using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Runtime.Components
 {
@@ -28,6 +29,18 @@ namespace Runtime.Components
         [SerializeField] private Image[] _glowBlueprints;
         [SerializeField] private Image _itemPreview;
 
+        [Header("Card Animations")]
+        [SerializeField] private float _fadeDuration = 0.25f;
+        [SerializeField] private float _flyInDistance = 0.25f;
+        [SerializeField] private float _flyInDuration = 0.5f;
+        private CanvasGroup _canvasGroup;
+        [SerializeField] private Vector3 _startingPos;
+
+        private void Start()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
         public void SetCardValues(int costsBlood, int costsSteam, int bloodReward, int steamReward)
         {
             _bloodIcon.gameObject.SetActive(costsBlood > 0);
@@ -48,6 +61,46 @@ namespace Runtime.Components
             _steamRewardIcon.gameObject.SetActive(steamReward > 0);
             _itemRewardBloodText.text = bloodReward.ToString();
             _itemRewardSteamText.text = steamReward.ToString();
+        }
+
+        public void PlayCardIntroAnimation()
+        {
+            Vector3 currentPosition = _startingPos;
+            Vector3 startPosition = new Vector3(currentPosition.x + Screen.width * _flyInDistance, currentPosition.y, currentPosition.z);
+            transform.localPosition = startPosition;
+            _canvasGroup.alpha = 0;
+            _canvasGroup.DOFade(1, _fadeDuration);
+            transform.DOLocalMoveX(currentPosition.x, _flyInDuration).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                transform.localPosition = currentPosition;
+                _canvasGroup.alpha = 1;
+            });
+        }
+
+        public void PlayCardOutroAnimation()
+        {
+            // Animate the card flying out to the right while fading out over time, then reset its position and keep it invisible
+            Vector3 currentPosition = _startingPos;
+            Vector3 endPosition = new Vector3(currentPosition.x + Screen.width * _flyInDistance, currentPosition.y, currentPosition.z);
+            _canvasGroup.DOFade(0, _fadeDuration);
+            transform.DOLocalMoveX(endPosition.x, _flyInDuration).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                transform.localPosition = currentPosition;
+                _canvasGroup.alpha = 0;
+            });
+        }
+
+        public void PlayPickCardAnimation()
+        {
+            //animate the card flying rapidly towards the left and fading out
+            Vector3 currentPosition = _startingPos;
+            Vector3 endPosition = new Vector3(currentPosition.x - Screen.width, currentPosition.y, currentPosition.z);
+            _canvasGroup.DOFade(0, _fadeDuration / 6);
+            transform.DOLocalMoveX(endPosition.x, _flyInDuration / 1.5f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                transform.localPosition = currentPosition;
+                _canvasGroup.alpha = 0;
+            });
         }
 
         public void SetPreview(Sprite itemPreview)
