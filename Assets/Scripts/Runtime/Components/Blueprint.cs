@@ -81,9 +81,9 @@ namespace Runtime.Components
         {
             // Animate the card flying out to the right while fading out over time, then reset its position and keep it invisible
             Vector3 currentPosition = _startingPos;
-            Vector3 endPosition = new Vector3(currentPosition.x + Screen.width * _flyInDistance, currentPosition.y, currentPosition.z);
-            _canvasGroup.DOFade(0, _fadeDuration);
-            transform.DOLocalMoveX(endPosition.x, _flyInDuration).SetEase(Ease.OutBack).OnComplete(() =>
+            Vector3 endPosition = new Vector3(currentPosition.x + Screen.width / 3 * _flyInDistance, currentPosition.y, currentPosition.z);
+            _canvasGroup.DOFade(0, _fadeDuration / 2.5f);
+            transform.DOLocalMoveX(endPosition.x, _flyInDuration / 2.5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 transform.localPosition = currentPosition;
                 _canvasGroup.alpha = 0;
@@ -94,9 +94,9 @@ namespace Runtime.Components
         {
             //animate the card flying rapidly towards the left and fading out
             Vector3 currentPosition = _startingPos;
-            Vector3 endPosition = new Vector3(currentPosition.x - Screen.width, currentPosition.y, currentPosition.z);
-            _canvasGroup.DOFade(0, _fadeDuration / 6);
-            transform.DOLocalMoveX(endPosition.x, _flyInDuration / 1.5f).SetEase(Ease.Linear).OnComplete(() =>
+            Vector3 endPosition = new Vector3(currentPosition.x - Screen.width / 5, currentPosition.y, currentPosition.z);
+            _canvasGroup.DOFade(0, _fadeDuration / 2.5f);
+            transform.DOLocalMoveX(endPosition.x, _flyInDuration / 2.5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 transform.localPosition = currentPosition;
                 _canvasGroup.alpha = 0;
