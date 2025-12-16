@@ -10,6 +10,7 @@ namespace Runtime.UnityCloud
     {
         private async void Awake()
         {
+            return; // Temporarily disabled
             await UnityServices.InitializeAsync();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             AnalyticsService.Instance.StartDataCollection();

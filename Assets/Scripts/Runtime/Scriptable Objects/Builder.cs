@@ -117,7 +117,7 @@ namespace Runtime.Scriptable_Objects
             OnSegmentPlaced?.Invoke();
             _selection.Prefab = Option<Segment>.None;
             _accumulatedDataPoints.SegmentsPlaced++;
-            AnalyticsService.Instance.RecordEvent(_questEventFactory.CreateGameStateEvent());
+            //AnalyticsService.Instance.RecordEvent(_questEventFactory.CreateGameStateEvent());
         }
         
 

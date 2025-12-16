@@ -9,6 +9,7 @@ namespace Runtime.UnityCloud
         
         public void SendDataToGoogleForms()
         {
+            return; // Temporarily disabled
             const string sessionIdFormsEntryId = "entry.1002212484";
             string sessionId = AnalyticsService.Instance.SessionID;
             const string versionFormsEntryId = "entry.65926913";

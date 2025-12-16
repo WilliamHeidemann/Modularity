@@ -184,7 +184,7 @@ namespace Runtime.Components.Systems
             {
                 tutorialStep.IsCompleted = true;
                 tutorialStep.OnComplete();
-                AnalyticsService.Instance.RecordEvent(_questCompletedEventFactory.CreateQuestCompletedEvent(_quest.Name));
+                //AnalyticsService.Instance.RecordEvent(_questCompletedEventFactory.CreateQuestCompletedEvent(_quest.Name));
                 NextQuest();
             };
         }
